@@ -1,6 +1,8 @@
    
 
-[Read more here](https://endless-sphere.com/forums/posting.php?mode=quote&f=30&p=1650367#pr1650367)  
+[Discussion at Endless Sphere](https://endless-sphere.com/forums/posting.php?mode=quote&f=30&p=1650367#pr1650367)  
+
+[Discussion at Pedelecforum](https://www.pedelecforum.de/forum/index.php?threads/neue-tsdz2-controller-open-source.86546)  
 
 [XMC1300 reference manual](https://www.infineon.com/dgdl/Infineon-xmc1300-AB_rm-UM-v01_03-EN.pdf?fileId=5546d46249cd1014014a0a8436965e28)  
 
