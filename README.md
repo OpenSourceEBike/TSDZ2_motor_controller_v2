@@ -3,7 +3,7 @@ Forum messages:
 * [Discussion at Endless Sphere](https://endless-sphere.com/forums/posting.php?mode=quote&f=30&p=1650367#pr1650367)  
 * [Discussion at Pedelecforum](https://www.pedelecforum.de/forum/index.php?threads/neue-tsdz2-controller-open-source.86546)
 
-See the [Hardware page](Documentation/hardware.md)
+See the [Hardware page](Documentation/readme.md)
 
 Microcontroller XMC1300:
 * [XMC1300 datasheet](Documentation/XMC1300_datasheet.pdf)
