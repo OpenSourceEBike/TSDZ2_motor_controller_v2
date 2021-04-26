@@ -10,7 +10,5 @@
   
 [XMC1300 FOC paper from Infineon](https://www.infineon.com/dgdl/Infineon-AP32370_PMSM_FOC_for_XMC1000-AN-v01_00-EN.pdf?fileId=5546d4625b3ca4ec015b3e42761006a8)  
 
-[XMC platformio toolchain](https://docs.platformio.org/en/latest/platforms/infineonxmc.html)  
-
-[Infineon DAVE toolchain](https://infineoncommunity.com/dave-download_ID645) 
+[XMC Visual Studio](https://visualgdb.com/tutorials/arm/infineon/)  
 
