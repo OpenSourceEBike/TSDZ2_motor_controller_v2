@@ -9,4 +9,4 @@
 ![front side](controller_01.jpeg)
 ![back side](controller_02.jpeg) 
 ![in case with potting](controller_03.jpeg)
-![processor in detail](https://www.pedelecforum.de/forum/index.php?attachments/20-06-11-11-56-03-112_8_2-jpg.380735/)  
+![processor in detail](controller_04.jpeg)  
