@@ -1,0 +1,182 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e">
+    <p1:Tab.layout>
+        <GridLayout/>
+    </p1:Tab.layout>
+    <p1:TabFolder>
+        <p1:TabFolder.layoutData>
+            <GridData heightHint="515" widthHint="517"/>
+        </p1:TabFolder.layoutData>
+        
+        
+        <p1:GTab text="General Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_generalconfiguration">
+            <p1:GTab.control>
+                            <p1:Tab widgetName="composite4">
+                                <p1:Tab.layout>
+                                    <GridLayout horizontalSpacing="0" marginHeight="0" verticalSpacing="10" marginWidth="0"/>
+                                </p1:Tab.layout>
+                <p1:GGroup manifestObj="true" widgetName="ggroup_genconf">
+                    <p1:GGroup.layoutData>
+                        <GridData widthHint="363"/>
+                    </p1:GGroup.layoutData>
+                    <p1:GGroup.layout>
+                        <GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginHeight="0" marginWidth="10" verticalSpacing="10" marginTop="10"/>
+                    </p1:GGroup.layout>
+                    <p1:GLabel text="Resolution [ns]:" visible="true" manifestObj="true" widgetName="glabel_resolution"/>
+                    <p1:GFloat x:Style="BORDER" minValue="9" maxValue="512000" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_resolution" value="1000.0" description="This allows a user to enter the required resolution for the CCU4 timer. &#13;&#10;This decides the clock divider factor for the CCU4 slice.&#13;&#10;This limits the minimum speed that can be measured with the given resolution." toolTipText="This is required resolution for the CCU4 timer. ">
+                        <p1:GFloat.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Selected resolution [ns]:" visible="true" manifestObj="true" widgetName="glabel_selresolution" toolTipText="This is nearest possible resolution of the timer. non-editable field"/>
+                    <p1:GFloat x:Style="BORDER" minValue="8" maxValue="512000" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_selresolution" value="20.0" toolTipText="This is nearest possible resolution of timer." description="This is nearest possible resolution of the timer. non-editable field">
+                        <p1:GFloat.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Blanking time [us]:" visible="true" manifestObj="true" widgetName="glabel_blankingtime"/>
+                    <p1:GFloat x:Style="BORDER" minValue="1" maxValue="40" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_blankingtime" value="5.0" description="This is the required time delay between hall input edge detection&#13;&#10; and actual sampling of the hall input signals." toolTipText="This is the required time delay between hall input edge detection&#13;&#10; and actual sampling of the hall input signals.">
+                        <p1:GFloat.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Actual blanking time [us]      " visible="true" manifestObj="true" widgetName="glabel_actblankingtime" toolTipText="Based on blanking time and the CCU4 resolution, the actual blanking time is calculated." description="This displays the actual blanking time. Based on the user entered value of Blanking time and the CCU resolution, the actual blanking time is calculated."/>
+                    <p1:GFloat x:Style="BORDER" minValue="1" maxValue="40" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_actblankingtime" value="0.0" description="Based on blanking time and the CCU4 resolution, the actual blanking time is calculated.">
+                        <p1:GFloat.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Pattern update delay [us]:" visible="true" manifestObj="true" widgetName="glabel_patupdatedelay"/>
+                    <p1:GFloat x:Style="BORDER" minValue="0" maxValue="220" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_patupdatedelay" value="55.0" description="This allows user to enter time between application of multi channel pattern&#13;&#10;and writing next pattern in the shadow register. &#13;&#10;Please make sure that this value is greater than PWM period value.&#13;&#10;Compare register value of the capture slice is phase delay + pattern update delay." toolTipText="This is the required time delay between application of multi channel pattern&#13;&#10;and writing next pattern in the shadow register. ">
+                        <p1:GFloat.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Number of hall sensors :" visible="true" manifestObj="true" widgetName="glabel_nohallsensor"/>
+                    <p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_nohallsensor" options="3 Hall&#13;&#10;2 Hall" value="3 Hall" toolTipText="This allows a user to configure the position control method.&#13;&#10;3 hall or 2 hall control." description="Hall Sensors separated by 120 degrees are used to determine position and speed.&#13;&#10;If 2 hall is selected then hall input 3 (MSB) is considered as not connected.">
+                        <p1:GCombo.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+                        </p1:GCombo.layoutData>
+                    </p1:GCombo>
+                    <p1:GLabel text="Hall-3 pin state :" visible="true" manifestObj="true" widgetName="glabel_hall3pinstate"/>
+                    <p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_hall3pinstate" options="Low&#13;&#10;High" value="Low" toolTipText="This allows a user to configure the hall-3 pin state as high or low." description="This allows a user to configure the hall-3 pin state as high or low.">
+                        <p1:GCombo.layoutData>
+                            <GridData horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                        </p1:GCombo.layoutData>
+                    </p1:GCombo>
+                </p1:GGroup>
+                <p1:GGroup manifestObj="true" widgetName="ggroup_phangleconf" text="Phase Advance and Phase Delay Configuration">
+                    <p1:GGroup.layoutData>
+                        <GridData horizontalAlignment="FILL"/>
+                    </p1:GGroup.layoutData>
+                    <p1:GGroup.layout>
+                        <GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginHeight="0" marginWidth="10" verticalSpacing="10" marginTop="10"/>
+                    </p1:GGroup.layout>
+                    <p1:GCheck text="Enable phase advancing" manifestObj="true" widgetName="gcheck_ephadv" toolTipText="This allows to enable phase advancing feature.&#13;&#10;Phase advance(x) = forward shift of switching pattern by 1 + phase delay(60-x)&quot;" description="Enables phase advancing feature"/>
+                    <Label/>
+                    <p1:GLabel text="Phase advance angle [degree]:" visible="true" manifestObj="true" widgetName="glabel_phadvangle"/>
+                    <p1:GFloat x:Style="BORDER" minValue="10" maxValue="60" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_phadvangle" value="10.0" description="This allows user to enter the phase advance angle in degrees.&#13;&#10;Phase advance(x) = forward shift of switching pattern by 1 + phase delay(60-x)&#13;&#10;This is the period register value of the PhaseDelay slice." toolTipText="Phase advance(x) = forward shift of switching pattern by 1 + phase delay(60-x)&#13;&#10;This is the period register value of the PhaseDelay slice.">
+                        <p1:GFloat.layoutData>
+                            <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Phase delay angle [degree]:" visible="true" manifestObj="true" widgetName="glabel_phasedelay"/>
+                    <p1:GFloat x:Style="BORDER" minValue="0.0" maxValue="50.0" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_phasedelay" value="1.0" description="Enter the desired phase delay value,&#13;&#10;that is time delay required between correct hall pattern detection&#13;&#10;and application of multi channel output pattern. This is not required &#13;&#10;if standalone hall sensor mode is used. This is the period register &#13;&#10;value of the PhaseDelay slice." toolTipText="Time delay required between correct hall pattern detection&#13;&#10;and application of multi channel output pattern">
+                        <p1:GFloat.layoutData>
+                            <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+                        </p1:GFloat.layoutData>
+                    </p1:GFloat>
+                </p1:GGroup>
+                </p1:Tab>
+            </p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="Hall Configuration" visible="true" enabled="true" manifestObj="true" widgetName="gtab_hallpatterns">
+            <p1:GTab.control>
+                <p1:Tab widgetName="composite16">
+                    <p1:Tab.layout>
+                        <GridLayout horizontalSpacing="10" marginBottom="10" marginHeight="0" verticalSpacing="10" marginTop="10"/>
+                    </p1:Tab.layout>
+                    <p1:GGroup text="Hall Input" manifestObj="true" widgetName="gGroup5">
+                        <p1:GGroup.layoutData>
+                            <GridData widthHint="245"/>
+                        </p1:GGroup.layoutData>
+                        <p1:GGroup.layout>
+                            <GridLayout horizontalSpacing="10" marginBottom="10" marginHeight="0" marginWidth="10" verticalSpacing="10" marginTop="10"/>
+                        </p1:GGroup.layout>
+                        <p1:GCheck manifestObj="true" text="Hall input 1 via ERU" toolTipText="If enabled then hall input-1 is connected via ERU." widgetName="gcheck_ehalleru1" description="If enabled then hall input-1 is connected via ERU."/>
+                        <p1:GCheck manifestObj="true" text="Hall input 2 via ERU" widgetName="gcheck_ehalleru2" toolTipText="If enabled then hall input-2 is connected via ERU." description="If enabled then hall input-2 is connected via ERU."/>
+                        <p1:GCheck manifestObj="true" text="Hall input 3 via ERU" widgetName="gcheck_ehalleru3" toolTipText="If enabled then hall input-3 is connected via ERU." description="3 Hall : If enabled then hall input-3 is connected via ERU. "/>
+                    </p1:GGroup>
+                    <p1:GGroup text="Hall Patterns" manifestObj="true" widgetName="ggroup_hallpatterns">
+                        <p1:GGroup.layoutData>
+                            <GridData horizontalAlignment="FILL"/>
+                        </p1:GGroup.layoutData>
+                        <p1:GGroup.layout>
+                            <GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginWidth="10" verticalSpacing="10"/>
+                        </p1:GGroup.layout>
+                        <p1:GLabel text="1" visible="true" manifestObj="true" widgetName="glabel_hall1"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall1" value="1" toolTipText="First hall sensor sequence for clockwise direction." description="First hall sensor sequence for clockwise direction.">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                        <p1:GLabel text="2" visible="true" manifestObj="true" widgetName="glabel_hall2"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall2" value="3" toolTipText="Second hall sensor sequence for clockwise direction." description="Second hall sensor sequence for clockwise direction.">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                        <p1:GLabel text="3" visible="true" manifestObj="true" widgetName="glabel_hall3"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall3" value="2" toolTipText="Third hall sensor sequence for clockwise direction." description="Third hall sensor sequence for clockwise direction.">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                        <p1:GLabel text="4" visible="true" manifestObj="true" widgetName="glabel_hall4"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall4" value="6" toolTipText="Fourth hall sensor sequence for clockwise direction." description="Fourth hall sensor sequence for clockwise direction.">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                        <p1:GLabel text="5" visible="true" manifestObj="true" widgetName="glabel_hall5"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall5" value="4" toolTipText="Fifth hall sensor sequence for clockwise direction." description="Fifth hall sensor sequence for clockwise direction.">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                        <p1:GLabel text="6" visible="true" manifestObj="true" widgetName="glabel_hall6"/>
+                        <p1:GInteger x:Style="NONE" minValue="1" maxValue="6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gint_hall6" value="5" toolTipText="Sixth hall sensor sequence for clockwise direction." description="Sixth hall sensor sequence for clockwise direction">
+                            <p1:GInteger.layoutData>
+                                <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+                            </p1:GInteger.layoutData>
+                        </p1:GInteger>
+                    </p1:GGroup>
+                </p1:Tab>
+            </p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="Event Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_interruptconfiguration">
+            <p1:GTab.control>
+                <p1:Tab widgetName="composite5">
+                    <p1:Tab.layout>
+                        <GridLayout horizontalSpacing="10" marginBottom="10" marginHeight="0" marginWidth="0" verticalSpacing="10"/>
+                    </p1:Tab.layout>
+                    <p1:GGroup manifestObj="true" widgetName="ggroup_inteconf" text="Interrupts">
+                        <p1:GGroup.layoutData>
+                            <GridData widthHint="284"/>
+                        </p1:GGroup.layoutData>
+                        <p1:GGroup.layout>
+                            <GridLayout horizontalSpacing="10" marginWidth="10" verticalSpacing="10" marginHeight="0" marginTop="10" marginBottom="10"/>
+                        </p1:GGroup.layout>
+                        <p1:GCheck description="Enable correct hall event of POSIF. &#13;&#10;Correct hall event is generated when sampled hall pattern matches with the expected hall pattern." manifestObj="true" text="Enable correct hall event" toolTipText="Correct hall event is generated when sampled hall pattern matches with the expected hall pattern." widgetName="gcheck_ecorrecthallevent"/>
+                        <p1:GCheck description="Enable Wrong hall event of POSIF. &#13;&#10;Wrong Hall Event is generated when sampled hall pattern does not match with the expected hall pattern. &#13;&#10;It indicates that there is an error in the motor control." manifestObj="true" text="Enable wrong hall event" toolTipText="Wrong hall event is generated when sampled hall pattern does not match with the current as well as expected hall pattern." widgetName="gcheck_ewronghallevent"/>
+                        <p1:GCheck manifestObj="true" text="Enable pattern update event (Compare match)" widgetName="gcheck_epatupdateevent" toolTipText="Enable compare match event of the capture CCU4 slice. &#13;&#10;Use to update the next hall and multi channel pattern in the respective shadow registers." description="Enable compare match event of the capture CCU4 slice. &#13;&#10;Use to update the next hall and multi channel pattern in the respective shadow registers."/>
+                        <p1:GCheck manifestObj="true" text="Enable speed capture event" widgetName="gcheck_espeedcaptevent" toolTipText="Enable capture event of the capture CCU4 slice. &#13;&#10;This can be used for speed calculation." description="Enable capture event of the capture CCU4 slice. &#13;&#10;This can be used for speed calculation."/>
+                    </p1:GGroup>
+                </p1:Tab>
+            </p1:GTab.control>
+        </p1:GTab>
+    
+    
+    
+    
+    </p1:TabFolder>
+</p1:Tab>

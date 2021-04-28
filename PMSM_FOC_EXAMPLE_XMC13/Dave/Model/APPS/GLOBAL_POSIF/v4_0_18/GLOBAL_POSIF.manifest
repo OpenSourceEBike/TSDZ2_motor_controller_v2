@@ -1,0 +1,202 @@
+package Model.APPS.GLOBAL_POSIF.v4_0_18;
+
+/*
+ *  * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ */
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.0        15-Feb-2015   1. Initial version<br/>
+ 4.0.1        20-Feb-2015   1. Help document update<br/>
+ 4.0.3        20-Jun-2015   1. Help document update<br/>
+ 4.0.5        14-July-2015  1. Required APP minimum version updated<br/>
+ 4.0.7        08-Oct-2015   1. Copyright information added in manifest <br/>
+ 4.0.9        11-Jan-2016   1. CCU clock enabled macro check added </br>
+ 4.0.11       10-Feb-2016   1. CCU clock enable setting is handled in the GUI. Macro is removed from header file. <br>
+ 4.0.12       04-Aug-2015   1. APP version updated for PR.<br/>
+ 4.0.14       12-Oct-2017   1. Add support for XMC1402, XMC1404, XMC4700 and XMC4800 device.<br/>
+ 4.0.16       07-Oct-2019   1. Added support for XMC1302-T028.<br/>
+ 4.0.18       09-Jan-2021   Modified check for minimum XMCLib version. <BR>
+ *******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class  GLOBAL_POSIF extends GLOBAL_POSIF_GUI {
+	/* --------------------------------------------------------------------------------- */
+	/* -------------------- Begin : GLOBAL_POSIF property section -------------------- */
+	/* --------------------------------------------------------------------------------- */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.18'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System/~Global Reg Control"]
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * It is a list of string.
+	 */
+	def keywords = [
+		"all"
+	]
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this app.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the app.
+	 *  Any step , any variant and any packages of XMC4500, XMC4400, XMC4200 and XMC4100
+	 *  Any step, any variant of XMC1300 except T016 package
+	 */
+	def softwareIDs   = [
+    "XMC1.3.*.(Q024|Q040|T038|T028).*":"1.0.0",
+	"XMC1.4.04.*.*":"1.0.0",
+	"XMC1.4.02.*.*":"1.0.0",
+    "XMC4.8.*.*.*":"1.0.0",
+    "XMC4.7.*.*.*":"1.0.0",
+    "XMC4.5.*.*.*":"1.0.0",
+	"XMC4.4.*.*.*":"1.0.0",
+	"XMC4.2.*.*.*":"1.0.0",
+	"XMC4.1.*.*.*":"1.0.0"
+			]
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once.
+	 */
+	def singleton     = false
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable      = true
+	/**
+	 *  App function description.
+	 */
+	def description = "Configures the POSIF module global settings."
+	/* -------------------- End   : GLOBAL_POSIF property section -------------------- */
+
+	/* --------------------------------------------------------------------------------- */
+	/* ------------------------- Begin : User variable section ------------------------- */
+	/* --------------------------------------------------------------------------------- */
+	/* Required Hardware Resources */
+	MVirtualResourceGroup hwres_posif_global_0
+	
+	/* Required App */
+	MRequiredApp appres_clock_0
+	
+	/* Required Signals */
+	MVirtualSignal vs_global_posif_globalsignal
+	MVirtualSignal vs_global_posif_clk
+
+	/* -------------------------- End   : User variable section ------------------------ */
+
+
+	/* -------------------------- GLOBAL_POSIF Constructor --------------------------- */
+	public GLOBAL_POSIF(DaveEnv daveEnv) {
+		/* -------------------------------------------------------------- */
+		/* ---------- Target Specific User Variable Initialization ------ */
+		/* -------------------------------------------------------------- */
+		boolean device_4x = false
+		
+		/* Set device variable true, if device belongs to XMC4 family  */
+		if(daveEnv.project.selectedDevice.deviceId.family == 'XMC4')
+		{
+		  device_4x = true
+		}
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+		if(device_4x == true )
+		{
+		  appres_clock_0 = MRequiredApp("CLOCK_XMC4","Clock App", RSHARABLE, "4.0.18")
+		}
+		else
+		{
+		  appres_clock_0 = MRequiredApp("CLOCK_XMC1","Clock App", RSHARABLE, "4.0.2")
+		}
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block --------- */
+		/* ---------------------------------------------------------- */
+		hwres_posif_global_0 = MVirtualResourceGroup("Posif Global", ["peripheral","posif","*","posif","global"])
+	
+		/* ---------------------------------------------------------- */
+		/* -------------- APP IO Signals ---------------------------- */
+		/* ---------------------------------------------------------- */		
+		vs_global_posif_globalsignal = MVirtualSignal(hwres_posif_global_0, "posif_global_signal", "global_signal", true, true)
+		vs_global_posif_clk = MVirtualSignal(hwres_posif_global_0,          "posif_clock_signal" , "clk", true, true)
+		/* ---------------------------------------------------------- */
+		/* -------------- APP Configuration ------------------------- */
+		/* ---------------------------------------------------------- */
+		/* Clock frequency : Read frequency from clock app based on device*/
+		if(device_4x == true )
+		{
+		  gfloat_clockfrequency.value = MF({appres_clock_0.getVal(["gfloat_ccufreq","value"])}, Float)
+		  gmessage_clock_setting_error.visible = MF({!appres_clock_0.getVal(["gcheck_enable_ccu_clock","value"])},Boolean)
+		}
+		else
+		{
+		  gfloat_clockfrequency.value = MF({appres_clock_0.getVal(["gfloat_pclkactfrq","value"])}, Float)
+		  gmessage_clock_setting_error.visible = MF({false}, Boolean)
+		}
+		
+		
+		
+	}
+	/* ----------------------- File Generation ------------------- */
+	def generateFiles(){
+		copy("global_posif.c", "global_posif.c")
+		copy("global_posif.h", "global_posif.h")
+		generate("global_posif_confc.tmpl", "global_posif_conf.c")
+		generate("global_posif_confh.tmpl", "global_posif_conf.h")
+		generate("global_posif_extern.tmpl", "global_posif_extern.h")
+	}
+
+
+}

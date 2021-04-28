@@ -1,0 +1,419 @@
+package Model.APPS.ADC_QUEUE.v4_0_20;
+
+/*
+ Copyright (c) 2016, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+/*************** Revision History **********************************************
+Version        Date          Description 
+
+  4.0.0       16-Feb-2015   Initial version for DAVEv4
+  4.0.2       27-Apr-2015   Optimized the ADC_QUEUE_AllEntriesInserted.<BR>
+  4.0.4       20-Jun-2015   Updated the copyright section.<BR>
+  4.0.6       26-Jun-2015   Added flushing of all the queue entries before inserting to the Hardware buffer.<BR>  
+  4.0.8       09-Jul-2015   Documentation updated.<BR>
+  4.0.9       31-Jul-2015   Updated the APP to support new devices.<BR>
+  4.0.11      01-Oct-2015   Iclass signal is generated.<BR>
+  4.0.12      08-Oct-2015   Added support for XMC4700/XMC4800 devices.<BR>
+  4.0.14      08-Dec-2015   1.Added support for XMC4300 devices.<BR>
+  							2.Updated the APP to optimize the request source callback.<BR>
+  							3.APIs touched are ADC_QUEUE_InsertQueueEntry(), ADC_QUEUE_ResetListContents(),
+  							  ADC_QUEUE_ReqSrcEventHandler().<BR>
+  4.0.16      19-Jan-2016   Added new APIs ADC_QUEUE_EnableArbitration() and ADC_QUEUE_DisableArbitration().<BR>
+  4.0.18      03-Apr-2016   Total conversion time now includes post calibration time as well for XMC1x.<BR>
+  4.0.20      18-Aug-2016   Minimum sample time at low frequencies changed to incorporate Errata ADC_AI.H006 and ADC_AI.H007.<BR>  							                                    
+*******************************************************************************/
+
+import ifx.davex.app.manifest.*
+
+class  ADC_QUEUE extends ADC_QUEUE_GUI {
+
+    /*-------------------------------Begin: ADC_QUEUE property section---------------------------------------*/
+	
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+    def version            = '4.0.20'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+    def categoriesDescription = ["General Purpose/~Analog to Digital Conversion"]  
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+    def minDaveVersion           = '4.0.0'
+    
+	/**
+	 * Keywords used by search feature in APPS selection view
+	 *
+	 * It is a list of string.
+	 */
+    def keywords      = ["all"]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+    def softwareIDs       = ["XMC1.[2,3,4].*.*.*":"1.0.0", "XMC4.[1,2,3,4,5,7,8].*.*.*":"1.0.0"]
+
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+    def singleton     = false
+	
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+    def initProvider  = true
+	
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+    def deprecated    = false
+	
+	/**
+	 * Shareable property.
+	 * It shall be true to allows multiple APPS to require the same instance of this APP.
+	 */
+    def sharable      = true
+    def ioApp         = false
+
+	
+	/**
+	 *  APP function description.
+	 */ 
+    def description = "Provides configurations for queue request source of VADC"
+    
+    /*-------------------------------End: ADC_QUEUE property section---------------------------------------*/
+    
+    /*-------------------------------Begin: User variable section---------------------------------------*/
+    // End   : ADC_QUEUE property section
+    
+    // Begin : User variable section
+	MRequiredApp appres_global_adc
+	MRequiredApp appres_cpu
+    
+    MVirtualResourceGroup hwres_vadc_queue
+    MVirtualResourceGroup hwres_vadc_qgrpclass
+    MVirtualResourceGroup hwres_nvicnode_srcevt
+    
+    MVirtualSignal vs_adc_queue_queueglobal
+    MVirtualSignal vs_adc_queue_queue2channel
+    MVirtualSignal vs_adc_queue_queue2config
+    MVirtualSignal vs_adc_queue_greqtr0sel
+    MVirtualSignal vs_adc_queue_greqgt0sel
+    MVirtualSignal vs_adc_queue_sourceevent
+    MVirtualSignal vs_adc_queue_classselect_out
+	MVirtualSignal vs_adc_queue_iclass2channel
+    MVirtualSignal vs_adc_queue_classselect_in
+	MVirtualSignalRA vs_adc_queue_to_global_signal
+    
+    MVirtualSignal vs_signal_src
+    
+    GFloat gfloat_adc_queue_tadci   			= GFloat(widgetName: "gfloat_adc_queue_tadci")
+    GFloat gfloat_adc_queue_tadc    			= GFloat(widgetName: "gfloat_adc_queue_tadc")
+    GFloat gfloat_peripherial_clk_freq  	    = GFloat(widgetName: "gfloat_peripherial_clk_freq")
+	GFloat gfloat_adc_queue_act_analog_clk  	= GFloat(widgetName: "gfloat_adc_queue_act_analog_clk")
+	GFloat gfloat_adc_queue_tsh 				= GFloat(widgetName: "gfloat_adc_queue_tsh")
+    GInteger gfloat_adc_queue_stc0       	    = GInteger(widgetName: "gfloat_adc_queue_stc0")
+    GInteger gfloat_adc_queue_temp_DM     	    = GInteger(widgetName: "gfloat_adc_queue_temp_DM")
+    GInteger gfloat_adc_queue_temp_PC     	    = GInteger(widgetName: "gfloat_adc_queue_temp_PC")
+    GInteger gint_adc_queue_conv_bits   		= GInteger(widgetName: "gint_adc_queue_conv_bits")
+    GInteger gint_adc_queue_sst 				= GInteger(widgetName: "gint_adc_queue_sst")
+    GInteger gint_adc_queue_divs				= GInteger(widgetName: "gint_adc_queue_divs")
+	GFloat gfloat_adc_queue_fconv                = GFloat(widgetName:"gfloat_adc_queue_fconv") /* This is shs conv clock freq*/
+
+    
+    
+    /*-------------------------------End: User variable section---------------------------------------*/
+
+    // ADC_QUEUE Constructor
+    public ADC_QUEUE(DaveEnv daveEnv) {
+
+        /*This returns the family of the IC that is selected in the dave project*/
+        String family = daveEnv.project.selectedDevice.deviceId.family
+	String series = daveEnv.project.selectedDevice.deviceId.series
+
+        /**
+         *  used in calculating the Conversion time. each element represents the Conversion Bits
+         */
+        List conv_bits_array    = [12,10,8,0] 
+		
+		glabel_trigger_warning.visible = MF({gcombo_trigger_edge_sel.value != "No External Trigger" },Boolean)
+        
+        /* ---------------------------------------------------------- */
+        /* ------------ Hardware resource consumption block --------- */
+        /* ---------------------------------------------------------- */
+        
+        /*Queue Request Source Consumption*/
+        hwres_vadc_queue           =  MVirtualResourceGroup("Queue", ["peripheral", "vadc", "*", "group", "*","queue"])
+
+        /*Queue Group Class Consumption*/
+        hwres_vadc_qgrpclass       =  MVirtualResourceGroup("Queue Class", ["peripheral", "vadc", "*", "group", "*","class","*"])
+        
+        /* assign the virtual resource group for nvic node */
+        hwres_nvicnode_srcevt =  MVirtualResourceGroup("Source Event Interrupt", ["peripheral","cpu","0","nvic","interrupt","*"],
+                                                     MF({((gcheck_int_enable.value == true))},Boolean))
+        
+        /* ---------------------------------------------------------- */
+        /* ------------ App consumption Block ----------------------- */
+        /* ---------------------------------------------------------- */
+        
+        /*GLOBAL_ADC App Consumption*/
+        appres_global_adc      = MRequiredApp("GLOBAL_ADC","Global",RSHARABLE,"4.0.16")
+        		
+		/* for interrupt related configuration ADC_QUEUE consumes CPU app*/
+		if(family =='XMC4')
+        {
+			appres_cpu = MRequiredApp("CPU_CTRL_XMC4","CPU",RSHARABLE,"4.0.2",MF({gcheck_int_enable.value},Boolean))
+		}
+		else
+		{
+			appres_cpu = MRequiredApp("CPU_CTRL_XMC1","CPU",RSHARABLE,"4.0.2",MF({gcheck_int_enable.value},Boolean))
+			glabel_conversion_limitation.visible = false;
+		}
+        
+        /* ---------------------------------------------------------- */
+        /* -------------- APP IO Signals ---------------------------- */
+        /* ---------------------------------------------------------- */
+        
+        /* assign the virtual resource group to virtual signal along with the signal */
+        vs_signal_src      =  MVirtualSignal(hwres_nvicnode_srcevt, "sr_interrupt_signal", "signal_in", MF({(
+                                            (gcheck_int_enable.value == true)
+                                             )},Boolean), true) /* required{}, exposeToUser{} */
+    
+        /*Signal For Queue Connection to class*/
+        vs_adc_queue_classselect_in = MVirtualSignal(hwres_vadc_qgrpclass,"queue_iclass_select", "queue_class_sel",  true ,false)
+		
+        vs_adc_queue_classselect_out = MVirtualSignal(hwres_vadc_queue,"class_select", "class_sel",  true ,true)
+		
+		/*Signal For Input Class Connection to channel*/
+		vs_adc_queue_iclass2channel = MVirtualSignal(hwres_vadc_qgrpclass,"iclass_select", "ch_class_sel",  true ,true)
+        
+        /*Signal For Queue Connection to channel*/
+        vs_adc_queue_queue2channel = MVirtualSignal(hwres_vadc_queue,"queue_select", "select",  true ,true)
+        
+        /*Signal For Queue Connection to group*/
+        vs_adc_queue_queue2config  = MVirtualSignal(hwres_vadc_queue,"group_selection",  "req",  true ,true)
+		
+        /*Signal For Queue Connection to global*/
+        vs_adc_queue_queueglobal   = MVirtualSignal(hwres_vadc_queue,"queue_to_global",  "global_signal",  true ,true)
+        
+        /*Signal For Queue Trigger select*/
+        vs_adc_queue_greqtr0sel    = MVirtualSignal(hwres_vadc_queue,"trigger_input",  "greqtr0sel",  true ,true)
+        
+        /*Signal For Queue Gate select*/
+        vs_adc_queue_greqgt0sel    = MVirtualSignal(hwres_vadc_queue,"gating_input",  "greqgt0sel",  true ,true)
+        
+        /*Signal For Queue Request Source event*/
+        vs_adc_queue_sourceevent   = MVirtualSignal(hwres_vadc_queue,"event_queue_source",  "sev",  true ,true)
+		
+		vs_adc_queue_to_global_signal = MVirtualSignalRA(appres_global_adc,"vs_global_adc_global")
+        
+        /*Connection between source event interrupt and NVIC Node*/
+        addConnectionConstraint (vs_adc_queue_sourceevent,vs_signal_src, MF({gcheck_int_enable.value},Boolean))
+        
+        /*Connection between queue resource to class resource*/
+        addConnectionConstraint (vs_adc_queue_classselect_out,vs_adc_queue_classselect_in, true)
+		
+		addConnectionConstraint(vs_adc_queue_to_global_signal,vs_adc_queue_queueglobal)
+        
+        /* ------------------------------------------------------------------ */
+        /* ------------ APP Configuration ----------------------------------- */
+        /* ------------------------------------------------------------------ */
+        /* ------ TAB : Class Configuration related configuration ------ */
+        
+        /*-------------------------------Begin: Time Calculations---------------------------------------*/
+        
+        /* This holds the clock frequency. this is got from the GLOBAL_ADC app.*/
+        gfloat_peripherial_clk_freq.value         = MF({appres_global_adc.getVal(["gfloat_peripherial_clk_freq", "value"])}, Float)
+        
+        /* this holds the Actual Analog clock frequency (fADCI). This is got from the GLOBAL_ADC app. */
+        gfloat_adc_queue_act_analog_clk.value    = MF({appres_global_adc.getVal(["gfloat_act_analog_clk", "value"])}, Float)
+		
+
+		/* Calculating the time period of the analog clock*/
+		gfloat_adc_queue_tadci.value = MF({1000/gfloat_adc_queue_act_analog_clk.value},Float)
+		
+		
+		gfloat_des_sampleT.maxValue = MF({258*gfloat_adc_queue_tadci.value},Float)
+		
+		
+		/*Sample time coding value. This will add additional sample time by dividing the clock */
+		gfloat_adc_queue_stc0.value = MF({
+			Float arg = ((gfloat_des_sampleT.value/gfloat_adc_queue_tadci.value)-2)
+			if(arg < 0) {0}
+			else if (arg > 256) {31}
+			else if ((arg > 16) && (arg <= 256) ) {(int)((Math.round(arg/16)) + 15 )}
+			else {(int)(Math.round(arg))}
+		},Integer)
+		
+		
+		/*This will calculate the actual sample time that is possible*/
+		gfloat_actual_sampleT.value = MF({
+			Float arg = ((gfloat_des_sampleT.value/gfloat_adc_queue_tadci.value)-2)
+			if(arg < 0) {arg=0}
+			else if (arg > 256) {arg=256}
+			else if ((arg > 16) && (arg <= 256) ) {arg=((Math.round(arg/16))*16)}
+			else { arg=Math.round(arg)}
+		   ((2 +arg)*gfloat_adc_queue_tadci.value)                      /*This is actual sampling time for class0 standard conversion mode*/
+		  },Float)
+		
+		/*Get the result width N needed for normal conversion.*/
+		gint_adc_queue_conv_bits.value = MF({conv_bits_array[(gcombo_conv_mode.options.indexOf(gcombo_conv_mode.value))]},Integer)
+		
+        if(family =='XMC4')
+        {
+			
+			if((family+series == "XMC48") || (family+series == "XMC47") || (family+series == "XMC43"))
+			{
+				gfloat_des_sampleT.value = 70;
+			}
+			else if((family+series == "XMC42") || (family+series == "XMC41") )
+			{
+				gfloat_des_sampleT.value = 75;
+			}
+			else
+			{
+				gfloat_des_sampleT.value = 67;
+			}
+			
+			gfloat_des_sampleT.minValue = MF({2*gfloat_adc_queue_tadci.value},Float)
+			
+            /*Calculating the time period of the clock*/
+            gfloat_adc_queue_tadc.value  = MF({((2000)/gfloat_peripherial_clk_freq.value)},Float)
+
+			/* Enable the post calibration time */
+			gfloat_adc_queue_temp_PC.value = 2
+            /*
+             * The conversion time is the sum of sample time, conversion steps, and synchronization.
+             * It can be computed with the following formulas:
+             * Standard conversions: tCN = (2 + STC + N + DM + PC) × tADCI + 2 × tADC
+             * Fast compare mode: tCN = (2 + STC + 2) × tADCI + 2 × tADC
+             */
+						
+            gfloat_coversion_time.value = MF({
+              Integer arg
+              if(gfloat_adc_queue_stc0.value > 30) {arg=256}
+              else if (gfloat_adc_queue_stc0.value < 0) {arg=0}
+              else if ((gfloat_adc_queue_stc0.value > 16) && (gfloat_adc_queue_stc0.value < 31)) { arg= 16+(gfloat_adc_queue_stc0.value-16)*16 }
+              else {arg=gfloat_adc_queue_stc0.value}
+              
+              if (gcombo_conv_mode.value == "10 Bit Fast Conversion") {
+                ((2+arg+2)*gfloat_adc_queue_tadci.value + gfloat_adc_queue_tadc.value)  /*This is standard conversion time for class0 in fast compare mode*/
+              } else {
+                ((2+arg+gint_adc_queue_conv_bits.value+gfloat_adc_queue_temp_DM.value+gfloat_adc_queue_temp_PC.value)*gfloat_adc_queue_tadci.value + gfloat_adc_queue_tadc.value) /*This is standard conversion time for class0*/
+              }
+            },Float)
+        
+        }
+        else
+        {
+        /* For Accelerated Mode in XMC1X devices*/
+	    gfloat_des_sampleT.value = 125;
+		if (family+series =="XMC14")
+		{
+			gfloat_adc_queue_fconv.value = 48.0
+		}
+		else
+		{
+			gfloat_adc_queue_fconv.value = 32.0
+		}
+		gfloat_des_sampleT.minValue = MF({
+			Float divs_min_value = (Float)(4*(1000/gfloat_adc_queue_fconv.value)*(gint_adc_queue_divs.value+1)).toDouble()
+			Float diva_min_value = 2*gfloat_adc_queue_tadci.value
+		(divs_min_value>diva_min_value?divs_min_value:diva_min_value)},Float)
+
+            
+            /* getting tadc value in nsec from the clk freq */
+            gfloat_adc_queue_tadc.value = MF({((1000)/gfloat_peripherial_clk_freq.value)},Float)
+
+	    gint_adc_queue_divs.value = MF({appres_global_adc.getVal(["gint_global_adc_divs", "value"])},Integer)
+            
+            /* Converter clock time period using SHSCFG value */
+            gfloat_adc_queue_tsh.value = MF({ (((gint_adc_queue_divs.value+1)*(1000))/gfloat_adc_queue_fconv.value)},Float)
+
+            /*
+             * conversion time for accelerated mode is given by this formula
+             * tCN = (SST + 5) × tADC + (N + 10) × tSH + (4 × tSH)2)
+             * new conversion formula
+             * tCN = (2+ STC) * tADCI +(4 * tSH)+ (N+ 8) * tSH +(5 * tADC)
+             */
+		gfloat_coversion_time.value = MF({ 
+			if (gcombo_conv_mode.value == "10 Bit Fast Conversion") {
+			  (2*gfloat_adc_queue_tadci.value) + gfloat_actual_sampleT.value
+			} else {
+				(gfloat_actual_sampleT.value + ((12 + gint_adc_queue_conv_bits.value ) * gfloat_adc_queue_tsh.value) + (5 * gfloat_adc_queue_tadc.value) + (12 * gfloat_adc_queue_tsh.value))
+			}
+		},Float)
+        }
+		
+		gfloat_actual_sampleT.maxValue = MF({gfloat_des_sampleT.maxValue},Float)
+        
+        /*-------------------------------End: Time Calculations---------------------------------------*/
+        /* ------------------------------------------------------------------ */
+        /* ------------ APP Configuration ----------------------------------- */
+        /* ------------------------------------------------------------------ */
+        /* ------ TAB : Interrupt Configuration ----------------------------- */
+        
+        if (family =='XMC1')
+        {
+			ginterruptprio_request_src_intr.subPriorityVisible =false;
+			ginterruptprio_request_src_intr.priorityValue = 3;
+        }
+		if (family =='XMC4')
+        {
+		    ginterruptprio_request_src_intr.maxSubPriority = MF({if(gcheck_int_enable.value){appres_cpu.getVal(["gint_maxInterruptSubPriority", "value"])}else 63},Integer)
+			ginterruptprio_request_src_intr.priorityValue = 63;
+		}
+		ginterruptprio_request_src_intr.maxPriority = MF({if(gcheck_int_enable.value){appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"])}else 63},Integer)
+		ginterruptprio_request_src_intr.enabled = MF({gcheck_int_enable.value},Boolean)
+        /* ------END of  TAB : Interrupt Configuration ----------------------------------------------- */
+    }
+    
+    
+    /* File Generation */
+    def generateFiles(){
+    copy("adc_queue.c", "adc_queue.c")
+    copy("adc_queue.h", "adc_queue.h")
+    generate("adc_queue_confh.tmpl", "adc_queue_conf.h")
+    generate("adc_queue_confc.tmpl", "adc_queue_conf.c")
+    generate("adc_queue_externh.tmpl", "adc_queue_extern.h")
+    }
+ 
+
+}

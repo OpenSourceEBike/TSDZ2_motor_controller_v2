@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms">
+  <pi:Diagram visible="true" gridUnit="10" diagramTypeId="HWDesignerDiagramType" name="HALL_POSIF.sd" snapToGrid="true" pictogramLinks="/0/@children.0/@link /0/@children.0/@children.1/@link /0/@children.0/@children.2/@children.0/@link /0/@children.0/@children.2/@link /0/@children.0/@children.3/@children.0/@link /0/@children.0/@children.3/@link /0/@children.0/@children.4/@children.0/@link /0/@children.0/@children.4/@link /0/@children.0/@children.5/@children.0/@link /0/@children.0/@children.5/@link /0/@children.0/@children.6/@children.0/@link /0/@children.0/@children.6/@link /0/@children.0/@children.7/@children.0/@link /0/@children.0/@children.7/@link /0/@children.0/@children.8/@children.0/@link /0/@children.0/@children.8/@link /0/@children.0/@children.9/@children.0/@link /0/@children.0/@children.9/@link /0/@children.0/@children.10/@children.0/@link /0/@children.0/@children.10/@link /0/@children.0/@children.11/@children.0/@link /0/@children.0/@children.11/@link /0/@children.0/@children.12/@children.0/@link /0/@children.0/@children.12/@link /0/@children.0/@children.13/@children.0/@link /0/@children.0/@children.13/@link /0/@children.0/@children.14/@children.0/@link /0/@children.0/@children.14/@link /0/@children.0/@children.15/@children.0/@link /0/@children.0/@children.15/@link /0/@children.0/@children.16/@children.0/@link /0/@children.0/@children.16/@link /0/@children.0/@children.17/@children.0/@link /0/@children.0/@children.17/@link /0/@children.0/@children.18/@children.0/@link /0/@children.0/@children.18/@link /0/@children.0/@children.19/@children.0/@link /0/@children.0/@children.19/@link /0/@children.0/@children.20/@children.0/@link /0/@children.0/@children.20/@link /0/@children.0/@children.21/@children.0/@link /0/@children.0/@children.21/@link /0/@children.0/@children.22/@children.0/@link /0/@children.0/@children.22/@link /0/@children.0/@children.23/@children.0/@link /0/@children.0/@children.23/@link /0/@children.0/@children.24/@children.0/@link /0/@children.0/@children.24/@link /0/@children.0/@children.25/@children.0/@link /0/@children.0/@children.25/@link /0/@children.0/@children.26/@children.0/@link /0/@children.0/@children.26/@link /0/@children.0/@children.27/@children.0/@link /0/@children.0/@children.27/@link /0/@children.0/@children.28/@children.0/@link /0/@children.0/@children.28/@link /0/@children.0/@children.29/@children.0/@link /0/@children.0/@children.29/@link /0/@children.0/@children.30/@children.0/@link /0/@children.0/@children.30/@link /0/@children.0/@children.31/@children.0/@link /0/@children.0/@children.31/@link /0/@children.0/@children.32/@children.0/@link /0/@children.0/@children.32/@link /0/@children.0/@children.33/@children.0/@link /0/@children.0/@children.33/@link /0/@children.0/@children.34/@children.0/@link /0/@children.0/@children.34/@link /0/@children.0/@children.35/@children.0/@link /0/@children.0/@children.35/@link /0/@children.0/@children.36/@children.0/@link /0/@children.0/@children.36/@link /0/@children.0/@children.37/@children.0/@link /0/@children.0/@children.37/@link /0/@children.0/@children.38/@children.0/@link /0/@children.0/@children.38/@link /0/@children.0/@children.39/@children.0/@link /0/@children.0/@children.39/@link /0/@children.0/@children.40/@children.0/@link /0/@children.0/@children.40/@link /0/@children.0/@children.41/@children.0/@link /0/@children.0/@children.41/@link /0/@children.0/@children.42/@children.0/@link /0/@children.0/@children.42/@link /0/@children.0/@children.43/@children.0/@link /0/@children.0/@children.43/@link" version="0.11.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="421" x="230" y="100">
+        <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineStyle="UNSPECIFIED" width="231" height="421" x="20" style="/0/@styles.0/@styles.0"/>
+      </graphicsAlgorithm>
+      <link businessObjects="/1"/>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" lineStyle="UNSPECIFIED" style="/0/@styles.0/@styles.1">
+          <points x="20" y="20"/>
+          <points x="251" y="20"/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="151" height="20" x="55" style="/0/@styles.0/@styles.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="UNSPECIFIED" value="HALL_POSIF"/>
+        <link businessObjects="/1"/>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="25">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.50"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/48"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out0"/>
+          <link businessObjects="/49"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="40">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.51"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/50"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out1"/>
+          <link businessObjects="/51"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="55">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.52"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/52"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out2"/>
+          <link businessObjects="/53"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="70">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.54"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/55"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out3"/>
+          <link businessObjects="/56"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="85">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.55"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/57"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out4"/>
+          <link businessObjects="/58"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="100">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.56"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/59"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_out5"/>
+          <link businessObjects="/60"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="115">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.57"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/61"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_whee"/>
+          <link businessObjects="/62"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="130">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.58"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/63"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_hiee"/>
+          <link businessObjects="/64"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="145">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.59"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/65"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_chee"/>
+          <link businessObjects="/66"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="160">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.60"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/67"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_slice0_periodmatch"/>
+          <link businessObjects="/68"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="175">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.61"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/69"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_slice1_compmatch"/>
+          <link businessObjects="/70"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="190">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.62"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/71"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_slice1_capture"/>
+          <link businessObjects="/72"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="205">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.63"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/73"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventgen_flagstatus_hall1"/>
+          <link businessObjects="/74"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="220">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.64"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/75"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventgen_flagstatus_hall2"/>
+          <link businessObjects="/76"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="235">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.65"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/77"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventgen_flagstatus_hall3"/>
+          <link businessObjects="/78"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="250">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.66"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/79"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventdet_pdout_hall1"/>
+          <link businessObjects="/80"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="265">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.67"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/81"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventdet_pdout_hall2"/>
+          <link businessObjects="/82"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="280">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.68"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/83"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_eventdet_pdout_hall3"/>
+          <link businessObjects="/84"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="295">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.69"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/85"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_slice0_st0"/>
+          <link businessObjects="/86"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="310">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="100" y="5" style="/0/@styles.70"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/87"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_slice1_ps"/>
+          <link businessObjects="/88"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="25">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.71"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/89"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_globalsignal"/>
+          <link businessObjects="/90"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="40">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.72"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/91"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_input0"/>
+          <link businessObjects="/92"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="55">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.73"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/93"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_input1"/>
+          <link businessObjects="/94"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="70">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.74"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/95"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_input2"/>
+          <link businessObjects="/96"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="85">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.75"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/97"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_pifhsd"/>
+          <link businessObjects="/98"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="100">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.76"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/99"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_pifewhe"/>
+          <link businessObjects="/100"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="115">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.80"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/104"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventgen_input_a_hall1"/>
+          <link businessObjects="/105"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="130">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.81"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/106"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventgen_input_a_hall2"/>
+          <link businessObjects="/107"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="145">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.82"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/108"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventgen_input_a_hall3"/>
+          <link businessObjects="/109"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="160">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.83"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/110"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventdet_pdin_hall1"/>
+          <link businessObjects="/111"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="175">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.84"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/112"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventdet_pdin_hall2"/>
+          <link businessObjects="/113"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="190">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.85"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/114"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_eventdet_pdin_hall3"/>
+          <link businessObjects="/115"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="205">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.86"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/116"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_slice0_globalsignal"/>
+          <link businessObjects="/117"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="220">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.87"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/118"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_slice1_globalsignal"/>
+          <link businessObjects="/119"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="235">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.88"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/120"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_slice0_gp0unsync"/>
+          <link businessObjects="/121"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="131" height="20" y="250">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" y="5" style="/0/@styles.90"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/122"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="106" height="20" x="25" value="vs_hall_posif_slice1_gp0unsync"/>
+          <link businessObjects="/123"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="325">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.98"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/130"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_pad_hall1"/>
+          <link businessObjects="/131"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="340">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.99"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/132"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_pad_hall2"/>
+          <link businessObjects="/133"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="355">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.100"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/134"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="vs_hall_posif_pad_hall3"/>
+          <link businessObjects="/135"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="370">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.101"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/136"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="__pin_vs_hall_posif_pad_hall1"/>
+          <link businessObjects="/137"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="385">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.102"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/138"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="__pin_vs_hall_posif_pad_hall2"/>
+          <link businessObjects="/139"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="120" height="20" x="150" y="400">
+          <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" background="/0/@colors.2" lineWidth="1" transparency="0.0" width="20" height="10" x="99" y="5" style="/0/@styles.103"/>
+        </graphicsAlgorithm>
+        <link businessObjects="/140"/>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Text" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" horizontalAlignment="ALIGNMENT_RIGHT" value="__pin_vs_hall_posif_pad_hall3"/>
+          <link businessObjects="/141"/>
+        </children>
+      </children>
+    </children>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED">
+      <styles foreground="/0/@colors.2" lineStyle="UNSPECIFIED" filled="false" id="ECLASS-TEXT" font="/0/@fonts.0" angle="0" rotation="0.0"/>
+      <styles foreground="/0/@colors.3" lineStyle="UNSPECIFIED" filled="true" id="E-CLASS" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED">
+        <renderingStyle>
+          <adaptedGradientColoredAreas definedStyleId="blue-white-gloss" gradientType="0">
+            <adaptedGradientColoredAreas styleAdaption="0">
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                  <color red="248" green="251" blue="254"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="248" green="251" blue="254"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="237" green="245" blue="252"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="237" green="245" blue="252"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="222" green="237" blue="250"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="222" green="237" blue="250"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="212" green="231" blue="248"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="250" green="251" blue="252"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="226" green="229" blue="233"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                  <color red="226" green="229" blue="233"/>
+                </end>
+              </gradientColor>
+            </adaptedGradientColoredAreas>
+            <adaptedGradientColoredAreas styleAdaption="1">
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                  <color red="238" green="246" blue="253"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="238" green="246" blue="253"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="208" green="230" blue="249"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="208" green="230" blue="249"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="172" green="210" blue="244"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="172" green="210" blue="244"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="129" green="185" blue="234"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="170" green="208" blue="242"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="154" green="191" blue="224"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                  <color red="154" green="191" blue="224"/>
+                </end>
+              </gradientColor>
+            </adaptedGradientColoredAreas>
+            <adaptedGradientColoredAreas styleAdaption="2">
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                  <color red="245" green="249" blue="254"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="245" green="249" blue="254"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="1">
+                  <color red="226" green="239" blue="252"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="226" green="239" blue="252"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="2">
+                  <color red="203" green="227" blue="249"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="203" green="227" blue="249"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="3">
+                  <color red="187" green="218" blue="247"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="197" green="224" blue="247"/>
+                </end>
+              </gradientColor>
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="2">
+                  <color red="178" green="205" blue="229"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                  <color red="178" green="205" blue="229"/>
+                </end>
+              </gradientColor>
+            </adaptedGradientColoredAreas>
+            <adaptedGradientColoredAreas styleAdaption="3">
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                  <color red="153" green="204"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                  <color red="51" green="153" blue="102"/>
+                </end>
+              </gradientColor>
+            </adaptedGradientColoredAreas>
+            <adaptedGradientColoredAreas styleAdaption="4">
+              <gradientColor>
+                <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                  <color red="255" green="204"/>
+                </start>
+                <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                  <color red="255" green="102"/>
+                </end>
+              </gradientColor>
+            </adaptedGradientColoredAreas>
+          </adaptedGradientColoredAreas>
+        </renderingStyle>
+      </styles>
+    </styles>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <styles lineWidth="2" lineVisible="true" transparency="0.0" id="COMMON-VALUES" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED"/>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+    <colors/>
+    <colors red="98" green="131" blue="167"/>
+    <fonts name="Arial" size="8" bold="true"/>
+  </pi:Diagram>
+  <ecore:EClass name="HALL_POSIF" instanceClassName="AppClass"/>
+  <ecore:EClass name="vs_hall_posif_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pifhsd" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out4" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out5" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_whee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_hiee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_chee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_periodmatch" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_compmatch" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_capture" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_st0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_gp0unsync" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_gp0unsync" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_gp0unsync" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_ps" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pifewhe" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out0" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out4" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out4" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_out5" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_out5" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_whee" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_whee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_hiee" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_hiee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_chee" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_chee" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_periodmatch" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_periodmatch" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_compmatch" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_compmatch" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_capture" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_capture" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_flagstatus_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdout_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_st0" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_st0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_ps" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_ps" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_globalsignal" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input0" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_input0" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_input1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_input2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_input2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pifhsd" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_pifhsd" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pifewhe" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_pifewhe" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventgen_input_a_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_eventdet_pdin_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_globalsignal" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_globalsignal" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_globalsignal" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_gp0unsync" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice0_gp0unsync" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_gp0unsync" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_slice1_gp0unsync" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="vs_hall_posif_pad_hall3" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall1" instanceClassName="PinClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall1" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall2" instanceClassName="PinClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall2" instanceClassName="SignalClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall3" instanceClassName="PinClass"/>
+  <ecore:EClass name="__pin_vs_hall_posif_pad_hall3" instanceClassName="SignalClass"/>
+</xmi:XMI>

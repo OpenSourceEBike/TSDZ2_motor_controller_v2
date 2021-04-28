@@ -1,0 +1,1065 @@
+package Model.APPS.PMSM_FOC.v4_2_2.Templates;
+
+import Model.APPS.PMSM_FOC.v4_2_2.PMSM_FOC
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ * Copyright (c) 2015, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-15:
+ *     - Initial version<br>
+ *
+ * 2015-11-19:
+ *     - FOC library code integrated
+ *
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES                                                                                                      
+ **********************************************************************************************************************/
+#include "pmsm_foc.h"
+/**********************************************************************************************************************
+* DATA STRUCTURES
+**********************************************************************************************************************/
+""");
+
+String appInst  = null
+String fb_ramp = null
+String alias_channel = "-1"
+
+Integer scaling      = 1023       /* 2^10-1 */
+Integer POW_31       = 2147483647 /* 2^31-1 */
+Integer POW_14       = 16383      /* 2^15-1 */
+Integer POW_15       = 32767      /* 2^15-1 */
+Integer POW_16       = 65535      /* 2^16-1 */
+Integer POW_10       = 1024
+Integer POW_8        = 255        /* 2^8-1  */
+Integer POW_12       = 4095       /* 2^12-1 */
+Integer TARGET_VALUE = 16383      /* 2^14-1 */
+Integer ANG_TAR_VAL  = 16777215   /* 2^24-1 */
+Integer SIXTY_DEGREE = 0x2AAA     /* 60 degree target value */
+Float TWO_DIV_SQRT_THREE = 1.1547 /*1.1547 = 2/sqrt(3); if over modulation is enabled*/
+
+/*This function return 1 if argument is true else return 0*/
+def boolvalreturn = {def arg -> (arg == false ? 0 : 1)}
+
+for (Object appIns : appInstancesList ) {
+  appInst = appIns.getInstanceLabel()
+  
+  /**********************************ADC Start********************************/
+  List req_source      = ["Queue A","Queue B","Queue C","Queue D"]
+  List qapp_handle     = ["NULL","NULL","NULL","NULL"]
+  List list_queue_inst = ["NULL","NULL","NULL","NULL"]
+												  
+  List pin             = ["0xFF","0xFF","0xFF","0xFF","0xFF","0xFF","0xFF"]
+  List port            = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List chan_active     = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List res_active      = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List list_groupnum   = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  
+  List entry_handle1   = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List entry_handle2   = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List entry_handle3   = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List entry_handle4   = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  List entry_handle    = [entry_handle1,entry_handle2,entry_handle3,entry_handle4]
+  
+  List pinio_handle    = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  
+  List active_queue     = ["PMSM_FOC_QUEUE_INACTIVE","PMSM_FOC_QUEUE_INACTIVE","PMSM_FOC_QUEUE_INACTIVE","PMSM_FOC_QUEUE_INACTIVE"]
+  List adc_externaltrig = ["PMSM_FOC_EXTTRIGGER_DISABLED","PMSM_FOC_EXTTRIGGER_DISABLED","PMSM_FOC_EXTTRIGGER_DISABLED","PMSM_FOC_EXTTRIGGER_DISABLED"]
+  
+  List list_actualchannel =[ "0xFF","0xFF","0xFF","0xFF","0xFF","0xFF","0xFF"]
+  List list_resreg        =[ "0xFF","0xFF","0xFF","0xFF","0xFF","0xFF","0xFF"]
+  List list_mappedgrp     = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL"]
+  
+  Integer index = 0
+  Integer pos_index = 0
+  
+  List parameter =
+  [appIns.gstring_phu_i_measurement.value.replaceAll("\\s",""),appIns.gstring_phv_i_measurement.value.replaceAll("\\s",""),
+   appIns.gstring_phw_i_measurement.value.replaceAll("\\s",""),appIns.gstring_dclink_i_measurement.value.replaceAll("\\s",""),
+   appIns.gstring_dc_link_measurement.value.replaceAll("\\s",""),
+   appIns.gstring_pot_measurement.value.replaceAll("\\s",""),appIns.gstring_user_defined_measurement.value.replaceAll("\\s","")]
+  
+  List list_chanstring =
+  [appIns.gstring_phu_i_measurement.value.replaceAll("\\s","")+"Chan",appIns.gstring_phv_i_measurement.value.replaceAll("\\s","")+"Chan",
+   appIns.gstring_phw_i_measurement.value.replaceAll("\\s","")+"Chan",appIns.gstring_dclink_i_measurement.value.replaceAll("\\s","")+"Chan",
+   appIns.gstring_dc_link_measurement.value.replaceAll("\\s","")+"Chan",
+   appIns.gstring_pot_measurement.value.replaceAll("\\s","")+"Chan",appIns.gstring_user_defined_measurement.value.replaceAll("\\s","")+"Chan"];
+ 
+   List list_resregstring =
+   [appIns.gstring_phu_i_measurement.value.replaceAll("\\s","") +"Res",appIns.gstring_phv_i_measurement.value.replaceAll("\\s","") +"Res",
+   appIns.gstring_phw_i_measurement.value.replaceAll("\\s","") +"Res",appIns.gstring_dclink_i_measurement.value.replaceAll("\\s","") +"Res",
+   appIns.gstring_dc_link_measurement.value.replaceAll("\\s","")+"Res",
+   appIns.gstring_pot_measurement.value.replaceAll("\\s","")+"Res",appIns.gstring_user_defined_measurement.value.replaceAll("\\s","")+"Res"];
+  
+/**********************************ADC END**********************************************/
+  /* --------------------------------------------------------------------------------- */
+  /* -------------------- Begin : PMSM_FOC scaling  ------------------------------- */
+  /* --------------------------------------------------------------------------------- */
+  /* Parameters reading from Control Algorithm Tab */
+  Integer PWM_Freq = (appIns.gint_focpwmfreq.value)
+  Float actual_pwm_freq = appIns.gfloat_actualfreq.value
+  
+  /*PWM Period value in us*/
+  Float PWM_Period   = (1000000/PWM_Freq)
+  Integer PWM_Count  = appIns.appres_pwm_svm.getVal(["gint_periodreg","value"])
+  
+  Integer Tmin       = appIns.appres_pwm_svm.getVal(["gint_tmincount","value"])
+  
+  /* resolution in us */
+  Integer PWM_resolution = (int)(appIns.appres_pwm_svm.getVal(["gfloat_actresolution","value"]) * 1000)
+  
+  Integer fcl_divider = appIns.gfloat_fclactualtime.value  / PWM_Period
+  
+  Float adc_conversion_time = (appIns.gfloat_adc_conv_time.value)/1000
+  Integer threshold_adc_2shunt = (int)(((adc_conversion_time * 3) * PWM_Count)/appIns.gfloat_fclactualtime.value)
+
+  
+  
+  /* Parameters reading from Control Parameters Tab */
+  Integer PolePair = appIns.gint_polepair.value
+  Float NominalSpeed = appIns.gfloat_noloadspeed.value
+  Float NominalCurrent = appIns.gfloat_maxcrnt.value * 1000 /* Converting to mA */
+  
+  
+  /*id pi configuration*/
+  Float id_kp         = appIns.gfloat_idkp.value
+  Float id_ki         = appIns.gfloat_idki.value
+  Float id_ylimit     = appIns.gfloat_id_out_limit.value
+  Float id_ibuflimit  = appIns.gfloat_id_buf_limit.value
+  if(appIns.gcheck_udidpi.value == true)
+  {
+    id_kp             = appIns.gfloat_udidkp.value
+	id_ki             = appIns.gfloat_udidki.value
+	id_ylimit         = appIns.gfloat_udid_out_limit.value
+	id_ibuflimit      = appIns.gfloat_udid_buf_limit.value
+  }
+  
+  /*iq pi configuration*/
+  Float iq_kp         = appIns.gfloat_iqkp.value
+  Float iq_ki         = appIns.gfloat_iqki.value
+  Float iq_ylimit     = appIns.gfloat_iq_out_limit.value
+  Float iq_ibuflimit  = appIns.gfloat_iq_buf_limit.value
+  if(appIns.gcheck_udiqpi.value == true)
+  {
+	iq_kp             = appIns.gfloat_udiqkp.value
+	iq_ki             = appIns.gfloat_udiqki.value
+	iq_ylimit         = appIns.gfloat_udiq_out_limit.value
+	iq_ibuflimit      = appIns.gfloat_udiq_buf_limit.value
+  }
+  /*speed pi configuration*/
+  Float speed_kp         = appIns.gfloat_speedkp.value
+  Float speed_ki         = Math.ceil((appIns.gfloat_speedki.value))
+  Float speed_ylimit     = appIns.gfloat_speed_out_limit.value
+  Float speed_ibuflimit  = appIns.gfloat_speed_buf_limit.value
+  if(appIns.gcheck_udspeedpi.value == true)
+  {
+	speed_kp             = appIns.gfloat_udspeedkp.value
+	speed_ki             = appIns.gfloat_udspeedki.value
+	speed_ylimit         = appIns.gfloat_udspeed_out_limit.value
+	speed_ibuflimit      = appIns.gfloat_udspeed_buf_limit.value
+  }
+  
+  /* PLL estimator PI configuration */
+  Float estimator_kp         = appIns.gfloat_estimatorkp.value
+  Float estimator_ki         = Math.ceil((appIns.gfloat_estimatorki.value))
+  Float estimator_ylimit     = appIns.gfloat_estimator_out_limit.value
+  Float estimator_ibuflimit  = appIns.gfloat_estimator_buf_limit.value
+  if(appIns.gcheck_udestimatorpi.value == true)
+  {
+	estimator_kp             = appIns.gfloat_udestimatorkp.value
+	estimator_ki             = appIns.gfloat_udestimatorki.value
+	estimator_ylimit         = appIns.gfloat_udestimator_out_limit.value
+	estimator_ibuflimit      = appIns.gfloat_udestimator_buf_limit.value
+  }
+  
+  /* Parameters reading from power board Tab */
+  Float DClink_Volt = appIns.gfloat_dclinkvolt.value
+  Float Vadc_Ref = (appIns.gfloat_vadcref.value * 1000)
+  Float amp_bias_volt = (appIns.gfloat_ampbiasvolt.value * 1000)
+  Float VoltDividerRatio = appIns.gfloat_voltdidratio.value
+
+  /************************* Scaling ********************************************************************/   
+  /* Voltage Scale*/ 
+  Float Voltage_Scale    = ((DClink_Volt * POW_15)/TARGET_VALUE)
+  Float Volt_Scale_milli = (Voltage_Scale * 1000)                /* Multiply by 1000, since gui parameter is in V. */
+  
+  Integer Voltlimt_Scale = ((100 *POW_15)/TARGET_VALUE)
+  Integer Inv_Voltlimt_Scale = ((TARGET_VALUE * POW_15)/100)
+  
+  if(appIns.gcheck_eovermodulation.value == true)
+  {
+	Voltlimt_Scale = ((100 *POW_15)/(TARGET_VALUE * TWO_DIV_SQRT_THREE)) /*1.1547 = 2/sqrt(3); if over modulation is enabled*/
+	Inv_Voltlimt_Scale = ((TARGET_VALUE*TWO_DIV_SQRT_THREE* POW_15)/100)
+  }
+     
+  /* Pot scaling */
+  Integer Max_Adc = POW_12; /* 12 bit ADC */
+  Integer ADC_Scale = 2;
+  
+  /* Angle Scale target value used from speed to angle conversion*/
+  Float Angle_Scale_T = (((appIns.gfloat_noloadspeed.value *  appIns.gint_fcldiv.value * PolePair *(ANG_TAR_VAL/TARGET_VALUE))/(PWM_Freq*60))*POW_8)
+  
+  /* V/F Calculations */
+  Float VoltOffset     = 0
+  Float VF_Const       = 0
+  Float VFConst_min    = 0
+  Float VFConst_max    = 0
+  Float VoltOffset_min = 0
+  Float VoltOffset_max = 0
+  
+  if(appIns.gcheck_userdefconf.value == false )
+  {
+	VoltOffset     = appIns.gfloat_voltageoffset.value
+	VF_Const       = appIns.gfloat_vfconstant.value
+	VFConst_min    = appIns.gfloat_vfconstant.minValue
+	VFConst_max    = appIns.gfloat_vfconstant.maxValue
+	VoltOffset_min = appIns.gfloat_voltageoffset.minValue
+	VoltOffset_max = appIns.gfloat_voltageoffset.maxValue
+  }
+  else
+  {
+	VoltOffset     = appIns.gfloat_udvoltageoffset.value
+	VF_Const       = appIns.gfloat_udvfconstant.value
+	VFConst_min    = appIns.gfloat_udvfconstant.minValue
+	VFConst_max    = appIns.gfloat_udvfconstant.maxValue
+	VoltOffset_min = appIns.gfloat_udvoltageoffset.minValue
+	VoltOffset_max = appIns.gfloat_udvoltageoffset.maxValue
+  }
+  
+
+  Integer VF_Offset_T = ((VoltOffset * POW_15)/(Volt_Scale_milli));  /* VoltOffset is in mV. It is normalized by N_VDC */
+	
+  Float ibuf = PWM_Count/Math.ceil(appIns.gfloat_noloadspeed.value / appIns.gint_vfendspeed.value)
+  
+  Integer counter = 100
+
+     
+  /* --------------------------------------------------------------------------------- */
+  /* -------------------- End : PMSM_FOC scaling    ------------------------------- */
+  /* --------------------------------------------------------------------------------- */
+  
+  /*Start: This is dummy read to avoid unwanted popup */
+  
+  appIns.hwres_chan_a_pin.getRegValue("pdisc","pdisc_pdis")
+  appIns.hwres_chan_b_pin.getRegValue("pdisc","pdisc_pdis")
+  appIns.hwres_chan_c_pin.getRegValue("pdisc","pdisc_pdis")
+  appIns.hwres_chan_d_pin.getRegValue("pdisc","pdisc_pdis")
+  appIns.hwres_chan_e_pin.getRegValue("pdisc","pdisc_pdis")
+  appIns.hwres_chan_f_pin.getRegValue("pdisc","pdisc_pdis")
+  
+  appIns.hwres_chan_a_pin.getRegValue("hwsel","hwsel_hw")
+  appIns.hwres_chan_b_pin.getRegValue("hwsel","hwsel_hw")
+  appIns.hwres_chan_c_pin.getRegValue("hwsel","hwsel_hw")
+  appIns.hwres_chan_d_pin.getRegValue("hwsel","hwsel_hw")
+  appIns.hwres_chan_e_pin.getRegValue("hwsel","hwsel_hw")
+  appIns.hwres_chan_f_pin.getRegValue("hwsel","hwsel_hw")
+  
+  appIns.hwres_fcl_nvicnode.getRegValue("","iser_setena") //dummy read
+  appIns.hwres_trap_nvicnode.getRegValue("","iser_setena") //dummy read
+  
+   
+  /*End: This is dummy read to avoid unwanted popup */
+  
+
+/* ------------------- Begin : ADC Configuration ----------------------------------- */  
+  list_queue_inst  =  [appIns.appres_queue_a.getInstanceLabel(),appIns.appres_queue_b.getInstanceLabel(),
+					   appIns.appres_queue_c.getInstanceLabel(),appIns.appres_queue_d.getInstanceLabel()]
+  
+  List list_channeluri = [appIns.hwres_adcchan1.getSolverUri(),appIns.hwres_adcchan5.getSolverUri(),appIns.hwres_adcchan6.getSolverUri(),
+	                      appIns.hwres_adcchan7.getSolverUri(),
+						  appIns.hwres_adcchan2.getSolverUri(),appIns.hwres_adcchan3.getSolverUri(),appIns.hwres_adcchan4.getSolverUri()];
+  List list_iouri = [appIns.hwres_chan_a_pin.getSolverUri(),appIns.hwres_chan_e_pin.getSolverUri(),appIns.hwres_chan_f_pin.getSolverUri(),
+	                 appIns.hwres_chan_g_pin.getSolverUri(),
+					 appIns.hwres_chan_b_pin.getSolverUri(),appIns.hwres_chan_c_pin.getSolverUri(),appIns.hwres_chan_d_pin.getSolverUri()];
+
+  List list_resreg_mux_Dummy =
+  [
+	appIns.hwres_adcchan1.getRegValue("gchctr","gchctr_resreg"),appIns.hwres_adcchan5.getRegValue("gchctr","gchctr_resreg"),
+	appIns.hwres_adcchan6.getRegValue("gchctr","gchctr_resreg"),appIns.hwres_adcchan7.getRegValue("gchctr","gchctr_resreg"),
+	appIns.hwres_adcchan2.getRegValue("gchctr","gchctr_resreg"),
+	appIns.hwres_adcchan3.getRegValue("gchctr","gchctr_resreg"),appIns.hwres_adcchan4.getRegValue("gchctr","gchctr_resreg")
+  ];
+  List list_adcalias0 =  [appIns.hwres_adcchan1.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan5.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan6.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan7.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan2.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan3.getRegValue("galias","galias_alias0"),
+						  appIns.hwres_adcchan4.getRegValue("galias","galias_alias0")
+						 ]
+
+ List list_adcalias1 =  [ appIns.hwres_adcchan1.getRegValue("galias","galias_alias1"),
+						   appIns.hwres_adcchan5.getRegValue("galias","galias_alias1"),
+						  appIns.hwres_adcchan6.getRegValue("galias","galias_alias1"),
+						  appIns.hwres_adcchan7.getRegValue("galias","galias_alias1"),
+						  appIns.hwres_adcchan2.getRegValue("galias","galias_alias1"),
+						  appIns.hwres_adcchan3.getRegValue("galias","galias_alias1"),
+						  appIns.hwres_adcchan4.getRegValue("galias","galias_alias1")
+						 ]
+  List list_resreg_mux =
+  [
+	appIns.hwres_result1.getSolverUri(),appIns.hwres_result5.getSolverUri(),
+	appIns.hwres_result6.getSolverUri(),appIns.hwres_result7.getSolverUri(),
+	appIns.hwres_result2.getSolverUri(),
+	appIns.hwres_result3.getSolverUri(),appIns.hwres_result4.getSolverUri()
+  ];
+
+  for(pos_index = 0;pos_index<=6;pos_index++)
+  {
+	if(list_channeluri[pos_index] != null)
+	{
+	  list_mappedgrp[pos_index] = list_channeluri[pos_index][6]
+	  list_actualchannel[pos_index] = list_channeluri[pos_index][8]
+	  list_resreg[pos_index]     = list_resreg_mux[pos_index][8]
+	  pin[pos_index] = "${list_iouri[pos_index][6]}"
+	  port[pos_index] = "PORT${list_iouri[pos_index][4]}_BASE"
+	}
+  }
+  
+  List list_positions =
+  [ appIns.gint_phu_i_measurement.value,appIns.gint_phv_i_measurement.value,appIns.gint_phw_i_measurement.value,appIns.gint_dclink_i_measurement.value,appIns.gint_dc_link_measurement.value, appIns.gint_pot_measurement.value, appIns.gint_user_defined_measurement.value];
+  
+  List list_reqsel =
+  [ appIns.gcombo_phu_i_measurement.value,appIns.gcombo_phv_i_measurement.value,appIns.gcombo_phw_i_measurement.value,appIns.gcombo_dclink_i_measurement.value,appIns.gcombo_dc_link_measurement.value, appIns.gcombo_pot_measurement.value, appIns.gcombo_user_defined_measurement.value];
+ 
+  List list_enablemeas =
+  [ appIns.gcheck_phu_i_measurement.value,appIns.gcheck_phv_i_measurement.value,appIns.gcheck_phw_i_measurement.value,appIns.gcheck_dclink_i_measurement.value,appIns.gcheck_dc_link_measurement.value, appIns.gcheck_pot_measurement.value, appIns.gcheck_user_defined_measurement.value];
+  
+  List list_refill =
+  [ appIns.gcheck_phu_i_refill.value,appIns.gcheck_phv_i_refill.value,appIns.gcheck_phw_i_refill.value,appIns.gcheck_dclink_i_refill.value,appIns.gcheck_dc_link_refill.value, appIns.gcheck_pot_refill.value, appIns.gcheck_user_defined_refill.value];
+  
+  List list_externaltrig =
+  [ appIns.gcheck_phu_i_ext_trigger.value,appIns.gcheck_phv_i_ext_trigger.value,appIns.gcheck_phw_i_ext_trigger.value,appIns.gcheck_dclink_i_ext_trigger.value,appIns.gcheck_dc_link_ext_trigger.value, appIns.gcheck_pot_ext_trigger.value, appIns.gcheck_user_defined_ext_trigger.value];
+	
+for(index = 0;index<=3;index++)
+{
+  if(list_externaltrig[index] == true)
+  {
+	adc_externaltrig[index] = "PMSM_FOC_EXTTRIGGER_ENABLED";
+  }
+  
+  for(pos_index = 0;pos_index<=6;pos_index++)
+  {
+	/*Segregating Queue related configurations*/
+	/*Checking for Queue 1 ,if yes acquire list of queue channels and its config*/
+	  
+	  if((list_reqsel[pos_index] == req_source[index]) && (list_enablemeas[pos_index] == true))
+	  {
+		active_queue[index] = "PMSM_FOC_QUEUE_ACTIVE"
+		qapp_handle[index] = "(ADC_QUEUE_t *)(void*)&"+list_queue_inst[index];
+		entry_handle[index][pos_index] = "&${list_queue_inst[index]}_QEntry_${parameter[pos_index]}"
+out.print("""
+ADC_QUEUE_ENTRY_t ${list_queue_inst[index]}_QEntry_${parameter[pos_index]} = 
+{
+  .adc_event_callback    = NULL,
+  .queue_position        = (uint8_t)${list_positions[pos_index]},
+  .channel_number        = (uint8_t)${list_actualchannel[pos_index]},
+  .trigger_needed        = (bool)${list_externaltrig[pos_index]},
+  .refill_needed         = (bool)${list_refill[pos_index]},
+  .ch_event_notification = (bool)false,
+  .rs_event_notification = (bool)false
+};
+""");
+	  }
+	}
+  }
+
+  for(active_chan = 0;active_chan<=6;active_chan++)
+  {
+	if(list_channeluri[active_chan] != null)
+	{
+	  chan_active[active_chan] = "&${appInst}_${list_chanstring[active_chan]}_InitHandle"
+	  list_groupnum[active_chan] = "(XMC_VADC_GROUP_t*)(void*)VADC_G" + "${list_mappedgrp[active_chan]}"
+	}
+	else
+	{
+	  chan_active[active_chan] = "NULL"
+	  list_groupnum[active_chan]   = "NULL"
+	}
+	  
+	if([appIns.hwres_result1.getSolverUri(),appIns.hwres_result5.getSolverUri(),appIns.hwres_result6.getSolverUri(),appIns.hwres_result7.getSolverUri(),appIns.hwres_result2.getSolverUri(),appIns.hwres_result3.getSolverUri(),appIns.hwres_result4.getSolverUri()][active_chan] != null)
+	{
+	  res_active[active_chan] = "&${appInst}_${list_resregstring[active_chan]}_InitHandle "
+	}
+	else
+	{
+	  res_active[active_chan] = "NULL"
+	}
+	
+  if((list_reqsel[active_chan] != "None") && (list_enablemeas[active_chan] == true))
+  {
+pinio_handle[active_chan] = "&${appInst}_${list_chanstring[active_chan]}_IO"
+/*if alias is not enabled*/
+if((list_actualchannel[active_chan]=="0") && (list_adcalias0[active_chan] != 0))
+{
+  alias_channel = list_adcalias0[active_chan]
+}
+else if((list_actualchannel[active_chan]=="1") && (list_adcalias1[active_chan] != 1))
+{
+  alias_channel = list_adcalias1[active_chan]
+}
+else
+{
+	alias_channel = "-1"
+}
+
+out.print("""
+
+XMC_VADC_CHANNEL_CONFIG_t ${appInst}_${list_chanstring[active_chan]}_InitHandle =
+{
+  .input_class         = (uint32_t)XMC_VADC_CHANNEL_CONV_GROUP_CLASS0,
+  .channel_priority    = (uint32_t)1,
+  .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
+  .result_reg_number   = (uint32_t)${list_resreg[active_chan]},
+  .alias_channel       = ${alias_channel}
+};
+""");
+/* Fourth entry is for DC link current measurment - enable FIFO mode for result register */
+if(active_chan == 3)
+{
+out.print("""
+XMC_VADC_RESULT_CONFIG_t ${appInst}_${list_resregstring[active_chan]}_InitHandle = 
+{
+  .wait_for_read_mode  = (bool)false,
+  .part_of_fifo        = (bool)true
+};
+""");
+}
+else
+{
+	out.print("""
+XMC_VADC_RESULT_CONFIG_t ${appInst}_${list_resregstring[active_chan]}_InitHandle = 
+{
+  .wait_for_read_mode  = (bool)false,
+  .part_of_fifo        = (bool)false
+};
+""");
+}
+
+  }
+  }
+  
+/*Extracting APP config structures*/
+if((appIns.hwres_adcchan1.getSolverUri())||
+	(appIns.hwres_adcchan5.getSolverUri())||
+	(appIns.hwres_adcchan6.getSolverUri())||
+	(appIns.hwres_adcchan7.getSolverUri())||
+	(appIns.hwres_adcchan2.getSolverUri())||
+	(appIns.hwres_adcchan3.getSolverUri())||
+	(appIns.hwres_adcchan4.getSolverUri()))
+ {
+	 if(daveEnv.project.selectedDevice.deviceId.family == 'XMC4')
+	 {
+ 
+out.print("""
+PMSM_FOC_ADCConfig_t ${appInst}_ADCConfig =
+{
+  .queue_entry_hdlarray   = {
+                              {${entry_handle[0][0]},${entry_handle[1][0]},${entry_handle[2][0]},${entry_handle[3][0]}},
+                              {${entry_handle[0][1]},${entry_handle[1][1]},${entry_handle[2][1]},${entry_handle[3][1]}},
+                              {${entry_handle[0][2]},${entry_handle[1][2]},${entry_handle[2][2]},${entry_handle[3][2]}},
+                              {${entry_handle[0][3]},${entry_handle[1][3]},${entry_handle[2][3]},${entry_handle[3][3]}},
+                              {${entry_handle[0][4]},${entry_handle[1][4]},${entry_handle[2][4]},${entry_handle[3][4]}},
+                              {${entry_handle[0][5]},${entry_handle[1][5]},${entry_handle[2][5]},${entry_handle[3][5]}},
+                              {${entry_handle[0][6]},${entry_handle[1][6]},${entry_handle[2][6]},${entry_handle[3][6]}}
+                            },
+  .queue_active           = {
+                              (uint8_t)${active_queue[0]},
+                              (uint8_t)${active_queue[1]},
+                              (uint8_t)${active_queue[2]},
+                              (uint8_t)${active_queue[3]}
+                            },
+  .qapp_handlearray       = {
+                              ${qapp_handle[0]},
+                              ${qapp_handle[1]},
+                              ${qapp_handle[2]},
+                              ${qapp_handle[3]}
+						    },
+  .vadc_reshandle_array   = {
+                              ${res_active[0]},
+                              ${res_active[1]},
+                              ${res_active[2]},
+                              ${res_active[3]},
+                              ${res_active[4]},
+                              ${res_active[5]},
+                              ${res_active[6]}
+                            },
+  .vadc_chhandle_array    = {
+                              ${chan_active[0]},
+                              ${chan_active[1]},
+                              ${chan_active[2]},
+                              ${chan_active[3]},
+                              ${chan_active[4]},
+                              ${chan_active[5]},
+                              ${chan_active[6]}
+                            },
+  .channel_num_array      = {
+                              (uint8_t)${list_actualchannel[0]},
+                              (uint8_t)${list_actualchannel[1]},
+                              (uint8_t)${list_actualchannel[2]},
+                              (uint8_t)${list_actualchannel[3]},
+                              (uint8_t)${list_actualchannel[4]},
+                              (uint8_t)${list_actualchannel[5]},
+                              (uint8_t)${list_actualchannel[6]}
+                            },
+  .result_num_array      = {
+                              (uint8_t)${list_resreg[0]},
+                              (uint8_t)${list_resreg[1]},
+                              (uint8_t)${list_resreg[2]},
+                              (uint8_t)${list_resreg[3]},
+                              (uint8_t)${list_resreg[4]},
+                              (uint8_t)${list_resreg[5]},
+                              (uint8_t)${list_resreg[6]}
+                            },
+  .vadc_group_pointerarray= {
+                              ${list_groupnum[0]},
+                              ${list_groupnum[1]},
+                              ${list_groupnum[2]},
+                              ${list_groupnum[3]},
+                              ${list_groupnum[4]},
+                              ${list_groupnum[5]},
+                              ${list_groupnum[6]}
+                            }
+};
+""");
+ }
+
+ else
+ {
+	 out.print("""
+PMSM_FOC_ADCConfig_t ${appInst}_ADCConfig =
+{
+  .queue_entry_hdlarray   = {
+                              {${entry_handle[0][0]},${entry_handle[1][0]}},
+                              {${entry_handle[0][1]},${entry_handle[1][1]}},
+                              {${entry_handle[0][2]},${entry_handle[1][2]}},
+                              {${entry_handle[0][3]},${entry_handle[1][3]}},
+                              {${entry_handle[0][4]},${entry_handle[1][4]}},
+                              {${entry_handle[0][5]},${entry_handle[1][5]}},
+                              {${entry_handle[0][6]},${entry_handle[1][6]}}
+                            },
+  .queue_active           = {
+                              (uint8_t)${active_queue[0]},
+                              (uint8_t)${active_queue[1]}
+                            },
+  .qapp_handlearray       = {
+                              ${qapp_handle[0]},
+                              ${qapp_handle[1]}
+                            },
+  .vadc_reshandle_array   = {
+                              ${res_active[0]},
+                              ${res_active[1]},
+                              ${res_active[2]},
+                              ${res_active[3]},
+                              ${res_active[4]},
+                              ${res_active[5]},
+                              ${res_active[6]}
+                            },
+  .vadc_chhandle_array    = {
+                              ${chan_active[0]},
+                              ${chan_active[1]},
+                              ${chan_active[2]},
+                              ${chan_active[3]},
+                              ${chan_active[4]},
+                              ${chan_active[5]},
+                              ${chan_active[6]}
+                            },
+  .channel_num_array      = {
+                              (uint8_t)${list_actualchannel[0]},
+                              (uint8_t)${list_actualchannel[1]},
+                              (uint8_t)${list_actualchannel[2]},
+                              (uint8_t)${list_actualchannel[3]},
+                              (uint8_t)${list_actualchannel[4]},
+                              (uint8_t)${list_actualchannel[5]},
+                              (uint8_t)${list_actualchannel[6]}
+                            },
+  .result_num_array      = {
+                              (uint8_t)${list_resreg[0]},
+                              (uint8_t)${list_resreg[1]},
+                              (uint8_t)${list_resreg[2]},
+                              (uint8_t)${list_resreg[3]},
+                              (uint8_t)${list_resreg[4]},
+                              (uint8_t)${list_resreg[5]},
+                              (uint8_t)${list_resreg[6]}
+                            },
+  .vadc_group_pointerarray= {
+                              ${list_groupnum[0]},
+                              ${list_groupnum[1]},
+                              ${list_groupnum[2]},
+                              ${list_groupnum[3]},
+                              ${list_groupnum[4]},
+                              ${list_groupnum[5]},
+                              ${list_groupnum[6]}
+                            }
+};
+""");
+ }
+}
+/* ------------------- END : ADC Configuration ------------------------------------- */
+ 
+ /*****************************START: Interrupt Configuration ***************************************/
+ out.print("""
+ /***************************Interrupts*********************************/
+/* Fast Control Loop interrupt */
+PMSM_FOC_ISRHandle_t ${appInst}_FCL_InterruptConfig =
+{
+  .node_id      = (uint8_t)${appIns.hwres_fcl_nvicnode.getSolverUri()[7]}, 
+  .priority     = (uint8_t)${appIns.ginterruptprio_fast_control_loop.priorityValue.value},
+  .sub_priority = (uint8_t)${appIns.ginterruptprio_fast_control_loop.subPriorityValue.value}
+};
+
+/* Trap interrupt */
+PMSM_FOC_ISRHandle_t ${appInst}_Trap_InterruptConfig =
+{
+  .node_id      = (uint8_t)${appIns.hwres_trap_nvicnode.getSolverUri()[7]}, 
+  .priority     = (uint8_t)${appIns.ginterruptprio_trap.priorityValue.value},
+  .sub_priority = (uint8_t)${appIns.ginterruptprio_trap.subPriorityValue.value}
+};
+""");	
+
+/*****************************END: Interrupt Configuration ***************************************/
+
+if(appIns.gcheck_evoltcomp.value == true)
+{
+	/* filter */
+	Float Time_constant = 0.3
+	Float Sample_time = (appIns.gint_fcldiv.value/PWM_Freq)
+	
+	Float Speed_z1=  ((1-(Time_constant/(Time_constant + Sample_time))) *Math.pow(2,16))
+
+out.print("""
+
+PMSM_FOC_PT1Handle_t ${appInst}_voltcompFilter =
+{
+  .z1          = ${(int)Speed_z1},
+  .y_max       = 0x7FFFFFFF,
+  .y_min       = -0x7FFFFFFF,
+  .pt1_buf     = ${(int)POW_14<<16},
+  .pt1_out_val = 0
+};
+""")
+ }
+
+
+/*************************************Begin: scaling **************************************/
+Float N_vref
+Float cordic_scale = 1.0
+Float clarke_scale = 1.5
+N_vref = (DClink_Volt/1.732)/1
+
+Float N_Ialpha 
+N_Ialpha = appIns.gfloat_maxcrnt.value
+Integer current_scale = POW_15/(N_Ialpha*2)
+
+Float inductance = (((appIns.gfloat_phaseinductance_ld.value + appIns.gfloat_phaseinductance_lq.value)/4) * Math.pow(10,-6)) 
+Float L_temp
+
+L_temp =  (clarke_scale * (((2*3.141592*actual_pwm_freq*N_Ialpha)/N_vref)*inductance)/POW_16)
+
+Float resistance = ((appIns.gfloat_phaseres.value * 0.5) * N_Ialpha/N_vref) * cordic_scale * POW_8
+Float resistance_scale = (N_Ialpha/N_vref) * cordic_scale * POW_8
+
+Integer speed_KpKi_scale
+Integer PLL_KpKi_scale
+Integer RES_INC_Temp
+Integer RES_INC = appIns.gint_res_inc.value
+Integer PLL_ik_Lim 
+Integer vf_transition_speed
+Integer pll_max_lim
+Float RES_INC_Temp_log
+
+
+speed_KpKi_scale = 9 + RES_INC
+
+PLL_KpKi_scale = 20 - RES_INC
+
+if (speed_KpKi_scale > 15)
+{
+	speed_KpKi_scale = 15
+}
+if (PLL_KpKi_scale > 15)
+{
+	PLL_KpKi_scale = 15
+}
+
+
+PLL_ik_Lim = (1 << (31-PLL_KpKi_scale))-1
+
+/* Voltage ADC scale */
+Float Voltage_ADC_Scale  =  (POW_15 * Vadc_Ref * 1023 )/((DClink_Volt * (VoltDividerRatio) * POW_12) * 10)
+
+Float threshold_time_vp
+threshold_time_vp = ((appIns.gfloat_vp_time.value * Math.pow(10,3))/appIns.gfloat_fclactualtime.value);
+Float max_dc
+max_dc = ((appIns.gfloat_max_dclink.value/100 * DClink_Volt) );
+Float max_dc_val = ((max_dc * (VoltDividerRatio) * POW_12 / Vadc_Ref) * Voltage_ADC_Scale * 10) /1023
+
+Float min_dc
+min_dc = ((appIns.gfloat_min_dclink.value/100) * DClink_Volt);
+Float min_dc_val = ((min_dc * (VoltDividerRatio) * POW_12 / Vadc_Ref) * Voltage_ADC_Scale * 10) /1023
+
+Float speed_scale = ((PolePair/(actual_pwm_freq * 60)) * POW_16 * Math.pow(2,RES_INC))
+
+Float pot_scale = (appIns.gfloat_noloadspeed.value/POW_12) * speed_scale * POW_15
+  
+Float ramp_up
+Float vf_rampup
+vf_ramp_up = actual_pwm_freq/(appIns.gint_vf_rampup.value*PolePair/(actual_pwm_freq*60)*POW_16*Math.pow(2,RES_INC))
+
+ramp_up = actual_pwm_freq/(appIns.gfloat_rampup.value*PolePair/(actual_pwm_freq*60)*POW_16*Math.pow(2,RES_INC))
+Float ramp_down
+ramp_down = actual_pwm_freq/(appIns.gfloat_ramp_down.value*PolePair/(actual_pwm_freq*60)*POW_16*Math.pow(2,RES_INC))
+
+vf_transition_speed = speed_scale * appIns.gint_vfendspeed.value
+
+Float user_speed
+user_speed = speed_scale * appIns.gint_speedref.value
+
+Float start_speed
+start_speed = speed_scale * appIns.gint_startspeed.value
+
+Float Speedmaxlim
+Float Speedlowlim
+Speedmaxlim = speed_scale * appIns.gfloat_noloadspeed.value
+
+/* 10% of max speed */
+Speedlowlim = Speedmaxlim * 0.1
+Float speed_scale_t
+speed_scale_t = (TARGET_VALUE/Speedmaxlim) * 1024
+  
+/************V/F calculation*************/   
+Float threshold_speed
+threshold_speed = speed_scale * appIns.gint_vfendspeed.value
+
+Float vf_offset
+Float vf_slew
+if(appIns.gcheck_userdefconf.value == true)
+{
+	vf_offset = appIns.gfloat_udvoltageoffset.value * Math.pow(10,-3)
+	vf_slew   = appIns.gfloat_udvfconstant.value * Math.pow(10,-3)
+}
+else
+{
+	vf_offset = appIns.gfloat_voltageoffset.value * Math.pow(10,-3)
+	vf_slew   = appIns.gfloat_vfconstant.value * Math.pow(10,-3)
+}
+Float vf_offset_t
+vf_offset_t = (vf_offset/N_vref)*POW_15
+
+Float vf_slew_t
+vf_slew_t = ((vf_slew/N_vref)*POW_15) * ((PolePair/(PWM_Freq * 60)) * POW_16)
+/************************************************************************************/
+Float align_volt = appIns.gfloat_alignmentvolt.value * Math.pow(10,-3)
+if (appIns.gcheck_userdefalignconf.value == true)
+{
+	align_volt = appIns.gfloat_udalignmentvolt.value * Math.pow(10,-3)
+}
+
+Float Max_L
+Max_L = (POW_31)/((Speedmaxlim/Math.pow(2,RES_INC)) * (POW_15 * 1))
+
+Integer L_scale
+L_scale = (int)(Math.floor(Math.log(Max_L/L_temp) / Math.log(2)))
+
+Float Omega_l
+Omega_l = L_temp * Math.pow(2, L_scale)
+
+Float inductance_scale = L_temp/inductance * POW_15
+Float l_scale_factor = Math.pow (2, (31 + RES_INC)) / (Speedmaxlim * POW_15)
+Float kp_scale_factor = appIns.gfloat_cutofffreq_id.value * (Speedmaxlim / Math.pow(2, RES_INC))
+
+
+String motor_dir
+if(appIns.gcombo_motordirection.value == "U->V->W (Positive)")
+{
+	motor_dir = "PMSM_FOC_POSITIVE_DIR"
+}
+else
+{
+	motor_dir = "PMSM_FOC_NEGATIVE_DIR"
+}
+pll_max_lim = (appIns.gint_high_speed_target.value + (vf_transition_speed/2))
+
+if(pll_max_lim > 32767)
+{
+       pll_max_lim = 32767
+}
+else if(pll_max_lim < appIns.gint_high_speed_target.value)
+{
+       pll_max_lim = appIns.gint_high_speed_target.value
+}
+else
+{
+       pll_max_lim = (appIns.gint_high_speed_target.value + (vf_transition_speed/2))
+}
+
+Integer kpscale = (int)appIns.gfloat_kp_scale.value
+Integer speed_ctrl = 0;
+if(appIns.gcombo_ctrlschemeconfig.options.indexOf(appIns.gcombo_ctrlschemeconfig.value) == 0)
+{
+  speed_ctrl = 1
+}
+
+Integer Speed_Ik_Lim = (int)((POW_14 << speed_KpKi_scale)) * (speed_ibuflimit/100)
+
+Integer PLL_Ik_Lim = (int)(PLL_ik_Lim << PLL_KpKi_scale) * (estimator_ibuflimit/100)
+
+Integer Current_Ik_Lim = (int)((32767 << kpscale)) * (iq_ibuflimit/100)
+
+/*** Scaling information *************/
+out.print("""
+ /***************************Scaling Details*********************************/
+
+/* Scaling Value for Motor Control Parameters
+
+* ActualValue         = Scale * TargetValue
+
+* Speed Scale         = ${1/speed_scale}
+* Current Scale       = ${1/current_scale}
+* Speed Kp, Ki Scale  = ${1/Math.pow(2, speed_KpKi_scale)}
+* Flux Kp, Ki Scale   = ${1/Math.pow(2, kpscale)}
+* Torque kp, Ki Scale = ${1/Math.pow(2, kpscale)}
+* PLL kp, Ki Scale    = ${1/Math.pow(2, PLL_KpKi_scale)}
+*/
+""");
+
+
+out.print("""
+
+PMSM_FOC_VF_t ${appInst}_Vf =
+{
+ .vf_constant        = ${(int)vf_slew_t}U,
+ .vf_offset          = ${(int)vf_offset_t}U,
+ .vf_threshold_speed = ${(int)threshold_speed},
+ .vf_time            = ${(int)(50000/appIns.gfloat_fclactualtime.value)}U                /* 50 ms time */
+};
+
+PMSM_FOC_PI_Coefs_t ${appInst}_PI_Speed =
+{
+  .error           = 0,
+  .Uk              = 0,
+  .Ik              = 0,
+  .Kp              = ${(int)speed_kp}U,
+  .Ki              = ${(int)speed_ki}U,
+  .Scale_KpKi      = ${(int)speed_KpKi_scale},
+  .Ik_limit_min    = -${(int)Speed_Ik_Lim},
+  .Ik_limit_max    = ${(int)Speed_Ik_Lim},
+  .Uk_limit_min    = ${(int)((16 * speed_ylimit/100))},
+  .Uk_limit_max    = ${(int)((POW_15 * speed_ylimit/100))},
+};
+
+PMSM_FOC_PI_Coefs_t ${appInst}_PI_Torque =
+{
+  .error           = 0,
+  .Uk              = 0,
+  .Ik              = 0,
+  .Kp              = ${(int)iq_kp}U,
+  .Ki              = ${(int)iq_ki}U,
+  .Scale_KpKi      = ${(int)kpscale},
+  .Ik_limit_min    = -${Current_Ik_Lim},
+  .Ik_limit_max    = ${Current_Ik_Lim},
+  .Uk_limit_min    = -${(int)(32767 * (iq_ylimit/100))},
+  .Uk_limit_max    = ${(int)(32767 * (iq_ylimit/100))},
+};
+
+PMSM_FOC_PI_Coefs_t ${appInst}_PI_Flux =
+{
+  .error           = 0,
+  .Uk              = 0,
+  .Ik              = 0,
+  .Kp              = ${(int)id_kp}U,
+  .Ki              = ${(int)id_ki}U,
+  .Scale_KpKi      = ${(int)kpscale},
+  .Ik_limit_min    = -${Current_Ik_Lim},
+  .Ik_limit_max    = ${Current_Ik_Lim},
+  .Uk_limit_min    = -${(int)(32767 * (id_ylimit/100))},
+  .Uk_limit_max    = ${(int)(32767 * (id_ylimit/100))},
+};
+
+PMSM_FOC_PI_Coefs_t ${appInst}_PI_PLL =
+{
+  .error           = 0,
+  .Uk              = 0,
+  .Ik              = 0,
+  .Kp              = ${(int)estimator_kp}U,
+  .Ki              = ${(int)estimator_ki}U,
+  .Scale_KpKi      = ${PLL_KpKi_scale},
+  .Ik_limit_min    = -${(int)PLL_Ik_Lim},
+  .Ik_limit_max    = ${(int)PLL_Ik_Lim},
+  .Uk_limit_min    = ${(int)((int)(vf_transition_speed>>2) * (estimator_ylimit/100))},
+  .Uk_limit_max    = ${(int)((int)pll_max_lim * (estimator_ylimit/100))},
+};
+
+PMSM_FOC_Output_t ${appInst}_Output;
+
+PMSM_FOC_Input_t ${appInst}_Input =
+{
+  .Phase_L        = ${(int)Omega_l}U,
+  .Phase_R        = ${(int)resistance}U,
+  .Phase_L_Scale  = ${(int)L_scale}U,
+  .CCU8_Period    = ${(int)PWM_Count}U,
+  .Res_Inc        = ${(int)RES_INC}U,
+  .LPF_N_BEMF     = 2U,
+  .LPF_N_Speed    = 2U,
+  .Threshold_LOW  = 16U,
+  .Threshold_HIGH = 64U,
+  .Flag_State     = ${boolvalreturn((appIns.gcombo_startup.options.indexOf(appIns.gcombo_startup.value) != 2))}U,
+  .BEMF1          = 0,
+  .BEMF2          = 0U,
+  .Vref32         = 0U,
+  .Vref_AngleQ31  = 0,
+  .I_U            = 0,
+  .I_V            = 0,
+  .I_W            = 0,
+  .Ref_Speed      = 0,
+  .Vq_Flag        = 0,
+  .Vq             = 0,
+  .Ref_Id         = ${(int)current_scale * appIns.gfloat_idset.value},
+  .Ref_Iq         = ${(int)current_scale * appIns.gfloat_iqset.value},
+  .Iq_PI_Flag     = ${["0","1"][appIns.gcombo_ctrlschemeconfig.options.indexOf(appIns.gcombo_ctrlschemeconfig.value)]}U,
+  .RotorAngleQ31  = 0,
+  .RotorSpeed_In  = 0,
+  .Flag_3or2_ADC  = 0U
+};
+
+/*******************************************FOC configuration structures ****************************************/
+
+const PMSM_FOC_Config_t ${appInst}_Config=
+{  
+  .voltage_adc_scale           = ${(int)Voltage_ADC_Scale}U,
+  .pot_scale                   = ${(int)pot_scale}U,
+  .speed_scale                 = ${(int)speed_scale * POW_15}U,
+  .inv_speed_scale             = ${(int)((1/speed_scale) * POW_15)}U,
+  .current_scale               = ${(int)current_scale * POW_15 * Math.pow(10, -3)}U,
+  .inv_current_scale           = ${(int)(1/current_scale) * POW_15 * Math.pow(10, 3)}U,
+  .resistance_scale            = ${(int)((resistance_scale) * Math.pow(10, -3) * POW_15)}U,   
+  .inductance_scale            = ${(int)((inductance_scale) * Math.pow(10, -6)* POW_15)}U, 
+  .config_vf_rampup_rate       = ${(int)vf_ramp_up}U,
+  .config_ramp_up_rate         = ${(int)ramp_up}U,
+  .config_ramp_down_rate       = ${(int)ramp_down}U,
+  .threshold_time_vp           = ${(int)threshold_time_vp}U,
+  .current_amplifier_offset    = ${(int)((amp_bias_volt* TARGET_VALUE)/Vadc_Ref)}U,
+  .bootstrap_time              = ${(int)appIns.gint_bootstarpcount.value}U,
+  .max_dclink_voltage          = ${(int)max_dc_val}U,
+  .min_dclink_voltage          = ${(int)min_dc_val}U,
+  .phase_current_measurement   = (uint8_t)PMSM_FOC_3PHASE,
+  .speed_low_limit             = ${(int)Speedlowlim},
+  .speed_openloop_max_limit    = ${(int)(Speedmaxlim * (appIns.gfloat_olspeedlimit.value / 100))},
+  .speed_openloop_min_limit    = ${(int)(Speedmaxlim * (1 / 100))},
+  .pole_pair                   = ${(int)PolePair}U,
+  .fcl_divider                 = ${fcl_divider}U,
+  .enable_speed_control        = ${speed_ctrl}U,
+  .enable_biasvoltage          = ${boolvalreturn(appIns.gcheck_eampbiasvolt.value)}U,
+  .enable_voltage_compensation = ${boolvalreturn(appIns.gcheck_evoltcomp.value)}U,
+  .enable_pot_measurement      = ${boolvalreturn(appIns.gcheck_epotmeasurement.value)}U,
+  .enable_vfstartup            = ${boolvalreturn((appIns.gcombo_startup.options.indexOf(appIns.gcombo_startup.value) < 3))}U,
+  .enable_over_under_voltage   = ${boolvalreturn(appIns.gcheck_voltage_protect.value)}U,
+  .enable_vd_vq_decoupling     = ${boolvalreturn(appIns.gcheck_vd_vq.value)}U,
+  .enable_direct_foc_startup   = ${boolvalreturn((appIns.gcombo_startup.options.indexOf(appIns.gcombo_startup.value) == 3))}U,
+  .enable_transition           = ${boolvalreturn((appIns.gcombo_startup.options.indexOf(appIns.gcombo_startup.value) == 2))}U,
+  .enable_vf_only              = ${boolvalreturn((appIns.gcombo_startup.options.indexOf(appIns.gcombo_startup.value) == 0))}U,
+};
+
+
+PMSM_FOC_t ${appInst} = 
+{
+  .foc_config_ptr       = &${appInst}_Config,
+  .pwm_svm_ptr          = &${appIns.appres_pwm_svm.getInstanceLabel()},
+  .fcl_config_ptr       = &${appInst}_FCL_InterruptConfig,
+  .trap_config_ptr      = &${appInst}_Trap_InterruptConfig,
+  .vf_startup_ptr       = &${appInst}_Vf,
+""");
+if(appIns.gcheck_evoltcomp.value == true)
+{
+out.print("""
+  .voltcomp_filter_ptr  = &${appInst}_voltcompFilter,
+""")
+}
+out.print("""
+  .adc_config_ptr       = &${appInst}_ADCConfig,
+  .PI_Speed             = &${appInst}_PI_Speed,
+  .PI_Torque            = &${appInst}_PI_Torque,
+  .PI_Flux              = &${appInst}_PI_Flux,
+  .PI_PLL               = &${appInst}_PI_PLL,
+  .FOCInput             = &${appInst}_Input,
+  .FOCOutput            = &${appInst}_Output,
+  .msm_state            = PMSM_FOC_MSM_STOP,
+  .mode_flag            = (uint8_t)PMSM_FOC_FLAG_TRANSITION,
+  .user_speed_set       = ${(int)user_speed},
+  .speed_set_ptr        = &${appInst}.user_speed_set,
+  .bootstrap_index      = 0U,
+  .bootstrap_count      = ${(int)(appIns.gint_bootstarpcount.value * 1000/appIns.gfloat_fclactualtime.value)}U,
+  .motor_speed          = 0,
+  .speed_set            = ${(int)start_speed},
+  .start_speed          = ${(int)start_speed},
+  .angle                = 0U,
+  .amplitude            = 0U,
+  .amplitude_max        = ${PWM_Count}U,
+  .dclink_voltage       = ${(int)DClink_Volt}U,
+  .specified_volt       = ${POW_14}U,
+  .threshold_adc_2shunt = ${threshold_adc_2shunt}U,
+  .motor_direction      = ${motor_dir},
+  .feedback_type        = (uint8_t)PMSM_FOC_SENSORLESS,
+  .state                = (uint8_t)PMSM_FOC_STATE_UNINITIALISED,
+  .ph_v_group           = ${["1", "2"][appIns.gcombo_motordirection.options.indexOf(appIns.gcombo_motordirection.value)]}U,
+  .ph_w_group           = ${["2", "1"][appIns.gcombo_motordirection.options.indexOf(appIns.gcombo_motordirection.value)]}U,
+  .alignment_counter    = 0U,
+  .alignment_time       = ${(int)((appIns.gfloat_preposition.value * 1000)/appIns.gfloat_fclactualtime.value)}U,
+  .alignment_volt       = ${(int)(align_volt/N_vref)*POW_15}U,
+  .alignment_step       = 4U,
+  .met_stable_time      = ${(int)((250 * 1000)/appIns.gfloat_fclactualtime.value)}U,                    /* 0.25 s time */
+  .ramp_counter         = 0U,
+  .vf_ramp_up_rate      = ${((int)vf_ramp_up)}U,
+  .ramp_up_rate         = ${((int)ramp_up)}U,
+  .ramp_down_rate       = ${((int)ramp_down)}U,
+  .ramp_s_ratio         = 4U,
+  .counter              = 0U,
+  .fcl_time             = ${(int)appIns.gfloat_fclactualtime.value}U,
+  .fcl_div_value        = 1U
+};
+
+PMSM_FOC_Output_t   * const FOCOutput = &${appInst}_Output;
+PMSM_FOC_Input_t    * const FOCInput = &${appInst}_Input;
+PMSM_FOC_PI_Coefs_t * const PI_Speed = &${appInst}_PI_Speed;
+PMSM_FOC_PI_Coefs_t * const PI_Flux = &${appInst}_PI_Flux;
+PMSM_FOC_PI_Coefs_t * const PI_Torque = &${appInst}_PI_Torque;
+PMSM_FOC_PI_Coefs_t * const PI_PLL = &${appInst}_PI_PLL;
+
+""");
+
+/******************************************* END : FOC configuration structure ****************************************/
+
+}

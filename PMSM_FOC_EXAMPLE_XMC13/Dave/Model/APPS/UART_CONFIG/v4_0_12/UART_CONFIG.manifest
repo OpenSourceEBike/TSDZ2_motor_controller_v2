@@ -1,0 +1,487 @@
+package Model.APPS.UART_CONFIG.v4_0_12;
+
+/*
+ Copyright (c) 2016-2020, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+ Version     Date          Description
+ 4.0.0       11-Aug-2015   Initial version for DAVEv4           
+ 4.0.1       19-Aug-2015   Removed internal pad consumption
+ 4.0.3       28-Aug-2015   Added support for BRG from external frequency input           
+ 4.0.5       16-Sep-2015   Fixed missing API documentation
+ 4.0.6       22-Dec-2015   Corrected signal visibility and UI<br> 
+ 4.0.8       07-Apr-2016   Changed data lost event from signal to a checkbox in Events tab<br>
+ 4.0.10      03-Nov-2017   Renamed UART_CONFIG_t to UART_CH_CONFIG_t to avoid clash when using simultaneously UART and UART_CONFIG APP. <br>
+                           REQUIRED ACTION: After upgrading the UART_CONFIG APP, in your application code change occurrences of UART_CONFIG_t to UART_CH_CONFIG_t
+ 4.0.12      09-Jan-2021   Modified check for minimum XMCLib version. <BR>
+ *******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class UART_CONFIG extends UART_CONFIG_GUI {
+
+	/* ----------------------Begin : APP Properties------------------------------------------------------ */
+	/* Note  : Following App properties are mandatory and important */
+	/* Begin : APP property section */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version = '4.0.12'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = [
+		'Peripheral Configuration'
+	]
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion = '4.1.2'
+
+	/** 
+	 * Keywords used by search feature in Apps selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords = [
+		'Config',
+		'USIC',
+		'UART',
+		'Communication',
+		'Serial',
+		'Peripheral Configuration',
+		'uart_config',
+		'all'
+	]
+	
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+	def softwareIDs = [
+		"XMC1.1.*.*.*": "4.0.1",
+		"XMC1.2.*.*.*": "4.0.1",
+		"XMC1.3.*.*.*": "4.0.1",
+		"XMC1.4.*.*.*": "4.0.1",
+		"XMC4.1.*.*.*": "4.0.1",
+		"XMC4.2.*.*.*": "4.0.1",
+		"XMC4.3.*.*.*": "4.0.1",
+		"XMC4.4.*.*.*": "4.0.1",
+		"XMC4.5.*.*.*": "4.0.1",
+		"XMC4.7.*.*.*": "4.0.1",
+		"XMC4.8.*.*.*": "4.0.1"
+	]
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */			
+	def singleton = false
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider = true
+
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable = false
+
+	/**
+	 *  App function description.
+	 */
+	def description = "Configures the USIC peripheral to work for the UART protocol."
+
+	/* ----------------End: APP Properties--------------------------------------------------------------- */
+	/* ----------------Begin : User Variables for hardware resources and virtual signals----------------- */    
+	
+	/*Required Apps*/
+	MRequiredApp ra_clock             	      	     	// Consumed clock APP
+	
+	/*Required resource groups*/
+	MVirtualResourceGroup hwres_usic_channel           	// USIC channel hardware resource
+
+	/*Required virtual signals*/
+	MVirtualSignal vs_uart_dx0ins                    	// USIC input stage DX0 input selection DX0INS
+	MVirtualSignal vs_uart_dx1ins                    	// USIC input stage DX1 input selection DX1INS
+	MVirtualSignal vs_uart_dx1ins_sys_out				// USIC DX1INS signal system output
+	MVirtualSignal vs_uart_dx2ins                    	// USIC DX2INS signal system output
+	MVirtualSignal vs_uart_dx2ins_sys_out				// USIC input stage DX2 input selection DX2INS signal system output
+	MVirtualSignal vs_uart_dout0                     	// USIC output DOUT0 signal	
+	MVirtualSignal vs_uart_standard_tx_event         	// Standard buffer transmit event signal
+	MVirtualSignal vs_uart_standard_rx_event         	// Standard buffer receive event signal
+	MVirtualSignal vs_uart_tx_shift_event            	// Transmit shift event signal
+	MVirtualSignal vs_uart_rx_start_event           	// Receive start event signal
+	MVirtualSignal vs_uart_alt_rx_event              	// Standard buffer alternative receive event signal
+	MVirtualSignal vs_uart_proto_specfic_event       	// UART protocol specific event signal
+	MVirtualSignal vs_uart_data_lost_event           	// Data lost event signal
+	MVirtualSignal vs_uart_fifo_tx_event             	// FIFO transmit buffer event signal
+	MVirtualSignal vs_uart_fifo_tx_err_event         	// Transmit FIFO buffer error event signal
+	MVirtualSignal vs_uart_fifo_rx_event             	// FIFO standard receive buffer event signal
+	MVirtualSignal vs_uart_fifo_rx_err_event         	// Receive FIFO buffer error event signal
+	MVirtualSignal vs_uart_fifo_alt_rx_event         	// FIFO alternative receive buffer event signal
+
+	/*Variable definition*/
+	GFloat gfloat_internal_clock = GFloat() 			// The peripheral clock from Clock APP. Used in baud rate calculations
+	GCombo baudrate_registers_values = GCombo()  		// To save the baud rate values
+	
+	/* ----------------End : User Variables for hardware resources and virtual signals------------------- */
+	/* ----------------Begin : APP Constructor and Logic ------------------------------------------------ */
+
+	public UART_CONFIG(DaveEnv daveEnv) {
+		/* -------------------------------------------------------------- */
+		/* --------------Local variables & constants--------------------- */
+		/* -------------------------------------------------------------- */
+		boolean isfamily_4x = false /* Identify if target family is XMC4000 */
+		boolean isfamily_1x = false /* Identify if target family is XMC1000 */
+		
+		/* -------------------------------------------------------------- */
+		/* ------------ Manifest function references -------------------- */
+		/* -------------------------------------------------------------- */
+		/* ------- TAB : General  --------------------------------------- */
+		/* ------- GROUP : Operation Mode  ------------------------------ */
+		MF isnt_mode_LoopBack = MF({gcombo_operation_mode.value != "Loop Back"}, Boolean) 					// MF variable to check if the operation mode is not Loop Back
+		MF is_mode_LoopBack = MF({gcombo_operation_mode.value == "Loop Back"}, Boolean) 					// MF variable to check if the operation mode is not Loop Back
+		MF is_mode_IrDA = MF({gcombo_operation_mode.value == "IrDA"}, Boolean) 								// MF variable to check if the operation mode is IrDA
+		MF is_Collision_Detection_Enabled = MF({ (gcombo_operation_mode.value == "Half Duplex" || 
+			gcombo_operation_mode.value == "IrDA") && 
+			gcombo_dx1_input_stage.value == "Collision Detection"}, Boolean) 								// MF variable to check if the collision detection is enabled
+		MF is_External_Frequency_Input_Enabled = MF({ ((gcombo_operation_mode.value != "Loop Back") && 
+			(gcombo_dx1_input_stage.value == "External Frequency Input"))}, Boolean) 							// MF variable to check if the external frequency input is enabled
+		MF uses_DX0 = MF({((gcombo_operation_mode.value == "Half Duplex") || (gcombo_operation_mode.value == "IrDA")) ||
+				(gcombo_operation_mode.value == "Full Duplex")}, Boolean) 									// MF variable to check if the input stage dx1 is being used
+		MF uses_DX2 = MF({(gcheck_enable_transmit_enable.value == true)}, Boolean)							// MF variable to check if the transmit data validation is enabled
+
+		/* ------- GROUP : Baud rate generation  ------------------------ */
+		MF uses_Internal_Clock = MF({gcombo_clock_selection.value == "Internal Source (FD)"}, Boolean)	  	// MF variable to check if the clock selected is internal
+		MF uses_External_Clock = MF({gcombo_clock_selection.value == "External Source (DX1T)"}, Boolean)  	// MF variable to check if the clock selected is external
+
+		/* ------- TAB : FIFO  ------------------------------------------ */
+		/* ------- GROUP : Tx FIFO Buffer  ------------------------------ */
+		MF is_txFIFO_enabled = MF({gcombo_number_tx_fifo_entries.value != "0"}, Boolean)		// MF variable to check if the transmit FIFO is enabled
+
+		/* ------- GROUP : Rx FIFO Buffer  ------------------------------ */
+		MF is_rxFIFO_enabled = MF({gcombo_number_rx_fifo_entries.value != "0"}, Boolean)		// MF variable to check if the receive FIFO is enabled
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- Target Specific User Variable Initialization ------ */
+		/* -------------------------------------------------------------- */
+		if (daveEnv.project.selectedDevice.deviceId.family == "XMC4") {
+			isfamily_4x = true
+		} else if (daveEnv.project.selectedDevice.deviceId.family == "XMC1") {
+			isfamily_1x = true
+		}
+		
+		/* -------------------------------------------------------------- */
+		/* ------------ APP consumption Block --------------------------- */
+		/* -------------------------------------------------------------- */
+		if(isfamily_4x) {
+			ra_clock = MRequiredApp("CLOCK_XMC4", "Clock APP", RSHARABLE, "4.0.6")
+		} else {
+			ra_clock = MRequiredApp("CLOCK_XMC1", "Clock APP", RSHARABLE, "4.0.6")
+		}
+		
+		/* -------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ------------- */
+		/* -------------------------------------------------------------- */
+		hwres_usic_channel = MVirtualResourceGroup("Channel", ["peripheral", "usic", "*", "channel", "*"])
+
+		/*For Loop Back mode, DX0 input stage should be connected to DOUT0 by connecting DX0INS to DX0G */
+		addRegisterBitFieldConstraint(hwres_usic_channel, "dx0cr_dsel", [6], is_mode_LoopBack)
+		if(isfamily_1x) {
+			addRegisterBitFieldConstraint(hwres_usic_channel, "dx3cr_dsel", [6], is_mode_LoopBack)
+		}
+		
+		addRegisterBitFieldConstraint(hwres_usic_channel, "dx1cr_dsel", MF({
+			/*Connect dx1 to dx0 in collision detection mode*/
+			if((gcombo_operation_mode.value == "Half Duplex" ||
+				gcombo_operation_mode.value == "IrDA") &&
+				gcombo_dx1_input_stage.value == "Collision Detection") {
+				[6]
+			} else {
+				/*Do not allow connection to SCLKOUT (unused in this protocol)*/
+				[0,1,2,3,4]
+			}
+		}, List), true)
+
+		/*For DX2 input do not allow connection to SELO0 (unused in this protocol)*/
+		addRegisterBitFieldConstraint(hwres_usic_channel, "dx2cr_dsel", [0,1,2,3,4,5], true)
+
+		/*Set the size based on UI selection. Refer USIC->TBCTR/RBCTR->SIZE bitfield in reference manual*/
+		addRegisterBitFieldConstraint(hwres_usic_channel, "tbctr_size", MF({[gcombo_number_tx_fifo_entries.options.indexOf(gcombo_number_tx_fifo_entries.value)]}, List), is_txFIFO_enabled)
+		addRegisterBitFieldConstraint(hwres_usic_channel, "rbctr_size", MF({[gcombo_number_rx_fifo_entries.options.indexOf(gcombo_number_rx_fifo_entries.value)]}, List), is_rxFIFO_enabled)
+		
+		/* -------------------------------------------------------------- */
+		/* -------------- APP IO Signals -------------------------------- */
+		/* -------------------------------------------------------------- */
+		vs_uart_dx0ins = MVirtualSignal(hwres_usic_channel, MF({
+			if((gcombo_operation_mode.value == "Half Duplex") || (gcombo_operation_mode.value == "IrDA"))
+			{
+				"half duplex in"
+			}
+			else
+			{
+				"rxd"
+			}
+		},String), "dx0ins", uses_DX0, uses_DX0)
+		vs_uart_dx1ins = MVirtualSignal(hwres_usic_channel, MF({
+			if (gcombo_dx1_input_stage.value == "Collision Detection") {
+					"collision_detection"
+			} else if (gcombo_dx1_input_stage.value == "External Frequency Input") {
+				"clk_in"
+			}
+			else
+			{
+				"dx1ins"
+			}
+		}, String), "dx1ins", is_External_Frequency_Input_Enabled, is_External_Frequency_Input_Enabled)
+		vs_uart_dx1ins_sys_out = MVirtualSignal(hwres_usic_channel, "dx1ins_out", "dx1ins", isfamily_4x, isfamily_4x)
+		vs_uart_dx2ins = MVirtualSignal(hwres_usic_channel, "tx_data_validation", "dx2ins", uses_DX2, uses_DX2)
+		vs_uart_dx2ins_sys_out = MVirtualSignal(hwres_usic_channel, "dx2ins_out", "dx2ins", true, true)
+		vs_uart_dout0 = MVirtualSignal(hwres_usic_channel,MF({
+			if((gcombo_operation_mode.value == "Half Duplex") || (gcombo_operation_mode.value == "IrDA"))
+			{
+				"half duplex out"
+			}
+			else
+			{
+				"txd"
+			}
+			},String), "dout0", isnt_mode_LoopBack, isnt_mode_LoopBack)
+		vs_uart_standard_tx_event   =  MVirtualSignal(hwres_usic_channel, "transmit_buffer_event", "transmit_buffer_int", true, true)
+		vs_uart_standard_rx_event   =  MVirtualSignal(hwres_usic_channel, "standard_receive_event", "standard_receive_int", true, true)
+		vs_uart_tx_shift_event      =  MVirtualSignal(hwres_usic_channel, "transmit_shift_event", "transmit_shift_int", true, true)
+		vs_uart_rx_start_event      =  MVirtualSignal(hwres_usic_channel, "receive_start_event", "receive_start_int", true, true)
+		vs_uart_alt_rx_event        =  MVirtualSignal(hwres_usic_channel, "alternate_receive_event", "alternate_receive_int", true, true)
+		vs_uart_proto_specfic_event =  MVirtualSignal(hwres_usic_channel, "protocol_specific_event", "protocol_specific_int", true, true)
+		vs_uart_fifo_tx_event       =  MVirtualSignal(hwres_usic_channel, "fifo_standard_transmit_buffer_event", "standard_transmit_buffer_int", is_txFIFO_enabled, is_txFIFO_enabled)
+		vs_uart_fifo_tx_err_event   =  MVirtualSignal(hwres_usic_channel, "fifo_transmit_buffer_error_event", "transmit_buffer_error_int", is_txFIFO_enabled, is_txFIFO_enabled)
+		vs_uart_fifo_rx_event       =  MVirtualSignal(hwres_usic_channel, "fifo_standard_receive_buffer_event", "standard_receive_buffer_int", is_rxFIFO_enabled, is_rxFIFO_enabled)
+		vs_uart_fifo_rx_err_event   =  MVirtualSignal(hwres_usic_channel, "fifo_receive_buffer_error_event", "receive_buffer_error_int", is_rxFIFO_enabled, is_rxFIFO_enabled)
+		vs_uart_fifo_alt_rx_event   =  MVirtualSignal(hwres_usic_channel, "fifo_alternate_receive_buffer_event", "alternate_receive_buffer_int", is_rxFIFO_enabled, is_rxFIFO_enabled)
+		
+		/* -------------------------------------------------------------- */
+		/* ---------------- APP IO Connections -------------------------- */
+		/* -------------------------------------------------------------- */
+		addConnectionConstraint(vs_uart_dout0, vs_uart_dx0ins, is_mode_LoopBack)
+		
+		/* ------------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------------ */
+		/* ------------------------------------------------------------- */
+		/* ------- TAB : General  -------------------------------------- */
+		/* ------- GROUP : Operation mode  ----------------------------- */
+		
+		gcombo_dx1_input_stage.options = MF({
+			if (gcombo_operation_mode.value == "Half Duplex" || gcombo_operation_mode.value == "IrDA") {
+				return ["None", "Collision Detection", "External Frequency Input"]
+			} else {
+				return ["None", "External Frequency Input"]
+			}
+		}, List)
+		
+		glabel_type_transmit_data_validation.enabled = uses_DX2
+		gcombo_type_transmit_data_validation.enabled = uses_DX2
+		glabel_transmit_data_validation_trigger_edge.enabled = MF({
+			gcheck_enable_transmit_enable.value == true && 
+			gcombo_type_transmit_data_validation.value == "Transfer on event (DX2T)"
+		}, Boolean)
+		gcombo_transmit_data_validation_trigger_edge.enabled = MF({
+			gcheck_enable_transmit_enable.value == true &&
+			gcombo_type_transmit_data_validation.value == "Transfer on event (DX2T)"
+		}, Boolean)
+		
+		/* ------- GROUP : Protocol Control Settings related configuration */
+		ginteger_pulse_length.enabled = is_mode_IrDA
+		ginteger_pulse_length.maxValue = MF({ 
+			if(ginteger_oversampling.value >= 8) return 7 
+			else return ginteger_oversampling.value 
+			}, Integer) // PCR.PL (Pulse Length) <= BRG.DTCQ
+		ginteger_sample_point.maxValue = MF({ ginteger_oversampling.value }, Integer) // PCR.SP (Sample Point) <= BRG.DTCQ
+
+		ginteger_word_length.maxValue = MF({ ginteger_frame_length.value }, Integer)
+		
+		gmessage_clock_selection.visible = MF({
+			gcombo_clock_selection.value == "External Source (DX1T)" &&
+			gcombo_dx1_input_stage.value != "External Frequency Input"
+		}, Boolean)
+		gmessage_clock_selection.isError = MF({
+			gcombo_clock_selection.value == "External Source (DX1T)" &&
+			gcombo_dx1_input_stage.value != "External Frequency Input"
+		}, Boolean)
+
+		glabel_external_clock_edge.visible = uses_External_Clock
+		gcombo_external_clock_edge.visible = uses_External_Clock
+
+		if(isfamily_4x) {
+			/*Read the peripheral bus clock to derive maximum baudrate value*/
+			gfloat_internal_clock.value = MF({ra_clock.getVal(["gfloat_peribusfreq", "value"])}, Float)
+		} else {
+			/*Read the MCLK value to derive maximum baudrate value*/
+			gfloat_internal_clock.value = MF({ra_clock.getVal(["gfloat_mclkactfrq", "value"])}, Float)
+		}
+		glabel_desired_baud_rate.visible = uses_Internal_Clock
+		ginteger_desired_baud_rate.visible = uses_Internal_Clock
+		ginteger_desired_baud_rate.maxValue = MF({
+			float max_baud
+			if(gfloat_internal_clock.value != null) {
+				max_baud = (((gfloat_internal_clock.value * 1023)/(ginteger_oversampling.value)) * (1000000/1024))
+			} else {
+				max_baud = 0
+			}
+			return (Integer) max_baud
+		}, Integer)
+		gfloat_real_baud_rate.maxValue = MF({(float) ginteger_desired_baud_rate.maxValue}, Float)
+
+		baudrate_registers_values.options = MF({
+			List<String> values = ["0.0f", "0", "0"] // baud_rate, step, pdiv
+			float peripheral_clock
+			int clock_divider = 1023,
+				clock_divider_min,
+				pdiv,
+				pdiv_int,
+				pdiv_int_min,
+				pdiv_frac,
+				pdiv_frac_min,
+				rate,
+				oversampling
+				
+			if(gcombo_clock_selection.value == "Internal Source (FD)") {
+				/* The rate and peripheral clock are divide by 100 to be able to use only 32bit arithmetic */
+				peripheral_clock =  (gfloat_internal_clock.value * 10000)
+				rate = ginteger_desired_baud_rate.value / 100
+				oversampling = ginteger_oversampling.value
+
+				clock_divider_min = 1
+				pdiv_int_min = 1
+				pdiv_frac_min = 1023
+
+				/*Iterate through the entire range of 'step'[1 to 1023]. 0 disables the clock. So excluded.*/
+				/*Iteration is started with 1023 in decreasing order*/
+				while(clock_divider > 0) {
+					/*Derive value of PDIV using baudrate, clock(fFD), DCTQ and intermediate 'step' value*/
+					pdiv = ((peripheral_clock * clock_divider) / (rate * oversampling))
+					pdiv_int = pdiv >> 10/*Divide by 1024 as used in deriving fFD*/
+					pdiv_frac = pdiv & 1023/*Gives the fraction on dividing by PDIV*/
+
+					/*Update the values if the fraction is smaller*/
+					if ((pdiv_int < 1024) && (pdiv_frac < pdiv_frac_min)) {
+						pdiv_frac_min = pdiv_frac
+						pdiv_int_min = pdiv_int
+						clock_divider_min = clock_divider
+					}
+					clock_divider--
+				}
+				/*Calculate the equivalent baudrate obtained using the divider values and clock*/
+				values[0] = String.valueOf((gfloat_internal_clock.value * 1000000L * (clock_divider_min))/((oversampling)*1024*(pdiv_int_min)))
+				values[1] = String.valueOf(clock_divider_min)
+				values[2] = String.valueOf(pdiv_int_min)
+			}
+			return values
+		}, List)
+		
+		ginteger_divider_factor_external_clk.visible = uses_External_Clock
+		glabel_divider_factor_external_clk.visible = uses_External_Clock
+		ginteger_divider_factor_internal_clk.visible = uses_Internal_Clock
+		glabel_divider_factor_internal_clk.visible = uses_Internal_Clock
+		ginteger_divider_factor_internal_clk.value = MF({ Integer.valueOf(baudrate_registers_values.options[2]) + 1}, Integer)
+		glabel_step_value.visible = uses_Internal_Clock
+		ginteger_step_value.visible = uses_Internal_Clock
+		ginteger_step_value.value = MF({ Integer.valueOf(baudrate_registers_values.options[1])}, Integer)
+		glabel_real_baud_rate.visible = uses_Internal_Clock
+		gfloat_real_baud_rate.visible = uses_Internal_Clock
+		gfloat_real_baud_rate.value = MF({ Float.valueOf(baudrate_registers_values.options[0])}, Float)
+		gcheck_baud_rate_event.visible = uses_Internal_Clock	
+	
+		gimage_baud_rate.path = MF({
+			if(gcombo_clock_selection.value == "Internal Source (FD)") {
+				"doc/UART_CONFIG_BRG_internal_clk.jpg"
+			} else { // gcombo_clock_selection.value == "External Source (DX1T)"
+				"doc/UART_CONFIG_BRG_external_clk.jpg"
+			}
+		}, String)
+
+		/* ------- TAB : Control  -------------------------------------- */
+		gcheck_collision_detection_event.enabled = is_Collision_Detection_Enabled
+
+		/* ------- TAB : FIFO  ----------------------------------------- */
+		/* ------- GROUP : Tx FIFO Buffer  ----------------------------- */
+		glabel_tx_fifo_data_pointer.enabled = is_txFIFO_enabled
+		ginteger_tx_fifo_data_pointer.value = MF({ hwres_usic_channel.getRegValue("TBCTR", "tbctr_dptr") }, Integer)
+
+		/* ------- GROUP : Tx FIFO events  ----------------------------- */
+		ggroup_tx_fifo_interrupts_conf.enabled = is_txFIFO_enabled
+		ginteger_limit_for_transmit_events.maxValue = MF({ 
+			if(gcombo_number_tx_fifo_entries.value != "0") {
+				return Integer.parseInt(gcombo_number_tx_fifo_entries.value) - 1
+			} else {
+				return 0 
+			}
+		}, Integer)
+		
+		/* ------- GROUP : Rx FIFO Buffer  ----------------------------- */
+		glabel_rx_fifo_data_pointer.enabled = is_rxFIFO_enabled
+		ginteger_rx_fifo_data_pointer.value = MF({ hwres_usic_channel.getRegValue("RBCTR", "rbctr_dptr") }, Integer)
+		
+		/* ------- GROUP : Rx FIFO events  ----------------------------- */
+		ggroup_rx_fifo_events_conf.enabled = is_rxFIFO_enabled
+		ginteger_limit_for_receive_events.maxValue = MF({ 
+			if(gcombo_number_rx_fifo_entries.value != "0") {
+				return Integer.parseInt(gcombo_number_rx_fifo_entries.value) - 1
+			} else {
+				return 0 
+			}
+		}, Integer)
+	}
+	/* -----------------End : APP Constructor and Logic-------------------------------------------------- */
+	/* -----------------Begin: File Generation----------------------------------------------------------- */
+	def generateFiles() {
+		copy("uart_config.c", "uart_config.c")
+		copy("uart_config.h", "uart_config.h")
+		generate("uart_config_confc.tmpl", "uart_config_conf.c")
+		generate("uart_config_confh.tmpl", "uart_config_conf.h")
+		generate("uart_config_extern.tmpl", "uart_config_extern.h")
+	}
+	/* -----------------End: File Generation------------------------------------------------------------- */
+}

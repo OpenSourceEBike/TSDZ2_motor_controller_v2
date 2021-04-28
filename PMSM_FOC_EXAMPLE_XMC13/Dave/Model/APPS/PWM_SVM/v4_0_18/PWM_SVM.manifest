@@ -1,0 +1,1052 @@
+package Model.APPS.PWM_SVM.v4_0_18;
+
+/*
+ *  * Copyright (c) 2015, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ */
+/*************** Revision History **********************************************
+ Version       Date        Description //Retain this format
+ 4.0.0     15-Feb-2015     1.Initial version<br>   
+ 4.0.1     20-Feb-2015     1.Help document update <br>
+ 4.0.5     20-Jun-2015     1.DC link current trigger is updated.<br>
+                           2.max_amplitude updated when PWM scheme is changed
+ 4.0.7     14-July-2015    1. Required APP minimum version updated<br/>   
+ 4.0.9     01-Oct-2015     1. PWM_SVM_SVMUPdate function updated to accept amplitude in target value (14-bit) <br>
+                           2. Over-modulation feature implementation is changed <br>
+                           3. 7-seg asymmetric, 5-seg asymmetric, pseudo null vector SVM scheme support is removed for this release <br>
+ 4.0.13    18-Oct-2015     1. Current trigger offset calculation updated in PWM_SVM_Start()   
+ 4.0.15    20-Oct-2015     1. 'to' is initialized with period value <br>   
+ 4.0.17    21-Oct-2015     1. bug fix:scheme selection function pointer updation in conf.c<br>  
+ 4.0.18    04-Aug-2015     1. APP version updated for PR.<br/>                 
+ *******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class  PWM_SVM extends PWM_SVM_GUI {
+
+	 /* Note  : Following APP properties are mandatory and important */
+	 
+	 /* Begin : APP property section */
+	
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.18'
+	
+	/**
+	 * APP categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Motor Control/PWM Generation"] 
+
+	/** 
+	 * Minimum DAVE version required for this APP.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+	
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords      = [
+	   "Motor",
+	   "Motor Control",
+	   "Drive",
+	   "PWM",
+	   "SVM",
+	   "FOC",
+	   "field oriented control",
+	   "sine",
+	   "commutation",
+	   "CCU8",
+	   "all"]
+	
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 * Any step , any variant and any packages of XMC4500, XMC4400, XMC4200 and XMC4100
+	 * Any step, any variant of XMC1300 except T016 package
+	 */
+	def softwareIDs   = [
+			"XMC1.3.*.(Q024|Q040|T038).*":"1.0.0",
+			"XMC4.5.*.*.*":"1.0.0",
+			"XMC4.4.*.*.*":"1.0.0",
+			"XMC4.2.*.*.*":"1.0.0",
+			"XMC4.1.*.*.*":"1.0.0"
+			]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once. 
+	 */
+	def singleton     = false
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+	
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+	
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "Generates 3-phase space vector pulse width modulated \noutputs using CCU8. It supports symmetric \n 7-segment/5-segment SVM algorithm."
+	
+	/* End   : APP property section */
+	
+	/* Begin : User APP property section */
+	MVirtualResourceGroup hwres_ccu8_config_a
+	MVirtualResourceGroup hwres_ccu8_config_b
+	MVirtualResourceGroup hwres_ccu8_config_c
+	MVirtualResourceGroup hwres_ccu8_config_d
+	
+	MVirtualResourceGroup hwres_port_pad_phuhigh
+	MVirtualResourceGroup hwres_port_pad_phulow
+	MVirtualResourceGroup hwres_port_pad_phvhigh
+	MVirtualResourceGroup hwres_port_pad_phvlow
+	MVirtualResourceGroup hwres_port_pad_phwhigh
+	MVirtualResourceGroup hwres_port_pad_phwlow
+	MVirtualResourceGroup hwres_port_pad_trap
+	MVirtualResourceGroup hwres_port_pad_inverterenable
+  
+	MRequiredApp appres_global_ccu8_app0
+  
+	//Global Signal
+	MVirtualSignal vs_pwm_svm_globalsignal_phu
+	MVirtualSignal vs_pwm_svm_globalsignal_phv
+	MVirtualSignal vs_pwm_svm_globalsignal_phw
+	MVirtualSignal vs_pwm_svm_globalsignal_currenttrig
+	
+	//Event0 -- External Start
+	MVirtualSignal vs_pwm_svm_gp0_unsync_phu
+	MVirtualSignal vs_pwm_svm_gp0_unsync_phv
+	MVirtualSignal vs_pwm_svm_gp0_unsync_phw
+	MVirtualSignal vs_pwm_svm_gp0_unsync_currenttrig
+	//Event2 -- Trap
+	MVirtualSignal vs_pwm_svm_gp2_unsync_phu
+	MVirtualSignal vs_pwm_svm_gp2_unsync_phv
+	MVirtualSignal vs_pwm_svm_gp2_unsync_phw
+	MVirtualSignal vs_pwm_svm_gp2_unsync_currenttrig
+	//Period Match interrupt
+	MVirtualSignal vs_pwm_svm_pmus_omds_phu
+	MVirtualSignal vs_pwm_svm_pmus_omds_phv
+	MVirtualSignal vs_pwm_svm_pmus_omds_phw
+	MVirtualSignal vs_pwm_svm_pmus_omds_currenttrig
+	//Compare Match interrupt
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch1_phu
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch1_phv
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch1_phw
+	MVirtualSignal vs_pwm_svm_op_cmds_cmus_cmpch1_phv
+	MVirtualSignal vs_pwm_svm_op_cmds_cmus_cmpch1_phw
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch1_currenttrig
+	
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch2_phu
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch2_phv
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch2_phw
+	MVirtualSignal vs_pwm_svm_cmds_cmus_cmpch2_currenttrig
+	
+	//Trap interrupt
+	MVirtualSignal vs_pwm_svm_e2as_phu
+	MVirtualSignal vs_pwm_svm_e2as_phv
+	MVirtualSignal vs_pwm_svm_e2as_phw
+	MVirtualSignal vs_pwm_svm_e2as_currenttrig
+	//STA
+	MVirtualSignal vs_pwm_svm_sta_phu
+	MVirtualSignal vs_pwm_svm_sta_phv
+	MVirtualSignal vs_pwm_svm_sta_phw
+	MVirtualSignal vs_pwm_svm_op_sta_phv
+	MVirtualSignal vs_pwm_svm_op_sta_phw
+	MVirtualSignal vs_pwm_svm_sta_currenttrig
+	//STB
+	MVirtualSignal vs_pwm_svm_stb_phu
+	MVirtualSignal vs_pwm_svm_stb_phv
+	MVirtualSignal vs_pwm_svm_stb_phw
+	MVirtualSignal vs_pwm_svm_stb_currenttrig
+	//STATUS
+	MVirtualSignal vs_pwm_svm_st_phu
+	MVirtualSignal vs_pwm_svm_st_phv
+	MVirtualSignal vs_pwm_svm_st_phw
+	MVirtualSignal vs_pwm_svm_st_currenttrig
+	//OUT0
+	MVirtualSignal vs_pwm_svm_out0_phu
+	MVirtualSignal vs_pwm_svm_out0_phv
+	MVirtualSignal vs_pwm_svm_out0_phw
+	MVirtualSignal vs_pwm_svm_out0_op_phv
+	MVirtualSignal vs_pwm_svm_out0_op_phw
+	//OUT1
+	MVirtualSignal vs_pwm_svm_out1_phu
+	MVirtualSignal vs_pwm_svm_out1_phv
+	MVirtualSignal vs_pwm_svm_out1_phw
+	MVirtualSignal vs_pwm_svm_out1_op_phv
+	MVirtualSignal vs_pwm_svm_out1_op_phw
+	//Pad signals
+	MVirtualSignal vs_pwm_svm_pin_phu_high
+	MVirtualSignal vs_pwm_svm_pin_phu_low
+	MVirtualSignal vs_pwm_svm_pin_phv_high
+	MVirtualSignal vs_pwm_svm_pin_phv_low
+	MVirtualSignal vs_pwm_svm_pin_phw_high
+	MVirtualSignal vs_pwm_svm_pin_phw_low
+	
+	MVirtualSignal vs_pwm_svm_pin_trap
+	MVirtualSignal vs_pwm_svm_pin_inverter
+	MVirtualSignalRA vs_global_ccu8_global
+	MVirtualSignalRA vs_global_ccu8_gsc_enable
+	
+  
+	/* Solver variables */
+	SolverVariable sv_svm_phu_high_out = SolverVariable()
+	SolverVariable sv_svm_phu_low_out = SolverVariable()
+	SolverVariable sv_svm_phv_high_out = SolverVariable()
+	SolverVariable sv_svm_phv_low_out = SolverVariable()
+	SolverVariable sv_svm_phw_high_out = SolverVariable()
+	SolverVariable sv_svm_phw_low_out = SolverVariable()
+	SolverVariable sv_svm_current_trig_ch1 = SolverVariable()
+	SolverVariable sv_svm_current_trig_ch2 = SolverVariable()
+	
+	SolverVariable sv_phu_cmp = SolverVariable()
+	SolverVariable sv_phv_cmp = SolverVariable()
+	SolverVariable sv_phw_cmp = SolverVariable()
+	SolverVariable sv_phcurrentTrig_cmp = SolverVariable()
+	
+	SolverVariable sv_phu_st = SolverVariable()
+	SolverVariable sv_phv_st = SolverVariable()
+	SolverVariable sv_phw_st = SolverVariable()
+	
+	/*********************************Template variable ****************************************************/
+	GFloat   gfloat_clkdiv    = GFloat(value:0.0)
+	GFloat   gfloat_clock     = GFloat(value:0.0)
+	GInteger gint_prescaler      = GInteger(value:0)
+	GInteger gint_deadtimecount_rising_edge = GInteger(value:0)
+	GInteger gint_deadtimecount_falling_edge = GInteger(value:0)
+	GInteger gint_deadtimeprescaler = GInteger(value:0)
+	GInteger gint_maxamp = GInteger(value:0)
+	GInteger gint_tmincount = GInteger(value:0)
+	GInteger gint_svmconf = GInteger(value:0)
+	GInteger gint_svmtype = GInteger(value:0)
+	GInteger gint_inverterpin = GInteger(value:0)
+	GInteger gint_frequency = GInteger(value:0)
+	GInteger gint_current_offset = GInteger(widgetName: "Current Offset",value:0,min:0,max:65535);
+	GInteger gint_index = GInteger(value:0)
+	
+	/* End   : User APP property section */
+
+	/* APP Constructor */
+	public PWM_SVM(DaveEnv daveEnv) {
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- Target Specific User Variable Initialization ------ */
+		/* -------------------------------------------------------------- */
+	  String  SubDevicefamily = null
+	  Boolean Ic_Package      = false
+	  String device           = null
+	  
+	  int PWMSVM_DT_REG_MAX = 255
+	  int PWMSVM_DT_PRESCALER_MAX = 3
+	  int PWMSVM_PRESCALER_MAX = 15
+	  
+		/*device selection*/
+		if (daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+		{
+		  if (daveEnv.project.selectedDevice.deviceId.series == "5")
+		  {
+			SubDevicefamily = "4.5"
+		  } else if ((daveEnv.project.selectedDevice.deviceId.series == "2") || (daveEnv.project.selectedDevice.deviceId.series == "1")) 
+		  {
+		    SubDevicefamily = "4.2"
+			if (daveEnv.project.selectedDevice.deviceId.icPackage == "Q48")
+			{
+			  Ic_Package = true
+		    }
+		  }
+		} else if (daveEnv.project.selectedDevice.deviceId.series == "3") 
+		{
+		  SubDevicefamily = "1.3"
+		  device = daveEnv.project.selectedDevice.deviceId.device
+		}
+		
+		/*index rearrangement*/
+		gint_index.value  = MF({
+							     if(gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value) == 2)
+								 {
+								   return 1
+								 }
+								 else if(gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value) == 1)
+								 {
+		/*since asymmetric and pseudozero vector SVM is disabled(hided) in GUI following change is done as return 1*/
+								   /*return 2*/
+								   return 1 
+								 }
+								 else
+								 {
+									return gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)
+								 }
+							   },Integer)
+		/*Local MF Functions*/
+		MF DCLINK_CURRENT_ENABLED     = MF({return (gcombo_externaltrigger.value == "DC Link Current Measurement")}, Boolean)
+		MF EXT_TRIGGER_ENABLED        = MF({return (gcombo_externaltrigger.value != "None")}, Boolean)
+		
+		MF CHANNEL_OPTIMIZE_DISABLE   = MF({return ((gint_index.value > 1) || (gcheck_optimization.value == false))}, Boolean)
+		MF CHANNEL_OPTIMIZED          = MF({return ((gint_index.value < 2) && (gcheck_optimization.value == true))}, Boolean)
+		
+		/******************* Solver Variables and URI Constraint **************************************/
+		
+		SolverConstraint PhUout0Range = UriElementRange(sv_svm_phu_high_out, ["out0"])
+		SolverConstraint PhUout1Range = UriElementRange(sv_svm_phu_low_out, ["out1"])
+		SolverConstraint PhUout2Range = UriElementRange(sv_svm_phu_high_out, ["out2"])
+		SolverConstraint PhUout3Range = UriElementRange(sv_svm_phu_low_out, ["out3"])
+		
+		addIfAndOnlyIfConstraint(PhUout0Range, PhUout1Range)
+		addIfAndOnlyIfConstraint(PhUout2Range, PhUout3Range)
+		
+		SolverConstraint PhVout0Range = UriElementRange(sv_svm_phv_high_out, ["out0"])
+		SolverConstraint PhVout1Range = UriElementRange(sv_svm_phv_low_out, ["out1"])
+		SolverConstraint PhVout2Range = UriElementRange(sv_svm_phv_high_out, ["out2"])
+		SolverConstraint PhVout3Range = UriElementRange(sv_svm_phv_low_out, ["out3"])
+		
+		addIfAndOnlyIfConstraint(PhVout0Range, PhVout1Range)
+		addIfAndOnlyIfConstraint(PhVout2Range, PhVout3Range)
+		
+		SolverConstraint PhWout0Range = UriElementRange(sv_svm_phw_high_out, ["out0"])
+		SolverConstraint PhWout1Range = UriElementRange(sv_svm_phw_low_out, ["out1"])
+		SolverConstraint PhWout2Range = UriElementRange(sv_svm_phw_high_out, ["out2"])
+		SolverConstraint PhWout3Range = UriElementRange(sv_svm_phw_low_out, ["out3"])
+		
+		addIfAndOnlyIfConstraint(PhWout0Range, PhWout1Range)
+		addIfAndOnlyIfConstraint(PhWout2Range, PhWout3Range)
+		
+		SolverConstraint PhCurrent0Range = UriElementRange(sv_svm_current_trig_ch1, ["out0"])
+		SolverConstraint PhCurrent1Range = UriElementRange(sv_svm_current_trig_ch2, ["out1"])
+		SolverConstraint PhCurrent2Range = UriElementRange(sv_svm_current_trig_ch1, ["out2"])
+		SolverConstraint PhCurrent3Range = UriElementRange(sv_svm_current_trig_ch2, ["out3"])
+		
+		addIfAndOnlyIfConstraint(PhCurrent0Range, PhCurrent1Range)
+		addIfAndOnlyIfConstraint(PhCurrent2Range, PhCurrent3Range)
+	
+		addUriElementRangeConstraint(sv_svm_phu_high_out,["out0","out2"])
+		addUriElementRangeConstraint(sv_svm_phu_low_out,["out1","out3"])
+		
+		addUriElementRangeConstraint(sv_svm_phv_high_out,["out0","out2"])
+		addUriElementRangeConstraint(sv_svm_phv_low_out,["out1","out3"])
+		
+		addUriElementRangeConstraint(sv_svm_phw_high_out,["out0","out2"])
+		addUriElementRangeConstraint(sv_svm_phw_low_out,["out1","out3"])
+		
+		addUriElementRangeConstraint(sv_svm_current_trig_ch1,["out0","out2"])
+		addUriElementRangeConstraint(sv_svm_current_trig_ch2,["out1","out3"])
+		
+		addUriElementRangeConstraint(sv_phu_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+		addUriElementRangeConstraint(sv_phv_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+		addUriElementRangeConstraint(sv_phw_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+		
+		SolverConstraint PhUCmp0 = UriElementRange(sv_phu_cmp, ["cmd1s_cmu1s"])
+		SolverConstraint PhUCmp1 = UriElementRange(sv_phu_cmp, ["cmd2s_cmu2s"])
+		
+		SolverConstraint PhVCmp0 = UriElementRange(sv_phv_cmp, ["cmd1s_cmu1s"])
+		SolverConstraint PhVCmp1 = UriElementRange(sv_phv_cmp, ["cmd2s_cmu2s"])
+		
+		SolverConstraint PhWCmp0 = UriElementRange(sv_phw_cmp, ["cmd1s_cmu1s"])
+		SolverConstraint PhWCmp1 = UriElementRange(sv_phw_cmp, ["cmd2s_cmu2s"])
+		
+		SolverConstraint PhCurrent0Cmp = UriElementRange(sv_phcurrentTrig_cmp, ["cmd1s_cmu1s"])
+		SolverConstraint PhCurrent1Cmp = UriElementRange(sv_phcurrentTrig_cmp, ["cmd2s_cmu2s"])
+		
+		addIfAndOnlyIfConstraint(PhUout0Range, PhUCmp0)
+		addIfAndOnlyIfConstraint(PhUout2Range, PhUCmp1)
+		
+		addIfAndOnlyIfConstraint(PhVout0Range, PhVCmp0)
+		addIfAndOnlyIfConstraint(PhVout2Range, PhVCmp1)
+		
+		addIfAndOnlyIfConstraint(PhWout0Range, PhWCmp0)
+		addIfAndOnlyIfConstraint(PhWout2Range, PhWCmp1)
+		
+		addIfAndOnlyIfConstraint(PhCurrent0Range, PhCurrent0Cmp)
+		addIfAndOnlyIfConstraint(PhCurrent2Range, PhCurrent1Cmp)
+		
+		SolverConstraint PhUSta = UriElementRange(sv_phu_st, ["sta"])
+		SolverConstraint PhVSta = UriElementRange(sv_phv_st, ["sta"])
+		SolverConstraint PhWSta = UriElementRange(sv_phw_st, ["sta"])
+		SolverConstraint PhUStb = UriElementRange(sv_phu_st, ["stb"])
+		SolverConstraint PhVStb = UriElementRange(sv_phv_st, ["stb"])
+		SolverConstraint PhWStb = UriElementRange(sv_phw_st, ["stb"])
+		
+		addIfAndOnlyIfConstraint(PhUout0Range, PhUSta)
+		addIfAndOnlyIfConstraint(PhVout0Range, PhVSta)
+		addIfAndOnlyIfConstraint(PhWout0Range, PhWSta)
+		
+		/* stb signal is not available for XMC13 device */
+		if(SubDevicefamily != "1.3")
+		{
+		  addIfAndOnlyIfConstraint(PhUout2Range, PhUStb)
+		  addIfAndOnlyIfConstraint(PhVout2Range, PhVStb)
+		  addIfAndOnlyIfConstraint(PhWout2Range, PhWStb)
+		}
+		
+	
+		/* ---------------------------------------------------------- ------------------------------------------------------------------*/
+		/* ------------ APP consumption Block ----------------------------------------------------------------------------------------- */
+		/* ---------------------------------------------------------------------------------------------------------------------------- */
+		appres_global_ccu8_app0    = MRequiredApp("GLOBAL_CCU8","Global CCU8", RSHARABLE, "4.0.2")
+		
+		/* ----------------------------------------------------------------------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ---------------------------------------------------------------------------- */
+		/* ----------------------------------------------------------------------------------------------------------------------------- */
+		hwres_ccu8_config_a =  MVirtualResourceGroup(MF({
+													  if(gcheck_optimization.value == true)
+													  {
+														return  "PhUV Slice"
+													  } 
+													  else 
+													  {
+														return "PhU Slice"
+													  }
+													}, String), ["peripheral", "ccu8", "*", "cc8", "*"])
+		hwres_ccu8_config_b =  MVirtualResourceGroup(MF({
+													   if(gcheck_optimization.value == true)
+													   {
+														return "PhW Slice"
+													   } 
+													   else 
+													   {
+													     return "PhV Slice"
+													   }
+													 }, String), ["peripheral", "ccu8", "*", "cc8", "*"])
+		
+		/* CCU8 config C will be consumed for asymmetric mode or symmetric mode with no optimization */
+		hwres_ccu8_config_c =  MVirtualResourceGroup("PhW Slice", ["peripheral", "ccu8", "*", "cc8", "*"],CHANNEL_OPTIMIZE_DISABLE)
+		/* CCU8 config D will be consumed for asymmetric mode
+		 * symmetric mode without optimization
+		 * symmetric mode with DC link measurement with or without optimization*/
+		hwres_ccu8_config_d =  MVirtualResourceGroup("CCU8 ADC trigger Slice", ["peripheral", "ccu8", "*", "cc8", "*"],EXT_TRIGGER_ENABLED)
+	
+			/*PWM port pin consumption*/
+		hwres_port_pad_phuhigh = MVirtualResourceGroup("PhaseU_High Pin", ["port", "p", "*", "pad", "*"])
+		hwres_port_pad_phulow  = MVirtualResourceGroup("PhaseU_Low Pin",  ["port", "p", "*", "pad", "*"])
+		hwres_port_pad_phvhigh = MVirtualResourceGroup("PhaseV_High Pin", ["port", "p", "*", "pad", "*"])
+		hwres_port_pad_phvlow  = MVirtualResourceGroup("PhaseV_Low Pin",  ["port", "p", "*", "pad", "*"])
+		hwres_port_pad_phwhigh = MVirtualResourceGroup("PhaseW_High Pin", ["port", "p", "*", "pad", "*"])
+		hwres_port_pad_phwlow  = MVirtualResourceGroup("PhaseW_Low Pin",  ["port", "p", "*", "pad", "*"])
+		
+		/*Trap port pin consumption*/
+		hwres_port_pad_trap     = MVirtualResourceGroup("Trap Pin", ["port", "p", "*", "pad", "*"], MF({return (gcombo_traplevelsel.value != "Disabled")}, Boolean))
+		
+		/*Inverter port pin consumption*/
+		hwres_port_pad_inverterenable = MVirtualResourceGroup("Inverter Enable Pin", ["port", "p", "*", "pad", "*"], MF({return (gcombo_invlevelsel.value  != "Disabled")}, Boolean))
+		
+		
+		/* --------------------------------------------------------------------------------------------------------------------------- */
+		/* ----------------------------------------------- APP IO Signals ------------------------------------------------------------ */
+		/* --------------------------------------------------------------------------------------------------------------------------- */
+		/*********************************VirtualSignal********************************************/
+		/*CCU8 global signal consumption*/
+		vs_pwm_svm_globalsignal_phu              = MVirtualSignal(hwres_ccu8_config_a,MF({
+													  if(gcheck_optimization.value == true)
+													  {
+													    return "ph_uv_global_signal"
+													  } 
+													  else 
+												      {
+													    return "ph_u_global_signal"
+													  }
+													}, String),"global_signal", true, false)
+		
+		vs_pwm_svm_globalsignal_phv              = MVirtualSignal(hwres_ccu8_config_b,MF({
+													  if(gcheck_optimization.value == true)
+													  {
+													    return "ph_w_global_signal"
+													  } 
+													  else 
+													  {
+													    return "ph_v_global_signal"
+													  }
+													}, String),"global_signal", true, false)
+		
+		vs_pwm_svm_globalsignal_phw              = MVirtualSignal(hwres_ccu8_config_c,"ph_w_global_signal","global_signal", CHANNEL_OPTIMIZE_DISABLE, false)
+		vs_pwm_svm_globalsignal_currenttrig      = MVirtualSignal(hwres_ccu8_config_d,"adc_trigger_global_signal","global_signal", EXT_TRIGGER_ENABLED, false)
+		
+		/*external start signal consumption*/
+		vs_pwm_svm_gp0_unsync_phu                 = MVirtualSignal(hwres_ccu8_config_a,MF({
+													 if(gcheck_optimization.value == true)
+													 {
+														return "ph_uv_external_start"
+													 }
+													 else
+													 {
+														return "ph_u_external_start"
+													 }
+													}, String) ,"gp0_unsync", true, true)
+		
+		vs_pwm_svm_gp0_unsync_phv                 = MVirtualSignal(hwres_ccu8_config_b,MF({
+													  if(gcheck_optimization.value == true)
+													  {
+													    return "ph_w_external_start"
+													  }
+													  else
+													  {
+														return "ph_v_external_start"
+													  }
+													}, String),"gp0_unsync", true, true)
+		
+		vs_pwm_svm_gp0_unsync_phw                 = MVirtualSignal(hwres_ccu8_config_c,"ph_w_external_start","gp0_unsync",CHANNEL_OPTIMIZE_DISABLE, true)
+		vs_pwm_svm_gp0_unsync_currenttrig         = MVirtualSignal(hwres_ccu8_config_d,"current_trigger_external_start","gp0_unsync",EXT_TRIGGER_ENABLED, true)
+	
+		/*external event 2 signal consumption*/
+		vs_pwm_svm_gp2_unsync_phu                 = MVirtualSignal(hwres_ccu8_config_a,MF({
+													   if(gcheck_optimization.value == true)
+													   {
+														 return "ph_uv_trap"
+													   }
+													   else
+													   {
+													     return "ph_u_trap"
+													   }
+													 }, String),"gp2_unsync",  MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean), false)
+		
+		vs_pwm_svm_gp2_unsync_phv                 = MVirtualSignal(hwres_ccu8_config_b,MF({
+													   if(gcheck_optimization.value == true)
+													   {
+														 return "ph_w_trap"
+													   }
+													   else
+													   {
+													     return "ph_v_trap"
+													   }
+													 }, String),"gp2_unsync",  MF({(gcombo_traplevelsel.value != "Disabled")},Boolean), false)
+		
+		vs_pwm_svm_gp2_unsync_phw                 = MVirtualSignal(hwres_ccu8_config_c,"ph_w_trap","gp2_unsync",CHANNEL_OPTIMIZE_DISABLE, false)
+		vs_pwm_svm_gp2_unsync_currenttrig         = MVirtualSignal(hwres_ccu8_config_d,"trigger_trap","gp2_unsync",EXT_TRIGGER_ENABLED, true)
+		
+		/*period match/one match signal consumption*/
+		vs_pwm_svm_pmus_omds_phu                  = MVirtualSignal(hwres_ccu8_config_a,MF({
+													   if(gcheck_optimization.value == true)
+													   {
+													     return "event_ph_uv_period/one_match"
+													   }
+													   else
+													   {
+														 return "event_ph_u_period/one_match"
+													   }
+													 }, String),"pmus_omds", true, true)
+		
+		vs_pwm_svm_pmus_omds_phv                  = MVirtualSignal(hwres_ccu8_config_b,MF({
+													   if(gcheck_optimization.value == true)
+													   {
+													     return "event_ph_w_period/one_match"
+													   }
+													   else
+													   {
+													     return "event_ph_v_period/one_match"
+													   }
+													 }, String),"pmus_omds", true, true)
+		
+		vs_pwm_svm_pmus_omds_phw                  = MVirtualSignal(hwres_ccu8_config_c,"event_ph_w_period/one_match","pmus_omds",CHANNEL_OPTIMIZE_DISABLE, true)
+		
+		vs_pwm_svm_pmus_omds_currenttrig          = MVirtualSignal(hwres_ccu8_config_d,MF({
+													     if((gcombo_externaltrigger.value == "2 Phase Current Measurement") || (gcombo_externaltrigger.value == "3 Phase Current Measurement"))
+													     {
+													       return "adc_trigger_period/one_match"
+													     }
+													     else
+													     {
+													       return "event_trigger_period/one_match"
+													     }
+													   }, String),"pmus_omds", EXT_TRIGGER_ENABLED, true)
+		
+		/*compare match signal consumption*/
+		vs_pwm_svm_cmds_cmus_cmpch1_phu           = MVirtualSignal(hwres_ccu8_config_a,"event_ph_u_compare_match_up/down",sv_phu_cmp, true, true)
+		vs_pwm_svm_cmds_cmus_cmpch1_phv           = MVirtualSignal(hwres_ccu8_config_b,"event_ph_v_compare_match_up/down",sv_phv_cmp, CHANNEL_OPTIMIZE_DISABLE, true)
+		vs_pwm_svm_cmds_cmus_cmpch1_phw           = MVirtualSignal(hwres_ccu8_config_c,"event_ph_w_compare_match_up/down",sv_phw_cmp, CHANNEL_OPTIMIZE_DISABLE, true)
+		
+		vs_pwm_svm_cmds_cmus_cmpch1_currenttrig   = MVirtualSignal(hwres_ccu8_config_d,MF({
+													     if(gcombo_externaltrigger.value == "DC Link Current Measurement")
+													     {
+													       return "adc_current_trigger_compare_match1_up/down"
+													     }
+													     else
+													     {
+													       return "event_current_trigger_compare_match1_up/down"
+													     }
+													   }, String),"cmd1s_cmu1s",MF({return (!(gcombo_externaltrigger.value == "None"))}, Boolean), true)
+		
+		/* If optimization is enabled  */
+		vs_pwm_svm_op_cmds_cmus_cmpch1_phv         = MVirtualSignal(hwres_ccu8_config_a,"event_ph_v_compare_match_up/down",sv_phv_cmp, CHANNEL_OPTIMIZED, true)
+		vs_pwm_svm_op_cmds_cmus_cmpch1_phw         = MVirtualSignal(hwres_ccu8_config_b,"event_ph_w_compare_match_up/down",sv_phw_cmp, CHANNEL_OPTIMIZED, true)
+		
+		/*compare match channel 2 signal consumption*/
+		vs_pwm_svm_cmds_cmus_cmpch2_phu           = MVirtualSignal(hwres_ccu8_config_a,"event_ph_u_compare_match2_up/down","cmd2s_cmu2s",
+															  MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_cmds_cmus_cmpch2_phv           = MVirtualSignal(hwres_ccu8_config_b,"event_ph_v_compare_match2_up/down","cmd2s_cmu2s",
+															  MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_cmds_cmus_cmpch2_phw           = MVirtualSignal(hwres_ccu8_config_c,"event_ph_w_compare_match2_up/down","cmd2s_cmu2s",
+															  MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_cmds_cmus_cmpch2_currenttrig   = MVirtualSignal(hwres_ccu8_config_d,MF({
+													   if(gcombo_externaltrigger.value == "DC Link Current Measurement")
+													   {
+													     return "adc_current_trigger_compare_match2_up/down"
+													   }
+													   else
+													   {
+													     return "event_current_trigger_compare_match2_up/down"
+													   }
+													 }, String),"cmd2s_cmu2s",DCLINK_CURRENT_ENABLED, true)
+	
+		/*Trap event interrupt signal consumption*/
+		vs_pwm_svm_e2as_phu            = MVirtualSignal(hwres_ccu8_config_a,MF({
+										   if(gcheck_optimization.value == true)
+										   {
+										     return "event_ph_uv_trap"
+										   }
+										   else
+										   {
+										     return "event_ph_u_trap"
+										   }
+										 }, String),"e2as", MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean), true)
+		
+		vs_pwm_svm_e2as_phv            = MVirtualSignal(hwres_ccu8_config_b,MF({
+										   if(gcheck_optimization.value == true)
+										   {
+										     return "event_ph_w_trap"
+										   }
+										   else
+										   {
+										     return "event_ph_v_trap"
+										   }
+										 }, String),"e2as", MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean), true)
+		
+		vs_pwm_svm_e2as_phw            = MVirtualSignal(hwres_ccu8_config_c,"event_ph_w_trap","e2as",CHANNEL_OPTIMIZE_DISABLE, true)
+		vs_pwm_svm_e2as_currenttrig    = MVirtualSignal(hwres_ccu8_config_d,"event_trigger_trap","e2as", EXT_TRIGGER_ENABLED, true)
+		
+		vs_pwm_svm_sta_phu         = MVirtualSignal(hwres_ccu8_config_a,"ph_u_ch_status",sv_phu_st)
+		vs_pwm_svm_sta_phv         = MVirtualSignal(hwres_ccu8_config_b,"ph_v_ch_status",sv_phv_st, CHANNEL_OPTIMIZE_DISABLE, true)
+		vs_pwm_svm_sta_phw         = MVirtualSignal(hwres_ccu8_config_c,"ph_w_ch_status",sv_phw_st, CHANNEL_OPTIMIZE_DISABLE, true)
+		
+		/* If optimization is enabled  */
+		vs_pwm_svm_op_sta_phv         = MVirtualSignal(hwres_ccu8_config_a,"ph_v_ch_status",sv_phv_st, CHANNEL_OPTIMIZED, true)
+		vs_pwm_svm_op_sta_phw         = MVirtualSignal(hwres_ccu8_config_b,"ph_w_ch_status",sv_phw_st, CHANNEL_OPTIMIZED, true)
+		
+		vs_pwm_svm_sta_currenttrig = MVirtualSignal(hwres_ccu8_config_d,"adc_trigger_ch_status","sta",
+															 MF({return (!(gcombo_externaltrigger.value == "None"))}, Boolean), true)
+		
+		vs_pwm_svm_stb_phu         = MVirtualSignal(hwres_ccu8_config_a,"ph_u_ch2_status","stb",MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_stb_phv         = MVirtualSignal(hwres_ccu8_config_b,"ph_v_ch2_status","stb",MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_stb_phw         = MVirtualSignal(hwres_ccu8_config_c,"ph_w_ch2_status","stb",MF({return (gint_index.value > 1)}, Boolean), true)
+		vs_pwm_svm_stb_currenttrig = MVirtualSignal(hwres_ccu8_config_d,"adc_trigger_ch2_status","stb",DCLINK_CURRENT_ENABLED, true)
+			
+		vs_pwm_svm_st_phu              = MVirtualSignal(hwres_ccu8_config_a,MF({
+										     if(gcheck_optimization.value == true)
+										     {
+										       return "ph_uv_slice_status"
+											 }
+										     else
+											 {
+											   return "ph_u_slice_status"
+											 }
+										   }, String),"st", true, true)
+		
+		vs_pwm_svm_st_phv              = MVirtualSignal(hwres_ccu8_config_b,MF({
+										   if(gcheck_optimization.value == true)
+										   {
+										     return "ph_w_slice_status"
+										   }
+										   else
+										   {
+										     return "ph_v_slice_status"
+										   }
+										 }, String),"st", true, true)
+		
+		vs_pwm_svm_st_phw              = MVirtualSignal(hwres_ccu8_config_c,"ph_w_slice_status","st",CHANNEL_OPTIMIZE_DISABLE, true)
+		vs_pwm_svm_st_currenttrig      = MVirtualSignal(hwres_ccu8_config_d,"trigger_slice Status","st", EXT_TRIGGER_ENABLED, true)
+		
+		vs_pwm_svm_out0_phu            = MVirtualSignal(hwres_ccu8_config_a,"ph_u_high",sv_svm_phu_high_out,true,false)
+		
+		vs_pwm_svm_out0_op_phv         = MVirtualSignal(hwres_ccu8_config_a,"ph_v_high",sv_svm_phv_high_out, CHANNEL_OPTIMIZED, false)
+		vs_pwm_svm_out0_phv            = MVirtualSignal(hwres_ccu8_config_b,"ph_v_high",sv_svm_phv_high_out, CHANNEL_OPTIMIZE_DISABLE, false)
+		
+		vs_pwm_svm_out0_op_phw         = MVirtualSignal(hwres_ccu8_config_b,"ph_w_high",sv_svm_phw_high_out, CHANNEL_OPTIMIZED, false)
+		vs_pwm_svm_out0_phw            = MVirtualSignal(hwres_ccu8_config_c,"ph_w_high",sv_svm_phw_high_out,CHANNEL_OPTIMIZE_DISABLE, false)
+		
+	
+		vs_pwm_svm_out1_phu            = MVirtualSignal(hwres_ccu8_config_a,"ph_u_low",sv_svm_phu_low_out,true,false)
+		
+		vs_pwm_svm_out1_op_phv         = MVirtualSignal(hwres_ccu8_config_a,"ph_v_low",sv_svm_phv_low_out, CHANNEL_OPTIMIZED, false)
+		vs_pwm_svm_out1_phv            = MVirtualSignal(hwres_ccu8_config_b,"ph_v_low",sv_svm_phv_low_out, CHANNEL_OPTIMIZE_DISABLE, false)
+		
+		vs_pwm_svm_out1_op_phw         = MVirtualSignal(hwres_ccu8_config_b,"ph_w_low",sv_svm_phw_low_out, CHANNEL_OPTIMIZED, false)
+		vs_pwm_svm_out1_phw            = MVirtualSignal(hwres_ccu8_config_c,"ph_w_low",sv_svm_phw_low_out,CHANNEL_OPTIMIZE_DISABLE, false)
+		
+	
+		@AddPin
+		vs_pwm_svm_pin_phu_high        =  MVirtualSignal(hwres_port_pad_phuhigh, "ph_u_high_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_phv_high        =  MVirtualSignal(hwres_port_pad_phvhigh, "ph_v_high_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_phw_high        =  MVirtualSignal(hwres_port_pad_phwhigh, "ph_w_high_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_phu_low         =  MVirtualSignal(hwres_port_pad_phulow, "ph_u_low_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_phv_low         =  MVirtualSignal(hwres_port_pad_phvlow, "ph_v_low_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_phw_low         =  MVirtualSignal(hwres_port_pad_phwlow, "ph_w_low_pad", "pad", true, false)
+		@AddPin
+		vs_pwm_svm_pin_trap            = MVirtualSignal(hwres_port_pad_trap, "trap_pad", "pad", MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean), false)
+		@AddPin
+		vs_pwm_svm_pin_inverter        = MVirtualSignal(hwres_port_pad_inverterenable, "inverter_enable_pad", "pad", MF({return (gcombo_invlevelsel.value  != "Disabled")},Boolean), false)
+		vs_global_ccu8_global                 = MVirtualSignalRA(appres_global_ccu8_app0,"vs_global_ccu8_globalsignal")
+		vs_global_ccu8_gsc_enable             = MVirtualSignalRA(appres_global_ccu8_app0,"vs_global_ccu8_gsc_enable")
+	
+		/* ---------------------------------------------------------- */
+		/* ---------------- APP IO Connections ---------------------- */
+		/* ---------------------------------------------------------- */
+		addConnectionConstraint(vs_global_ccu8_global, vs_pwm_svm_globalsignal_phu)
+		addConnectionConstraint(vs_global_ccu8_global, vs_pwm_svm_globalsignal_phv)
+		addConnectionConstraint(vs_global_ccu8_global, vs_pwm_svm_globalsignal_phw,CHANNEL_OPTIMIZE_DISABLE)
+		addConnectionConstraint(vs_global_ccu8_global, vs_pwm_svm_globalsignal_currenttrig,EXT_TRIGGER_ENABLED)
+	
+		/*connection between IO and pwm ouputs*/
+		addConnectionConstraint(vs_pwm_svm_out0_phu, vs_pwm_svm_pin_phu_high)
+		addConnectionConstraint(vs_pwm_svm_out0_phv, vs_pwm_svm_pin_phv_high,CHANNEL_OPTIMIZE_DISABLE)
+		addConnectionConstraint(vs_pwm_svm_out0_phw, vs_pwm_svm_pin_phw_high,CHANNEL_OPTIMIZE_DISABLE)
+		
+		addConnectionConstraint(vs_pwm_svm_out0_op_phv, vs_pwm_svm_pin_phv_high,CHANNEL_OPTIMIZED)
+		addConnectionConstraint(vs_pwm_svm_out0_op_phw, vs_pwm_svm_pin_phw_high,CHANNEL_OPTIMIZED)
+		
+		addConnectionConstraint(vs_pwm_svm_out1_phu, vs_pwm_svm_pin_phu_low)
+		addConnectionConstraint(vs_pwm_svm_out1_phv, vs_pwm_svm_pin_phv_low,CHANNEL_OPTIMIZE_DISABLE)
+		addConnectionConstraint(vs_pwm_svm_out1_phw, vs_pwm_svm_pin_phw_low,CHANNEL_OPTIMIZE_DISABLE)
+		
+		addConnectionConstraint(vs_pwm_svm_out1_op_phv, vs_pwm_svm_pin_phv_low,CHANNEL_OPTIMIZED)
+		addConnectionConstraint(vs_pwm_svm_out1_op_phw, vs_pwm_svm_pin_phw_low,CHANNEL_OPTIMIZED)
+		
+		/*connection between trap pin to its corresponding ccu8 input*/
+		addConnectionConstraint(vs_pwm_svm_pin_trap, vs_pwm_svm_gp2_unsync_phu, MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean))
+		addConnectionConstraint(vs_pwm_svm_pin_trap, vs_pwm_svm_gp2_unsync_phv, MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean))
+		addConnectionConstraint(vs_pwm_svm_pin_trap, vs_pwm_svm_gp2_unsync_phw, MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean))
+		/*connection between SCU syncstart signal to its ccu8 event 0 input for syncstart*/
+		addConnectionConstraint(vs_global_ccu8_gsc_enable,vs_pwm_svm_gp0_unsync_phu)
+		addConnectionConstraint(vs_global_ccu8_gsc_enable,vs_pwm_svm_gp0_unsync_phv)
+		addConnectionConstraint(vs_global_ccu8_gsc_enable,vs_pwm_svm_gp0_unsync_phw)
+		addConnectionConstraint(vs_global_ccu8_gsc_enable,vs_pwm_svm_gp0_unsync_currenttrig)
+	
+		/* -------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------- */
+		/* -------------------------------------------------------- */
+		gfloat_clock.value  = MF({appres_global_ccu8_app0.getVal(["gfloat_clkFreq", "value"])}, Float)
+		
+		gfloat_resolution.minValue = MF({return (1000/gfloat_clock.value)},Float)
+		gfloat_resolution.maxValue = MF({return ((1000*65535)/(gfloat_clock.value))},Float)
+		
+							
+		/*Min/Max limit check for different devices*/
+		if (SubDevicefamily == "1.3")       /* 32MHz clock */
+		{
+		  /* Pin visibility configuration for XMC13 device */
+		  gcombo_inverterpaddriver.visible = false
+		  gcombo_paddriver.visible         = false
+		  glabel_inverterpaddriver.visible = false
+		  glabel_paddriver.visible         = false
+		
+		  gfloat_resolution.value = 16
+		  gcombo_highsideswitch.value = "Active High"
+		  gcombo_lowsideswitch.value  = "Active High"
+
+		  if(device != "01")
+		  {
+			gcombo_segmenttimecalculation.visible = true
+			glabel_segmenttimecalculation.visible = true
+		  }
+		  else
+		  {
+			gcombo_segmenttimecalculation.visible = false
+			glabel_segmenttimecalculation.visible = false
+		  }
+		  
+		}
+		else if (SubDevicefamily == "4.2")  /* 80MHz clock */
+		{
+		  gfloat_resolution.value = 13
+		  gcombo_segmenttimecalculation.visible = false
+		  glabel_segmenttimecalculation.visible = false
+		}
+		else                 /* 120MHz clock */
+		{  
+		  gfloat_resolution.value = 9		  
+		  gcombo_segmenttimecalculation.visible = false
+		  glabel_segmenttimecalculation.visible = false
+		}
+
+		/* ------ TAB : SVM Configurations related configuration ---------- */
+		gcheck_optimization.visible = MF({return ((gint_index.value < 2) && (Ic_Package == false))}, Boolean)
+		/* clock tick in nanosec */
+		gfloat_clkdiv.value = MF({return (1000/gfloat_clock.value)},Float)
+		/* CCU8 prescaler value */
+		gint_prescaler.value       = MF({
+										 Integer prescaler = 0
+										 Float   divider   = 0
+										 if (gfloat_resolution.value <= gfloat_clkdiv.value)
+										   divider = 1
+										 else
+										   divider = gfloat_resolution.value / gfloat_clkdiv.value
+										 prescaler = Math.floor( Math.log(divider) / Math.log(2) )
+										 if (prescaler > PWMSVM_PRESCALER_MAX)
+										 {
+										   prescaler = PWMSVM_PRESCALER_MAX
+										 }
+										 return prescaler
+									 },Integer)
+		
+		gfloat_actresolution.value = MF({
+										  Integer convert_prescaler = 0
+										  convert_prescaler = (1 << gint_prescaler.value)
+										  return (gfloat_clkdiv.value * convert_prescaler)
+										},Float)
+	
+		/* Update pwm frequency minimum and maximum value */
+		gint_pwmfreq.maxValue      = MF({return ((int)((1/(gfloat_actresolution.value*2)) * 1000000000))},Integer)
+		gint_pwmfreq.minValue      = MF({
+			 Integer min_frequency
+			 min_frequency =((int)((1/(gfloat_actresolution.value*65535)) * 1000000000))
+			 if(min_frequency == 0)
+			 {
+				 min_frequency =1
+			 }
+			 return min_frequency
+			 
+			},Integer)
+		/*Max value of Tmin is restricted to 10 percentage of period value*/
+		gfloat_tmin.maxValue       = MF({return ((float)(((1.0/(gint_pwmfreq.value)) * 1000000000) * 0.1))},Float)
+			
+		gint_frequency.value       = MF({return ((int)((gfloat_clock.value / (Math.pow(2,gint_prescaler.value)) ) * 1000000))},Integer)
+			
+		gint_periodreg.value       = MF({
+										 Integer  period = 0
+										 Float    pwm_time = 0
+										 Float    scalefactor = 1000000000
+										 pwm_time = scalefactor / gint_pwmfreq.value
+										 period = ((pwm_time / gfloat_actresolution.value) - 1)
+										 if ((gint_index.value < 4) && (period > 0))
+										 {
+										   period = (period) >> 1
+										 }
+										 if (period > 65535)
+										 {
+										   period = 0
+										 } 
+										 return period
+										},Integer)
+			
+		gfloat_offset.enabled            =  MF({return (gcombo_externaltrigger.value != "None")},Boolean)
+		
+		gcombo_externaltrigger.options   = MF({
+											   if(gint_index.value < 4)
+											   {
+												 return ["None","DC Link Current Measurement","2 Phase Current Measurement","3 Phase Current Measurement"]
+											   }
+												 else
+											   {
+												 return ["None","DC Link Current Measurement"]
+											   }
+											  },List)
+		
+		/* --------------------------------- TAB : Power Board Configurations related configuration ----------------------------------------------- */
+		/* Dead time configuration for rising edge */
+		gint_deadtimecount_rising_edge.value =
+									  MF({
+										  Integer deadtime_reg
+										  Integer deadtime_prescaler = 0
+										  deadtime_reg = (Integer)(Math.round((gfloat_deadtime_rising_edge.value)/(gfloat_actresolution.value)))
+										  while ((deadtime_reg > PWMSVM_DT_REG_MAX) && (deadtime_prescaler < PWMSVM_DT_PRESCALER_MAX))
+										  {
+											deadtime_prescaler = deadtime_prescaler + 1
+											deadtime_reg = (Integer)(gfloat_deadtime_rising_edge.value/ (((Integer)(gfloat_actresolution.value)) << deadtime_prescaler))
+										  }
+										  return deadtime_reg
+										 },Integer)
+	
+		/* Dead time configuration for falling edge */
+		gint_deadtimecount_falling_edge.value =
+									  MF({
+										  Integer deadtime_reg
+										  Integer deadtime_prescaler = 0
+										  deadtime_reg = (Integer)(Math.round((gfloat_deadtime_falling_edge.value)/(gfloat_actresolution.value)))
+										  while ((deadtime_reg > PWMSVM_DT_REG_MAX) && (deadtime_prescaler < PWMSVM_DT_PRESCALER_MAX))
+										  {
+											deadtime_prescaler = deadtime_prescaler + 1
+											deadtime_reg = (Integer)(gfloat_deadtime_falling_edge.value/ (((Integer)(gfloat_actresolution.value)) << deadtime_prescaler))
+										  }
+										  return deadtime_reg
+										 },Integer)
+	
+		/* Dead time pre-scaler value calculation */
+		gint_deadtimeprescaler.value =
+									 MF({
+										 Integer deadtime_reg
+										 Integer deadtime_prescaler = 0
+										 Float deadtime_max = 0
+										 if(gfloat_deadtime_rising_edge.value > gfloat_deadtime_falling_edge.value)
+										 {
+											 deadtime_max = gfloat_deadtime_rising_edge.value
+										 }
+										 else
+										 {
+											 deadtime_max = gfloat_deadtime_falling_edge.value
+										 }
+										 deadtime_reg = (Integer)(Math.round((deadtime_max)/(gfloat_actresolution.value)))
+										 while ((deadtime_reg > PWMSVM_DT_REG_MAX) && (deadtime_prescaler < PWMSVM_DT_PRESCALER_MAX))
+										 {
+										 deadtime_prescaler = deadtime_prescaler + 1
+										 deadtime_reg = (Integer)(deadtime_max/ (((Integer)(gfloat_actresolution.value)) << deadtime_prescaler))
+										 }
+										 return deadtime_prescaler
+										},Integer)
+	
+		gint_tmincount.value        = MF({
+										Integer tmin_reg
+										tmin_reg = (Integer)(Math.round((gfloat_tmin.value) / (gfloat_actresolution.value)))
+										if (tmin_reg != 0)
+										{
+										tmin_reg = tmin_reg - 1
+										}
+										return tmin_reg
+									   },Integer)
+		  
+		gint_current_offset.value = MF({
+										Float resolution = gfloat_actresolution.value
+										Float offset = gfloat_offset.value * 1000     // convert to nsec
+										Integer act_offset = offset / resolution    //compare register offset based on offset and actual resolution
+										return act_offset
+										}, Integer)
+		
+		gcombo_trapexitcontrol.enabled   = MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean)
+		gcombo_trapsyncenable.enabled    = MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean)
+		
+		/* ------------------------------------- TAB : Interrupts related configuration --------------------------------------------------- */
+		gcheck_trapintenable.enabled     = MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean)
+		/* ------------------------------------- TAB : Pin Configurations related configuration ------------------------------------------- */
+		gcombo_inverterpaddriver.enabled = MF({return (gcombo_invlevelsel.value != "Disabled")},Boolean)
+		gcombo_inverteroutchar.enabled   = MF({return (gcombo_invlevelsel.value != "Disabled")},Boolean)
+		gcombo_inchar.enabled            = MF({return (gcombo_traplevelsel.value != "Disabled")},Boolean)
+		
+		
+		/* Image  visibility control  */
+		/* Image visibility for different type of svm waveform */
+		List diffsvm_path = ["Uimodel/Drawings/7Seg_Sym_SVM.png","Uimodel/Drawings/7Seg_Asym_SVM.PNG","Uimodel/Drawings/5Seg_Sym_SVM.PNG","Uimodel/Drawings/5Seg_Asym_SVM.PNG","Uimodel/Drawings/3Active_SVM.PNG","Uimodel/Drawings/4Active_SVM.PNG"]
+		gimage_7segsym.path = MF({
+			return (diffsvm_path[gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)])
+	    }, String)
+				
+		gimage_dc7segsym.visible = MF({
+			if(gcombo_externaltrigger.options.indexOf(gcombo_externaltrigger.value) == 1)
+			{
+			  return true
+			}
+			else if((gcombo_externaltrigger.options.indexOf(gcombo_externaltrigger.value) > 1) && 
+				    (gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)< 4))
+			{
+			 return true
+			}
+			else
+			{
+			 return false
+			}
+	    }, Boolean)
+				
+		/* Image visibility for current waveform */
+		List diffcurrent_path = ["Uimodel/Drawings/DCLink_7SegSym_CM.png","Uimodel/Drawings/DCLink_7SegAsym_CM.png","Uimodel/Drawings/DCLink_5SegSym_CM.png","Uimodel/Drawings/DCLink_5SegAsym_CM.png","Uimodel/Drawings/DCLink_3Active_CM.png",
+			                     "Uimodel/Drawings/DCLink_4Active_CM.png","Uimodel/Drawings/Phase_CM.png","Uimodel/Drawings/7SegAsym_Iph.PNG","Uimodel/Drawings/5SegSym_Iph.PNG","Uimodel/Drawings/5SegAsym_Iph.PNG"]
+		gimage_dc7segsym.path = MF({
+			
+			if(gcombo_externaltrigger.options.indexOf(gcombo_externaltrigger.value) == 1)
+			{
+			  return diffcurrent_path[gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)]
+			}
+			else if((gcombo_externaltrigger.options.indexOf(gcombo_externaltrigger.value) > 1) &&
+					(gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)< 4))
+			{
+			  return diffcurrent_path[gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)+6]
+			}
+			else
+			{
+			  /* this is dummy */
+			  return diffcurrent_path[gcombo_svm_schemeselect.options.indexOf(gcombo_svm_schemeselect.value)]
+			}
+
+		}, String)
+	
+		/* Maximum amplitude calculation based on SVM type */
+		gint_maxamp.value = MF({
+								 Integer maxamp = 0
+								 Integer tmin_active_vector = 0
+								 if (gint_index.value > 3)
+								 {
+								  if (gint_index.value == 4)
+								  {
+								   tmin_active_vector = (3 * gint_tmincount.value)
+								  }
+								  else
+								  {
+								   tmin_active_vector = (4 * gint_tmincount.value)
+								  }
+								  maxamp = gint_periodreg.value - tmin_active_vector
+								 }
+								 else
+								 {
+ 								   maxamp = gint_periodreg.value
+								 }
+								 return maxamp
+								},Integer)
+		gcombo_svm_schemeselect.options =  MF({
+			["Standard SVM - 7 Segment Symmetric","Standard SVM - 5 Segment Symmetric"]
+  },List)
+	
+	}
+	
+	// File Generation
+	def generateFiles(){
+		copy("pwm_svm.c", "pwm_svm.c")
+		copy("pwm_svm_table.c", "pwm_svm_table.c")
+		copy("pwm_svm.h", "pwm_svm.h")
+		generate("pwm_svm_confc.tmpl", "pwm_svm_conf.c")
+		generate("pwm_svm_confh.tmpl", "pwm_svm_conf.h")
+		generate("pwm_svm_externh.tmpl", "pwm_svm_extern.h")
+	}	
+}

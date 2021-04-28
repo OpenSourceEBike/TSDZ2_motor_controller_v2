@@ -1,0 +1,581 @@
+package Model.APPS.HALL_POSIF.v4_0_10.Templates;
+
+import Model.APPS.HALL_POSIF.v4_0_10.HALL_POSIF
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-20:
+ *     - Initial version
+ *
+ * 2015-06-20:
+ *     - ERU initialization modified
+ *
+ * 2019-11-26:
+ *     - CCU4 inputs adaptations for XMC14
+ *
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "hall_posif.h"
+/**********************************************************************************************************************
+* DATA STRUCTURES
+**********************************************************************************************************************/
+""");
+
+List posifuri = null;
+List slice0uri = null;
+List slice1uri = null;
+
+List pad1uri = null;
+List pad2uri = null;
+List pad3uri = null;
+
+String appInst  = null;
+String xmc_device = null;
+
+String series = null;
+
+/*This function return 1 if argument is true else return 0*/
+def boolvalreturn = {def arg -> (arg == false ? 0 : 1)}
+
+for (Object appIns : appInstancesList ) {
+  appInst = appIns.getInstanceLabel()
+	
+  posifuri = appIns.hwres_posif_hsc_qd_0.getSolverUri()
+  slice0uri = appIns.hwres_ccu4_slice0.getSolverUri()
+  slice1uri = appIns.hwres_ccu4_slice1.getSolverUri()
+  
+  pad1uri = appIns.hwres_port_pad_1.getSolverUri()
+  pad2uri = appIns.hwres_port_pad_2.getSolverUri()
+  pad3uri = appIns.hwres_port_pad_3.getSolverUri()
+	
+  xmc_device = daveEnv.project.selectedDevice.deviceId.family
+  series = daveEnv.project.selectedDevice.deviceId.family + daveEnv.project.selectedDevice.deviceId.series
+  
+  List posif_sr=["XMC_POSIF_SR_ID_0","XMC_POSIF_SR_ID_1","XMC_POSIF_SR_ID_MAX"]
+  List ccu4_sr=["XMC_CCU4_SLICE_SR_ID_0","XMC_CCU4_SLICE_SR_ID_1","XMC_CCU4_SLICE_SR_ID_2","XMC_CCU4_SLICE_SR_ID_3","XMC_CCU4_SLICE_SR_ID_MAX"]
+  
+  List ETL_1 = ["NULL","NULL","NULL"]
+  List ETL_2 = ["NULL","NULL","NULL"]
+  List ETL_3 = ["NULL","NULL","NULL"]
+  
+  if(boolvalreturn(appIns.gcheck_ehalleru1.value) == 1 )
+  {
+	ETL_1 = ["&${appInst}_ETL_1_Config","&${appInst}_ETL_1","&${appInst}_OGU_1_Config"]
+  } 
+  if(boolvalreturn(appIns.gcheck_ehalleru2.value) == 1 )
+  {
+	ETL_2 = ["&${appInst}_ETL_2_Config","&${appInst}_ETL_2","&${appInst}_OGU_2_Config"]
+  }
+  if((appIns.gcheck_ehalleru3.value) || 
+	  (appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 1))
+  {
+	ETL_3 = ["&${appInst}_ETL_3_Config","&${appInst}_ETL_3","&${appInst}_OGU_3_Config"]
+  }
+  
+  /*Its dummy read for IO Pad*/
+   appIns.hwres_port_pad_1.getRegValue("pdis","pdisc_pdis")
+   appIns.hwres_port_pad_2.getRegValue("pdis","pdisc_pdis")
+   appIns.hwres_port_pad_3.getRegValue("pdis","pdisc_pdis")
+  
+  (appIns.hwres_port_pad_1.getRegValue("","hwsel_hw"))
+  (appIns.hwres_port_pad_2.getRegValue("","hwsel_hw")) 
+  (appIns.hwres_port_pad_3.getRegValue("","hwsel_hw"))
+
+  
+
+  
+  List hallpat_arry    = ['(uint8_t)HALL_POSIF_MCM(0,0)' , '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)',
+	                      '(uint8_t)HALL_POSIF_MCM(0,0)' , '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)']
+  List revhallpat_arry = ['(uint8_t)HALL_POSIF_MCM(0,0)' , '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)',
+	                      '(uint8_t)HALL_POSIF_MCM(0,0)' , '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)', '(uint8_t)HALL_POSIF_MCM(0,0)']
+
+  /*Reading hall pattern from GUI for forward direction*/
+  ["${appIns.gint_hall1.value}":"${appIns.gint_hall2.value}", "${appIns.gint_hall2.value}":"${appIns.gint_hall3.value}", "${appIns.gint_hall3.value}":"${appIns.gint_hall4.value}", 
+   "${appIns.gint_hall4.value}":"${appIns.gint_hall5.value}", "${appIns.gint_hall5.value}":"${appIns.gint_hall6.value}", "${appIns.gint_hall6.value}":"${appIns.gint_hall1.value}"
+  ].eachWithIndex{ it, i->
+		 
+		 if(appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 0) {	 
+	       if(it.value.toInteger()) {
+			  hallpat_arry[it.key.toInteger()]= '(uint8_t)HALL_POSIF_MCM'+'('+ (it.value.toInteger()) + ','+ (it.key.toInteger()) + ')'
+		    }
+		 }
+		 else
+		 {
+	       if((it.value.toInteger() & 3) != (it.key.toInteger() & 3)) {
+		     hallpat_arry[it.key.toInteger() & 3]= '(uint8_t)HALL_POSIF_MCM'+'('+ (it.value.toInteger() & 3) + ','+ (it.key.toInteger() & 3) + ')'
+		   }
+		 }	        
+  }
+  
+  /*Reading hall pattern from GUI for reverce direction*/
+  ["${appIns.gint_hall1.value}":"${appIns.gint_hall6.value}", "${appIns.gint_hall2.value}":"${appIns.gint_hall1.value}", "${appIns.gint_hall3.value}":"${appIns.gint_hall2.value}", 
+   "${appIns.gint_hall4.value}":"${appIns.gint_hall3.value}", "${appIns.gint_hall5.value}":"${appIns.gint_hall4.value}", "${appIns.gint_hall6.value}":"${appIns.gint_hall5.value}"
+  ].eachWithIndex{ it, i->
+	  
+	  if(appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 0) {
+		if(it.value.toInteger()) {
+		   revhallpat_arry[it.key.toInteger()]= '(uint8_t)HALL_POSIF_MCM'+'('+ (it.value.toInteger()) + ','+ (it.key.toInteger()) + ')'
+		 }
+	  }
+	  else
+	  {
+		if((it.value.toInteger() & 3) != (it.key.toInteger() & 3)) {
+		  revhallpat_arry[it.key.toInteger() & 3]= '(uint8_t)HALL_POSIF_MCM'+'('+ (it.value.toInteger() & 3) + ','+ (it.key.toInteger() & 3) + ')'
+		}
+	  }
+}
+if (posifuri) {
+if(boolvalreturn(appIns.gcheck_ehalleru1.value) == 1 )
+{
+out.print("""
+XMC_ERU_ETL_CONFIG_t ${appInst}_ETL_1_Config =
+{
+  .input                  = (XMC_ERU_ETL_INPUT_A${appIns.hwres_ers_etl_1.getRegValue("exisel","exisel_exsxa")}) | (XMC_ERU_ETL_INPUT_B${appIns.hwres_ers_etl_1.getRegValue("exisel","exisel_exsxb")}), /* Event input selection for A(0-3) and B(0-3) */
+  .enable_output_trigger  = ${appIns.hwres_ers_etl_1.getRegValue("exicon","exicon_pe")},
+  .status_flag_mode       = XMC_ERU_ETL_STATUS_FLAG_MODE_SWCTRL,                    
+  .edge_detection         = XMC_ERU_ETL_EDGE_DETECTION_DISABLED,                                              /* Select the edge/s to convert as event */
+  .output_trigger_channel = ${'XMC_ERU_ETL_OUTPUT_TRIGGER_CHANNEL'+appIns.hwres_ers_etl_1.getRegValue("exicon","exicon_ocs")}, /* Select the source for event */
+  .source                 = XMC_ERU_ETL_SOURCE_A                                                              /* Select the source for event,Input directly used */
+};
+HALL_POSIF_ERU_t ${appInst}_ETL_1 = 
+{
+   .eru         = XMC_ERU${appIns.hwres_ers_etl_1.getSolverUri()[4]},       /* ERU module assigned(ERU0/ERU1) */ 
+   .ogu_channel = ${appIns.hwres_eru_ogu_1.getSolverUri()[6]}U,          /* ERU channel assigned(0-3) */
+   .etl_channel = (uint8_t)${appIns.hwres_ers_etl_1.getSolverUri()[6]}  /* ERU channel assigned(0-3) */
+};
+
+XMC_ERU_OGU_CONFIG_t ${appInst}_OGU_1_Config =
+{
+  .peripheral_trigger         = ${if(appIns.hwres_eru_ogu_1.getRegValue("exocon","exocon_iss") == 0)
+                                '0U'
+                                  else
+                                     'XMC_ERU_OGU_PERIPHERAL_TRIGGER'+"${appIns.hwres_eru_ogu_1.getRegValue("exocon","exocon_iss")}"
+                                 }, /* OGU input peripheral trigger */
+  .enable_pattern_detection   = 0U,
+  .service_request            = XMC_ERU_OGU_SERVICE_REQUEST_DISABLED, /* Interrupt gating signal (ERUx_GOUTy) */
+  .pattern_detection_input    = (${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT0"][(int)(appIns.hwres_eru_ogu_1.getRegValue("exocon", "exocon_ipen0"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT1"][(int)(appIns.hwres_eru_ogu_1.getRegValue("exocon", "exocon_ipen1"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT2"][(int)(appIns.hwres_eru_ogu_1.getRegValue("exocon", "exocon_ipen2"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT3"][(int)(appIns.hwres_eru_ogu_1.getRegValue("exocon", "exocon_ipen3"))]})    /* Status flag input for pattern detection for OGU0/OGU1/OGU2/OGU3 */
+};
+""");
+}
+if(boolvalreturn(appIns.gcheck_ehalleru2.value) == 1 )
+{
+out.print("""
+XMC_ERU_ETL_CONFIG_t ${appInst}_ETL_2_Config =
+{
+  .input                  = (XMC_ERU_ETL_INPUT_A${appIns.hwres_ers_etl_2.getRegValue("exisel","exisel_exsxa")}) | (XMC_ERU_ETL_INPUT_B${appIns.hwres_ers_etl_2.getRegValue("exisel","exisel_exsxb")}), /* Event input selection for A(0-3) and B(0-3) */
+  .enable_output_trigger  = ${appIns.hwres_ers_etl_2.getRegValue("exicon","exicon_pe")},
+  .status_flag_mode       = XMC_ERU_ETL_STATUS_FLAG_MODE_SWCTRL,                    
+  .edge_detection         = XMC_ERU_ETL_EDGE_DETECTION_DISABLED,                                              /* Select the edge/s to convert as event */
+  .output_trigger_channel = ${'XMC_ERU_ETL_OUTPUT_TRIGGER_CHANNEL'+appIns.hwres_ers_etl_2.getRegValue("exicon","exicon_ocs")}, /* Select the source for event */
+  .source                 = XMC_ERU_ETL_SOURCE_A
+};
+HALL_POSIF_ERU_t ${appInst}_ETL_2 = 
+{
+   .eru         = XMC_ERU${appIns.hwres_ers_etl_2.getSolverUri()[4]},         /* ERU module assigned(ERU0/ERU1) */  
+   .ogu_channel = (uint8_t)${appIns.hwres_eru_ogu_2.getSolverUri()[6]}U,     /* ERU channel assigned(0-3) */
+   .etl_channel = (uint8_t)${appIns.hwres_ers_etl_2.getSolverUri()[6]}       /* ERU channel assigned(0-3) */
+};
+
+XMC_ERU_OGU_CONFIG_t ${appInst}_OGU_2_Config =
+{
+  .peripheral_trigger         = ${if(appIns.hwres_eru_ogu_2.getRegValue("exocon","exocon_iss") == 0)
+                                '0U'
+                                  else
+                                     'XMC_ERU_OGU_PERIPHERAL_TRIGGER'+"${appIns.hwres_eru_ogu_2.getRegValue("exocon","exocon_iss")}"
+                                 }, /* OGU input peripheral trigger */
+  .enable_pattern_detection   = 0U,
+  .service_request            = XMC_ERU_OGU_SERVICE_REQUEST_DISABLED, /* Interrupt gating signal (ERUx_GOUTy) */
+  .pattern_detection_input    = (${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT0"][(int)(appIns.hwres_eru_ogu_2.getRegValue("exocon", "exocon_ipen0"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT1"][(int)(appIns.hwres_eru_ogu_2.getRegValue("exocon", "exocon_ipen1"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT2"][(int)(appIns.hwres_eru_ogu_2.getRegValue("exocon", "exocon_ipen2"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT3"][(int)(appIns.hwres_eru_ogu_2.getRegValue("exocon", "exocon_ipen3"))]})    /* Status flag input for pattern detection for OGU0/OGU1/OGU2/OGU3 */
+};
+""");
+}
+if((appIns.gcheck_ehalleru3.value) || (appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 1))
+{
+out.print("""
+XMC_ERU_ETL_CONFIG_t ${appInst}_ETL_3_Config =
+{
+  .input                  = (XMC_ERU_ETL_INPUT_A${appIns.hwres_ers_etl_3.getRegValue("exisel","exisel_exsxa")}) | (XMC_ERU_ETL_INPUT_B${appIns.hwres_ers_etl_3.getRegValue("exisel","exisel_exsxb")}), /* Event input selection for A(0-3) and B(0-3) */
+  .enable_output_trigger  = ${appIns.hwres_ers_etl_3.getRegValue("exicon","exicon_pe")},
+  .status_flag_mode       = XMC_ERU_ETL_STATUS_FLAG_MODE_SWCTRL,                    
+  .edge_detection         = XMC_ERU_ETL_EDGE_DETECTION_DISABLED,                                              /* Select the edge/s to convert as event */
+  .output_trigger_channel = ${'XMC_ERU_ETL_OUTPUT_TRIGGER_CHANNEL'+appIns.hwres_ers_etl_3.getRegValue("exicon","exicon_ocs")}, /* Select the source for event */
+  .source                 = XMC_ERU_ETL_SOURCE_A
+};
+HALL_POSIF_ERU_t ${appInst}_ETL_3 = 
+{
+   .eru         = XMC_ERU${appIns.hwres_ers_etl_3.getSolverUri()[4]},           /* ERU module assigned(ERU0/ERU1) */    
+   .ogu_channel = (uint8_t)${appIns.hwres_eru_ogu_3.getSolverUri()[6]}U,    /* ERU channel assigned(0-3) */
+   .etl_channel = (uint8_t)${appIns.hwres_ers_etl_3.getSolverUri()[6]}U     /* ERU channel assigned(0-3) */
+};
+XMC_ERU_OGU_CONFIG_t ${appInst}_OGU_3_Config =
+{
+  .peripheral_trigger         = ${if(appIns.hwres_eru_ogu_3.getRegValue("exocon","exocon_iss") == 0)
+                                '0U'
+                                  else
+                                     'XMC_ERU_OGU_PERIPHERAL_TRIGGER'+"${appIns.hwres_eru_ogu_3.getRegValue("exocon","exocon_iss")}"
+                                 }, /* OGU input peripheral trigger */
+  .enable_pattern_detection   = 0U,
+  .service_request            = XMC_ERU_OGU_SERVICE_REQUEST_DISABLED, /* Interrupt gating signal (ERUx_GOUTy) */
+  .pattern_detection_input    = (${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT0"][(int)(appIns.hwres_eru_ogu_3.getRegValue("exocon", "exocon_ipen0"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT1"][(int)(appIns.hwres_eru_ogu_3.getRegValue("exocon", "exocon_ipen1"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT2"][(int)(appIns.hwres_eru_ogu_3.getRegValue("exocon", "exocon_ipen2"))]}| 
+                                 ${[0,"XMC_ERU_OGU_PATTERN_DETECTION_INPUT3"][(int)(appIns.hwres_eru_ogu_3.getRegValue("exocon", "exocon_ipen3"))]})    /* Status flag input for pattern detection for OGU0/OGU1/OGU2/OGU3 */
+};
+""");
+}
+out.print("""
+XMC_GPIO_CONFIG_t ${appInst}_Hall_PadConfig  =
+{
+  .mode            = (XMC_GPIO_MODE_t)XMC_GPIO_MODE_INPUT_TRISTATE,
+  .output_level    = (XMC_GPIO_OUTPUT_LEVEL_t)XMC_GPIO_OUTPUT_LEVEL_LOW,
+  """);
+  if(daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+  {
+out.print("""
+  .output_strength = (XMC_GPIO_OUTPUT_STRENGTH_t)XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE
+  """);
+  }
+  else
+  {
+   out.print("""
+  .input_hysteresis= 0
+  """);
+  }
+out.print("""
+};
+""");
+if(appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 0)
+{
+out.print("""
+HALL_POSIF_GPIO_t ${appInst}_H3_PadResource =
+{
+  .port = XMC_GPIO_PORT${pad3uri[4]},
+  .pin  = ${pad3uri[6]}U
+};
+""");
+}
+
+String mapped_input_phdelay = null;
+String mapped_input_capture = null;
+
+if (series != 'XMC14')
+{
+  mapped_input_phdelay = "XMC_CCU4_SLICE_INPUT_${(char)(appIns.hwres_ccu4_slice0.getRegValue("ins","ins_ev0is") + 65)}"
+}
+else
+{
+  mapped_input_phdelay = "XMC_CCU4_SLICE_INPUT_${(char)(((appIns.hwres_ccu4_slice0.getRegValue("ins","ins_ev0is") as int) / 26) + 65)}${(char)(((appIns.hwres_ccu4_slice0.getRegValue("ins","ins_ev0is") as int) % 26) + 65)}"
+}
+
+if (series != 'XMC14')
+{
+  mapped_input_capture = "XMC_CCU4_SLICE_INPUT_${(char)(appIns.hwres_ccu4_slice1.getRegValue("ins","ins_ev0is") + 65)}"
+}
+else
+{
+  mapped_input_capture = "XMC_CCU4_SLICE_INPUT_${(char)(((appIns.hwres_ccu4_slice1.getRegValue("ins","ins_ev0is") as int) / 26) + 65)}${(char)(((appIns.hwres_ccu4_slice1.getRegValue("ins","ins_ev0is") as int) % 26) + 65)}"
+}
+
+out.print("""
+HALL_POSIF_GPIO_t ${appInst}_H2_PadResource =
+{
+  .port = XMC_GPIO_PORT${pad2uri[4]},
+  .pin  = ${pad2uri[6]}U
+};
+HALL_POSIF_GPIO_t ${appInst}_H1_PadResource =
+{
+  .port = XMC_GPIO_PORT${pad1uri[4]},
+  .pin  = ${pad1uri[6]}U
+};
+/* Configure the ccu4 timer structure use for phase delay */
+XMC_CCU4_SLICE_COMPARE_CONFIG_t ${appInst}_phdelaytimer_init =
+{
+  .timer_mode          = XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA,        
+  .monoshot            = 1,      
+  .shadow_xfer_clear   = 1,  
+  .dither_timer_period = 0,   
+  .dither_duty_cycle   = 0, 
+  .prescaler_mode      = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,  
+  .mcm_enable          = 0,
+  .prescaler_initval   = ${appIns.gint_prescalar.value}U,
+  .float_limit         = 0U,          
+  .dither_limit        = 0U,          
+  .passive_level       = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,    
+  .timer_concatenation = 0
+};
+
+XMC_CCU4_SLICE_EVENT_CONFIG_t ${appInst}_phdelay_eventconfig =
+{
+  .mapped_input = ${mapped_input_phdelay}, 
+  .edge         = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,          
+  .level        = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,         
+  .duration     = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED   
+};
+
+XMC_CCU4_SLICE_EVENT_CONFIG_t ${appInst}_capture_eventconfig =
+{
+  .mapped_input = ${mapped_input_capture}, 
+  .edge         = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,          
+  .level        = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,         
+  .duration     = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED      
+};
+
+XMC_CCU4_SLICE_CAPTURE_CONFIG_t ${appInst}_capture_init =
+{
+  .timer_clear_mode    = XMC_CCU4_SLICE_TIMER_CLEAR_MODE_CAP_HIGH,
+  .same_event          = 0,       
+  .fifo_enable         = 0,           
+  .ignore_full_flag    = 0 
+};
+
+HALL_POSIF_CCU4_SLICE_t ${appInst}_phasedelay =
+{
+  .slice_ptr           = (CCU4_CC4_TypeDef*)(void*)CCU4${slice0uri[4]}_CC4${slice0uri[6]},  
+  .module_ptr          = (CCU4_GLOBAL_TypeDef*)(void*) CCU4${slice0uri[4]}_BASE,  
+  .shadow_transfer_msk = (uint32_t)${["XMC_CCU4_SHADOW_TRANSFER_SLICE_0","XMC_CCU4_SHADOW_TRANSFER_SLICE_1","XMC_CCU4_SHADOW_TRANSFER_SLICE_2","XMC_CCU4_SHADOW_TRANSFER_SLICE_3"][(int)slice0uri[6].toInteger()]},
+  .slice_number        = (uint8_t)${slice0uri[6]} 
+}; 
+ 
+HALL_POSIF_CCU4_SLICE_t ${appInst}_capture =
+{
+  .slice_ptr           = (CCU4_CC4_TypeDef*)(void*)CCU4${slice1uri[4]}_CC4${slice1uri[6]},  
+  .module_ptr          = (CCU4_GLOBAL_TypeDef*)(void*) CCU4${slice1uri[4]}_BASE, 
+  .shadow_transfer_msk = (uint32_t)${["XMC_CCU4_SHADOW_TRANSFER_SLICE_0","XMC_CCU4_SHADOW_TRANSFER_SLICE_1","XMC_CCU4_SHADOW_TRANSFER_SLICE_2","XMC_CCU4_SHADOW_TRANSFER_SLICE_3"][(int)slice1uri[6].toInteger()]},  
+  .slice_number          = (uint8_t)${slice1uri[6]}
+  
+}; 
+ 
+XMC_POSIF_HSC_CONFIG_t ${appInst}_InitHandle =
+{
+  .disable_idle_signal    = true,  
+  .sampling_trigger       = ${[
+                              "XMC_POSIF_INPUT_PORT_A",
+                              "XMC_POSIF_INPUT_PORT_B",
+                              "XMC_POSIF_INPUT_PORT_C",
+                              "XMC_POSIF_INPUT_PORT_D",
+                              "XMC_POSIF_INPUT_PORT_E",
+                              "XMC_POSIF_INPUT_PORT_F",
+                              "XMC_POSIF_INPUT_PORT_G",
+                              "XMC_POSIF_INPUT_PORT_H"
+                            ][((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pconf","pconf_dsel"))]}, 
+  .sampling_trigger_edge  = XMC_POSIF_HSC_TRIGGER_EDGE_RISING,     
+  .external_error_port    = ${[
+                              "XMC_POSIF_INPUT_PORT_A",
+                              "XMC_POSIF_INPUT_PORT_B",
+                              "XMC_POSIF_INPUT_PORT_C",
+                              "XMC_POSIF_INPUT_PORT_D"
+                            ][((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pconf","pconf_ewis"))]}, 
+  .external_error_enable  = 0,   
+  .external_error_level   = XMC_POSIF_INPUT_ACTIVE_LEVEL_HIGH 
+};
+XMC_POSIF_CONFIG_t ${appInst}_PosifConf =
+{
+  .mode   = XMC_POSIF_MODE_HALL_SENSOR,    /**< POSIF Operational mode */
+  .input0 = ${["XMC_POSIF_INPUT_PORT_A",
+               "XMC_POSIF_INPUT_PORT_B",
+               "XMC_POSIF_INPUT_PORT_C",
+               "XMC_POSIF_INPUT_PORT_D",
+               "XMC_POSIF_INPUT_PORT_E",
+               "XMC_POSIF_INPUT_PORT_F",
+               "XMC_POSIF_INPUT_PORT_G",
+               "XMC_POSIF_INPUT_PORT_H"
+             ][((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pconf","pconf_insel0"))]},    /**< Choice of input for Input-1 */
+  .input1 = ${["XMC_POSIF_INPUT_PORT_A",
+               "XMC_POSIF_INPUT_PORT_B",
+               "XMC_POSIF_INPUT_PORT_C",
+               "XMC_POSIF_INPUT_PORT_D",
+               "XMC_POSIF_INPUT_PORT_E",
+               "XMC_POSIF_INPUT_PORT_F",
+               "XMC_POSIF_INPUT_PORT_G",
+               "XMC_POSIF_INPUT_PORT_H"
+             ][((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pconf","pconf_insel1"))]},    /**< Choice of input for Input-2 */
+  .input2 = ${["XMC_POSIF_INPUT_PORT_A",
+               "XMC_POSIF_INPUT_PORT_B",
+               "XMC_POSIF_INPUT_PORT_C",
+               "XMC_POSIF_INPUT_PORT_D",
+               "XMC_POSIF_INPUT_PORT_E",
+               "XMC_POSIF_INPUT_PORT_F",
+               "XMC_POSIF_INPUT_PORT_G",
+               "XMC_POSIF_INPUT_PORT_H"
+             ][((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pconf","pconf_insel2"))]},   /**< Choice of input for Input-3 */
+  .filter = XMC_POSIF_FILTER_DISABLED   /**< Input filter configuration */
+};
+HALL_POSIF_Config_t ${appInst}_Config =
+{
+  .capture_slice_sr     = {
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice1.getRegValue("srs","srs_posr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice1.getRegValue("srs","srs_cmsr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice1.getRegValue("srs","srs_e0sr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice1.getRegValue("srs","srs_e1sr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice1.getRegValue("srs","srs_e2sr"))]}
+                          },
+  .phasedelay_slice_sr  = {
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice0.getRegValue("srs","srs_posr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice0.getRegValue("srs","srs_cmsr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice0.getRegValue("srs","srs_e0sr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice0.getRegValue("srs","srs_e1sr"))]},
+                            ${ccu4_sr[(int)(appIns.hwres_ccu4_slice0.getRegValue("srs","srs_e2sr"))]}
+                          },
+  .posif_hsc_sr         = {""");
+                            /*Start: This is dummy read*/
+                            (appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_eche"))
+							(appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_ewhe"))
+							(appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_ehie"))
+							/*End: This is dummy read*/
+							out.print("""
+                            ${posif_sr[((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_chesel"))]},
+                            ${posif_sr[((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_whesel"))]},
+                            ${posif_sr[((int)appIns.hwres_posif_hsc_qd_0.getRegValue("pflge","pflge_hiesel"))]}
+                          },
+  .halltype             = ${["HALL_POSIF_3HALL",
+                             "HALL_POSIF_2HALL"
+                          ][appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value)]},
+  .phase_delay_const    = ${(int)((appIns.gfloat_phasedelay.value) * (32767 /60))}U,
+  .blanking_time        = ${(int)((((appIns.gfloat_blankingtime.value)*1000)  /(appIns.gfloat_selresolution.value))+1)}U,
+  .phase_delay          = ${(int)((5000 /(appIns.gfloat_selresolution.value)) + 1 + (appIns.gfloat_blankingtime.value))}U,
+  .speed_constant_avg   = ${(int)((1000000000 / (appIns.gfloat_selresolution.value))*60)}U,
+  .enable_eru           = {
+                            ${boolvalreturn(appIns.gcheck_ehalleru1.value)}U,
+                            ${boolvalreturn(appIns.gcheck_ehalleru2.value)}U,
+                            ${boolvalreturn(appIns.gcheck_ehalleru3.value)}U
+                          },
+  .interrupt_enable     = 0x${Integer.toHexString(boolvalreturn(appIns.gcheck_ecorrecthallevent.value) |
+                               boolvalreturn(appIns.gcheck_ewronghallevent.value)<<1|
+                               boolvalreturn(appIns.gcheck_epatupdateevent.value)<<2|
+                               boolvalreturn(appIns.gcheck_espeedcaptevent.value)<<3)
+                             }U,
+  .hall3pin             = ${["0x00",
+                             "0x24"
+                          ][appIns.gcombo_hall3pinstate.options.indexOf(appIns.gcombo_hall3pinstate.value)]}U
+};
+HALL_POSIF_t ${appInst} =
+{
+  .captureval             = {0U},
+  .hall_pattern           = {
+                            ${hallpat_arry[0]},${hallpat_arry[1]},${hallpat_arry[2]},${hallpat_arry[3]},
+                            ${hallpat_arry[4]},${hallpat_arry[5]},${hallpat_arry[6]},${hallpat_arry[7]},
+                            ${revhallpat_arry[0]},${revhallpat_arry[1]},${revhallpat_arry[2]},${revhallpat_arry[3]},
+                            ${revhallpat_arry[4]},${revhallpat_arry[5]},${revhallpat_arry[6]},${revhallpat_arry[7]}
+                          },
+  .hallinput_ptr          = {
+                              &${appInst}_H1_PadResource,
+                              &${appInst}_H2_PadResource,
+""");
+if(appIns.gcombo_nohallsensor.options.indexOf(appIns.gcombo_nohallsensor.value) == 0)
+{
+out.print("""
+                              &${appInst}_H3_PadResource,
+""");
+}
+out.print("""
+                            },
+  #if (HALL_POSIF_ERU_AVALABLE == 1U)
+  .etl_conf_ptr			  = {${ETL_1[0]},
+                             ${ETL_2[0]},
+                             ${ETL_3[0]}
+                            },
+  .etl_resource_ptr		  = {${ETL_1[1]},
+                             ${ETL_2[1]},
+                             ${ETL_3[1]}
+                            },
+  .ogu_conf_ptr			  = {${ETL_1[2]},
+                             ${ETL_2[2]},
+                             ${ETL_3[2]}
+                            },
+  #endif  
+  .capture_init_ptr       = &${appInst}_capture_init,
+  .phasedelay_init_ptr    = &${appInst}_phdelaytimer_init,                          
+  .global_ptr             = (POSIF_GLOBAL_TypeDef*)(void*)POSIF${appIns.hwres_posif_hsc_qd_0.getSolverUri()[4]},
+  .config_ptr             = &${appInst}_Config,
+  .posifhsc_ptr           = &${appInst}_InitHandle,
+  .posifconfig_ptr        = &${appInst}_PosifConf,
+  .phasedelay_ptr         = &${appInst}_phasedelay,
+  .capture_ptr            = &${appInst}_capture,
+  .phdelayevent_ptr       = &${appInst}_phdelay_eventconfig,
+  .captureevent_ptr       = &${appInst}_capture_eventconfig,
+  .hallpinconfig_ptr      = &${appInst}_Hall_PadConfig,
+  .global_posif_handle_ptr = &${appIns.appres_global_posif_0.getInstanceLabel()},
+  .global_ccu4_handle_ptr  = &${appIns.appres_global_ccu4_0.getInstanceLabel()},
+  .direction              = ${["HALL_POSIF_CLK_DIR",
+                               "HALL_POSIF_ANTI_CLK_DIR"
+                             ][appIns.gint_motordirection.value.toInteger()]},
+  .pattern_update_delay   = ${(int)((((appIns.gfloat_patupdatedelay.value) *1000)/(appIns.gfloat_selresolution.value))+1)}U,
+  .speedcheck             = 0U,
+  .timercheck             = 0U,
+  .phadvance              = ${["HALL_POSIF_PHASEADVANCE_DISABLE",
+                               "HALL_POSIF_PHASEADVANCE_ENABLE"
+                             ][boolvalreturn(appIns.gcheck_ephadv.value)]},
+  .speedaccum             = 0U,
+  .capval                 = 0x7FFFU,
+  .state                  = HALL_POSIF_UNINITIALISED,
+""");
+if(boolvalreturn(appIns.gcheck_ephadv.value) == 1)
+{  
+out.print("""
+  .phaseconst             = ${(int)((appIns.gfloat_phasedelay.value) * (32767 /60))}U,
+  .phaseadvconst          = ${(int)((appIns.gfloat_phasedelay.value) * (32767 /60))}U,
+""");
+}
+else
+{
+out.print("""
+  .phaseconst             = ${(int)((appIns.gfloat_phasedelay.value) * (32767 /60))}U,
+  .phaseadvconst          = 0U,
+""");
+}
+out.print("""
+  .index                  = 0U,
+  .speedindex             = 0U
+};
+
+""");
+	} else {
+		out.print("""
+  /*Posif HSC resource is not mapped to hall_posif app*/
+
+""");
+	}
+}

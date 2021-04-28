@@ -1,0 +1,19 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e">
+	<p1:Tab.layout>
+		<GridLayout/>
+	</p1:Tab.layout>
+	<p1:TabFolder>
+		<p1:TabFolder.layoutData>
+			<GridData widthHint="468" heightHint="337" horizontalAlignment="FILL"/>
+		</p1:TabFolder.layoutData>
+		<p1:GTab text="General Settings" widgetName="gtab_globalconfiguration" visible="true" enabled="true">
+			<p1:GTab.control>
+				<p1:Tab layout="{x:Null}">
+					<p1:GLabel text="Clock frequency [MHz]:" visible="true" widgetName="glabel_clockfrequency" bounds="10, 13, 125, 15"/>
+					<p1:GFloat x:Style="BORDER" minValue="0" maxValue="120" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_clockfrequency" toolTipText="Read the clock frequency from clock app." value="120.0" description="Read the clock frequency from clock app." bounds="193, 10, 265, 21"/>
+					<p1:GMessage visible="true" manifestObj="true" isError="true" widgetName="gmessage_clock_setting_error" bounds="10, 41, 448, 35" text="CCU Clock  is not enabled in the &quot;Clock Selection Setting&quot; tab of the CLOCK_XMC4 APP. Please enable the same to continue. " toolTipText="Error message for clock settings" description="Error message for clock settings"/>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

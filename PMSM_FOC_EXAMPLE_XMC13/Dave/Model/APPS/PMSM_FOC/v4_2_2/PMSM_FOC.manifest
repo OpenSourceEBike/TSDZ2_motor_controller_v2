@@ -1,0 +1,1313 @@
+package Model.APPS.PMSM_FOC.v4_2_2;
+
+/*
+ *  * Copyright (c) 2015, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ */
+import ifx.davex.app.manifest.*
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.0        15-Feb-2015   1. Initial version<br/>
+ 4.2.0        19-Nov-2015   1. Supports sensorless FOC with 3-phase current measurement <br>
+                            2. FOC library code integrated in APP <br>
+ 4.2.2        04-Aug-2015   1. APP version updated for PR.<br/> 
+ *******************************************************************************/
+
+class  PMSM_FOC extends PMSM_FOC_GUI {
+
+	 /* Note  : Following APP properties are mandatory and important */
+	 
+	 /* Begin : APP property section */
+	
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.2.2'
+	
+	/**
+	 * APP categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = [
+		"Motor Control"
+	]
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+	
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords      = ["all","FOC","PMSM_FOC","Motor Control","Motor", "Drive", "PMSM", "SVM", "Sensorless", "Sine" ]
+	
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+	
+	/**
+	 * Any step , any variant and any packages of XMC4500, XMC4400, XMC4200 and XMC4100
+	 * Any step, any variant of XMC1302 except T016 package
+	 */
+	def softwareIDs       = [
+    "XMC1.3.02.(Q024|Q040|T038).*":"1.0.0", 
+    "XMC4.5.*.*.*":"1.0.0",
+	"XMC4.4.*.*.*":"1.0.0",
+	"XMC4.2.*.*.*":"1.0.0",
+	"XMC4.1.*.*.*":"1.0.0"
+	]
+	
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */
+	def singleton     = true
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <APPName>_Init() 
+	 */
+	def initProvider  = true
+	
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+	
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "Supports sensorless field oriented control (FOC) \n for permanent magnet synchronous motor(PMSM)."
+	
+	/* End   : APP property section */
+	
+	/* Begin : User app property section */
+	/* --------------------------------------------------------------------------------- */
+	/* ------------------------- Begin : User variable section ------------------------- */
+	/* --------------------------------------------------------------------------------- */
+	/* Required Hardware Resources */
+	/*ADC channel resource*/
+	MVirtualResourceGroup hwres_adcchan1
+	MVirtualResourceGroup hwres_adcchan2
+	MVirtualResourceGroup hwres_adcchan3
+	MVirtualResourceGroup hwres_adcchan4
+	MVirtualResourceGroup hwres_adcchan5
+	MVirtualResourceGroup hwres_adcchan6
+	MVirtualResourceGroup hwres_adcchan7
+	
+	
+	/*Pad resource for input adc channel*/
+	MVirtualResourceGroup hwres_chan_a_pin
+	MVirtualResourceGroup hwres_chan_b_pin
+	MVirtualResourceGroup hwres_chan_c_pin
+	MVirtualResourceGroup hwres_chan_d_pin
+	MVirtualResourceGroup hwres_chan_e_pin
+	MVirtualResourceGroup hwres_chan_f_pin
+	MVirtualResourceGroup hwres_chan_g_pin
+	
+	/*ADC result resource*/
+	MVirtualResourceGroup hwres_result1
+	MVirtualResourceGroup hwres_result2
+	MVirtualResourceGroup hwres_result3
+	MVirtualResourceGroup hwres_result4
+	MVirtualResourceGroup hwres_result5
+	MVirtualResourceGroup hwres_result6
+	MVirtualResourceGroup hwres_result7
+	MVirtualResourceGroup hwres_result8
+	MVirtualResourceGroup hwres_result9
+	MVirtualResourceGroup hwres_result10
+	
+	/*Nvic node for fast control loop isr*/
+	MVirtualResourceGroup hwres_fcl_nvicnode
+	/*Nvic node for trap isr*/
+	MVirtualResourceGroup hwres_trap_nvicnode
+		
+	/*ADC queue app*/
+	MRequiredApp appres_queue_a
+	MRequiredApp appres_queue_b
+	MRequiredApp appres_queue_c
+	MRequiredApp appres_queue_d
+	
+	/*pwm ccu8 svm app*/
+	MRequiredApp appres_pwm_svm
+	/*cpu app*/
+	MRequiredApp appres_cpu
+	
+	/* Virtual signals for ADC Channel */
+	MVirtualSignal vs_pmsm_foc_adcch1
+	MVirtualSignal vs_pmsm_foc_adcch1_sel
+	MVirtualSignal vs_pmsm_foc_adcch1_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch2
+	MVirtualSignal vs_pmsm_foc_adcch2_sel
+	MVirtualSignal vs_pmsm_foc_adcch2_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch3
+	MVirtualSignal vs_pmsm_foc_adcch3_sel
+	MVirtualSignal vs_pmsm_foc_adcch3_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch4
+	MVirtualSignal vs_pmsm_foc_adcch4_sel
+	MVirtualSignal vs_pmsm_foc_adcch4_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch5
+	MVirtualSignal vs_pmsm_foc_adcch5_sel
+	MVirtualSignal vs_pmsm_foc_adcch5_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch6
+	MVirtualSignal vs_pmsm_foc_adcch6_sel
+	MVirtualSignal vs_pmsm_foc_adcch6_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch7
+	MVirtualSignal vs_pmsm_foc_adcch7_sel
+	MVirtualSignal vs_pmsm_foc_adcch7_ressel
+	
+	MVirtualSignal vs_pmsm_foc_adcch1_res
+	MVirtualSignal vs_pmsm_foc_adcch2_res
+	MVirtualSignal vs_pmsm_foc_adcch3_res
+	MVirtualSignal vs_pmsm_foc_adcch4_res
+	MVirtualSignal vs_pmsm_foc_adcch5_res
+	MVirtualSignal vs_pmsm_foc_adcch6_res
+	MVirtualSignal vs_pmsm_foc_adcch7_res
+	MVirtualSignal vs_pmsm_foc_adcch8_res
+	MVirtualSignal vs_pmsm_foc_adcch9_res
+	MVirtualSignal vs_pmsm_foc_adcch10_res
+	
+	MVirtualSignalRA vs_adc_queue_queue12channel
+	MVirtualSignalRA vs_adc_queue_queue22channel
+	MVirtualSignalRA vs_adc_queue_queue32channel
+	MVirtualSignalRA vs_adc_queue_queue42channel
+	
+	MVirtualSignalRA vs_adc_queue_trigsel_a
+	MVirtualSignalRA vs_adc_queue_trigsel_b
+	MVirtualSignalRA vs_adc_queue_trigsel_c
+	MVirtualSignalRA vs_adc_queue_trigsel_d
+
+	MVirtualSignal vs_pmsm_foc_adcch1_io
+	MVirtualSignal vs_pmsm_foc_adcch2_io
+	MVirtualSignal vs_pmsm_foc_adcch3_io
+	MVirtualSignal vs_pmsm_foc_adcch4_io
+	MVirtualSignal vs_pmsm_foc_adcch5_io
+	MVirtualSignal vs_pmsm_foc_adcch6_io
+	MVirtualSignal vs_pmsm_foc_adcch7_io
+	
+	MVirtualSignal vs_pmsm_foc_fcl_nvicsignal_in
+	MVirtualSignal vs_pmsm_foc_trap_nvicsignal_in
+				
+	/* signals from SVM APP */
+	MVirtualSignalRA vs_svm_phu_periodmatch
+	MVirtualSignalRA vs_svm_phv_periodmatch
+	MVirtualSignalRA vs_svm_phasecurrent_trigger
+	MVirtualSignalRA vs_svm_dclink_current_cmpch1_trigger
+	MVirtualSignalRA vs_svm_dclink_current_cmpch2_trigger
+	MVirtualSignalRA vs_svm_phu_trap
+	
+	/* solver variables for ADC pin and result registers */
+	SolverVariable sv_resulta = SolverVariable()
+	SolverVariable sv_resultb = SolverVariable()
+	SolverVariable sv_resultc = SolverVariable()
+	SolverVariable sv_resultd = SolverVariable()
+	
+	/* solver variables for result registers type*/
+	SolverVariable sv_resultrega = SolverVariable()
+	SolverVariable sv_resultregb = SolverVariable()
+	SolverVariable sv_resultregc = SolverVariable()
+	SolverVariable sv_resultregd = SolverVariable()
+	
+	/* solver variables for ADC registers group constraint*/
+	SolverVariable sv_groupa = SolverVariable()
+	SolverVariable sv_groupb = SolverVariable()
+	SolverVariable sv_groupc = SolverVariable()
+	SolverVariable sv_groupd = SolverVariable()
+	
+	GFloat gfloat_pwmtime = GFloat(value:0.0)
+	GCheck gcheck_enablepwmint = GCheck(value:true)
+	
+	GFloat gfloat_inductance = GFloat(value:0.0)
+	
+	GFloat gfloat_niphase = GFloat(value:0.0)
+	GFloat gfloat_niclark = GFloat(value:0.0)
+	GFloat gfloat_nipark = GFloat(value:0.0)
+	
+	GFloat gfloat_nvphase = GFloat(value:0.0)
+	GFloat gfloat_nvclark = GFloat(value:0.0)
+	GFloat gfloat_nvpark = GFloat(value:0.0)
+	GFloat gfloat_tmincount = GFloat(value:0.0)
+	GFloat gfloat_adc_conv_time = GFloat(value:0.0)
+	
+	GFloat gfloat_posifres = GFloat(value:5000.0)
+	GFloat gfloat_patupdatedelay = GFloat(value:1.0)
+	GCheck gcheck_enablehallint = GCheck(value:true)
+	
+	GInteger gint_res_inc  = GInteger(value:0)
+	GInteger gint_high_speed_target = GInteger(value:0)
+	GInteger gint_inductance_target = GInteger(value:0)
+	GInteger gint_inductance_scale = GInteger(value:0)
+	GFloat gfloat_kp_scale =GFloat(value:0.0)
+	GFloat gfloat_nvsvm =GFloat(value:0.0)
+	GFloat gfloat_inductance_withoutscale =GFloat(value:0.0)
+	
+	GInteger gint_fcldiv = GInteger(value:0)
+	GFloat gfloat_actualfreq = GFloat(value:0.0)
+	
+	/* -------------------------- End   : User variable section -----------------------------*/
+
+	/* -------------------------- PMSM_FOC Constructor --------------------------------------*/
+	public PMSM_FOC(DaveEnv daveEnv) 
+	{
+		int POW16 = 65536
+		int POW15 = 32768
+		
+		/* ---------------------------------------------------------- ---------------------------------------------------------------*/
+		/* ---------- Target Specific User Variable Initialization ----------------------------------------------------------------- */
+		/* ---------------------------------------------------------- ---------------------------------------------------------------*/
+		boolean device_4x = false
+		
+		/* Set device variable true, if device belongs to XMC4 family  */
+		if(daveEnv.project.selectedDevice.deviceId.family == 'XMC4')
+		{
+		  device_4x = true
+		  /*Queue Initialization for xmc45 and xmc44 device*/
+		  if((daveEnv.project.selectedDevice.deviceId.series == "4") || (daveEnv.project.selectedDevice.deviceId.series == "5"))
+		  {
+			/* XMC45 and XMC44 device support 4 ADC queue request source */
+			gcombo_phu_i_measurement.options        = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_phv_i_measurement.options        = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_phw_i_measurement.options        = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_dc_link_measurement.options      = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_dclink_i_measurement.options     = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_pot_measurement.options          = ["Queue A","Queue B","Queue C","Queue D"]
+			gcombo_user_defined_measurement.options = ["Queue A","Queue B","Queue C","Queue D"]
+		  }
+		  /* Consume CPU APP to set the min max value of interrupt priority*/
+		  appres_cpu =  MRequiredApp("CPU_CTRL_XMC4", "CPU APP", RSHARABLE, "4.0.2")
+		}
+		else
+		{
+		  /* Consume CPU APP to set the min max value of interrupt priority*/
+		  appres_cpu =  MRequiredApp("CPU_CTRL_XMC1", "CPU APP", RSHARABLE, "4.0.2")
+		}
+		
+		/* Condition to consume the channel for phase current measurement */
+		gcheck_phu_i_measurement.value = MF({return((gcombo_curntmsrmnt.value == "2 Phase Current Measurement")|| (gcombo_curntmsrmnt.value == "3 Phase Current Measurement"))},Boolean)
+		gcheck_phv_i_measurement.value = MF({return((gcombo_curntmsrmnt.value == "2 Phase Current Measurement") || (gcombo_curntmsrmnt.value == "3 Phase Current Measurement"))},Boolean)
+		gcheck_phw_i_measurement.value = MF({return(gcombo_curntmsrmnt.value == "3 Phase Current Measurement")},Boolean)
+		/* Condition to consume the channel for DC link current measurement */
+		//gcheck_dclink_i_measurement.value = MF({return (gcombo_curntmsrmnt.value == "DC Link Current Measurement")},Boolean)
+		
+		/* Sensorless option is disabled */
+		MF SENSORLESS_DISABLED 	= MF({return (gcombo_feedback.options.indexOf(gcombo_feedback.value) == 0)},Boolean) 
+		MF VF_STARTUP_REQUIRED  = MF({return (gcombo_startup.options.indexOf(gcombo_startup.value) != 3)},Boolean)
+		MF CLOSED_LOOP_ENABLED  = MF({return (gcombo_startup.options.indexOf(gcombo_startup.value) != 0)},Boolean)
+		
+		/* ---------------------------------------------------------- ---------------------------------------------------------------*/
+		/* ------------ APP consumption Block -------------------------------------------------------------------------------------- */
+		/* ---------------------------------------------------------- ---------------------------------------------------------------*/
+		/* ---------- PWM CCU8 SVM APP ------ */
+		appres_pwm_svm = MRequiredApp("PWM_SVM","PWM SVM APP", RNOTSHARABLE, "4.0.18")
+		
+		/* ---------- 4 ADC QUEUE APP ------ */
+		for(String index in 'a' .. 'd')
+		{
+			String queue_no = index
+		/*Consume queue resources based on GUI constraints */
+		this."appres_queue_${index}"  = MRequiredApp("ADC_QUEUE","QUEUE ${index}".toUpperCase(),RNOTSHARABLE,"4.0.8",MF({(
+			((gcombo_phu_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phu_i_measurement.value == true)) ||
+			((gcombo_phv_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phv_i_measurement.value == true)) ||
+			((gcombo_phw_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phw_i_measurement.value == true)) ||
+			((gcombo_dc_link_measurement.value.equalsIgnoreCase("Queue "+queue_no))&& (gcheck_dc_link_measurement.value == true)) ||
+			((gcombo_pot_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_pot_measurement.value == true)) ||
+			((gcombo_user_defined_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_user_defined_measurement.value == true))||
+			((gcombo_dclink_i_measurement.value.equalsIgnoreCase("Queue "+queue_no))&& (gcheck_dclink_i_measurement.value == true))
+			)},Boolean))
+		}
+
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ------------------------------------------------------------------------ */
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		/* Consumed NVIVC node for fast control loop*/
+		 hwres_fcl_nvicnode = MVirtualResourceGroup("FCL nvic node" , ["peripheral", "cpu" ,  "0" , "nvic", "interrupt", "*"])
+		 
+		 hwres_trap_nvicnode = MVirtualResourceGroup("Trap/Phase V one match nvic node" , ["peripheral", "cpu" ,  "0" , "nvic", "interrupt", "*"])
+		 	 
+		 /* ---------- 7 ADC Channel resources are consumed based on the GUI entry in Measurement tab ------ */
+		 
+		 hwres_adcchan1 = MVirtualResourceGroup(MF({gstring_phu_i_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_phu_i_measurement.value == true)
+			  },Boolean))
+		 hwres_adcchan2 = MVirtualResourceGroup(MF({gstring_dc_link_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_dc_link_measurement.value == true)},Boolean))
+		 hwres_adcchan3 = MVirtualResourceGroup(MF({gstring_pot_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_pot_measurement.value == true)},Boolean))
+		 hwres_adcchan4 = MVirtualResourceGroup(MF({gstring_user_defined_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_user_defined_measurement.value == true)},Boolean))
+		 hwres_adcchan5 = MVirtualResourceGroup(MF({gstring_phv_i_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_phv_i_measurement.value == true)
+			  },Boolean))
+		 hwres_adcchan6 = MVirtualResourceGroup(MF({gstring_phw_i_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_phw_i_measurement.value == true)
+			  },Boolean))
+		 hwres_adcchan7 = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value},String),["peripheral", "vadc", "0", "group", "*", "ch","*"],MF({
+			 (gcheck_dclink_i_measurement.value == true)
+			  },Boolean))
+		 
+		 /* ---------- 7 ADC result resource based on the GUI entry in Measurement tab  ------ */
+		 hwres_result1 = MVirtualResourceGroup(MF({return(gstring_phu_i_measurement.value + " Result")},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			 (gcheck_phu_i_measurement.value == true)},Boolean))
+		 hwres_result5 = MVirtualResourceGroup(MF({gstring_phv_i_measurement.value + " Result"},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			 (gcheck_phv_i_measurement.value == true)},Boolean))
+		 
+		 hwres_result6 = MVirtualResourceGroup(MF({gstring_phw_i_measurement.value + " Result"},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			 (gcheck_phw_i_measurement.value == true)},Boolean))
+			   
+		 hwres_result2 = MVirtualResourceGroup(MF({gstring_dc_link_measurement.value + " Result"},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			(gcheck_dc_link_measurement.value == true)},Boolean))
+				
+		 hwres_result3 = MVirtualResourceGroup(MF({gstring_pot_measurement.value + " Result"},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			 (gcheck_pot_measurement.value == true)},Boolean))
+ 
+		 hwres_result4 = MVirtualResourceGroup(MF({gstring_user_defined_measurement.value + " Result"},String),["peripheral", "vadc", "0", "group","*","result","*"],MF({
+			 (gcheck_user_defined_measurement.value == true)},Boolean))
+		 
+		 /* ---------- 7 ADC result resources for DC link current measurement ------ */
+		 /* For DC link current measurement to create FIFO Result registers should be consumed in the decrement sequence from the same group */
+		 addUriElementRangeConstraint(sv_resultrega,["result","result_adv","result_filter"])
+		 addUriElementRangeConstraint(sv_resultregb,["result","result_adv","result_filter"])
+		 addUriElementRangeConstraint(sv_resultregc,["result","result_adv","result_filter"])
+		 addUriElementRangeConstraint(sv_resultregd,["result","result_adv","result_filter"])
+		 
+		 hwres_result7 = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value + " Result0"},String),["peripheral", "vadc", "0", "group",sv_groupa,sv_resultrega,sv_resulta],MF({
+			 (gcheck_dclink_i_measurement.value == true)},Boolean))
+
+		 hwres_result8 = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value + " Result1"},String),["peripheral", "vadc", "0", "group",sv_groupb,sv_resultregb,sv_resultb],MF({
+			 (gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume consecutive registers for FIFO */
+		 addLinearConstraint(sv_resultb,sv_resulta,-1,MF({(gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume registers from same group resource */
+		 addLinearConstraint(sv_groupb,sv_groupa,0,true)
+				  
+		 hwres_result9 = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value + " Result2"},String),["peripheral", "vadc", "0", "group",sv_groupc,sv_resultregc,sv_resultc],MF({
+			 (gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume consecutive registers for FIFO */
+		 addLinearConstraint(sv_resultc,sv_resulta,-2,MF({(gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume registers from same group resource */
+		 addLinearConstraint(sv_groupc,sv_groupa,0,true)
+		 
+		 hwres_result10 = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value + " Result3"},String),["peripheral", "vadc", "0", "group",sv_groupd,sv_resultregd,sv_resultd],MF({
+			 (gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume consecutive registers for FIFO */
+		 addLinearConstraint(sv_resultd,sv_resulta,-3,MF({(gcheck_dclink_i_measurement.value == true)},Boolean))
+		 /* Result register constraint to consume registers from same group resource */
+		 addLinearConstraint(sv_groupd,sv_groupa,0,true)
+		 /* ---------- 7 IO pad resource (channel pin) ------ */
+		 hwres_chan_a_pin = MVirtualResourceGroup(MF({gstring_phu_i_measurement.value + " Pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_phu_i_measurement.value == true)
+			}, Boolean))
+		 
+		 hwres_chan_e_pin = MVirtualResourceGroup(MF({gstring_phv_i_measurement.value + " Pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_phv_i_measurement.value == true)
+			}, Boolean))
+		 
+		 hwres_chan_f_pin = MVirtualResourceGroup(MF({gstring_phw_i_measurement.value + " Pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_phw_i_measurement.value == true)
+			}, Boolean))
+		 
+		 hwres_chan_b_pin = MVirtualResourceGroup(MF({gstring_dc_link_measurement.value + " Pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_dc_link_measurement.value == true)
+		 }, Boolean))
+ 
+		 hwres_chan_c_pin = MVirtualResourceGroup(MF({gstring_pot_measurement.value + " pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_pot_measurement.value == true)
+		 }, Boolean))
+ 
+		 hwres_chan_d_pin = MVirtualResourceGroup(MF({gstring_user_defined_measurement.value + " pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_user_defined_measurement.value == true)
+		 }, Boolean))
+		 
+		 /* DC link current measurement */
+		 hwres_chan_g_pin = MVirtualResourceGroup(MF({gstring_dclink_i_measurement.value + " pin"},String),["port", "p", "*", "pad", "*"], MF({
+			 (gcheck_dclink_i_measurement.value == true)
+			}, Boolean))
+		 
+		 /* ------------------------------------------------------------------------------------------------------------------------- */
+		 
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		/* -------------- APP IO Signals ------------------------------------------------------------------------------------------- */
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		 vs_pmsm_foc_fcl_nvicsignal_in  = MVirtualSignal(hwres_fcl_nvicnode, "sr_fast_control_loop", "signal_in", true, true)
+		 vs_pmsm_foc_trap_nvicsignal_in  = MVirtualSignal(hwres_trap_nvicnode, "sr_trap_one_match", "signal_in", 
+			 true, true)
+		 
+		 
+		 
+		 /*Local instance of virtual signal from low level app*/
+		 vs_svm_phu_periodmatch      = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_pmus_omds_phu")
+		 vs_svm_phv_periodmatch      = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_pmus_omds_phv")
+		 vs_svm_phu_trap             = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_e2as_phu")
+		 vs_svm_phasecurrent_trigger = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_pmus_omds_currenttrig")
+		 vs_svm_dclink_current_cmpch1_trigger = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_cmds_cmus_cmpch1_currenttrig")
+		 vs_svm_dclink_current_cmpch2_trigger = MVirtualSignalRA(appres_pwm_svm, "vs_pwm_svm_cmds_cmus_cmpch2_currenttrig")
+
+		 @AddPin
+		 vs_pmsm_foc_adcch1_io = MVirtualSignal( hwres_chan_a_pin,MF({gstring_phu_i_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			 MF({
+			 (gcheck_phu_i_measurement.value == true)
+			}, Boolean), false)
+		 
+		 @AddPin
+		 vs_pmsm_foc_adcch5_io = MVirtualSignal( hwres_chan_e_pin,MF({gstring_phv_i_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			 MF({
+			 (gcheck_phv_i_measurement.value == true)
+			}, Boolean), false)
+		 
+		 @AddPin
+		 vs_pmsm_foc_adcch6_io = MVirtualSignal( hwres_chan_f_pin,MF({gstring_phw_i_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			 MF({
+			 (gcheck_phw_i_measurement.value == true)
+			}, Boolean), false)
+		 
+		 @AddPin
+		 vs_pmsm_foc_adcch7_io = MVirtualSignal( hwres_chan_g_pin,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			 MF({
+			 (gcheck_dclink_i_measurement.value == true)
+			}, Boolean), false)
+		 
+		 @AddPin
+		 vs_pmsm_foc_adcch2_io = MVirtualSignal( hwres_chan_b_pin,MF({gstring_dc_link_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			MF({
+			 (gcheck_dc_link_measurement.value == true)
+		 }, Boolean), false)
+		 @AddPin
+		 vs_pmsm_foc_adcch3_io = MVirtualSignal( hwres_chan_c_pin,MF({gstring_pot_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			MF({
+			 (gcheck_pot_measurement.value == true)
+		 }, Boolean), false)
+		 @AddPin
+		 vs_pmsm_foc_adcch4_io = MVirtualSignal( hwres_chan_d_pin,MF({gstring_user_defined_measurement.value.toLowerCase() + "_pad"},String), "pad",
+			MF({
+			 (gcheck_user_defined_measurement.value == true)
+		 }, Boolean), false)
+		 
+		 /* Signals from ADC channel based on the GUI entry in Measurement tab */
+		 vs_pmsm_foc_adcch1        =  MVirtualSignal(hwres_adcchan1,MF({return(gstring_phu_i_measurement.value.toLowerCase())},String),  "gch", true, false) /* required{}, exposeToUser{} */
+		 vs_pmsm_foc_adcch1_sel    =  MVirtualSignal(hwres_adcchan1,MF({return(gstring_phu_i_measurement.value.toLowerCase() + "_channel_select")},String) ,  "select", true, false)
+		 vs_pmsm_foc_adcch1_ressel =  MVirtualSignal(hwres_adcchan1,MF({return(gstring_phu_i_measurement.value.toLowerCase() + "_result_select")},String),  "res_sel", true, false)
+ 
+		 vs_pmsm_foc_adcch5        =  MVirtualSignal(hwres_adcchan5,MF({gstring_phv_i_measurement.value.toLowerCase()},String),  "gch", true, false)
+		 vs_pmsm_foc_adcch5_sel    =  MVirtualSignal(hwres_adcchan5,MF({gstring_phv_i_measurement.value.toLowerCase() + "_channel_select"},String) ,  "select", true, false)
+		 vs_pmsm_foc_adcch5_ressel =  MVirtualSignal(hwres_adcchan5,MF({gstring_phv_i_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+		 
+		 vs_pmsm_foc_adcch6        =  MVirtualSignal(hwres_adcchan6,MF({gstring_phw_i_measurement.value.toLowerCase()},String),  "gch", true, false)
+		 vs_pmsm_foc_adcch6_sel    =  MVirtualSignal(hwres_adcchan6,MF({gstring_phw_i_measurement.value.toLowerCase() + "_channel_select"},String) ,  "select", true, false)
+		 vs_pmsm_foc_adcch6_ressel =  MVirtualSignal(hwres_adcchan6,MF({gstring_phw_i_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+		 
+		 vs_pmsm_foc_adcch7        =  MVirtualSignal(hwres_adcchan7,MF({gstring_dclink_i_measurement.value.toLowerCase()},String),  "gch", true, false)
+		 vs_pmsm_foc_adcch7_sel    =  MVirtualSignal(hwres_adcchan7,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_channel_select"},String) ,  "select", true, false)
+		 vs_pmsm_foc_adcch7_ressel =  MVirtualSignal(hwres_adcchan7,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+		 
+		 vs_pmsm_foc_adcch2        =  MVirtualSignal(hwres_adcchan2,MF({gstring_dc_link_measurement.value.toLowerCase()},String), "gch", true, false)
+		 vs_pmsm_foc_adcch2_sel    =  MVirtualSignal(hwres_adcchan2,MF({gstring_dc_link_measurement.value.toLowerCase() + "_channel_select"},String),  "select", true, false)
+		 vs_pmsm_foc_adcch2_ressel =  MVirtualSignal(hwres_adcchan2,MF({gstring_dc_link_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+		 
+		 vs_pmsm_foc_adcch3        =  MVirtualSignal(hwres_adcchan3,MF({gstring_pot_measurement.value.toLowerCase()},String),  "gch", true, false)
+		 vs_pmsm_foc_adcch3_sel    =  MVirtualSignal(hwres_adcchan3,MF({gstring_pot_measurement.value.toLowerCase() + "_channel_select"},String),  "select", true, false)
+		 vs_pmsm_foc_adcch3_ressel =  MVirtualSignal(hwres_adcchan3,MF({gstring_pot_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+		 
+		 vs_pmsm_foc_adcch4        =  MVirtualSignal(hwres_adcchan4,MF({gstring_user_defined_measurement.value.toLowerCase()},String),  "gch", true, false)
+		 vs_pmsm_foc_adcch4_sel    =  MVirtualSignal(hwres_adcchan4,MF({gstring_user_defined_measurement.value.toLowerCase() + "_channel_select"},String),  "select", true, false)
+		 vs_pmsm_foc_adcch4_ressel =  MVirtualSignal(hwres_adcchan4,MF({gstring_user_defined_measurement.value.toLowerCase() + "_result_select"},String),  "res_sel", true, false)
+ 
+		 /* Signals from ADC result register based on the GUI entry in Measurement tab */
+		 vs_pmsm_foc_adcch1_res       =  MVirtualSignal(hwres_result1,MF({gstring_phu_i_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch5_res       =  MVirtualSignal(hwres_result5,MF({gstring_phv_i_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch6_res       =  MVirtualSignal(hwres_result6,MF({gstring_phw_i_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch7_res       =  MVirtualSignal(hwres_result7,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_result0"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch8_res       =  MVirtualSignal(hwres_result8,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_result1"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch9_res       =  MVirtualSignal(hwres_result9,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_result2"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch10_res      =  MVirtualSignal(hwres_result10,MF({gstring_dclink_i_measurement.value.toLowerCase() + "_result3"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch2_res       =  MVirtualSignal(hwres_result2,MF({gstring_dc_link_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch3_res       =  MVirtualSignal(hwres_result3,MF({gstring_pot_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 vs_pmsm_foc_adcch4_res       =  MVirtualSignal(hwres_result4,MF({gstring_user_defined_measurement.value.toLowerCase() + "_result"},String),  "res_sel", true, false)
+		 
+		 /* Signals from ADC queue to channel based on the GUI entry in Measurement tab */
+		 vs_adc_queue_queue12channel = MVirtualSignalRA(appres_queue_a,"vs_adc_queue_queue2channel")
+		 vs_adc_queue_queue22channel = MVirtualSignalRA(appres_queue_b,"vs_adc_queue_queue2channel")
+		 vs_adc_queue_queue32channel = MVirtualSignalRA(appres_queue_c,"vs_adc_queue_queue2channel")
+		 vs_adc_queue_queue42channel = MVirtualSignalRA(appres_queue_d,"vs_adc_queue_queue2channel")
+		  
+		 /* Signals from ADC queue trigger select based on the GUI entry in Measurement tab */
+		 vs_adc_queue_trigsel_a = MVirtualSignalRA(appres_queue_a, "vs_adc_queue_greqtr0sel")
+		 vs_adc_queue_trigsel_b = MVirtualSignalRA(appres_queue_b, "vs_adc_queue_greqtr0sel")
+		 vs_adc_queue_trigsel_c = MVirtualSignalRA(appres_queue_c, "vs_adc_queue_greqtr0sel")
+		 vs_adc_queue_trigsel_d = MVirtualSignalRA(appres_queue_d, "vs_adc_queue_greqtr0sel")
+		 
+		 /* ------------------------------------------------------------------------------------------------------------------------- */
+		 /* -------------- APP IO Signals connections ------------------------------------------------------------------------------- */
+		 /* ------------------------------------------------------------------------------------------------------------------------- */
+		 addConnectionConstraint(vs_svm_phu_periodmatch, vs_pmsm_foc_fcl_nvicsignal_in)
+		 addConnectionConstraint(vs_svm_phu_trap, vs_pmsm_foc_trap_nvicsignal_in, MF({return (gcombo_etrap.value != "Disabled")}, Boolean))
+		 addConnectionConstraint(vs_svm_phv_periodmatch, vs_pmsm_foc_trap_nvicsignal_in)
+		 
+			 
+		 /* IO pad to ADC channel signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint(vs_pmsm_foc_adcch1_io,vs_pmsm_foc_adcch1, MF({return(gcheck_phu_i_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch5_io,vs_pmsm_foc_adcch5, MF({return(gcheck_phv_i_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch6_io,vs_pmsm_foc_adcch6, MF({return(gcheck_phw_i_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch7_io,vs_pmsm_foc_adcch7, MF({return(gcheck_dclink_i_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch2_io,vs_pmsm_foc_adcch2, MF({return(gcheck_dc_link_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch3_io,vs_pmsm_foc_adcch3, MF({return(gcheck_pot_measurement.value == true)}, Boolean))
+		 addConnectionConstraint(vs_pmsm_foc_adcch4_io,vs_pmsm_foc_adcch4, MF({return(gcheck_user_defined_measurement.value == true)}, Boolean))
+		 
+		 /* ADC Queue A request source to ADC channel select signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch1_sel, MF({return((gcombo_phu_i_measurement.value == "Queue A") && (gcheck_phu_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch5_sel, MF({return((gcombo_phv_i_measurement.value == "Queue A") && (gcheck_phv_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch6_sel, MF({return((gcombo_phw_i_measurement.value == "Queue A") && (gcheck_phw_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch7_sel, MF({return((gcombo_dclink_i_measurement.value == "Queue A") && (gcheck_dclink_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch2_sel, MF({return((gcombo_dc_link_measurement.value == "Queue A") && (gcheck_dc_link_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch3_sel, MF({return((gcombo_pot_measurement.value == "Queue A") && (gcheck_pot_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue12channel,vs_pmsm_foc_adcch4_sel, MF({return((gcombo_user_defined_measurement.value == "Queue A") && (gcheck_user_defined_measurement.value == true))},Boolean))
+		 
+		 /* ADC Queue B request source to ADC channel select signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch1_sel, MF({return(((gcombo_phu_i_measurement.value == "Queue B") && (gcheck_phu_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch5_sel, MF({return(((gcombo_phv_i_measurement.value == "Queue B") && (gcheck_phv_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch6_sel, MF({return(((gcombo_phw_i_measurement.value == "Queue B") && (gcheck_phw_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch7_sel, MF({return((gcombo_dclink_i_measurement.value == "Queue B") && (gcheck_dclink_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch2_sel, MF({return(((gcombo_dc_link_measurement.value == "Queue B") && (gcheck_dc_link_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch3_sel, MF({return(((gcombo_pot_measurement.value == "Queue B") && (gcheck_pot_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue22channel,vs_pmsm_foc_adcch4_sel, MF({return(((gcombo_user_defined_measurement.value == "Queue B") && (gcheck_user_defined_measurement.value == true)))},Boolean))
+		 
+		 /* ADC Queue C request source to ADC channel select signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch1_sel, MF({return(((gcombo_phu_i_measurement.value == "Queue C") && (gcheck_phu_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch5_sel, MF({return(((gcombo_phv_i_measurement.value == "Queue C") && (gcheck_phv_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch6_sel, MF({return(((gcombo_phw_i_measurement.value == "Queue C") && (gcheck_phw_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch7_sel, MF({return((gcombo_dclink_i_measurement.value == "Queue C") && (gcheck_dclink_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch2_sel, MF({return(((gcombo_dc_link_measurement.value == "Queue C") && (gcheck_dc_link_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch3_sel, MF({return(((gcombo_pot_measurement.value == "Queue C") && (gcheck_pot_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue32channel,vs_pmsm_foc_adcch4_sel, MF({return(((gcombo_user_defined_measurement.value == "Queue C") && (gcheck_user_defined_measurement.value == true)))},Boolean))
+		 
+		 /* ADC Queue D request source to ADC channel select signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch1_sel, MF({return(((gcombo_phu_i_measurement.value == "Queue D") && (gcheck_phu_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch5_sel, MF({return(((gcombo_phv_i_measurement.value == "Queue D") && (gcheck_phv_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch6_sel, MF({return(((gcombo_phw_i_measurement.value == "Queue D") && (gcheck_phw_i_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch7_sel, MF({return((gcombo_dclink_i_measurement.value == "Queue D") && (gcheck_dclink_i_measurement.value == true))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch2_sel, MF({return(((gcombo_dc_link_measurement.value == "Queue D") && (gcheck_dc_link_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch3_sel, MF({return(((gcombo_pot_measurement.value == "Queue D") && (gcheck_pot_measurement.value == true)))},Boolean))
+		 addConnectionConstraint (vs_adc_queue_queue42channel,vs_pmsm_foc_adcch4_sel, MF({return(((gcombo_user_defined_measurement.value == "Queue D") && (gcheck_user_defined_measurement.value == true)))},Boolean))
+		 
+		 /* ADC channel to ADC result register signal connection based on the based on the GUI entry in Measurement tab */
+		 addConnectionConstraint (vs_pmsm_foc_adcch1_ressel,vs_pmsm_foc_adcch1_res, MF({return(gcheck_phu_i_measurement.value == true)},Boolean))
+		 addConnectionConstraint (vs_pmsm_foc_adcch5_ressel,vs_pmsm_foc_adcch5_res, MF({return(gcheck_phv_i_measurement.value == true)},Boolean))
+		 addConnectionConstraint (vs_pmsm_foc_adcch6_ressel,vs_pmsm_foc_adcch6_res, MF({return(gcheck_phw_i_measurement.value == true)},Boolean))
+		 addConnectionConstraint (vs_pmsm_foc_adcch2_ressel,vs_pmsm_foc_adcch2_res, MF({return(gcheck_dc_link_measurement.value == true)},Boolean))
+		 addConnectionConstraint (vs_pmsm_foc_adcch3_ressel,vs_pmsm_foc_adcch3_res, MF({return(gcheck_pot_measurement.value == true)},Boolean))
+		 addConnectionConstraint (vs_pmsm_foc_adcch4_ressel,vs_pmsm_foc_adcch4_res, MF({return(gcheck_user_defined_measurement.value == true)},Boolean))
+		 /* DC Link current measurement - 4 result resistors are connected to DC link current channel */
+		 addConnectionConstraint (vs_pmsm_foc_adcch7_ressel,vs_pmsm_foc_adcch7_res, MF({(gcheck_dclink_i_measurement.value == true)},Boolean))
+		 
+		 /* Signal connection for phase current measurement */
+		 addConnectionConstraint (vs_svm_phasecurrent_trigger,vs_adc_queue_trigsel_a, MF({
+			 (((gcombo_phu_i_measurement.value == "Queue A") || (gcombo_phv_i_measurement.value == "Queue A") || (gcombo_phw_i_measurement.value == "Queue A")) &&
+				 (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) < 2))
+			 },Boolean))
+		 addConnectionConstraint (vs_svm_phasecurrent_trigger,vs_adc_queue_trigsel_b, MF({
+			 (((gcombo_phu_i_measurement.value == "Queue B") || (gcombo_phv_i_measurement.value == "Queue B") || (gcombo_phw_i_measurement.value == "Queue B")) &&
+				 (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) < 2))
+			 },Boolean))
+		 
+		 addConnectionConstraint (vs_svm_phasecurrent_trigger,vs_adc_queue_trigsel_c, MF({
+			 (((gcombo_phu_i_measurement.value == "Queue C") || (gcombo_phv_i_measurement.value == "Queue C") || (gcombo_phw_i_measurement.value == "Queue C")) &&
+				 (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) < 2))
+			 },Boolean))
+		 
+		 addConnectionConstraint (vs_svm_phasecurrent_trigger,vs_adc_queue_trigsel_d, MF({
+			 (((gcombo_phu_i_measurement.value == "Queue D") || (gcombo_phv_i_measurement.value == "Queue D") || (gcombo_phw_i_measurement.value == "Queue D")) &&
+				 (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) < 2))
+			 },Boolean))
+
+ /* Signal connection for DC link current measurement - cmpch1 and cmpch2 from PWM_SVM to configured ADC Queue */
+	 for(String index in 'a' .. 'd')
+	 {
+		 String queue_no = index
+		 addConnectionConstraint (vs_svm_dclink_current_cmpch1_trigger,this."vs_adc_queue_trigsel_${index}", MF({
+			 ((gcombo_dclink_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) == 2))
+			 },Boolean))
+		 
+		 addConnectionConstraint (vs_svm_dclink_current_cmpch2_trigger,this."vs_adc_queue_trigsel_${index}", MF({
+			 ((gcombo_dclink_i_measurement.value.equalsIgnoreCase("Queue "+queue_no))  && (gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) == 2))
+			 },Boolean))
+	 }
+			 
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		/* -------------- APP Configuration ---------------------------------------------------------------------------------------- */
+		/* ------------------------------------------------------------------------------------------------------------------------- */
+		 /* APP GUI default configuration is for XMC4x device.
+		  * For other device update the default configuration.
+		  */
+		 if(device_4x == false)
+		 {
+		   /* Default Passive level setting for 1x device */
+		   gcombo_highsideswitch.value = "Active High"
+		   gcombo_lowsideswitch.value  = "Active High"
+			 
+		   /* Default priority setting for Fast control loop ISR*/
+		   ginterruptprio_fast_control_loop.priorityValue = 2
+		   ginterruptprio_fast_control_loop.subPriorityVisible = false
+		   
+		   ginterruptprio_trap.priorityValue = 1
+		   ginterruptprio_trap.subPriorityVisible = false
+		   
+		   /*Power board default configuration */
+		   gfloat_phaseres.value = 13.700
+		   gfloat_phaseinductance_ld.value = 7730
+		   gfloat_phaseinductance_lq.value = 7730
+		   gfloat_noloadspeed.value = 4530
+		   
+		   gfloat_speedkp.value = 32768
+		   gfloat_speedki.value = 3
+		   gfloat_estimatorkp.value = 256
+		   gfloat_estimatorki.value = 64
+		   
+		   gfloat_vadcref.value = 5
+		   gfloat_rshunt.value  = 50
+		   gfloat_ampgain.value = 16.4
+		   gfloat_ampbiasvolt.value = 2.5
+		 }
+
+		/* Refill option for ADC Queue is enabled if corresponding ADC measurement is enabled */
+		gcheck_phu_i_refill.value       = MF({return(gcheck_phu_i_measurement.value)},Boolean)
+		gcheck_phv_i_refill.value       = MF({return(gcheck_phv_i_measurement.value)},Boolean)
+		gcheck_phw_i_refill.value       = MF({return(gcheck_phw_i_measurement.value)},Boolean)
+		//gcheck_dclink_i_refill.value    = MF({return(gcheck_dclink_i_measurement.value)},Boolean)
+		gcheck_dc_link_refill.value     = MF({return((gcheck_dc_link_measurement.value == true))},Boolean)
+		gcheck_pot_refill.value         = MF({return((gcheck_epotmeasurement.value == true) && (gcheck_epotmeasurement.enabled == true))},Boolean)
+
+		//gcheck_dclink_i_ext_trigger.value     = MF({(gcheck_dclink_i_measurement.value)},Boolean)
+		gcheck_phv_i_ext_trigger.value  = MF({return((gcombo_phu_i_measurement.value != gcombo_phv_i_measurement.value) && (gcheck_phv_i_measurement.value == true))},Boolean)
+		gcheck_phu_i_ext_trigger.value  = MF({return((gcheck_dclink_i_measurement.value == false) && (gcheck_phu_i_measurement.value == true))},Boolean)
+		gcheck_phw_i_ext_trigger.value  = MF({
+			  if(gcheck_phw_i_measurement.value == true)
+			  {
+				return((gcombo_phw_i_measurement.value != gcombo_phu_i_measurement.value) &&
+				(gcombo_phw_i_measurement.value != gcombo_phv_i_measurement.value))
+			  }
+			  else
+			  {
+				return false
+			  }
+			},Boolean)
+		
+		gcheck_epotmeasurement.enabled = MF({return ((gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0) ||
+			                                         (gcombo_startup.options.indexOf(gcombo_startup.value) == 0))
+		},Boolean)
+		
+		gcheck_pot_measurement.value    = MF({((gcheck_epotmeasurement.value == true) && (gcheck_epotmeasurement.enabled == true))},Boolean)
+		
+		gstring_user_defined_measurement.enabled = MF({(gcheck_user_defined_measurement.value == true)},Boolean)
+		gcombo_user_defined_measurement.enabled  = MF({(gcheck_user_defined_measurement.value == true)},Boolean)
+		gint_user_defined_measurement.enabled    = MF({(gcheck_user_defined_measurement.value == true)},Boolean)
+		gcheck_user_defined_refill.enabled       = MF({(gcheck_user_defined_measurement.value == true)},Boolean)
+		gcheck_user_defined_ext_trigger.enabled  = MF({(gcheck_user_defined_measurement.value == true)},Boolean)
+		
+		gcheck_dclink_i_measurement.visible  = false
+		gstring_dclink_i_measurement.visible  = false
+		gcombo_dclink_i_measurement.visible  = false
+		gint_dclink_i_measurement.visible  = false
+		gcheck_dclink_i_refill.visible  = false
+		gcheck_dclink_i_ext_trigger.visible  = false
+		
+
+		/* External trigger configuration for ADC Queue */
+		for(String index in 'a'..'d')
+		{
+			String queue_no = index
+			this."appres_queue_${index}".setVal(["gcombo_trigger_edge_sel", "value"],
+			MF({
+				 if(((gcombo_phu_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phu_i_ext_trigger.value == true))||
+					((gcombo_phv_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phv_i_ext_trigger.value == true))||
+					((gcombo_phw_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_phw_i_ext_trigger.value == true))||
+					((gcombo_dclink_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_dclink_i_ext_trigger.value == true))||
+					((gcombo_dc_link_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_dc_link_ext_trigger.value == true))||
+					((gcombo_pot_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_pot_ext_trigger.value == true))||
+					((gcombo_user_defined_measurement.value.equalsIgnoreCase("Queue "+queue_no)) && (gcheck_user_defined_ext_trigger.value == true)))
+					{
+					  return "External Trigger Upon Rising Edge"
+					}
+					else
+					{
+					  return "No External Trigger"
+					}
+			  }, String))
+		}
+		
+		for(String index in 'a'..'d')
+		{
+			String queue_no = index
+			this."appres_queue_${index}".setVal(["gcombo_priority", "value"],
+				MF({
+					 if(((gcombo_phu_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_phv_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_phw_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_dclink_i_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_dc_link_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_pot_measurement.value.equalsIgnoreCase("Queue "+queue_no)))||
+						((gcombo_user_defined_measurement.value.equalsIgnoreCase("Queue "+queue_no))))
+						{
+						  return "Priority-3 (Highest Priority)"
+						}
+						else
+						{
+						  return "Priority-0 (Lowest Priority)"
+						}
+				  }, String))
+		}
+
+		/* In ADC configuration for any measurement is selected with same queue with same position are restricted */
+		gmsg_info.visible  =  MF({
+			if(((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value))&&
+				(gint_phu_i_measurement.value == gint_phv_i_measurement.value))||
+				((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value))&&
+				(gint_phu_i_measurement.value == gint_phw_i_measurement.value))||
+				((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value))&&
+				(gint_phu_i_measurement.value == gint_dclink_i_measurement.value))||
+				((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value))&&
+				(gint_phu_i_measurement.value == gint_dc_link_measurement.value))||
+				((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value))&&
+				(gint_phu_i_measurement.value == gint_pot_measurement.value))||
+				((gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value)) &&
+				(gint_phu_i_measurement.value == gint_user_defined_measurement.value))){true}
+			else if(((gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value) == gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value))&&
+				(gint_phv_i_measurement.value == gint_phw_i_measurement.value))||
+				((gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value) == gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value))&&
+				(gint_phv_i_measurement.value == gint_dclink_i_measurement.value))||
+				((gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value) == gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value))&&
+				(gint_phv_i_measurement.value == gint_dc_link_measurement.value))||
+				((gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value) == gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value))&&
+				(gint_phv_i_measurement.value == gint_pot_measurement.value))||
+				((gcombo_phv_i_measurement.options.indexOf(gcombo_phv_i_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value)) &&
+				(gint_phv_i_measurement.value == gint_user_defined_measurement.value))){true}
+			else if(((gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value) == gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value))&&
+				(gint_phw_i_measurement.value == gint_dclink_i_measurement.value))||
+				((gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value) == gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value))&&
+				(gint_phw_i_measurement.value == gint_dc_link_measurement.value))||
+				((gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value) == gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value))&&
+				(gint_phw_i_measurement.value == gint_pot_measurement.value))||
+				((gcombo_phw_i_measurement.options.indexOf(gcombo_phw_i_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value)) &&
+				(gint_phw_i_measurement.value == gint_user_defined_measurement.value))){true}
+			else if(((gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value))&&
+				(gint_dclink_i_measurement.value == gint_dc_link_measurement.value))||
+				((gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value))&&
+				(gint_dclink_i_measurement.value == gint_pot_measurement.value))||
+				((gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value))&&
+				(gint_dclink_i_measurement.value == gint_user_defined_measurement.value))){true}
+			else if(((gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value) == gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value))&&
+				(gint_dc_link_measurement.value == gint_pot_measurement.value))||
+				((gcombo_dc_link_measurement.options.indexOf(gcombo_dc_link_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value))&&
+				(gint_dc_link_measurement.value == gint_user_defined_measurement.value))){true}
+			else if(((gcombo_pot_measurement.options.indexOf(gcombo_pot_measurement.value) == gcombo_user_defined_measurement.options.indexOf(gcombo_user_defined_measurement.value))&&
+				(gint_pot_measurement.value == gint_user_defined_measurement.value))){true}
+			else
+			{
+			  false
+			}
+			},Boolean)
+		gmsg_info.isError = MF({gmsg_info.visible},Boolean)
+		
+			
+		 /*------------- Force configuration from PMSM_FOC to PWM_SVM lower level app ------------------------------------------------*/
+		appres_pwm_svm.setVal(["gint_pwmfreq", "value"],MF({gint_focpwmfreq.value},Integer))		 //PWM Freq.
+		appres_pwm_svm.setVal(["gfloat_deadtime_rising_edge", "value"],MF({gfloat_deadtime_rising_edge.value},Float))       // Dead Time
+		appres_pwm_svm.setVal(["gfloat_deadtime_falling_edge", "value"],MF({gfloat_deadtime_falling_edge.value},Float))       // Dead Time
+		
+		appres_pwm_svm.setVal(["gfloat_tmin", "value"],MF({
+			if(gcheck_dclink_i_measurement.value == true)
+			{
+				/* DC link current measurement is enabled */
+				return (Float)(gfloat_tmincount.value)
+			}
+			else
+			{
+				return (Float)(0.0)
+			}
+			},Float))
+			
+		gfloat_tmincount.value = MF({
+			float adc_sample_time_ns
+			if(gcheck_dclink_i_measurement.value == true)
+			{
+			  if((int)gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == 0)
+			  {
+				adc_sample_time_ns = appres_queue_a.getVal(["gfloat_actual_sampleT", "value"])
+			  }
+			  else if((int)gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == 1)
+			  {
+				adc_sample_time_ns = appres_queue_b.getVal(["gfloat_actual_sampleT", "value"])
+			  }
+			  else if((int)gcombo_dclink_i_measurement.options.indexOf(gcombo_dclink_i_measurement.value) == 2)
+			  {
+				adc_sample_time_ns = appres_queue_c.getVal(["gfloat_actual_sampleT", "value"])
+			  }
+			  else
+			  {
+				adc_sample_time_ns = appres_queue_d.getVal(["gfloat_actual_sampleT", "value"])
+			  }
+			  /* Tmin = Dead time + Switching delay + ADC Sample time */
+			  return (Float)(gfloat_deadtime_rising_edge.value + gfloat_switchdelay.value + adc_sample_time_ns) // Tmin.
+			}
+			else
+			{
+			  return (Float)(0.0)
+			}
+		},Float)
+		
+		gfloat_adc_conv_time.value = MF({
+			float adc_conv_time_ns
+			if(gcheck_phu_i_measurement.value == true)
+			{
+			  if((int)gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == 0)
+			  {
+				adc_conv_time_ns = appres_queue_a.getVal(["gfloat_coversion_time", "value"])
+			  }
+			  else if((int)gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == 1)
+			  {
+				adc_conv_time_ns = appres_queue_b.getVal(["gfloat_coversion_time", "value"])
+			  }
+			  else if((int)gcombo_phu_i_measurement.options.indexOf(gcombo_phu_i_measurement.value) == 2)
+			  {
+				adc_conv_time_ns = appres_queue_c.getVal(["gfloat_coversion_time", "value"])
+			  }
+			  else
+			  {
+				adc_conv_time_ns = appres_queue_d.getVal(["gfloat_coversion_time", "value"])
+			  }
+			  /* Tmin = Dead time + Switching delay + ADC Sample time */
+			  return (Float)(adc_conv_time_ns) // conversion time.
+			}
+			else
+			{
+			  return (Float)(0.0)
+			}
+		},Float)
+		
+		appres_pwm_svm.setVal(["gcombo_highsideswitch","value"],MF({gcombo_highsideswitch.value}, String))
+		appres_pwm_svm.setVal(["gcombo_lowsideswitch","value"],MF({gcombo_lowsideswitch.value}, String))
+		
+		appres_pwm_svm.setVal(["gcombo_invlevelsel", "value"],MF({gcombo_einvterpin.value}, String)) //Inverter enable.
+		appres_pwm_svm.setVal(["gcombo_traplevelsel", "value"],MF({gcombo_etrap.value}, String)) //Trap enable.
+		appres_pwm_svm.setVal(["gcombo_svm_schemeselect", "value"],MF({gcombo_svmscheme.value}, String)) //SVM scheme selection.
+		
+		appres_pwm_svm.setVal(["gcheck_periodmatchintenable", "value"],MF({gcheck_enablepwmint.value}, Boolean)) //Period match Interrupt always enable.
+		appres_pwm_svm.setVal(["gcheck_trapintenable", "value"],MF({(gcombo_etrap.options.indexOf(gcombo_etrap.value) > 0)}, Boolean)) //Trap Interrupt enable.
+		appres_pwm_svm.setVal(["gcheck_overmodulation", "value"],MF({gcheck_eovermodulation.value}, Boolean)) //Configuring over modulation in svm app
+		appres_pwm_svm.setVal(["gcombo_externaltrigger", "value"],MF({
+			if(gcombo_curntmsrmnt.value == "3 Phase Current Measurement")
+			{
+			  return "3 Phase Current Measurement"
+			}
+			else if(gcombo_curntmsrmnt.value == "2 Phase Current Measurement")
+			{
+			  return "2 Phase Current Measurement"
+			}
+			else
+			{
+			  return "DC Link Current Measurement"
+			}
+		}, String)) //Current trigger type
+		
+		
+		/* -------------------------------------------- Tab visibility control -----------------------------------------------------------*/
+
+		//gtab_vf.visible = VF_STARTUP_REQUIRED
+		
+		/* -------------------------------------------- Control Algorithm Tab Control -----------------------------------------------------------*/
+		gcheck_vd_vq.enabled = CLOSED_LOOP_ENABLED
+		gcombo_ctrlschemeconfig.enabled = CLOSED_LOOP_ENABLED
+
+		gfloat_pwmtime.value =  MF({return (double)(1000000/gint_focpwmfreq.value)},Float)
+		
+		gfloat_fclactualtime.value = MF({
+			return (double)(gfloat_pwmtime.value * (int)Math.ceil(gfloat_fcldesiredtime.value/gfloat_pwmtime.value))
+		  },Float)
+
+		
+		gint_fcldiv.value = MF({return (int)Math.ceil(gfloat_fcldesiredtime.value/gfloat_pwmtime.value)}, Integer)
+		
+		gfloat_actualfreq.value =  MF({return (double)(gint_focpwmfreq.value / gint_fcldiv.value)},Float)
+
+		/* -------------------------------------------- Control Parameters Tab Control -----------------------------------------------------------*/
+		gint_speedref.enabled = MF({
+				if(((gcheck_epotmeasurement.value == true) && (gcheck_epotmeasurement.enabled == true) || 
+				   ((gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 1) && (gcombo_startup.options.indexOf(gcombo_startup.value) > 0))))
+				{
+					return false
+				}
+				else
+				{
+					return true
+				}
+		 },Boolean)
+		
+		gint_speedref.minValue = MF({
+			if(gint_speedref.enabled == true)
+			{
+				if(gcombo_startup.options.indexOf(gcombo_startup.value) == 0)
+				{
+					return (int)Math.ceil(gfloat_noloadspeed.value * 0.01)
+				}
+				else
+				{
+					return (int)Math.ceil(gfloat_noloadspeed.value * 0.1)
+				}
+			}
+			else
+			{
+				return (int)0
+			}
+			}, Integer)
+		
+		gint_speedref.maxValue = MF({
+			if ((gcombo_startup.options.indexOf(gcombo_startup.value) == 0) &&
+				((gcheck_epotmeasurement.value == false) && (gcheck_epotmeasurement.enabled == true)))
+			{
+				return (int)Math.ceil(gfloat_noloadspeed.value * gfloat_olspeedlimit.value / 100)
+			}
+			else
+			{
+				return 200000
+			}
+		}, Integer)
+		
+		gint_startspeed.maxValue = MF({return ((int)gfloat_noloadspeed.value)}, Integer)
+		
+		/* torque control - disable ramp rate */
+		gfloat_rampup.enabled = MF({
+				if((gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 1) ||
+					(gcombo_startup.options.indexOf(gcombo_startup.value) == 0))
+				{
+					return false
+				}
+				else
+				{
+					return true
+				}
+		 },Boolean)
+		
+		gfloat_ramp_down.enabled = MF({
+			if((gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 1) ||
+				(gcombo_startup.options.indexOf(gcombo_startup.value) == 0))
+			{
+				return false
+			}
+			else
+			{
+				return true
+			}
+	    },Boolean)
+		
+		
+		gint_startspeed.enabled = MF({
+			if((gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 1))
+			{
+				return false
+			}
+			else
+			{
+				return true
+			}
+		},Boolean)
+		
+		/* visibility control of PI parameters based upon control algorithm and control scheme*/
+		ggroup_idpi_config.enabled = CLOSED_LOOP_ENABLED
+		ggroup_iqpi_config.enabled = CLOSED_LOOP_ENABLED
+
+		gcheck_udspeedpi.enabled = MF({ return ((gcombo_startup.options.indexOf(gcombo_startup.value) > 0) &&
+			(gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0))},Boolean)
+		ggroup_estimator_config.enabled = CLOSED_LOOP_ENABLED
+
+		
+		/* Default and user defined configuration visibility Configuration for PI */
+		gfloat_udidkp.enabled  = MF({gcheck_udidpi.value},Boolean)
+		gfloat_udidki.enabled  = MF({gcheck_udidpi.value},Boolean)
+		gfloat_udid_out_limit.enabled  = MF({gcheck_udidpi.value},Boolean)
+		gfloat_udid_buf_limit.enabled  = MF({gcheck_udidpi.value},Boolean)
+		
+		gfloat_udiqkp.enabled  = MF({gcheck_udiqpi.value},Boolean)
+		gfloat_udiqki.enabled  = MF({gcheck_udiqpi.value},Boolean)
+		gfloat_udiq_out_limit.enabled  = MF({gcheck_udiqpi.value},Boolean)
+		gfloat_udiq_buf_limit.enabled  = MF({gcheck_udiqpi.value},Boolean)
+		
+		gfloat_udspeedkp.enabled  = MF({return ((gcheck_udspeedpi.value) && 
+			((gcombo_startup.options.indexOf(gcombo_startup.value) > 0) &&
+			(gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0)))},Boolean)	
+		gfloat_udspeedki.enabled  = MF({return ((gcheck_udspeedpi.value) &&
+			((gcombo_startup.options.indexOf(gcombo_startup.value) > 0) &&
+			(gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0)))},Boolean)
+		gfloat_udspeed_out_limit.enabled  = MF({return ((gcheck_udspeedpi.value) &&
+			((gcombo_startup.options.indexOf(gcombo_startup.value) > 0) &&
+			(gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0)))},Boolean)
+		gfloat_udspeed_buf_limit.enabled  = MF({return ((gcheck_udspeedpi.value) &&
+			((gcombo_startup.options.indexOf(gcombo_startup.value) > 0) &&
+			(gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 0)))},Boolean)
+		
+		gfloat_udestimatorkp.enabled  = MF({gcheck_udestimatorpi.value},Boolean)
+		gfloat_udestimatorki.enabled  = MF({gcheck_udestimatorpi.value},Boolean)
+		gfloat_udestimator_out_limit.enabled  = MF({gcheck_udestimatorpi.value},Boolean)
+		gfloat_udestimator_buf_limit.enabled  = MF({gcheck_udestimatorpi.value},Boolean)
+		   
+	    gfloat_cutofffreq_iq.value = MF({gfloat_cutofffreq_id.value}, Float)
+	    gfloat_cutofffreq_id.enabled = MF({!gcheck_udidpi.value},Boolean)
+	    gfloat_iqset.enabled = MF({ (gcombo_ctrlschemeconfig.options.indexOf(gcombo_ctrlschemeconfig.value) == 1)},Boolean)
+
+		   
+	   /* Angle measurement selection from 3 Hall or PLL estimator */
+	   gcombo_anglemeasurement.value = MF({
+			if(gcombo_feedback.options.indexOf(gcombo_feedback.value) == 0)
+			{
+			  return "3 Hall"
+			}
+			else
+			{
+			  return "Estimator"
+			}
+			},String)
+		   
+		   
+		   /* -------------------------------------------- Control Scheme Tab Control -----------------------------------------------------------*/
+
+		   /*------------------------------- Startup Tab Control --------------------------------------------------------*/
+		   /* V/F constant value based on Motor parameters,Multiply by 1000 to convert in mV */
+		   gfloat_vfconstant.value = MF({return ((gfloat_nominalvolt.value*1000 * 60)/(gfloat_noloadspeed.value * gint_polepair.value))},Float)
+		   
+		   gint_vfendspeed.enabled = MF({return((gcombo_startup.options.indexOf(gcombo_startup.value) == 1) ||
+			   (gcombo_startup.options.indexOf(gcombo_startup.value) == 2))},Boolean)
+		   
+		   /* Voltage offset value based on Motor parameters */
+		   gfloat_voltageoffset.value = MF({return (gfloat_nominalvolt.value * 1000 * 0.05)},Float)
+		   gfloat_alignmentvolt.value = MF({return (gfloat_nominalvolt.value * 1000 * 0.05)},Float)
+		   
+		   /*v/f constant and voltage offset*/
+		   gfloat_udvfconstant.enabled = MF({return(gcheck_userdefconf.value)},Boolean)
+		   gfloat_udvoltageoffset.enabled = MF({return(gcheck_userdefconf.value)},Boolean)  
+		   gfloat_udalignmentvolt.enabled = MF({return(gcheck_userdefalignconf.value)},Boolean)
+		   
+		   ggroup_vf_conf.enabled = MF({return((gcombo_startup.options.indexOf(gcombo_startup.value) != 3))},Boolean)
+		   
+		   ggroup_allignment.enabled = MF({return((gcombo_startup.options.indexOf(gcombo_startup.value) != 3))},Boolean)
+			
+		   /* max speed limit for always v/f open loop mode */
+		   gfloat_olspeedlimit.enabled = MF({return((gcombo_startup.options.indexOf(gcombo_startup.value) == 0))},Boolean)
+			
+		/*------------------------------- Power board Tab Control -------------------------------------------------------- */
+		gfloat_ampbiasvolt.enabled = MF({(gcheck_eampbiasvolt.value == false)},Boolean)
+		/* Max. current calculations. Multiply by 1000 to convert in mV*/
+		gfloat_maxcrnt.value = MF({(((gfloat_vadcref.value - gfloat_ampbiasvolt.value)*1000)/(gfloat_rshunt.value * gfloat_ampgain.value))},Float)
+        /* Voltage protection*/
+		gfloat_max_dclink.enabled =  MF({(gcheck_voltage_protect.value == true)},Boolean)  
+		gfloat_min_dclink.enabled =  MF({(gcheck_voltage_protect.value == true)},Boolean)
+		gfloat_vp_time.enabled    =  MF({(gcheck_voltage_protect.value == true)},Boolean)
+		/*------------------------------- Measurement Tab Control ---------------------------------------------------------*/
+		gcombo_currentmeasurement.value  = MF({
+                if(gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) == 0)
+				{
+				 return "3 Phase"
+				}
+				else if(gcombo_curntmsrmnt.options.indexOf(gcombo_curntmsrmnt.value) == 1)
+				{
+				 return "2 Phase"
+				}
+				else
+				{
+				 return "DC Link"
+				}
+			},String)
+		
+		/*-------------------------------- Error handler ---------------------------------------------------------*/
+		
+				
+		/*-------------------------------- Interrupt Tab Control ---------------------------------------------------------*/
+		//ginterruptprio_trap.visible = MF({return (gcombo_etrap.options.indexOf(gcombo_etrap.value) != 0)},Boolean)
+		
+		/*Configure priority based on cpu app*/
+		ginterruptprio_fast_control_loop.maxPriority = MF({(int)(Math.pow(2,appres_cpu.getVal(["gint_preemptPriorityBits", "value"]))-1)},Integer)
+		ginterruptprio_trap.maxPriority = MF({(int)(Math.pow(2,appres_cpu.getVal(["gint_preemptPriorityBits", "value"]))-1)},Integer)
+		
+				
+		
+		/* Configure subpriority based on CPU APP */
+		if(device_4x == true)
+		{
+		  ginterruptprio_fast_control_loop.maxSubPriority = MF({appres_cpu.getVal(["gint_maxInterruptSubPriority", "value"])},Integer)
+		  ginterruptprio_trap.maxSubPriority = MF({appres_cpu.getVal(["gint_maxInterruptSubPriority", "value"])},Integer)
+		}
+		
+		/*------------------------------------ Scaling configuration -------------------------------------------------------*/
+		gint_res_inc.value = MF({
+			Float speed
+			Integer value
+			speed = (POW16 * gfloat_noloadspeed.value * gint_polepair.value) / (60 * gfloat_actualfreq.value)
+			value = (int)(Math.floor((Math.log(POW15/(int)speed)/ Math.log(2))) - 1)
+			if (value < 0)
+			{
+				value = 0
+			}
+			if(value > 8)
+			{
+				value = 8
+			}
+			return value
+		}, Integer)
+
+		
+		gint_high_speed_target.value = MF({
+			return (int)(gfloat_noloadspeed.value * gint_polepair.value * Math.pow(2, (16+gint_res_inc.value))) / (60 * gfloat_actualfreq.value)
+		}, Integer)
+
+		/* current normalization value */
+		gfloat_niclark.value  = MF({
+			return(double)(gfloat_maxcrnt.value)
+			},Float)
+
+		
+		/* Voltage Normalization Value*/
+		gfloat_nvsvm.value  = MF({
+			return(double)((gfloat_dclinkvolt.value / Math.sqrt(3)))
+			},Float)
+
+		
+		gfloat_inductance_withoutscale.value = MF({
+			return	(1.5 * (2 * 3.14159 * gfloat_actualfreq.value * gfloat_niclark.value / gfloat_nvsvm.value) * (gfloat_phaseinductance_ld.value + gfloat_phaseinductance_lq.value)/4) / (Math.pow(10, 6) * Math.pow(2 , 16))
+			},Float)
+		
+
+		
+		
+		gint_inductance_scale.value = MF({
+			Float num
+			Float denom
+			num = (Math.pow(2, (31+gint_res_inc.value)) * 1.0)/(gint_high_speed_target.value * Math.pow(2, 15)) 
+			denom = gfloat_inductance_withoutscale.value
+			return (int)(Math.log(num/denom)/ Math.log(2))
+			},Integer)
+		
+
+		
+		gint_inductance_target.value = MF({
+			return (int)(Math.floor (gfloat_inductance_withoutscale.value * Math.pow(2, gint_inductance_scale.value)))
+			},Integer)
+
+		
+		gfloat_kp_scale.value = MF({
+			Float value
+			Float kp_dec = gfloat_cutofffreq_id.value * (gint_high_speed_target.value / Math.pow(2, gint_res_inc.value )) * (gint_inductance_target.value/Math.pow(2, gint_inductance_scale.value))
+			value =  (Math.log(POW15/kp_dec)/ Math.log(2))
+			if(value > 15)
+			{
+				value = 15
+			}
+			return value
+		}, Float)
+
+		
+		/* Kp and Ki Value */
+		/*Current controller*/
+		/* Ki*/
+		gfloat_idkp.value = MF({
+			return (double)(gfloat_cutofffreq_id.value * (gint_high_speed_target.value / Math.pow(2, gint_res_inc.value )) * gint_inductance_target.value)/(Math.pow(2, (gint_inductance_scale.value - (int)gfloat_kp_scale.value) )) 
+			},Float)
+		
+		gfloat_idki.value = MF({
+			 return (double)((gfloat_idkp.value/((gfloat_phaseinductance_ld.value + gfloat_phaseinductance_lq.value)/4)) * ((gfloat_phaseres.value / 2))* gfloat_fclactualtime.value ) 		  
+			},Float)
+			 
+		gfloat_iqkp.value = MF({(double)gfloat_idkp.value},Float)
+		gfloat_iqki.value = MF({(double)gfloat_idki.value},Float)
+
+		
+		/* This is dummy control to hide the unwanted label from GUI */
+		glabel_udidkp.visible                   = false
+		glabel_udidki.visible                   = false
+		glabel_udid_out_limit.visible           = false
+		glabel_udid_buf_limit.visible           = false
+		glabel_udiqkp.visible                   = false
+		glabel_udiqki.visible                   = false
+		glabel_udiq_out_limit.visible           = false
+		glabel_udiq_buf_limit.visible           = false
+		glabel_udspeedkp.visible                = false
+		glabel_udspeedki.visible                = false
+		glabel_udspeed_out_limit.visible        = false
+		glabel_udspeed_buf_limit.visible        = false
+		glabel_dclink_i_measurement.visible     = false
+		glabel_udvoltageoffset.visible          = false
+		glabel_udvfconstant.visible             = false
+		glabel_udestimatorkp.visible            = false
+		glabel_udestimatorki.visible            = false
+		glabel_udestimator_out_limit.visible    = false
+		glabel_udestimator_buf_limit.visible    = false
+		ggroup_dummygroup_doc.visible           = false
+		ggroup_dummydocmeasurement.visible      = false
+		
+		
+		glabel_udalignmentvolt.visible          = false
+	}
+	
+	// File Generation
+	def generateFiles(){
+		copy("pmsm_foc.c", "pmsm_foc.c")
+		copy("pmsm_foc.h", "pmsm_foc.h")
+		generate("pmsm_foc_control.tmpl", "pmsm_foc_control.c")
+		generate("pmsm_foc_confc.tmpl", "pmsm_foc_conf.c")
+		generate("pmsm_foc_confh.tmpl", "pmsm_foc_conf.h")
+		generate("pmsm_foc_extern.tmpl", "pmsm_foc_extern.h")
+		
+		String family = (daveEnv.project.selectedDevice.deviceId.family)
+		if(family == "XMC4")
+		{
+		copy("libPMSM_FOC_LIB_XMC4.a", "libPMSM_FOC_LIB.a")
+		}
+		else
+		{
+		copy("libPMSM_FOC_LIB_XMC13.a", "libPMSM_FOC_LIB.a")
+		}
+	}
+	
+
+}

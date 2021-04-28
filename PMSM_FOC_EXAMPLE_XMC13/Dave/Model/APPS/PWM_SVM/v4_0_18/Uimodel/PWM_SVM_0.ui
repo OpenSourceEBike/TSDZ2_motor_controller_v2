@@ -1,0 +1,171 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" widgetName="composite1">
+	<p1:Tab.layout>
+		<GridLayout/>
+	</p1:Tab.layout>
+	<p1:TabFolder visible="true">
+		<p1:GTab text="General Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_svmconfiguration">
+			<p1:GTab.control>
+				<p1:Tab widgetName="PWMSVM01_Type"  font="Segoe UI,9,BOLD | ITALIC" layout="{x:Null}">
+					<p1:GGroup text="Timer Configuration" widgetName="ggroup_timerconfig" bounds="5, 5, 509, 181" layout="{x:Null}">
+						<p1:GLabel text="Resolution [ns]:" widgetName="glabel_resolution" toolTipText="" bounds="13, 28, 82, 15"/>
+						<p1:GFloat enabled="true" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="512000" minValue="9" toolTipText="Input resolution for CCU8 clock. &#13;&#10;This decides the clock divider factor for the CCU8 slice." value="9.0" widgetName="gfloat_resolution" x:Style="BORDER" format="*,6" description="Input resolution for CCU8 clock. &lt;br&gt;&#13;&#10;This decides the clock divider factor for the CCU8 slice.&#13;&#10;Note:Min-Max range is dynamic" bounds="214, 25, 283, 21"/>
+					    <p1:GLabel text="Actual resolution [ns]:                              " widgetName="glabel_actresolution" toolTipText="Gives the the closest possible resolution value ." bounds="13, 59, 127, 15"/>
+						<p1:GFloat mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="512000" minValue="8" toolTipText="This gives the the closest possible resolution value ." value="0.0" widgetName="gfloat_actresolution" x:Style="BORDER" format="*,6" enabled="false" description="Actual resolution gives the closest possible resolution value ." bounds="214, 56, 283, 21"/>
+						<p1:GLabel text="PWM frequency [Hz]:" widgetName="glabel_pwmfreq" toolTipText="" bounds="13, 90, 113, 15"/>
+						<p1:GInteger format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="250000" minValue="100" toolTipText="Input PWM frequency. " value="20000" widgetName="gint_pwmfreq" description="Input PWM frequency. &lt;br&gt;&#13;&#10;Note:Min-Max range is dynamic" bounds="214, 87, 283, 23"/>
+						<p1:GLabel text="Period register:                                            " widgetName="glabel_periodreg" toolTipText="This is the period register value as per the configured PWM frequency." bounds="13, 122, 121, 15"/>
+						<p1:GInteger format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="65535" minValue="1" toolTipText="Period register value as per the configured PWM frequency.&#13;&#10;" value="1" widgetName="gint_periodreg" enabled="false" description="Period register value as per the configured PWM frequency." formatVisible="true" bounds="214, 118, 283, 23"/>
+						<p1:GCheck description="2 CCU8 slices consumption: (Symmetric SVM and Phase Current Measurement) &lt;br&gt;&#13;&#10;CC8x: Phase U and Phase V &lt;br&gt;&#13;&#10;CC8y: Phase W and Current Trigger &lt;br&gt;&#13;&#10;&#13;&#10;3 CCU8 slices consumption: (Symmetric SVM and DC Link Current Measurement) &lt;br&gt;&#13;&#10;CC8x: Phase U and Phase V &lt;br&gt;&#13;&#10;CC8y: Phase W  &lt;br&gt;&#13;&#10;CC8z: Current Trigger &lt;br&gt;&#13;&#10;&#13;&#10;Slice optimization is not configurable when asymmetric mode is&#13;&#10;selected. (4 CCU8 slices consumed)" manifestObj="true" text="Enable optimized CCU8 slice consumption" toolTipText="For symmetric SVM, consumes 2 or 3 CCU8 slices based upon current trigger configuration. &#13;&#10;Phase UV are consumed from same slice and&#13;&#10;Phase W consumed from other slice&#13;&#10;Map the pins accordingly.&#13;&#10;Slice optimization is not configurable for asymmetric mode, 4 CCU8 slices are consumed." widgetName="gcheck_optimization" bounds="13, 151, 245, 16"/>
+					</p1:GGroup>
+					<p1:GGroup text="SVM Configuration" widgetName="ggroup_svmconfig" bounds="5, 193, 509, 174" layout="{x:Null}">
+						<p1:GCheck text="Enable over modulation" manifestObj="true" widgetName="gcheck_overmodulation" toolTipText="Over Modulation" description="Over modulation switching enables the operation of an inverter beyond the normal region" bounds="13, 25, 147, 16"/>
+						<p1:GLabel text="SVM scheme:    " visible="true" manifestObj="true" widgetName="glabel_svm_schemeselect" bounds="13, 54, 83, 15"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_svm_schemeselect" options="Standard SVM - 7 Segment Symmetric&#13;&#10;Standard SVM - 7 Segment Asymmetric&#13;&#10;Standard SVM - 5 Segment Symmetric&#13;&#10;Standard SVM - 5 Segment Asymmetric&#13;&#10;Pseudo null vector - 3 Active Vector(5 Segment)&#13;&#10;Pseudo null vector - 4 Active Vector(7 Segment)" value="Standard SVM - 7 Segment Symmetric" toolTipText="Select desired SVM scheme" description="Select desired SVM scheme. &lt;br&gt;&#13;&#10;Standard SVM schemes support 7-segment and 5-segment with symmetric and asymmetric mode &lt;br&gt;&#13;&#10;Pseudo null vector SVM support 3 active vector and 4 avtive vector" bounds="214, 51, 283, 21"/>
+						<p1:GLabel manifestObj="true" text="Trigger for current measurement:        " toolTipText="Allow the user to select External Trigger option for Current Measurment." visible="true" widgetName="glabel_externaltrigger" bounds="13, 82, 184, 15"/>
+						<p1:GCombo description="User can select required current measurement  &lt;br&gt;so that&#13;&#10;trigger configuration can done accordingly&#13;&#10;" enabled="true" manifestObj="true" options="None&#13;&#10;DC Link Current Measurement&#13;&#10;2 Phase Current Measurement&#13;&#10;3 Phase Current Measurement&#13;&#10;&#13;&#10;" toolTipText="Select trigger for different current measurement type." value="None" widgetName="gcombo_externaltrigger" bounds="214, 80, 283, 21"/>
+						<p1:GLabel text="Current trigger offset [us]:" visible="true" widgetName="glabel_offset" toolTipText="" bounds="13, 110, 137, 15"/>
+						<p1:GFloat format="*,6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="2" minValue="0" toolTipText="Time required for current to stabilise. &#13;&#10;ADC is triggered after this time period is elapsed." value="0.0" widgetName="gfloat_offset" x:Style="BORDER" description="This allows user to configure the current&#13;&#10;offset value in micro seconds &lt;br&gt;&#13;&#10;This field is enabled only for DC link current measurement" bounds="214, 108, 283, 21"/>
+						<p1:GLabel text="Segment time calculation:" visible="true" manifestObj="true" widgetName="glabel_segmenttimecalculation" toolTipText="Allows a user to select the method of segment" bounds="15, 139, 138, 15"/>
+						<p1:GCombo enabled="true" manifestObj="true" options="Use CORDIC&#13;&#10;Use LookUpTable" widgetName="gcombo_segmenttimecalculation" value="Use LookUpTable" toolTipText="Select the method of segment calculation" description="This allows user to select the type of &#13;&#10;segment time calculation  &lt;br&gt;&#13;&#10;This option will not be available for&#13;&#10;XMC4x device,because device doesn&apos;t has CORDIC unit." bounds="214, 137, 283, 21"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="SVM Waveforms" visible="true" enabled="true" manifestObj="true" widgetName="gtab_7_segsym" description="This tab consists only the images of SVM waveform,these waveforms changes&#13;&#10;based on SVM scheme selection.">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="composite8">
+        			<p1:GImage visible="true" manifestObj="true" widgetName="gimage_7segsym" bounds="25, 20, 450, 350" path="Uimodel/Drawings/7Seg_Sym_SVM.PNG" description="This represents sector 0 waveform of 7 segment symmetric SVM" x:Style="BORDER"/>
+        			<p1:GImage visible="true" manifestObj="true" widgetName="gimage_dc7segsym" bounds="26, 389, 450, 350" path="Uimodel/Drawings/DCLink_7SegSym_CM.png" x:Style="BORDER"/>
+        		</p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+		<p1:GTab text="Power Board Configurations" visible="true" widgetName="gtab_powerboardconfig" >
+			<p1:GTab.control>
+				<p1:Tab widgetName="tab1_composite1" layout="{x:Null}">
+					<p1:GLabel text="Inverter enable pin configuration:        " visible="true" widgetName="glabel_invlevelsel" toolTipText="" bounds="10, 13, 182, 15"/>
+					<p1:GCombo manifestObj="true" options="Disabled&#13;&#10;Active Low&#13;&#10;Active High&#13;&#10;" widgetName="gcombo_invlevelsel" value="Active High" toolTipText="Select the active level of inverter pin" description="Allows user to enable and select the  &lt;br&gt;&#13;&#10;active level of inverter pin" bounds="201, 10, 204, 21"/>
+					<p1:GGroup text="Output Polarity" widgetName="ggroup_passivelevelconfig" bounds="10, 41, 408, 90" layout="{x:Null}">
+						<p1:GLabel text="High side switches:" visible="true" widgetName="glabel_highsideswitch" bounds="13, 28, 124, 15"/>
+						<p1:GCombo manifestObj="true" options="Active High&#13;&#10;Active Low" widgetName="gcombo_highsideswitch" value="Active Low" toolTipText="Select the passive state level for high&#13;&#10;side switches" description="Allows the user to select the passive state level for high&#13;&#10;side switches" bounds="191, 25, 204, 21"/>
+						<p1:GLabel text="Low side switches:            " visible="true" widgetName="glabel_lowsideswitch" bounds="13, 59, 125, 15"/>
+						<p1:GCombo manifestObj="true" options="Active High&#13;&#10;Active Low" widgetName="gcombo_lowsideswitch" value="Active Low" toolTipText="Select the passive state level for low&#13;&#10;side switches" description="Allows the user to select the passive state level for low&#13;&#10;side switches." bounds="191, 56, 204, 21"/>
+					</p1:GGroup>
+					<p1:GGroup text="Dead Time Configuration" widgetName="ggroup_deadtimeconfig" bounds="10, 141, 408, 121" layout="{x:Null}">
+						<p1:GLabel text="Dead time rising edge [ns]:            " widgetName="glabel_deadtime_rising_edge" toolTipText="" bounds="13, 28, 151, 15"/>
+						<p1:GFloat x:Style="BORDER" minValue="0" maxValue="10000" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" widgetName="gfloat_deadtime_rising_edge" text="500" toolTipText="Enter required rising edge dead time value. &#13;&#10;Dead Time is required to avoid short-circuit in the switches." manifestObj="true" value="500" description="Dead time configuration for rising edge is possible with this field. &lt;br&gt;&#13;&#10;Dead Time is required to avoid short-circuit in the switches.&#13;&#10;Dead time is configured for all phases." format="*.3" bounds="191, 25, 204, 21"/>
+						<p1:GLabel text="Dead time falling edge [ns]:            " toolTipText="" widgetName="glabel_deadtime_falling_edge" bounds="13, 59, 156, 15"/>
+						<p1:GFloat description="Dead time configuration for falling edge is possible with this field.  &lt;br&gt;&#13;&#10;Dead Time is required to avoid short-circuit in the switches.&#13;&#10;Dead time is configured for all phases.&#13;&#10;" format="*.3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="10000" minValue="0" toolTipText="Enter required falling edge dead time value. &#13;&#10;Dead Time is required to avoid short-circuit in the switches." value="500" widgetName="gfloat_deadtime_falling_edge" x:Style="BORDER" bounds="191, 56, 204, 21"/>
+						<p1:GLabel text="Tmin [ns]:" toolTipText="This allows user to enter Tmin time value. " widgetName="glabel_tmin" bounds="13, 90, 121, 15"/>
+						<p1:GFloat description="Tmin configuration is possible with this field. &lt;br&gt;&#13;&#10;This is minimum segment time of sector. &lt;br&gt;&#13;&#10;Tmin is useful when DC link current measurement is enabled.&#13;&#10;&#13;&#10;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="20000" minValue="0" toolTipText="Enter Tmin time value. &#13;&#10;This value is the Dead Time + Switch Delay + ADC Sampling Time.&#13;&#10;Ta or Tb should be greater than the Tmin value for DC Link current measurement.&#13;&#10;For other types, it should be ideally zero." widgetName="gfloat_tmin" x:Style="BORDER" value="0.0" bounds="191, 87, 204, 21"/>
+					</p1:GGroup>
+					<p1:GGroup text="Trap Configuration" widgetName="ggroup_trapconfig" bounds="10, 272, 408, 121" layout="{x:Null}">
+						<p1:GLabel text="Trap enable:" visible="true" widgetName="glabel_traplevelsel" toolTipText="" bounds="13, 28, 111, 15"/>
+						<p1:GCombo manifestObj="true" options="Disabled&#13;&#10;Active Low&#13;&#10;Active High" toolTipText="Set the trap level &#13;&#10;- active low or active high or disable trap." value="Active Low" widgetName="gcombo_traplevelsel" description="This allows user to enable trap and select the active  trap level  &lt;br&gt;" bounds="191, 25, 204, 21"/>
+						<p1:GLabel text="Exit control:" visible="true" widgetName="glabel_trapexitcontrol" toolTipText="" bounds="13, 59, 120, 15"/>
+						<p1:GCombo manifestObj="true" options="Auto Exit&#13;&#10;SW Exit" toolTipText="Select how to exit from trap" value="Auto Exit" widgetName="gcombo_trapexitcontrol" description="Configuration of trap exit - automatic exit &lt;br&gt;&#13;&#10;when trap condition becomes inactive or &lt;br&gt;&#13;&#10;exit by clearing the bit via software" bounds="191, 56, 204, 21"/>
+						<p1:GLabel text="Synchronization enable:" visible="true" widgetName="glabel_trapsyncenable" toolTipText="" bounds="13, 90, 137, 15"/>
+						<p1:GCombo manifestObj="true" options="Exit Trap without Synchronization&#13;&#10;Exit Trap with Synchronization" toolTipText="Configure synchronization &#13;&#10;with PWM signal in case trap feature is required." value="Exit Trap without Synchronization" widgetName="gcombo_trapsyncenable" description="Exit from the trap state with or without PWM synchronization" bounds="191, 87, 204, 21"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Event Settings" visible="true" enabled="true" manifestObj="true" widgetName="tab_interrupts">		
+			<p1:GTab.control>
+				<p1:Tab widgetName="tab1_composite2">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Enable at Initialization" manifestObj="true" widgetName="ggroup_interruptconfig">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="342"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout horizontalSpacing="10" verticalSpacing="10" marginHeight="0" marginBottom="10" marginTop="10" marginWidth="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck text="Period match event- Phase U" toolTipText="Enable/Disable period match interrupt." widgetName="gcheck_periodmatchintenable" manifestObj="true" description="This allows a user to enable the period match interrupt. &lt;br&gt;&#13;&#10;For interrupt to occur period match interrupt signal &lt;br&gt;&#13;&#10;needs to be connected to service request signal of INTERRUPT &lt;br&gt;&#13;&#10;APP and handler needs to be configured"/>
+						<p1:GCheck text="Trap event- Phase U" toolTipText="Enable/Disable Phase U - Trap Interrupt." widgetName="gcheck_trapintenable" manifestObj="true" description="This enables trap event &lt;br&gt;&#13;&#10;For interrupt to occur trap interrupt signal &lt;br&gt;&#13;&#10;needs to be connected to service request signal of INTERRUPT &lt;br&gt;&#13;&#10;APP and handler needs to be configured &lt;br&gt;"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Pin Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_pinconfig">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="composite6">
+        			<p1:Tab.layout>
+        				<GridLayout horizontalSpacing="0" marginHeight="0" marginWidth="10" verticalSpacing="10" marginTop="10"/>
+        			</p1:Tab.layout>
+        			<p1:GGroup manifestObj="true" text="Phase Pin Configurations" widgetName="ggroup_phasepinconfig">
+        				<p1:GGroup.layoutData>
+        					<GridData widthHint="390"/>
+        				</p1:GGroup.layoutData>
+        				<p1:GGroup.layout>
+        					<GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginHeight="0" marginTop="10" marginWidth="10" verticalSpacing="10"/>
+        				</p1:GGroup.layout>
+        				<p1:GLabel text="Mode:" visible="true" widgetName="glabel_outchar">
+        					<p1:GLabel.layoutData>
+        						<GridData horizontalAlignment="FILL" widthHint="149"/>
+        					</p1:GLabel.layoutData>
+        				</p1:GLabel>
+        				<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Push Pull&#13;&#10;Open Drain" value="Push Pull" widgetName="gcombo_outchar" toolTipText="Select output characteristics" description="IO pin output characteristics selection">
+        					<p1:GCombo.layoutData>
+        						<GridData horizontalAlignment="FILL" verticalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+        					</p1:GCombo.layoutData>
+        				</p1:GCombo>
+        				<p1:GLabel text="Driver strength:" visible="true" widgetName="glabel_paddriver" manifestObj="true">
+        					<p1:GLabel.layoutData>
+        						<GridData widthHint="103"/>
+        					</p1:GLabel.layoutData>
+        				</p1:GLabel>
+        				<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge" value="Strong Driver Sharp Edge" widgetName="gcombo_paddriver" toolTipText="Pad driver strength and slew rate configuration" description="IO pin output driver strength and the slew rate configuration.">
+        					<p1:GCombo.layoutData>
+        						<GridData horizontalAlignment="FILL" verticalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+        					</p1:GCombo.layoutData>
+        				</p1:GCombo>
+        			</p1:GGroup>
+        			<p1:GGroup manifestObj="true" text="Trap Pin Configurations" widgetName="ggroup_trappinconfig">
+        				<p1:GGroup.layoutData>
+        					<GridData horizontalAlignment="FILL"/>
+        				</p1:GGroup.layoutData>
+        				<p1:GGroup.layout>
+        					<GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginHeight="0" marginTop="10" marginWidth="10" verticalSpacing="10"/>
+        				</p1:GGroup.layout>
+        				<p1:GLabel text="Pull device:       " visible="true" widgetName="glabel_inchar">
+        					<p1:GLabel.layoutData>
+        						<GridData widthHint="148"/>
+        					</p1:GLabel.layoutData>
+        				</p1:GLabel>
+        				<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="None&#13;&#10;Pull Down&#13;&#10;Pull Up&#13;&#10;" value="None" widgetName="gcombo_inchar" toolTipText="Input charateristics" description="IO pin input characteristics selection">
+        					<p1:GCombo.layoutData>
+        						<GridData horizontalAlignment="FILL" verticalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+        					</p1:GCombo.layoutData>
+        				</p1:GCombo>
+        			</p1:GGroup>
+        			<p1:GGroup manifestObj="true" text="Inverter Pin Configurations" widgetName="ggroup_inverterpinconfig">
+        				<p1:GGroup.layoutData>
+        					<GridData horizontalAlignment="FILL"/>
+        				</p1:GGroup.layoutData>
+        				<p1:GGroup.layout>
+        					<GridLayout numColumns="2" horizontalSpacing="10" marginBottom="10" marginHeight="0" marginTop="10" marginWidth="10" verticalSpacing="10"/>
+        				</p1:GGroup.layout>
+        				<p1:GLabel text="Mode:" visible="true" widgetName="glabel_inverteroutchar">
+        					<p1:GLabel.layoutData>
+        						<GridData horizontalAlignment="FILL" widthHint="147"/>
+        					</p1:GLabel.layoutData>
+        				</p1:GLabel>
+        				<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Push Pull&#13;&#10;Open Drain" value="Push Pull" widgetName="gcombo_inverteroutchar" toolTipText="Select output characteristics" description="IO pin output characteristics selection">
+        					<p1:GCombo.layoutData>
+        						<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+        					</p1:GCombo.layoutData>
+        				</p1:GCombo>
+        				<p1:GLabel text="Driver strength:" visible="true" widgetName="glabel_inverterpaddriver" manifestObj="true"/>
+        				<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge" value="Strong Driver Sharp Edge" widgetName="gcombo_inverterpaddriver" toolTipText="Pad driver strength and slew rate configurations" description="IO pin output driver strength and the slew rate configuration.">
+        					<p1:GCombo.layoutData>
+        						<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL" verticalAlignment="FILL"/>
+        					</p1:GCombo.layoutData>
+        				</p1:GCombo>
+        			</p1:GGroup>
+        		</p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

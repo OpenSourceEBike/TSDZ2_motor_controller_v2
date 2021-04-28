@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project MotherSystem_Version="" Name="PMSM_FOC_EXAMPLE_XMC13" Path="C:\Workspaces\DAVE-4.4.2-64Bit\PMSM_FOC_EXAMPLE_XMC13">
+    <COMPILER>
+        <Name>ARM_GCC_HOME</Name>
+        <Version/>
+        <Memory_Model/>
+    </COMPILER>
+    <DEVICE>
+        <Sales_Code>XMC1302-T038x0200</Sales_Code>
+        <Description/>
+    </DEVICE>
+    <Generated_Files>
+        <Source_Files>
+            <Source_File>
+                <File_Name>adc_queue.c</File_Name>
+                <Path>\Dave\Generated\ADC_QUEUE\adc_queue.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>adc_queue_conf.c</File_Name>
+                <Path>\Dave\Generated\ADC_QUEUE\adc_queue_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>clock_xmc1.c</File_Name>
+                <Path>\Dave\Generated\CLOCK_XMC1\clock_xmc1.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>clock_xmc1_conf.c</File_Name>
+                <Path>\Dave\Generated\CLOCK_XMC1\clock_xmc1_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>cpu_ctrl_xmc1.c</File_Name>
+                <Path>\Dave\Generated\CPU_CTRL_XMC1\cpu_ctrl_xmc1.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>cpu_ctrl_xmc1_conf.c</File_Name>
+                <Path>\Dave\Generated\CPU_CTRL_XMC1\cpu_ctrl_xmc1_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>DAVE.c</File_Name>
+                <Path>\Dave\Generated\DAVE.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_adc.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_ADC\global_adc.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_adc_conf.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_ADC\global_adc_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_ccu4.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_ccu4_conf.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_ccu8.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU8\global_ccu8.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_ccu8_conf.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU8\global_ccu8_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_posif.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_posif_conf.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>hall_posif.c</File_Name>
+                <Path>\Dave\Generated\HALL_POSIF\hall_posif.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>hall_posif_conf.c</File_Name>
+                <Path>\Dave\Generated\HALL_POSIF\hall_posif_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>motor_lib.c</File_Name>
+                <Path>\Dave\Generated\MOTOR_LIB\motor_lib.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pmsm_foc.c</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pmsm_foc_conf.c</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pmsm_foc_control.c</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_control.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm_svm.c</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm_svm_conf.c</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm_svm_table.c</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm_table.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>uart_config.c</File_Name>
+                <Path>\Dave\Generated\UART_CONFIG\uart_config.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>uart_config_conf.c</File_Name>
+                <Path>\Dave\Generated\UART_CONFIG\uart_config_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+        </Source_Files>
+        <Header_Files>
+            <Header_File>
+                <File_Name>adc_queue.h</File_Name>
+                <Path>\Dave\Generated\ADC_QUEUE\adc_queue.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>adc_queue_conf.h</File_Name>
+                <Path>\Dave\Generated\ADC_QUEUE\adc_queue_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>adc_queue_extern.h</File_Name>
+                <Path>\Dave\Generated\ADC_QUEUE\adc_queue_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>clock_xmc1.h</File_Name>
+                <Path>\Dave\Generated\CLOCK_XMC1\clock_xmc1.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>clock_xmc1_conf.h</File_Name>
+                <Path>\Dave\Generated\CLOCK_XMC1\clock_xmc1_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>clock_xmc1_extern.h</File_Name>
+                <Path>\Dave\Generated\CLOCK_XMC1\clock_xmc1_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>cpu_ctrl_xmc1.h</File_Name>
+                <Path>\Dave\Generated\CPU_CTRL_XMC1\cpu_ctrl_xmc1.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>cpu_ctrl_xmc1_conf.h</File_Name>
+                <Path>\Dave\Generated\CPU_CTRL_XMC1\cpu_ctrl_xmc1_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>cpu_ctrl_xmc1_extern.h</File_Name>
+                <Path>\Dave\Generated\CPU_CTRL_XMC1\cpu_ctrl_xmc1_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>DAVE.h</File_Name>
+                <Path>\Dave\Generated\DAVE.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>DAVE_Common.h</File_Name>
+                <Path>\Dave\Generated\DAVE_Common.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_adc.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_ADC\global_adc.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_adc_conf.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_ADC\global_adc_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_adc_extern.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_ADC\global_adc_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu4.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu4_conf.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu4_extern.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu8.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU8\global_ccu8.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu8_conf.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU8\global_ccu8_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu8_extern.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU8\global_ccu8_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_posif.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_posif_conf.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_posif_extern.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>hall_posif.h</File_Name>
+                <Path>\Dave\Generated\HALL_POSIF\hall_posif.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>hall_posif_conf.h</File_Name>
+                <Path>\Dave\Generated\HALL_POSIF\hall_posif_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>hall_posif_extern.h</File_Name>
+                <Path>\Dave\Generated\HALL_POSIF\hall_posif_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>motor_lib.h</File_Name>
+                <Path>\Dave\Generated\MOTOR_LIB\motor_lib.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>motor_lib_conf.h</File_Name>
+                <Path>\Dave\Generated\MOTOR_LIB\motor_lib_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pmsm_foc.h</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pmsm_foc_conf.h</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pmsm_foc_extern.h</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_svm.h</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_svm_conf.h</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_svm_extern.h</File_Name>
+                <Path>\Dave\Generated\PWM_SVM\pwm_svm_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>uart_config.h</File_Name>
+                <Path>\Dave\Generated\UART_CONFIG\uart_config.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>uart_config_conf.h</File_Name>
+                <Path>\Dave\Generated\UART_CONFIG\uart_config_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>uart_config_extern.h</File_Name>
+                <Path>\Dave\Generated\UART_CONFIG\uart_config_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+        </Header_Files>
+        <Library_Files>
+            <Library_File>
+                <File_Name>libPMSM_FOC_LIB.a</File_Name>
+                <Path>\Dave\Generated\PMSM_FOC\libPMSM_FOC_LIB.a</Path>
+                <Type>Library File</Type>
+            </Library_File>
+        </Library_Files>
+        <Assembly_Files/>
+    </Generated_Files>
+    <Include_Path>
+        <Path>\Libraries\XMCLib\inc</Path>
+        <Path>\Libraries\CMSIS\Include</Path>
+        <Path>\Libraries\CMSIS\Infineon\XMC1300_series\Include</Path>
+        <Path/>
+        <Path>\Dave\Generated</Path>
+        <Path>\Libraries</Path>
+    </Include_Path>
+    <Preprocessor_Symbols>
+        <Assembler_Symbol>XMC1302_T038x0200=</Assembler_Symbol>
+        <Compiler_Symbol>XMC1302_T038x0200=</Compiler_Symbol>
+    </Preprocessor_Symbols>
+</Project>

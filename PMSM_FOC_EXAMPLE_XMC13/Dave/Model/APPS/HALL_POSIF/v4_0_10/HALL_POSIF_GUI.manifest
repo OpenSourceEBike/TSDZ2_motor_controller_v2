@@ -1,0 +1,107 @@
+package Model.APPS.HALL_POSIF.v4_0_10;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class HALL_POSIF_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_generalconfiguration;
+	 public GTab gtab_hallpatterns;
+	 public GTab gtab_interruptconfiguration;
+	 public GInteger gint_hall1;
+	 public GInteger gint_hall2;
+	 public GInteger gint_hall3;
+	 public GInteger gint_hall4;
+	 public GInteger gint_hall5;
+	 public GInteger gint_hall6;
+	 public GCombo gcombo_nohallsensor;
+	 public GCombo gcombo_hall3pinstate;
+	 public GFloat gfloat_resolution;
+	 public GFloat gfloat_selresolution;
+	 public GFloat gfloat_blankingtime;
+	 public GFloat gfloat_actblankingtime;
+	 public GFloat gfloat_patupdatedelay;
+	 public GFloat gfloat_phadvangle;
+	 public GFloat gfloat_phasedelay;
+	 public GCheck gcheck_ephadv;
+	 public GCheck gcheck_ehalleru1;
+	 public GCheck gcheck_ehalleru2;
+	 public GCheck gcheck_ehalleru3;
+	 public GCheck gcheck_ecorrecthallevent;
+	 public GCheck gcheck_ewronghallevent;
+	 public GCheck gcheck_epatupdateevent;
+	 public GCheck gcheck_espeedcaptevent;
+	 public GLabel glabel_resolution;
+	 public GLabel glabel_selresolution;
+	 public GLabel glabel_blankingtime;
+	 public GLabel glabel_actblankingtime;
+	 public GLabel glabel_patupdatedelay;
+	 public GLabel glabel_nohallsensor;
+	 public GLabel glabel_hall3pinstate;
+	 public GLabel glabel_phadvangle;
+	 public GLabel glabel_phasedelay;
+	 public GLabel glabel_hall1;
+	 public GLabel glabel_hall2;
+	 public GLabel glabel_hall3;
+	 public GLabel glabel_hall4;
+	 public GLabel glabel_hall5;
+	 public GLabel glabel_hall6;
+	 public GGroup ggroup_genconf;
+	 public GGroup ggroup_phangleconf;
+	 public GGroup gGroup5;
+	 public GGroup ggroup_hallpatterns;
+	 public GGroup ggroup_inteconf;
+
+	 public HALL_POSIF_GUI(DaveEnv daveEnv){
+
+	 gtab_generalconfiguration = GTab(widgetName:"gtab_generalconfiguration", text:"General Settings", enabled:true, visible:true)
+	 gtab_hallpatterns = GTab(widgetName:"gtab_hallpatterns", text:"Hall Configuration", enabled:true, visible:true)
+	 gtab_interruptconfiguration = GTab(widgetName:"gtab_interruptconfiguration", text:"Event Settings", enabled:true, visible:true)
+	 gint_hall1 = GInteger(widgetName:"gint_hall1", value:1, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_hall2 = GInteger(widgetName:"gint_hall2", value:3, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_hall3 = GInteger(widgetName:"gint_hall3", value:2, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_hall4 = GInteger(widgetName:"gint_hall4", value:6, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_hall5 = GInteger(widgetName:"gint_hall5", value:4, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_hall6 = GInteger(widgetName:"gint_hall6", value:5, minValue:1, maxValue:6, enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_nohallsensor = GCombo(widgetName:"gcombo_nohallsensor", options:["3 Hall","2 Hall"], value:"3 Hall", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_hall3pinstate = GCombo(widgetName:"gcombo_hall3pinstate", options:["Low","High"], value:"Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_resolution = GFloat(widgetName:"gfloat_resolution", value:1000.0, minValue:9, maxValue:512000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_selresolution = GFloat(widgetName:"gfloat_selresolution", value:20.0, minValue:8, maxValue:512000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_blankingtime = GFloat(widgetName:"gfloat_blankingtime", value:5.0, minValue:1, maxValue:40, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_actblankingtime = GFloat(widgetName:"gfloat_actblankingtime", value:0.0, minValue:1, maxValue:40, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_patupdatedelay = GFloat(widgetName:"gfloat_patupdatedelay", value:55.0, minValue:0, maxValue:220, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_phadvangle = GFloat(widgetName:"gfloat_phadvangle", value:10.0, minValue:10, maxValue:60, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_phasedelay = GFloat(widgetName:"gfloat_phasedelay", value:1.0, minValue:0.0, maxValue:50.0, enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_ephadv = GCheck(widgetName:"gcheck_ephadv", value:false, enabled:true, visible:true)
+	 gcheck_ehalleru1 = GCheck(widgetName:"gcheck_ehalleru1", value:false, enabled:true, visible:true)
+	 gcheck_ehalleru2 = GCheck(widgetName:"gcheck_ehalleru2", value:false, enabled:true, visible:true)
+	 gcheck_ehalleru3 = GCheck(widgetName:"gcheck_ehalleru3", value:false, enabled:true, visible:true)
+	 gcheck_ecorrecthallevent = GCheck(widgetName:"gcheck_ecorrecthallevent", value:false, enabled:true, visible:true)
+	 gcheck_ewronghallevent = GCheck(widgetName:"gcheck_ewronghallevent", value:false, enabled:true, visible:true)
+	 gcheck_epatupdateevent = GCheck(widgetName:"gcheck_epatupdateevent", value:false, enabled:true, visible:true)
+	 gcheck_espeedcaptevent = GCheck(widgetName:"gcheck_espeedcaptevent", value:false, enabled:true, visible:true)
+	 glabel_resolution = GLabel(widgetName:"glabel_resolution", text:"Resolution [ns]:", enabled:true, visible:true)
+	 glabel_selresolution = GLabel(widgetName:"glabel_selresolution", text:"Selected resolution [ns]:", enabled:true, visible:true)
+	 glabel_blankingtime = GLabel(widgetName:"glabel_blankingtime", text:"Blanking time [us]:", enabled:true, visible:true)
+	 glabel_actblankingtime = GLabel(widgetName:"glabel_actblankingtime", text:"Actual blanking time [us]      ", enabled:true, visible:true)
+	 glabel_patupdatedelay = GLabel(widgetName:"glabel_patupdatedelay", text:"Pattern update delay [us]:", enabled:true, visible:true)
+	 glabel_nohallsensor = GLabel(widgetName:"glabel_nohallsensor", text:"Number of hall sensors :", enabled:true, visible:true)
+	 glabel_hall3pinstate = GLabel(widgetName:"glabel_hall3pinstate", text:"Hall-3 pin state :", enabled:true, visible:true)
+	 glabel_phadvangle = GLabel(widgetName:"glabel_phadvangle", text:"Phase advance angle [degree]:", enabled:true, visible:true)
+	 glabel_phasedelay = GLabel(widgetName:"glabel_phasedelay", text:"Phase delay angle [degree]:", enabled:true, visible:true)
+	 glabel_hall1 = GLabel(widgetName:"glabel_hall1", text:"1", enabled:true, visible:true)
+	 glabel_hall2 = GLabel(widgetName:"glabel_hall2", text:"2", enabled:true, visible:true)
+	 glabel_hall3 = GLabel(widgetName:"glabel_hall3", text:"3", enabled:true, visible:true)
+	 glabel_hall4 = GLabel(widgetName:"glabel_hall4", text:"4", enabled:true, visible:true)
+	 glabel_hall5 = GLabel(widgetName:"glabel_hall5", text:"5", enabled:true, visible:true)
+	 glabel_hall6 = GLabel(widgetName:"glabel_hall6", text:"6", enabled:true, visible:true)
+	 ggroup_genconf = GGroup(widgetName:"ggroup_genconf", text:"", enabled:true, visible:true)
+	 ggroup_phangleconf = GGroup(widgetName:"ggroup_phangleconf", text:"Phase Advance and Phase Delay Configuration", enabled:true, visible:true)
+	 gGroup5 = GGroup(widgetName:"gGroup5", text:"Hall Input", enabled:true, visible:true)
+	 ggroup_hallpatterns = GGroup(widgetName:"ggroup_hallpatterns", text:"Hall Patterns", enabled:true, visible:true)
+	 ggroup_inteconf = GGroup(widgetName:"ggroup_inteconf", text:"Interrupts", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section*/
+}

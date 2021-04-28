@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/1.0.0/peripheral/posif/0" description="Position Interface Unit 0" baseAddress="0x50010000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="hsc_qd" URI="http://resources/1.0.0/peripheral/posif/0/posif/hsc_qd">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@hwResources.0"/>
+    <resourcesList name="halp" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/halp"/>
+    <resourcesList name="halps" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/halps"/>
+    <resourcesList name="qdc" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/qdc"/>
+    <resourcesList name="pconf_qdcm" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/qdcm"/>
+    <resourcesList name="pconf_spes" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/spes"/>
+    <resourcesList name="pconf_ewil" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/ewil"/>
+    <resourcesList name="pconf_insel0" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/insel0"/>
+    <resourcesList name="pconf_insel1" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/insel1"/>
+    <resourcesList name="pconf_insel2" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/insel2"/>
+    <resourcesList name="pconf_dsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/dsel"/>
+    <resourcesList name="pconf_ewis" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/ewis"/>
+    <resourcesList name="pflge_indxe" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/eindx"/>
+    <resourcesList name="pflge_erre" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/eerr"/>
+    <resourcesList name="pflge_cnte" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/ecnt"/>
+    <resourcesList name="pflge_dire" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/edir"/>
+    <resourcesList name="pflge_pclke" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/epclk"/>
+    <resourcesList name="pflge_ewhe" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/ewhe"/>
+    <resourcesList name="pflge_ehie" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/ehie"/>
+    <resourcesList name="pflge_eche" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/eche"/>
+    <resourcesList name="pflge_chesel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/chesel"/>
+    <resourcesList name="pflge_whesel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/whesel"/>
+    <resourcesList name="pflge_hiesel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/hiesel"/>
+    <resourcesList name="pflge_indsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/indsel"/>
+    <resourcesList name="pflge_errsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/errsel"/>
+    <resourcesList name="pflge_cntsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/cntsel"/>
+    <resourcesList name="pflge_dirsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/dirsel"/>
+    <resourcesList name="pflge_pclsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pflge/pclsel"/>
+    <resourcesList name="global_signal" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/hsc_qd_global_signal"/>
+    <resourcesList name="ipos0" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/ipos0"/>
+    <resourcesList name="ipos1" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/ipos1"/>
+    <resourcesList name="ipos2" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/ipos2"/>
+    <resourcesList name="pifhsd" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/hsd"/>
+    <resourcesList name="pifewhe" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/ewhe"/>
+    <resourcesList name="out0" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out0"/>
+    <resourcesList name="out1" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out1"/>
+    <resourcesList name="out2" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out2"/>
+    <resourcesList name="out3" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out3"/>
+    <resourcesList name="out4" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out4"/>
+    <resourcesList name="out5" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/out5"/>
+    <resourcesList name="indxe" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/indxe"/>
+    <resourcesList name="erre" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/erre"/>
+    <resourcesList name="cnte" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/cnte"/>
+    <resourcesList name="dire" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/dire"/>
+    <resourcesList name="pcle" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pcle"/>
+    <resourcesList name="whee" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/whee"/>
+    <resourcesList name="hiee" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/hiee"/>
+    <resourcesList name="chee" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/chee"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PFLGE" URI="http://resources/1.0.0/peripheral/posif/0/pflge" value="00000000" toolTipHelpDescription="Service Request Processing Interrupt Enable" defaultValue="00000000" accessPermission="rw" addressOffset="0x0074" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="ECHE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eche" value="0" toolTipHelpDescription="Correct Hall Event Enable" defaultValue="0" startPos="0" stopPos="0" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Correct Hall Event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Correct Hall Event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EWHE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ewhe" value="0" toolTipHelpDescription="Wrong Hall Event Enable" defaultValue="0" startPos="1" stopPos="1" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Wrong Hall Event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Wrong Hall Event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EHIE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ehie" value="0" toolTipHelpDescription="Hall Input Update Enable" defaultValue="0" startPos="2" stopPos="2" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Update of the Hall Inputs interrupt is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Update of the Hall Inputs interrupt is enabled"/>
+    </bitFields>
+    <bitFields name="EMST" URI="http://resources/1.0.0/peripheral/posif/0/pflge/emst" value="0" toolTipHelpDescription="Multi-Channel pattern shadow transfer enable" defaultValue="0" startPos="4" stopPos="4" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Shadow transfer event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Shadow transfer event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EINDX" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eindx" value="0" toolTipHelpDescription="Quadrature Index Event Enable" defaultValue="0" startPos="8" stopPos="8" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Index event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Index event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EERR" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eerr" value="0" toolTipHelpDescription="Quadrature Phase Error Enable" defaultValue="0" startPos="9" stopPos="9" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Phase error event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Phase error event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="ECNT" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ecnt" value="0" toolTipHelpDescription="Quadrature CLK interrupt Enable" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature CLK event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature CLK event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EDIR" URI="http://resources/1.0.0/peripheral/posif/0/pflge/edir" value="0" toolTipHelpDescription="Quadrature direction change interrupt Enable" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Direction change event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Direction change event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="EPCLK" URI="http://resources/1.0.0/peripheral/posif/0/pflge/epclk" value="0" toolTipHelpDescription="Quadrature Period CLK interrupt Enable" defaultValue="0" startPos="12" stopPos="12" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Period CLK event interrupt disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Period CLK event interrupt enabled"/>
+    </bitFields>
+    <bitFields name="CHESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/chesel" value="0" toolTipHelpDescription="Correct Hall Event Service Request Selector" defaultValue="0" startPos="16" stopPos="16" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Correct Hall Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Correct Hall Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="WHESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/whesel" value="0" toolTipHelpDescription="Wrong Hall Event Service Request Selector" defaultValue="0" startPos="17" stopPos="17" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Wrong Hall Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Wrong Hall Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="HIESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/hiesel" value="0" toolTipHelpDescription="Hall Inputs Update Event Service Request Selector" defaultValue="0" startPos="18" stopPos="18" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Hall Inputs Update Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Hall Inputs Update Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="MSTSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/mstsel" value="0" toolTipHelpDescription="Multi-Channel pattern Update Event Service Request Selector" defaultValue="0" startPos="20" stopPos="20" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Multi-Channel pattern Update Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Multi-Channel pattern Update Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="INDSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/indsel" value="0" toolTipHelpDescription="Quadrature Index Event Service Request Selector" defaultValue="0" startPos="24" stopPos="24" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Index Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Index Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="ERRSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/errsel" value="0" toolTipHelpDescription="Quadrature Phase Error Event Service Request Selector" defaultValue="0" startPos="25" stopPos="25" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Phase error Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Phase error Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="CNTSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/cntsel" value="0" toolTipHelpDescription="Quadrature Clock Event Service Request Selector" defaultValue="0" startPos="26" stopPos="26" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Clock Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Clock Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="DIRSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/dirsel" value="0" toolTipHelpDescription="Quadrature Direction Update Event Service Request Selector" defaultValue="0" startPos="27" stopPos="27" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Direction Update Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Direction Update Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+    <bitFields name="PCLSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/pclsel" value="0" toolTipHelpDescription="Quadrature Period clock Event Service Request Selector" defaultValue="0" startPos="28" stopPos="28" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Period clock Event interrupt forward to POSIFx.SR0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Period clock Event interrupt forward to POSIFx.SR1"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EHIE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ehie" value="0" toolTipHelpDescription="Hall Input Update Enable" defaultValue="0" startPos="2" stopPos="2" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Update of the Hall Inputs interrupt is disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Update of the Hall Inputs interrupt is enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EERR" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eerr" value="0" toolTipHelpDescription="Quadrature Phase Error Enable" defaultValue="0" startPos="9" stopPos="9" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Phase error event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Phase error event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PCONF" URI="http://resources/1.0.0/peripheral/posif/0/pconf" value="00000000" toolTipHelpDescription="Service Request Processing configuration" defaultValue="00000000" accessPermission="rw" addressOffset="0x0000" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="FSEL" URI="http://resources/1.0.0/peripheral/posif/0/pconf/fsel" value="0" toolTipHelpDescription="Function Selector" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Hall Sensor Mode enabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Quadrature Decoder Mode enabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="stand-alone Multi-Channel Mode enabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Quadrature Decoder and stand-alone Multi-Channel Mode enabled"/>
+    </bitFields>
+    <bitFields name="QDCM" URI="http://resources/1.0.0/peripheral/posif/0/pconf/qdcm" value="0" toolTipHelpDescription="Position Decoder Mode selection" defaultValue="0" startPos="2" stopPos="2" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Position encoder is in Quadrature Mode"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Position encoder is in Direction Count Mode."/>
+    </bitFields>
+    <bitFields name="HIDG" URI="http://resources/1.0.0/peripheral/posif/0/pconf/hidg" value="0" toolTipHelpDescription="Idle generation enable" defaultValue="0" startPos="4" stopPos="4" accessPermission="rw" maxValue="1" minValue="0"/>
+    <bitFields name="MCUE" URI="http://resources/1.0.0/peripheral/posif/0/pconf/mcue" value="0" toolTipHelpDescription="Multi-Channel Pattern SW update enable" defaultValue="0" startPos="5" stopPos="5" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Multi-Channel pattern update is controlled via HW"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Multi-Channel pattern update is controlled via SW"/>
+    </bitFields>
+    <bitFields name="INSEL0" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel0" value="0" toolTipHelpDescription="PhaseA/Hal input 1 selector" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN0A"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN0B"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN0C"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN0D"/>
+    </bitFields>
+    <bitFields name="INSEL1" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel1" value="0" toolTipHelpDescription="PhaseB/Hall input 2 selector" defaultValue="0" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN1A"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN1B"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN1C"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN1D"/>
+    </bitFields>
+    <bitFields name="INSEL2" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel2" value="0" toolTipHelpDescription="Index/Hall input 3 selector" defaultValue="0" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN2A"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN2B"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN2C"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN2D"/>
+    </bitFields>
+    <bitFields name="DSEL" URI="http://resources/1.0.0/peripheral/posif/0/pconf/dsel" value="0" toolTipHelpDescription="Delay Pin selector" defaultValue="0" startPos="16" stopPos="16" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="POSIFx.HSDA"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="POSIFx.HSDB"/>
+    </bitFields>
+    <bitFields name="SPES" URI="http://resources/1.0.0/peripheral/posif/0/pconf/spes" value="0" toolTipHelpDescription="Edge selector for the sampling trigger" defaultValue="0" startPos="17" stopPos="17" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Rising edge"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Falling edge"/>
+    </bitFields>
+    <bitFields name="MSETS" URI="http://resources/1.0.0/peripheral/posif/0/pconf/msets" value="0" toolTipHelpDescription="Pattern update signal select" defaultValue="0" startPos="18" stopPos="20" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b000" description="POSIFx.MSETA"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b001" description="POSIFx.MSETB"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b010" description="POSIFx.MSETC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b011" description="POSIFx.MSETD"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="POSIFx.MSETE"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="POSIFx.MSETF"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="POSIFx.MSETG"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="POSIFx.MSETH"/>
+    </bitFields>
+    <bitFields name="MSES" URI="http://resources/1.0.0/peripheral/posif/0/pconf/mses" value="0" toolTipHelpDescription="Multi-Channel pattern update trigger edge" defaultValue="0" startPos="21" stopPos="21" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal used to enable a pattern update is active on the rising edge"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal used to enable a pattern update is active on the falling edge"/>
+    </bitFields>
+    <bitFields name="MSYNS" URI="http://resources/1.0.0/peripheral/posif/0/pconf/msyns" value="0" toolTipHelpDescription="PWM synchronization signal selector" defaultValue="0" startPos="22" stopPos="23" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.MSYNCA"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.MSYNCB"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.MSYNCC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.MSYNCD"/>
+    </bitFields>
+    <bitFields name="EWIS" URI="http://resources/1.0.0/peripheral/posif/0/pconf/ewis" value="0" toolTipHelpDescription="Wrong Hall Event selection" defaultValue="0" startPos="24" stopPos="25" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.EWHEA"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.EWHEB"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.EWHEC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.EWHED"/>
+    </bitFields>
+    <bitFields name="EWIE" URI="http://resources/1.0.0/peripheral/posif/0/pconf/ewie" value="0" toolTipHelpDescription="External Wrong Hall Event enable" defaultValue="0" startPos="26" stopPos="26" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="External wrong hall event emulation signal, POSIFx.EWHE[D...A], is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="External wrong hall event emulation signal, POSIFx.EWHE[D...A], is enabled."/>
+    </bitFields>
+    <bitFields name="EWIL" URI="http://resources/1.0.0/peripheral/posif/0/pconf/ewil" value="0" toolTipHelpDescription="External Wrong Hall Event active level" defaultValue="0" startPos="27" stopPos="27" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="POSIFx.EWHE[D...A] signal is active HIGH"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="POSIFx.EWHE[D...A] signal is active LOW"/>
+    </bitFields>
+    <bitFields name="LPC" URI="http://resources/1.0.0/peripheral/posif/0/pconf/lpc" value="0" toolTipHelpDescription="Low Pass Filters Configuration" defaultValue="0" startPos="28" stopPos="30" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b000" description="Low pass filter disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b001" description="Low pass of 1 clock cycle"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b010" description="Low pass of 2 clock cycles"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b011" description="Low pass of 4 clock cycles"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="Low pass of 8 clock cycles"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="Low pass of 16 clock cycles"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="Low pass of 32 clock cycles"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="Low pass of 64 clock cycles"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="DSEL" URI="http://resources/1.0.0/peripheral/posif/0/pconf/dsel" value="0" toolTipHelpDescription="Delay Pin selector" defaultValue="0" startPos="16" stopPos="16" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="POSIFx.HSDA"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="POSIFx.HSDB"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ECNT" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ecnt" value="0" toolTipHelpDescription="Quadrature CLK interrupt Enable" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature CLK event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature CLK event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INDSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/indsel" value="0" toolTipHelpDescription="Quadrature Index Event Service Request Selector" defaultValue="0" startPos="24" stopPos="24" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Index Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Index Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ECHE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eche" value="0" toolTipHelpDescription="Correct Hall Event Enable" defaultValue="0" startPos="0" stopPos="0" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Correct Hall Event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Correct Hall Event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="DIRSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/dirsel" value="0" toolTipHelpDescription="Quadrature Direction Update Event Service Request Selector" defaultValue="0" startPos="27" stopPos="27" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Direction Update Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Direction Update Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CHESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/chesel" value="0" toolTipHelpDescription="Correct Hall Event Service Request Selector" defaultValue="0" startPos="16" stopPos="16" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Correct Hall Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Correct Hall Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EWHE" URI="http://resources/1.0.0/peripheral/posif/0/pflge/ewhe" value="0" toolTipHelpDescription="Wrong Hall Event Enable" defaultValue="0" startPos="1" stopPos="1" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Wrong Hall Event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Wrong Hall Event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="HIESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/hiesel" value="0" toolTipHelpDescription="Hall Inputs Update Event Service Request Selector" defaultValue="0" startPos="18" stopPos="18" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Hall Inputs Update Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Hall Inputs Update Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ERRSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/errsel" value="0" toolTipHelpDescription="Quadrature Phase Error Event Service Request Selector" defaultValue="0" startPos="25" stopPos="25" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Phase error Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Phase error Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EPCLK" URI="http://resources/1.0.0/peripheral/posif/0/pflge/epclk" value="0" toolTipHelpDescription="Quadrature Period CLK interrupt Enable" defaultValue="0" startPos="12" stopPos="12" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Period CLK event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Period CLK event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INSEL0" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel0" value="0" toolTipHelpDescription="PhaseA/Hal input 1 selector" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN0A"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN0B"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN0C"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN0D"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="WHESEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/whesel" value="0" toolTipHelpDescription="Wrong Hall Event Service Request Selector" defaultValue="0" startPos="17" stopPos="17" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Wrong Hall Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Wrong Hall Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INSEL1" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel1" value="0" toolTipHelpDescription="PhaseB/Hall input 2 selector" defaultValue="0" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN1A"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN1B"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN1C"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN1D"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INSEL2" URI="http://resources/1.0.0/peripheral/posif/0/pconf/insel2" value="0" toolTipHelpDescription="Index/Hall input 3 selector" defaultValue="0" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.IN2A"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.IN2B"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.IN2C"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.IN2D"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EWIS" URI="http://resources/1.0.0/peripheral/posif/0/pconf/ewis" value="0" toolTipHelpDescription="Wrong Hall Event selection" defaultValue="0" startPos="24" stopPos="25" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="POSIFx.EWHEA"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="POSIFx.EWHEB"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="POSIFx.EWHEC"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="POSIFx.EWHED"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CNTSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/cntsel" value="0" toolTipHelpDescription="Quadrature Clock Event Service Request Selector" defaultValue="0" startPos="26" stopPos="26" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Clock Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Clock Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PCLSEL" URI="http://resources/1.0.0/peripheral/posif/0/pflge/pclsel" value="0" toolTipHelpDescription="Quadrature Period clock Event Service Request Selector" defaultValue="0" startPos="28" stopPos="28" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Quadrature Period clock Event interrupt forward to POSIFx.SR0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Quadrature Period clock Event interrupt forward to POSIFx.SR1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EINDX" URI="http://resources/1.0.0/peripheral/posif/0/pflge/eindx" value="0" toolTipHelpDescription="Quadrature Index Event Enable" defaultValue="0" startPos="8" stopPos="8" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Index event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Index event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EDIR" URI="http://resources/1.0.0/peripheral/posif/0/pflge/edir" value="0" toolTipHelpDescription="Quadrature direction change interrupt Enable" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Direction change event interrupt disabled"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Direction change event interrupt enabled"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="global" URI="http://resources/1.0.0/peripheral/posif/0/posif/global">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/GLOBAL_POSIF/v4_0_18/GLOBAL_POSIF_0.app#//@hwResources.0"/>
+    <resourcesList name="pconf_fsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/fsel"/>
+    <resourcesList name="clk" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/clk"/>
+    <resourcesList name="global_signal" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/g_global_signal"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x4000" usage="registers"/>
+</ResourceModel:Peripheral>

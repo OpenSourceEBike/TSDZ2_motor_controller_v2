@@ -1,0 +1,19 @@
+package Model.APPS.GLOBAL_POSIF.v4_0_18;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class GLOBAL_POSIF_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GFloat gfloat_clockfrequency;
+	 public GMessage gmessage_clock_setting_error;
+
+	 public GLOBAL_POSIF_GUI(DaveEnv daveEnv){
+
+	 gfloat_clockfrequency = GFloat(widgetName:"gfloat_clockfrequency", value:120.0, minValue:0, maxValue:120, enabled:true, visible:true, isMandatoryValue:false)
+	 gmessage_clock_setting_error = GMessage(widgetName:"gmessage_clock_setting_error", text:"CCU Clock  is not enabled in the \"Clock Selection Setting\" tab of the CLOCK_XMC4 APP. Please enable the same to continue. ", isError:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

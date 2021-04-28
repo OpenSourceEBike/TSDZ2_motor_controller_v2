@@ -1,0 +1,445 @@
+package Model.APPS.HALL_POSIF.v4_0_10;
+
+/*
+ Copyright (c) 2016-2020, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+ 
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.0       15-Feb-2015   1. Initial version<br/>
+ 4.0.1       20-Feb-2015   1. Help document update<br/>
+ 4.0.5       20-Jun-2015   1. shadow_transfer_msk data type changed from uint8_t to uint32_t <br> 
+                           2. ERU initialization modified <br>  
+ 4.0.7       14-July-2015  1. Required APP minimum version updated<br/> 
+ 4.0.8       02-Feb-2019   1. Added XMC47xx and XMC48xx<br/> 
+ 4.0.10      08-Jan-2021   1. Added XMC1402 and XMC1404 devices<br/> 
+ *******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class  HALL_POSIF extends HALL_POSIF_GUI {
+	/* --------------------------------------------------------------------------------- */
+	/* -------------------- Begin : HALL_POSIF property section -------------------- */
+	/* --------------------------------------------------------------------------------- */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.10'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = [
+		"Motor Control/Position Interface"
+	]
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * It is a list of string.
+	 */
+	def keywords = [
+		"POSIF",
+		"HALL_POSIF",
+		"3 Hall",
+		"2 Hall",
+		"Hall",
+		"Hall Sensor",
+		"CCU4",
+		"Speed Measurement",
+		"Position Measurement",
+		"Motor Control",
+		"Motor",
+		"Drive",
+		"block",
+		"commutation",
+		"trapezoidal",
+		"all"
+	]
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this app.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the app.
+	 *  Any step , any variant and any packages of XMC4500, XMC4400, XMC4200 and XMC4100
+	 *  Any step, any variant of XMC1300 except T016 package
+	 */
+	def softwareIDs   = [
+		    "XMC1.3.*.*.*":"1.0.0",
+			"XMC1.4.04.*.*":"1.0.0",
+			"XMC1.4.02.*.*":"1.0.0",
+			"XMC4.8.*.*.*":"1.0.0",
+			"XMC4.7.*.*.*":"1.0.0",
+			"XMC4.5.*.*.*":"1.0.0",
+			"XMC4.4.*.*.*":"1.0.0",
+			"XMC4.2.*.*.*":"1.0.0",
+			"XMC4.1.*.*.*":"1.0.0"
+			]
+  
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once.
+	 */
+	def singleton     = false
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable      = true
+	
+	/**
+	 *  App function description.
+	 */
+	def description = "To get the \n motor position and speed using \n hall sensors separated at 120 degrees.\n It supports 2-hall and 3-hall configuration."
+	
+	/* -------------------- End   : HALL_POSIF property section -------------------- */
+
+	/* --------------------------------------------------------------------------------- */
+	/* ------------------------- Begin : User variable section ------------------------- */
+	/* --------------------------------------------------------------------------------- */
+	/* Required Hardware Resources */
+	MVirtualResourceGroup hwres_posif_hsc_qd_0
+	
+	MVirtualResourceGroup hwres_port_pad_1
+	MVirtualResourceGroup hwres_port_pad_2
+	MVirtualResourceGroup hwres_port_pad_3
+	
+	MVirtualResourceGroup hwres_ccu4_slice0
+	MVirtualResourceGroup hwres_ccu4_slice1
+	
+	/* Begin : Consumption of ERU resource */
+	MVirtualResourceGroup hwres_ers_etl_1
+	MVirtualResourceGroup hwres_ers_etl_2
+	MVirtualResourceGroup hwres_ers_etl_3
+	
+	MVirtualResourceGroup hwres_eru_ogu_1
+	MVirtualResourceGroup hwres_eru_ogu_2
+	MVirtualResourceGroup hwres_eru_ogu_3
+	/* End : Consumption of ERU resource  */
+	
+	/* Required App */
+	MRequiredApp appres_global_posif_0
+	MRequiredApp appres_global_ccu4_0
+		
+	/* Required Signals */
+	MVirtualSignal vs_hall_posif_globalsignal
+	MVirtualSignal vs_hall_posif_input0
+	MVirtualSignal vs_hall_posif_input1
+	MVirtualSignal vs_hall_posif_input2
+	MVirtualSignal vs_hall_posif_pifhsd
+	MVirtualSignal vs_hall_posif_pifewhe
+	MVirtualSignal vs_hall_posif_out0
+	MVirtualSignal vs_hall_posif_out1
+	MVirtualSignal vs_hall_posif_out2
+	MVirtualSignal vs_hall_posif_out3
+	MVirtualSignal vs_hall_posif_out4
+	MVirtualSignal vs_hall_posif_out5
+	MVirtualSignal vs_hall_posif_whee
+	MVirtualSignal vs_hall_posif_hiee
+	MVirtualSignal vs_hall_posif_chee
+			
+	MVirtualSignal vs_hall_posif_slice1_ps
+	MVirtualSignal vs_hall_posif_slice0_globalsignal
+	MVirtualSignal vs_hall_posif_slice1_globalsignal
+	MVirtualSignal vs_hall_posif_slice0_st0
+	MVirtualSignal vs_hall_posif_slice0_periodmatch
+	MVirtualSignal vs_hall_posif_slice1_compmatch
+	MVirtualSignal vs_hall_posif_slice1_capture
+	MVirtualSignal vs_hall_posif_slice0_gp0unsync
+	MVirtualSignal vs_hall_posif_slice1_gp0unsync
+	
+	MVirtualSignal vs_hall_posif_pad_hall1
+	MVirtualSignal vs_hall_posif_pad_hall2
+	MVirtualSignal vs_hall_posif_pad_hall3
+	
+	MVirtualSignalRA vs_hall_posif_global_ccu4_globalsignal
+	MVirtualSignalRA vs_hall_posif_global_posif_globalsignal
+	
+	
+	/* Begin : Definition of ERU signals  */
+	MVirtualSignal vs_hall_posif_eventgen_input_a_hall1
+	MVirtualSignal vs_hall_posif_eventgen_input_a_hall2
+	MVirtualSignal vs_hall_posif_eventgen_input_a_hall3
+	
+	MVirtualSignal vs_hall_posif_eventgen_flagstatus_hall1
+	MVirtualSignal vs_hall_posif_eventgen_flagstatus_hall2
+	MVirtualSignal vs_hall_posif_eventgen_flagstatus_hall3
+	
+	MVirtualSignal vs_hall_posif_eventdet_pdin_hall1
+	MVirtualSignal vs_hall_posif_eventdet_pdin_hall2
+	MVirtualSignal vs_hall_posif_eventdet_pdin_hall3
+	
+	MVirtualSignal vs_hall_posif_eventdet_pdout_hall1
+	MVirtualSignal vs_hall_posif_eventdet_pdout_hall2
+	MVirtualSignal vs_hall_posif_eventdet_pdout_hall3
+	/* End : Definition of ERU signals*/
+	
+	/* Variable to read the clock value from global_posif app */
+	GFloat gfloat_clkfrequency = GFloat(value:120)
+	/* User defined variable to store the prescalar calculation*/
+	GInteger gint_prescalar = GInteger(value:0)
+	
+	GInteger gint_motordirection = GInteger(value:0)
+	
+	/* -------------------------- End   : User variable section ------------------------ */
+
+
+	/* -------------------------- HALL_POSIF Constructor --------------------------- */
+	public HALL_POSIF(DaveEnv daveEnv) {
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+		appres_global_posif_0 = MRequiredApp("GLOBAL_POSIF","Posif Global APP", RSHARABLE, "4.0.14")
+		appres_global_ccu4_0 = MRequiredApp("GLOBAL_CCU4","CCU4 Global APP", RSHARABLE, "4.0.2")
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block --------- */
+		/* ---------------------------------------------------------- */
+		/*Consumed resource for hall sensor control quadrature decoder(hsc_qd)*/
+		
+		hwres_posif_hsc_qd_0 = MVirtualResourceGroup( "POSIF Hall", ["peripheral", "posif", "*" , "posif", "hsc_qd"])
+
+		hwres_port_pad_1 = MVirtualResourceGroup( "Hall 1"       , ["port"      , "p"    , "*" , "pad"  , "*"     ])
+		hwres_port_pad_2 = MVirtualResourceGroup( "Hall 2"       , ["port"      , "p"    , "*" , "pad"  , "*"     ])
+		hwres_port_pad_3 = MVirtualResourceGroup( "Hall 3"       , ["port"      , "p"    , "*" , "pad"  , "*"     ], MF({return(gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0)}, Boolean))
+		
+		hwres_ccu4_slice0    = MVirtualResourceGroup( "Hall Event Blanking CC4 Slice", ["peripheral", "ccu4" , "*" , "cc4"  , "*"     ])
+		addRegisterBitFieldConstraint(hwres_ccu4_slice0,"srs_posr", [0])
+		hwres_ccu4_slice1    = MVirtualResourceGroup( "Capture CC4 Slice", ["peripheral", "ccu4" , "*" , "cc4"  , "*"     ])
+		
+		hwres_ers_etl_1 = MVirtualResourceGroup( "ETL 1", ["peripheral", "eru", "*", "ers_etl","*"],MF({return(gcheck_ehalleru1.value)}, Boolean))
+		hwres_ers_etl_2 = MVirtualResourceGroup( "ETL 2", ["peripheral", "eru", "*", "ers_etl","*"],MF({return(gcheck_ehalleru2.value)}, Boolean))
+		hwres_ers_etl_3 = MVirtualResourceGroup( "ETL 3", ["peripheral", "eru", "*", "ers_etl","*"],MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean))
+		
+		hwres_eru_ogu_1 = MVirtualResourceGroup( "OGU 1",  ["peripheral", "eru", "*", "ogu","*"],MF({return(gcheck_ehalleru1.value)}, Boolean))
+		hwres_eru_ogu_2 = MVirtualResourceGroup( "OGU 2",  ["peripheral", "eru", "*", "ogu","*"],MF({return(gcheck_ehalleru2.value)}, Boolean))
+		hwres_eru_ogu_3 = MVirtualResourceGroup( "OGU 3",  ["peripheral", "eru", "*", "ogu","*"],MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean))
+		
+		/* ---------------------------------------------------------- */
+		/* -------------- APP IO Signals ---------------------------- */
+		/* ---------------------------------------------------------- */
+		/* Begin : Signals belongs to  hsc_qd resource */
+		/* Input signals */
+		//vs_hall_posif_globalsignal = MVirtualSignal(hwres_posif_hsc_qd_0, "posif_global_signal", "global_signal"  , true, false)
+		vs_hall_posif_input0 = MVirtualSignal(hwres_posif_hsc_qd_0, "hall_1"                 , "ipos0"    , true, false)
+		vs_hall_posif_input1 = MVirtualSignal(hwres_posif_hsc_qd_0, "hall_2"                 , "ipos1"    , true, false)
+		vs_hall_posif_input2 = MVirtualSignal(hwres_posif_hsc_qd_0, "hall_3"                 , "ipos2"    , true, false)
+		vs_hall_posif_pifhsd = MVirtualSignal(hwres_posif_hsc_qd_0, "hall_pattern_sample_delay"    , "pifhsd"   , true, false)
+		vs_hall_posif_pifewhe = MVirtualSignal(hwres_posif_hsc_qd_0, "wrong_hall_event_emulation"   , "pifewhe"  , true, true)
+		/* Output signals */
+		vs_hall_posif_out0   = MVirtualSignal(hwres_posif_hsc_qd_0, "hall_input_edge_detection_trigger" , "out0"     , true, false)
+		vs_hall_posif_out1   = MVirtualSignal(hwres_posif_hsc_qd_0, "corret_hall_output"                 , "out1"     , true, false)
+		vs_hall_posif_out2   = MVirtualSignal(hwres_posif_hsc_qd_0, "wrong_hall_output"                  , "out2"     , true, true)
+		vs_hall_posif_out3   = MVirtualSignal(hwres_posif_hsc_qd_0, "stop"                              , "out3"     , true, true)
+		vs_hall_posif_out4   = MVirtualSignal(hwres_posif_hsc_qd_0, "multichannel_pattern_update"      , "out4"     , true, true)
+		vs_hall_posif_out5   = MVirtualSignal(hwres_posif_hsc_qd_0, "syncstart"                         , "out5"     , true, true)
+		
+		/* Interrupt signals */
+		vs_hall_posif_whee   = MVirtualSignal(hwres_posif_hsc_qd_0, "event_wrong_hall"  , "whee"     , true, true)
+		vs_hall_posif_hiee   = MVirtualSignal(hwres_posif_hsc_qd_0, "event_hall_input_update" , "hiee"     , true, true)
+		vs_hall_posif_chee   = MVirtualSignal(hwres_posif_hsc_qd_0, "event_correct_hall", "chee"     , true, true)
+		/* End : Signals belongs to  hsc_qd resource   */
+		
+		/* Begin : Signals belongs to  CCU4 resource */
+		vs_hall_posif_slice1_ps           = MVirtualSignal(hwres_ccu4_slice1, "multichannel_pattern_update_trigger" , "ps"    , true, true)
+		vs_hall_posif_slice0_globalsignal = MVirtualSignal(hwres_ccu4_slice0, "phase_delay_slice_global_signal"                 , "global_signal", true, false)
+		vs_hall_posif_slice1_globalsignal = MVirtualSignal(hwres_ccu4_slice1, "capture_slice_global_signal"                 , "global_signal", true, false)
+		vs_hall_posif_slice0_st0          = MVirtualSignal(hwres_ccu4_slice0, "phase_delay_slice_status"             , "st"    , true, false)
+		vs_hall_posif_slice0_periodmatch  = MVirtualSignal(hwres_ccu4_slice0, "event_phase_delay_slice_period_match", "pmus_omds" , true, true)
+		vs_hall_posif_slice1_compmatch    = MVirtualSignal(hwres_ccu4_slice1, "event_pattern_update"                , "cmds_cmus" , true, true)
+		vs_hall_posif_slice1_capture      = MVirtualSignal(hwres_ccu4_slice1, "event_speed_capture"                 , "e0as"      , true, true)
+		vs_hall_posif_slice0_gp0unsync    = MVirtualSignal(hwres_ccu4_slice0, "phase_delay_slice_external_start_input_signal"      , "gp0_unsync", true, false)
+
+		vs_hall_posif_slice1_gp0unsync    = MVirtualSignal(hwres_ccu4_slice1, "external_capture_signal"          , "gp0_unsync", true, false)
+		/* End : Signals belongs to  CCU4 resource   */
+		
+		/* Begin : Signals belongs to  PAD resource */
+		@AddPin
+		vs_hall_posif_pad_hall1 = MVirtualSignal(hwres_port_pad_1, "hall_1_pad", "pad"  , true, false)
+		@AddPin
+		vs_hall_posif_pad_hall2 = MVirtualSignal(hwres_port_pad_2, "hall_2_pad", "pad"  , true, false)
+		@AddPin
+		vs_hall_posif_pad_hall3 = MVirtualSignal(hwres_port_pad_3, "hall_3_pad", "pad",MF({return(gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0)}, Boolean),false)
+		/* End : Signals belongs to  PAD resource   */
+		
+		
+		/* Begin : Signals belongs to  ERU resource */
+		vs_hall_posif_eventgen_input_a_hall1 = MVirtualSignal(hwres_ers_etl_1, "hall_1_event_generation_signal_a" , "a"  , MF({return(gcheck_ehalleru1.value)}, Boolean),false)
+		vs_hall_posif_eventgen_input_a_hall2 = MVirtualSignal(hwres_ers_etl_2, "hall_2_event_generation_signal_a" , "a"  , MF({return(gcheck_ehalleru2.value)}, Boolean),false)
+		vs_hall_posif_eventgen_input_a_hall3 = MVirtualSignal(hwres_ers_etl_3, "hall_3_event_generation_signal_a" , "a"  , MF({return((gcheck_ehalleru3.value) && (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0))}, Boolean),false)
+		
+		vs_hall_posif_eventgen_flagstatus_hall1 = MVirtualSignal(hwres_ers_etl_1, "hall_1_event_generation_flag_status"  , "fl" , MF({return(gcheck_ehalleru1.value)}, Boolean),false)
+		vs_hall_posif_eventgen_flagstatus_hall2 = MVirtualSignal(hwres_ers_etl_2, "hall_2_event_generation_flag_status"  , "fl" , MF({return(gcheck_ehalleru2.value)}, Boolean),false)
+		vs_hall_posif_eventgen_flagstatus_hall3 = MVirtualSignal(hwres_ers_etl_3, "hall_3_event_generation_flag_status"  , "fl" , MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean),false)
+		
+		vs_hall_posif_eventdet_pdin_hall1 = MVirtualSignal(hwres_eru_ogu_1, "hall_1_event_detection_in", "pdin"  , MF({return(gcheck_ehalleru1.value)}, Boolean),false)
+		vs_hall_posif_eventdet_pdin_hall2 = MVirtualSignal(hwres_eru_ogu_2, "hall_2_event_detection_in", "pdin"  , MF({return(gcheck_ehalleru2.value)}, Boolean),false)
+		vs_hall_posif_eventdet_pdin_hall3 = MVirtualSignal(hwres_eru_ogu_3, "hall_3_event_detection_in", "pdin"  , MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean),false)
+		
+		vs_hall_posif_eventdet_pdout_hall1 = MVirtualSignal(hwres_eru_ogu_1, "hall_1_event_detection_out", "pdout"  , MF({return(gcheck_ehalleru1.value)}, Boolean),false)
+		vs_hall_posif_eventdet_pdout_hall2 = MVirtualSignal(hwres_eru_ogu_2, "hall_2_event_detection_out", "pdout"  , MF({return(gcheck_ehalleru2.value)}, Boolean),false)
+		vs_hall_posif_eventdet_pdout_hall3 = MVirtualSignal(hwres_eru_ogu_3, "hall_3_event_detection_out", "pdout"  , MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean),false)
+		/* End : Signals belongs to  ERU resource   */
+		
+	
+		/* Begin : Local instance of virtual signal from low level app */
+		vs_hall_posif_global_ccu4_globalsignal  = MVirtualSignalRA(appres_global_ccu4_0 , "vs_global_ccu4_globalsignal")
+		vs_hall_posif_global_posif_globalsignal  = MVirtualSignalRA(appres_global_posif_0 , "vs_global_posif_globalsignal")
+
+		/* End : Local instance of virtual signal from low level app */
+		
+		/* ---------------------------------------------------------- */
+		/* ---------------- APP IO Connections ---------------------- */
+		/* ---------------------------------------------------------- */
+		addConnectionConstraint(vs_hall_posif_global_ccu4_globalsignal, vs_hall_posif_slice0_globalsignal)
+		addConnectionConstraint(vs_hall_posif_global_ccu4_globalsignal, vs_hall_posif_slice1_globalsignal)
+		
+		//addConnectionConstraint(vs_hall_posif_global_posif_globalsignal, vs_hall_posif_globalsignal)
+		
+		addConnectionConstraint(vs_hall_posif_slice0_st0, vs_hall_posif_pifhsd)
+		addConnectionConstraint(vs_hall_posif_out0, vs_hall_posif_slice0_gp0unsync)
+		addConnectionConstraint(vs_hall_posif_out1, vs_hall_posif_slice1_gp0unsync)
+		
+			
+		addConnectionConstraint(vs_hall_posif_pad_hall1, vs_hall_posif_input0,MF({return(!gcheck_ehalleru1.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_pad_hall2, vs_hall_posif_input1,MF({return(!gcheck_ehalleru2.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_pad_hall3, vs_hall_posif_input2,MF({return((!gcheck_ehalleru3.value) && (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0))}, Boolean))
+		
+		/* Begin : Signals connection belongs to  ERU resource */
+		addConnectionConstraint(vs_hall_posif_pad_hall1, vs_hall_posif_eventgen_input_a_hall1,MF({return(gcheck_ehalleru1.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_pad_hall2, vs_hall_posif_eventgen_input_a_hall2,MF({return(gcheck_ehalleru2.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_pad_hall3, vs_hall_posif_eventgen_input_a_hall3,MF({return((gcheck_ehalleru3.value) && (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0))}, Boolean))
+		
+		addConnectionConstraint(vs_hall_posif_eventgen_flagstatus_hall1, vs_hall_posif_eventdet_pdin_hall1,MF({return(gcheck_ehalleru1.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_eventgen_flagstatus_hall2, vs_hall_posif_eventdet_pdin_hall2,MF({return(gcheck_ehalleru2.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_eventgen_flagstatus_hall3, vs_hall_posif_eventdet_pdin_hall3,MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean))
+		
+		addConnectionConstraint(vs_hall_posif_eventdet_pdout_hall1, vs_hall_posif_input0,MF({return(gcheck_ehalleru1.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_eventdet_pdout_hall2, vs_hall_posif_input1,MF({return(gcheck_ehalleru2.value)}, Boolean))
+		addConnectionConstraint(vs_hall_posif_eventdet_pdout_hall3, vs_hall_posif_input2,MF({return((gcheck_ehalleru3.value) || (gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1))}, Boolean))
+			
+		/* End : Signals connection belongs to  ERU resource   */
+
+		/* ---------------------------------------------------------- */
+		/* -------------- APP Configuration ------------------------- */
+		/* ---------------------------------------------------------- */
+		/* Reading clock frequency from global_posif app and storing in the user defined variable*/
+		gfloat_clkfrequency.value = MF({return(appres_global_posif_0.getVal(["gfloat_clockfrequency","value"]))}, Float)
+		
+		
+		/* Prescalar : In the range of 0 to 15 */
+		gint_prescalar.value = MF({
+		  /* clock divider in nsec*/
+		  float clkdiv = (1000 /gfloat_clkfrequency.value)
+		  int divider = (int)(gfloat_resolution.value/ clkdiv)
+		  if(divider < 1)
+		  {
+			  divider = 1
+		  }
+		  int prescalar  = Math.floor(Math.log(divider)/ Math.log(2))
+		  
+		  if(prescalar > 15)
+		  {
+			prescalar = 15
+		  }
+		  /* Selected resolution calculation in nsec*/
+		  return prescalar
+		}, Integer)
+		
+		
+		/* Selected Resolution : (clock_divider * 2^prescalar) */
+		gfloat_selresolution.value = MF({
+		  /* clock divider in nsec*/
+		  float clkdiv = (1000 /gfloat_clkfrequency.value)
+		  
+		  /* Selected resolution calculation in nsec*/
+		  return (clkdiv * (1 << gint_prescalar.value))
+		  
+		}, Float)
+		
+		/* Actual Blanking Time : (Blanking_time/Actual_resultion) nsec */
+		gfloat_actblankingtime.value = MF({
+		  Integer blankingtime = 0
+		  /* Considring the upper integer value */
+		  blankingtime = Math.ceil(gfloat_blankingtime.value*1000/gfloat_selresolution.value)
+		  
+		  /*Actual blanking time value*/
+		  return ( blankingtime * gfloat_selresolution.value / 1000)
+		  
+		}, Float)
+		
+		/*Phase delay: Max value setting based on hall type */
+		gfloat_phasedelay.maxValue = MF({
+			if(gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1)
+			{
+			  return (double)40.0
+			}
+			else
+			{
+			  return (double)50.0
+			}
+		}, Float)
+		
+		/* disable phase delay, if phase advance is enabled */
+		gfloat_phasedelay.enabled = MF({return(!gcheck_ephadv.value)}, Boolean)
+		/* enable phase delay, if phase advance is enabled */
+		gfloat_phadvangle.enabled = MF({return(gcheck_ephadv.value)}, Boolean)
+		
+		/* Make hall-3 pin state to read only for 3 hall input */
+		gcombo_hall3pinstate.enabled = MF({return(gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 1)}, Boolean)
+		
+		/* Make Hall 3 via ERU to read only for 2 hall input */
+		gcheck_ehalleru3.enabled = MF({return(gcombo_nohallsensor.options.indexOf(gcombo_nohallsensor.value) == 0)}, Boolean)
+					
+	}
+	/* ----------------------- File Generation ------------------- */
+	def generateFiles(){
+		copy("hall_posif.c", "hall_posif.c")
+		copy("hall_posif.h", "hall_posif.h")
+		generate("hall_posif_confc.tmpl", "hall_posif_conf.c")
+		generate("hall_posif_confh.tmpl", "hall_posif_conf.h")
+		generate("hall_posif_extern.tmpl", "hall_posif_extern.h")
+	}
+}

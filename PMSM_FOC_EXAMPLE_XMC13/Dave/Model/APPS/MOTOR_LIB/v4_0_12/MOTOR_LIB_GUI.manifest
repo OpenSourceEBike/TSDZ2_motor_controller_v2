@@ -1,0 +1,19 @@
+package Model.APPS.MOTOR_LIB.v4_0_12;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class MOTOR_LIB_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_7;
+	 public GLabel glabel_7;
+
+	 public MOTOR_LIB_GUI(DaveEnv daveEnv){
+
+	 gtab_7 = GTab(widgetName:"gtab_7", text:"MOTOR_LIB", enabled:true, visible:true)
+	 glabel_7 = GLabel(widgetName:"glabel_7", text:"This app does not provide any UI configurations.", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}
