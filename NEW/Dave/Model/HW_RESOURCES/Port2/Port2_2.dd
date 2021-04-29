@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <ResourceModel:Port xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/1.38.2/port/p/2" description="Port 2" baseAddress="0x40040200">
   <provided xsi:type="ResourceModel:ResourceGroup" name="P2.10 / #7" URI="http://resources/1.38.2/port/p/2/pad/10">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.8"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.7"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.2/port/p/2/out/p10"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/ps10"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/pr10"/>
@@ -223,7 +223,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved."/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P2.11 / #8" URI="http://resources/1.38.2/port/p/2/pad/11">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.9"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.2/port/p/2/out/p11"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/ps11"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/pr11"/>
@@ -267,7 +266,6 @@
   <provided xsi:type="ResourceModel:BitField" name="PC11_4" URI="http://resources/1.38.2/port/p/2/iocr8/pc11_4" value="0" toolTipHelpDescription="Port Control for Port n Pin 8 to 11" defaultValue="0" startPos="31" stopPos="31" accessPermission="rw" maxValue="1" minValue="0"/>
   <provided xsi:type="ResourceModel:BitField" name="PC11_2_0" URI="http://resources/1.38.2/port/p/2/iocr8/pc11_2_0" value="0" toolTipHelpDescription="Port Control for Port n Pin 8 to 11" defaultValue="0" startPos="27" stopPos="29" accessPermission="rw" maxValue="7" minValue="0"/>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P2.1 / #36" URI="http://resources/1.38.2/port/p/2/pad/1">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.11"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.2/port/p/2/out/p1"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/ps1"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/pr1"/>
@@ -325,7 +323,7 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved."/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P2.2 / #37" URI="http://resources/1.38.2/port/p/2/pad/2">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.12"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.11"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.2/port/p/2/out/p2"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/ps2"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/pr2"/>
@@ -358,7 +356,7 @@
   <provided xsi:type="ResourceModel:BitField" name="PC2_2_0" URI="http://resources/1.38.2/port/p/2/iocr0/pc2_2_0" value="0" toolTipHelpDescription="Port Control for Port n Pin 0 to 3" defaultValue="0" startPos="19" stopPos="21" accessPermission="rw" maxValue="7" minValue="0"/>
   <provided xsi:type="ResourceModel:BitField" name="PC2_4" URI="http://resources/1.38.2/port/p/2/iocr0/pc2_4" value="0" toolTipHelpDescription="Port Control for Port n Pin 0 to 3" defaultValue="0" startPos="23" stopPos="23" accessPermission="rw" maxValue="1" minValue="0"/>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P2.0 / #35" URI="http://resources/1.38.2/port/p/2/pad/0">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.7"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.12"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.2/port/p/2/out/p0"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/ps0"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.2/port/p/2/omr/pr0"/>

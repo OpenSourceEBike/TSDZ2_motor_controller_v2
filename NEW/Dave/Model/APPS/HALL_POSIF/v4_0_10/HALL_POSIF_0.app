@@ -72,13 +72,13 @@
   <hwResources name="OGU 1" URI="http://resources/4.0.10/app/HALL_POSIF/0/hwres_eru_ogu_1" resourceGroupUri="" required="false" mResGrpUri="peripheral/eru/*/ogu/*"/>
   <hwResources name="OGU 2" URI="http://resources/4.0.10/app/HALL_POSIF/0/hwres_eru_ogu_2" resourceGroupUri="" required="false" mResGrpUri="peripheral/eru/*/ogu/*"/>
   <hwResources name="OGU 3" URI="http://resources/4.0.10/app/HALL_POSIF/0/hwres_eru_ogu_3" resourceGroupUri="" required="false" mResGrpUri="peripheral/eru/*/ogu/*"/>
-  <hwResources name="Hall 1" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_1" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
+  <hwResources name="Hall 1" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_1" resourceGroupUri="devicepackage/0/14" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.0"/>
   </hwResources>
-  <hwResources name="Hall 2" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_2" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
+  <hwResources name="Hall 2" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_2" resourceGroupUri="devicepackage/0/15" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.2"/>
   </hwResources>
-  <hwResources name="Hall 3" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_3" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
+  <hwResources name="Hall 3" URI="http://resources/4.0.10/app/HALL_POSIF/0/__pin_hwres_port_pad_3" resourceGroupUri="devicepackage/0/16" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.3"/>
   </hwResources>
   <connections URI="http://resources/4.0.10/app/HALL_POSIF/0/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_global_ccu4_globalsignal/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_globalsignal" systemDefined="true" sourceSignal="ccu4_global" targetSignal="phase_delay_slice_global_signal" targetVirtualSignal="//@virtualSignals.15" proxySrcVirtualSignalUri="http://resources/4.1.14/app/GLOBAL_CCU4/0/vs_global_ccu4_globalsignal" containingProxySignal="true">

@@ -110,9 +110,9 @@ const XMC_GPIO_CONFIG_t UART_0_tx_pin_config   =
 /*Transmit pin configuration used for initializing*/
 const UART_TX_CONFIG_t UART_0_tx_pin = 
 {
-  .port = (XMC_GPIO_PORT_t *)PORT1_BASE,
+  .port = (XMC_GPIO_PORT_t *)PORT0_BASE,
   .config = &UART_0_tx_pin_config,
-  .pin = 3U
+  .pin = 7U
 };
 
 /*UART APP configuration structure*/
@@ -167,13 +167,13 @@ UART_STATUS_t UART_0_init()
 {
   UART_STATUS_t status = UART_STATUS_SUCCESS;
   /*Configure Receive pin*/
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT1_BASE, 4U, &UART_0_rx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT0_BASE, 6U, &UART_0_rx_pin_config);
   /* Initialize USIC channel in UART mode*/
   XMC_UART_CH_Init(XMC_UART0_CH1, &UART_0_channel_config);
   /*Set input source path*/
-  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX0, 6U);
-  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX3, 5U);
-  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX5, 4U);
+  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX0, 2U);
+  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX3, 0U);
+  XMC_USIC_CH_SetInputSource(XMC_UART0_CH1, XMC_USIC_CH_INPUT_DX5, 0U);
   /*Configure transmit FIFO*/
   XMC_USIC_CH_TXFIFO_Configure(XMC_UART0_CH1,
         16U,
@@ -188,7 +188,7 @@ UART_STATUS_t UART_0_init()
   XMC_UART_CH_Start(XMC_UART0_CH1);
 
   /* Initialize UART TX pin */
-  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT1_BASE, 3U, &UART_0_tx_pin_config);
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT0_BASE, 7U, &UART_0_tx_pin_config);
 
   /*Set service request for UART protocol events*/
   XMC_USIC_CH_SetInterruptNodePointer(XMC_UART0_CH1, XMC_USIC_CH_INTERRUPT_NODE_POINTER_PROTOCOL,

@@ -5,7 +5,7 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin14"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="12" URI="http://resources/tssop38.0.0/devicepackage/0/12">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_14/UART_0.app#//@hwResources.10"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.19"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin12"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="15" URI="http://resources/tssop38.0.0/devicepackage/0/15">
@@ -17,31 +17,27 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin16"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="11" URI="http://resources/tssop38.0.0/devicepackage/0/11">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.19"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin11"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="13" URI="http://resources/tssop38.0.0/devicepackage/0/13">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_14/UART_0.app#//@hwResources.11"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin13"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="23" URI="http://resources/tssop38.0.0/devicepackage/0/23">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.15"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_14/UART_0.app#//@hwResources.10"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin23"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="37" URI="http://resources/tssop38.0.0/devicepackage/0/37">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.28"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.27"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin37"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="36" URI="http://resources/tssop38.0.0/devicepackage/0/36">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.27"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin36"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="8" URI="http://resources/tssop38.0.0/devicepackage/0/8">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.17"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin8"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="7" URI="http://resources/tssop38.0.0/devicepackage/0/7">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.14"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.26"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin7"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="6" URI="http://resources/tssop38.0.0/devicepackage/0/6">
@@ -49,7 +45,7 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin6"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="35" URI="http://resources/tssop38.0.0/devicepackage/0/35">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.26"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.28"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin35"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="31" URI="http://resources/tssop38.0.0/devicepackage/0/31">
@@ -57,15 +53,34 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin31"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="17" URI="http://resources/tssop38.0.0/devicepackage/0/17">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.13"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.12"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin17"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="22" URI="http://resources/tssop38.0.0/devicepackage/0/22">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.16"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin22"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="24" URI="http://resources/tssop38.0.0/devicepackage/0/24">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.12"/>
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_14/UART_0.app#//@hwResources.11"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin24"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="19" URI="http://resources/tssop38.0.0/devicepackage/0/19">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.13"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin19"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="18" URI="http://resources/tssop38.0.0/devicepackage/0/18">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.15"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin18"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="28" URI="http://resources/tssop38.0.0/devicepackage/0/28">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.17"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin28"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="27" URI="http://resources/tssop38.0.0/devicepackage/0/27">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.14"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin27"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="20" URI="http://resources/tssop38.0.0/devicepackage/0/20">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.16"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin20"/>
   </provided>
 </ResourceModel:DevicePackage>

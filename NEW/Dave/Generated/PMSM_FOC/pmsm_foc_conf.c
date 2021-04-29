@@ -66,7 +66,7 @@ ADC_QUEUE_ENTRY_t ADC_QUEUE_0_QEntry_i_phase_u =
 {
   .adc_event_callback    = NULL,
   .queue_position        = (uint8_t)0,
-  .channel_number        = (uint8_t)5,
+  .channel_number        = (uint8_t)3,
   .trigger_needed        = (bool)true,
   .refill_needed         = (bool)true,
   .ch_event_notification = (bool)false,
@@ -129,7 +129,7 @@ XMC_VADC_CHANNEL_CONFIG_t PMSM_FOC_0_i_phase_vChan_InitHandle =
   .channel_priority    = (uint32_t)1,
   .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
   .result_reg_number   = (uint32_t)14,
-  .alias_channel       = 6
+  .alias_channel       = 7
 };
 
 XMC_VADC_RESULT_CONFIG_t PMSM_FOC_0_i_phase_vRes_InitHandle = 
@@ -145,7 +145,7 @@ XMC_VADC_CHANNEL_CONFIG_t PMSM_FOC_0_i_phase_wChan_InitHandle =
   .channel_priority    = (uint32_t)1,
   .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
   .result_reg_number   = (uint32_t)9,
-  .alias_channel       = 7
+  .alias_channel       = 5
 };
 
 XMC_VADC_RESULT_CONFIG_t PMSM_FOC_0_i_phase_wRes_InitHandle = 
@@ -208,7 +208,7 @@ PMSM_FOC_ADCConfig_t PMSM_FOC_0_ADCConfig =
                               NULL
                             },
   .channel_num_array      = {
-                              (uint8_t)5,
+                              (uint8_t)3,
                               (uint8_t)1,
                               (uint8_t)0,
                               (uint8_t)0xFF,

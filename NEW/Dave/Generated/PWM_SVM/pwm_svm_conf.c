@@ -68,37 +68,37 @@
 const PWM_SVM_GPIO_t PWM_SVM_0_PhUHighPin =
 {
   .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
-  .pin  = 7U
+  .pin  = 0U
 };
 /*pwm phase u port & pin init structure*/
 const PWM_SVM_GPIO_t PWM_SVM_0_PhULowPin =
 {
   .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
-  .pin = 6U
+  .pin = 1U
 };
 /*pwm phase v port & pin init structure*/
 const PWM_SVM_GPIO_t PWM_SVM_0_PhVHighPin =
 {
   .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
-  .pin = 0U
+  .pin = 2U
 }; 
 /*pwm phase v port & pin init structure*/
 const PWM_SVM_GPIO_t PWM_SVM_0_PhVLowPin =
 {
   .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
-  .pin = 5U
+  .pin = 3U
 };
 /*pwm phase w port & pin init structure*/
 const PWM_SVM_GPIO_t PWM_SVM_0_PhWHighPin =
 {
-  .port = (XMC_GPIO_PORT_t *)PORT2_BASE, 
-  .pin = 10U
+  .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
+  .pin = 8U
 }; 
 /*pwm phase w port & pin init structure*/
 const PWM_SVM_GPIO_t PWM_SVM_0_PhWLowPin =
 {
-  .port = (XMC_GPIO_PORT_t *)PORT2_BASE, 
-  .pin = 11U
+  .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
+  .pin = 9U
 };
 
 /* GPIO config Init handle for Phase U High Pin */
@@ -118,7 +118,7 @@ const XMC_GPIO_CONFIG_t PWM_SVM_0_PhULoOutPinConf =
 /* GPIO config Init handle for Phase V High Pin */
 const XMC_GPIO_CONFIG_t PWM_SVM_0_PhVHiOutPinConf = 
 {
- .mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT5,
+ .mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT7,
  .input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
  .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW
 };
@@ -148,7 +148,7 @@ const XMC_GPIO_CONFIG_t PWM_SVM_0_PhWLoOutPinConf =
   const PWM_SVM_GPIO_t PWM_SVM_0_InverterPin =
   {
     .port = (XMC_GPIO_PORT_t *)PORT1_BASE, 
-    .pin = 5U
+    .pin = 4U
   };
 
   /* GPIO config Init handle for inverter Pin */
@@ -186,26 +186,26 @@ const XMC_GPIO_CONFIG_t PWM_SVM_0_PhWLoOutPinConf =
 /*Slice U configuration*/
 const PWM_CCU8_CC8_t PWM_SVM_0_PhU = 
 {
-  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC81,
-  .slice_number   = (uint8_t)1
+  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC80,
+  .slice_number   = (uint8_t)0
 };
 /*Slice V configuration*/
 const PWM_CCU8_CC8_t PWM_SVM_0_PhV = 
 {
-  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC80,
-  .slice_number   = (uint8_t)0
+  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC81,
+  .slice_number   = (uint8_t)1
 };
 /*Slice W configuration*/
 const PWM_CCU8_CC8_t PWM_SVM_0_PhW = 
 {
-  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC83,
-  .slice_number   = (uint8_t)3
+  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC82,
+  .slice_number   = (uint8_t)2
 };
 /*Current trigger configuration*/
 const PWM_CCU8_CC8_t PWM_SVM_0_CurrentTrig = 
 {
-  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC82,
-  .slice_number   = (uint8_t)2
+  .slice_ptr      = (XMC_CCU8_SLICE_t*)(void *)CCU80_CC83,
+  .slice_number   = (uint8_t)3
 };
 /*Dead time configuration structure*/
 XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t PWM_SVM_0_DeadTimeConfig =
@@ -300,8 +300,8 @@ const XMC_CCU8_SLICE_COMPARE_CONFIG_t PWM_SVM_0_TimerInit_CurrentTrig =
 /*App configuration handle initialization*/
 const PWM_SVM_Config_t PWM_SVM_0_AppConfig =
 {
-  .config_phasev_crs     = (uint32_t *)&CCU80_CC80->CR1S,
-  .config_phasew_crs     = (uint32_t *)&CCU80_CC83->CR1S,
+  .config_phasev_crs     = (uint32_t *)&CCU80_CC81->CR1S,
+  .config_phasew_crs     = (uint32_t *)&CCU80_CC82->CR1S,
   .pwm_frequency         = 20000U,
   .module_freq           = 64000000U, 
   .sync_start_mask       = 0x100U,
@@ -373,9 +373,9 @@ PWM_SVM_t PWM_SVM_0 =
                              (XMC_GPIO_CONFIG_t*)(void*)&PWM_SVM_0_PhWHiOutPinConf,
                              (XMC_GPIO_CONFIG_t*)(void*)&PWM_SVM_0_PhWLoOutPinConf,
                             },
-  .phaseu_crs            = (uint32_t *)&CCU80_CC81->CR1S,
-  .phasev_crs            = (uint32_t *)&CCU80_CC80->CR1S,
-  .phasew_crs            = (uint32_t *)&CCU80_CC83->CR1S,
+  .phaseu_crs            = (uint32_t *)&CCU80_CC80->CR1S,
+  .phasev_crs            = (uint32_t *)&CCU80_CC81->CR1S,
+  .phasew_crs            = (uint32_t *)&CCU80_CC82->CR1S,
 
 
   .trappin_ptr            = (PWM_SVM_GPIO_t*)(void*)&PWM_SVM_0_TrapPin,

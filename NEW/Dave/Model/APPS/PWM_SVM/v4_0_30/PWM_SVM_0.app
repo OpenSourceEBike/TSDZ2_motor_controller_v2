@@ -84,64 +84,64 @@
     <downwardMapList xsi:type="ResourceModel:App" href="../../GLOBAL_CCU8/v4_1_14/GLOBAL_CCU8_0.app#/"/>
   </requiredApps>
   <hwResources name="PhU Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_a" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.14"/>
-  </hwResources>
-  <hwResources name="PhV Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_b" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.42"/>
   </hwResources>
-  <hwResources name="PhW Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_c" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.0"/>
+  <hwResources name="PhV Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_b" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.14"/>
   </hwResources>
-  <hwResources name="CCU8 ADC trigger Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_d" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
+  <hwResources name="PhW Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_c" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.28"/>
   </hwResources>
+  <hwResources name="CCU8 ADC trigger Slice" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_ccu8_config_d" resourceGroupUri="peripheral/ccu8/*/cc8/*" mResGrpUri="peripheral/ccu8/*/cc8/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CCU80/CCU80_0.dd#//@provided.0"/>
+  </hwResources>
   <hwResources name="PhaseU_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phuhigh" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.19"/>
-  </hwResources>
-  <hwResources name="PhaseU_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phulow" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.14"/>
-  </hwResources>
-  <hwResources name="PhaseV_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phvhigh" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.27"/>
   </hwResources>
+  <hwResources name="PhaseU_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phulow" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.41"/>
+  </hwResources>
+  <hwResources name="PhaseV_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phvhigh" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.45"/>
+  </hwResources>
   <hwResources name="PhaseV_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phvlow" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.23"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.37"/>
   </hwResources>
   <hwResources name="PhaseW_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phwhigh" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.49"/>
   </hwResources>
   <hwResources name="PhaseW_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_phwlow" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.8"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.32"/>
   </hwResources>
   <hwResources name="Trap Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_trap" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port0/Port0_0.dd#//@provided.10"/>
   </hwResources>
   <hwResources name="Inverter Enable Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/hwres_port_pad_inverterenable" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port1/Port1_1.dd#//@provided.23"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port1/Port1_1.dd#//@provided.6"/>
   </hwResources>
-  <hwResources name="PhaseU_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phuhigh" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.16"/>
-  </hwResources>
-  <hwResources name="PhaseV_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phvhigh" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
+  <hwResources name="PhaseU_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phuhigh" resourceGroupUri="devicepackage/0/17" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.14"/>
   </hwResources>
-  <hwResources name="PhaseW_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phwhigh" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.10"/>
+  <hwResources name="PhaseV_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phvhigh" resourceGroupUri="devicepackage/0/19" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.17"/>
   </hwResources>
-  <hwResources name="PhaseU_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phulow" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.6"/>
+  <hwResources name="PhaseW_High Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phwhigh" resourceGroupUri="devicepackage/0/27" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.20"/>
   </hwResources>
-  <hwResources name="PhaseV_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phvlow" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.15"/>
+  <hwResources name="PhaseU_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phulow" resourceGroupUri="devicepackage/0/18" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.18"/>
   </hwResources>
-  <hwResources name="PhaseW_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phwlow" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.9"/>
+  <hwResources name="PhaseV_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phvlow" resourceGroupUri="devicepackage/0/20" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.21"/>
+  </hwResources>
+  <hwResources name="PhaseW_Low Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_phwlow" resourceGroupUri="devicepackage/0/28" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.19"/>
   </hwResources>
   <hwResources name="Trap Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_trap" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.13"/>
   </hwResources>
   <hwResources name="Inverter Enable Pin" URI="http://resources/4.0.30/app/PWM_SVM/0/__pin_hwres_port_pad_inverterenable" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.4"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.1"/>
   </hwResources>
   <connections URI="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_global/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_globalsignal_phu" systemDefined="true" sourceSignal="ccu8_global" targetSignal="ph_u_global_signal" targetVirtualSignal="//@virtualSignals.0" proxySrcVirtualSignalUri="http://resources/4.1.14/app/GLOBAL_CCU8/0/vs_global_ccu8_globalsignal" containingProxySignal="true">
     <downwardMapList xsi:type="ResourceModel:VirtualSignal" href="../../GLOBAL_CCU8/v4_1_14/GLOBAL_CCU8_0.app#//@virtualSignals.0"/>

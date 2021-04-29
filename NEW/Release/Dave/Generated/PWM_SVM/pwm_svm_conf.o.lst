@@ -80,32 +80,32 @@
   88              	 .section .rodata.PWM_SVM_0_PhWHighPin,"a",%progbits
   89              	 .align 2
   92              	PWM_SVM_0_PhWHighPin:
-  93 0000 00020440 	 .word 1074004480
-  94 0004 0A       	 .byte 10
+  93 0000 00000440 	 .word 1074003968
+  94 0004 08       	 .byte 8
   95 0005 000000   	 .space 3
   96              	 .section .rodata.PWM_SVM_0_PhWLowPin,"a",%progbits
   97              	 .align 2
  100              	PWM_SVM_0_PhWLowPin:
- 101 0000 00020440 	 .word 1074004480
- 102 0004 0B       	 .byte 11
+ 101 0000 00000440 	 .word 1074003968
+ 102 0004 09       	 .byte 9
  103 0005 000000   	 .space 3
  104              	 .section .rodata.PWM_SVM_0_PhU,"a",%progbits
  105              	 .align 2
  108              	PWM_SVM_0_PhU:
- 109 0000 00020050 	 .word 1342177792
- 110 0004 01       	 .byte 1
+ 109 0000 00010050 	 .word 1342177536
+ 110 0004 00       	 .byte 0
  111 0005 000000   	 .space 3
  112              	 .section .rodata.PWM_SVM_0_PhV,"a",%progbits
  113              	 .align 2
  116              	PWM_SVM_0_PhV:
- 117 0000 00010050 	 .word 1342177536
- 118 0004 00       	 .byte 0
+ 117 0000 00020050 	 .word 1342177792
+ 118 0004 01       	 .byte 1
  119 0005 000000   	 .space 3
  120              	 .section .rodata.PWM_SVM_0_PhW,"a",%progbits
  121              	 .align 2
  124              	PWM_SVM_0_PhW:
- 125 0000 00040050 	 .word 1342178304
- 126 0004 03       	 .byte 3
+ 125 0000 00030050 	 .word 1342178048
+ 126 0004 02       	 .byte 2
  127 0005 000000   	 .space 3
  128              	 .section .rodata.PWM_SVM_0_PhWHiOutPinConf,"a",%progbits
  129              	 .align 2
@@ -117,8 +117,8 @@
  137              	 .section .rodata.PWM_SVM_0_AppConfig,"a",%progbits
  138              	 .align 2
  141              	PWM_SVM_0_AppConfig:
- 142 0000 3C010050 	 .word 1342177596
- 143 0004 3C040050 	 .word 1342178364
+ 142 0000 3C020050 	 .word 1342177852
+ 143 0004 3C030050 	 .word 1342178108
  144 0008 00       	 .byte 0
  145 0009 00       	 .byte 0
  146 000a 00       	 .byte 0
@@ -164,7 +164,7 @@
  188              	 .align 2
  191              	PWM_SVM_0_PhVHighPin:
  192 0000 00000440 	 .word 1074003968
- 193 0004 00       	 .byte 0
+ 193 0004 02       	 .byte 2
  194 0005 000000   	 .space 3
  195              	 .section .data.PWM_SVM_0,"aw",%progbits
  196              	 .align 2
@@ -197,9 +197,9 @@
  225 0064 00000000 	 .word PWM_SVM_0_StartConfig
  226 0068 00000000 	 .word GLOBAL_CCU8_0
  227 006c 00000000 	 .word PWM_SVM_0_DeadTimeConfig
- 228 0070 3C020050 	 .word 1342177852
- 229 0074 3C010050 	 .word 1342177596
- 230 0078 3C040050 	 .word 1342178364
+ 228 0070 3C010050 	 .word 1342177596
+ 229 0074 3C020050 	 .word 1342177852
+ 230 0078 3C030050 	 .word 1342178108
  231 007c 00000000 	 .space 12
  231      00000000 
  231      00000000 
@@ -235,14 +235,14 @@
  256              	 .section .rodata.PWM_SVM_0_CurrentTrig,"a",%progbits
  257              	 .align 2
  260              	PWM_SVM_0_CurrentTrig:
- 261 0000 00030050 	 .word 1342178048
- 262 0004 02       	 .byte 2
+ 261 0000 00040050 	 .word 1342178304
+ 262 0004 03       	 .byte 3
  263 0005 000000   	 .space 3
  264              	 .section .rodata.PWM_SVM_0_PhUHighPin,"a",%progbits
  265              	 .align 2
  268              	PWM_SVM_0_PhUHighPin:
  269 0000 00000440 	 .word 1074003968
- 270 0004 07       	 .byte 7
+ 270 0004 00       	 .byte 0
  271 0005 000000   	 .space 3
  272              	 .section .rodata.PWM_SVM_0_InvPinConf,"a",%progbits
  273              	 .align 2
@@ -276,7 +276,7 @@
  307              	 .align 2
  310              	PWM_SVM_0_PhULowPin:
  311 0000 00000440 	 .word 1074003968
- 312 0004 06       	 .byte 6
+ 312 0004 01       	 .byte 1
  313 0005 000000   	 .space 3
  314              	 .section .rodata.PWM_SVM_0_TrapPinConf,"a",%progbits
  315              	 .align 2
@@ -289,12 +289,12 @@
  324              	 .align 2
  327              	PWM_SVM_0_InverterPin:
  328 0000 00010440 	 .word 1074004224
- 329 0004 05       	 .byte 5
+ 329 0004 04       	 .byte 4
  330 0005 000000   	 .space 3
  331              	 .section .rodata.PWM_SVM_0_PhVHiOutPinConf,"a",%progbits
  332              	 .align 2
  335              	PWM_SVM_0_PhVHiOutPinConf:
- 336 0000 A8       	 .byte -88
+ 336 0000 B8       	 .byte -72
  337 0001 00       	 .byte 0
  338 0002 0000     	 .space 2
  339 0004 00000100 	 .word 65536
@@ -308,7 +308,7 @@
  349              	 .align 2
  352              	PWM_SVM_0_PhVLowPin:
  353 0000 00000440 	 .word 1074003968
- 354 0004 05       	 .byte 5
+ 354 0004 03       	 .byte 3
  355 0005 000000   	 .space 3
  356              	 .section .rodata.PWM_SVM_0_StartConfig,"a",%progbits
  359              	PWM_SVM_0_StartConfig:

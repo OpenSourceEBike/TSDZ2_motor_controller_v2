@@ -107,7 +107,7 @@
  120 0004 00000000 	 .space 8
  120      00000000 
  121 000c 01       	 .byte 1
- 122 000d 06       	 .byte 6
+ 122 000d 07       	 .byte 7
  123 000e 0000     	 .space 2
  124              	 .section .rodata.PMSM_FOC_0_Config,"a",%progbits
  125              	 .align 2
@@ -301,7 +301,7 @@
  325 0004 00000000 	 .space 8
  325      00000000 
  326 000c 01       	 .byte 1
- 327 000d 07       	 .byte 7
+ 327 000d 05       	 .byte 5
  328 000e 0000     	 .space 2
  329              	 .section .rodata.FOCOutput,"a",%progbits
  330              	 .align 2
@@ -321,7 +321,7 @@
  352              	ADC_QUEUE_0_QEntry_i_phase_u:
  353 0000 00000000 	 .word 0
  354 0004 00       	 .byte 0
- 355 0005 05       	 .byte 5
+ 355 0005 03       	 .byte 3
  356 0006 01       	 .byte 1
  357 0007 01       	 .byte 1
  358 0008 00       	 .byte 0
@@ -391,7 +391,7 @@
  428 0090 00000000 	 .word 0
  429 0094 00       	 .byte 0
  430 0095 01       	 .byte 1
- 431 0096 05       	 .byte 5
+ 431 0096 03       	 .byte 3
  432 0097 01       	 .byte 1
  433 0098 00       	 .byte 0
  434 0099 FF       	 .byte -1
