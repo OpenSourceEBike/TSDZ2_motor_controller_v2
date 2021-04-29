@@ -1,0 +1,274 @@
+package Model.APPS.ADC_QUEUE.v4_0_22.Templates;
+
+import Model.APPS.ADC_QUEUE.v4_0_22.ADC_QUEUE
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.<BR>
+ *
+ * 2015-04-27:
+ *     - Optimized the ADC_QUEUE_AllEntriesInserted.<BR>
+ *
+ * 2015-06-20:
+ *     - Updated the copyright section.<BR>
+ *    
+ * 2015-06-26:
+ *     - Added flushing of all the queue entries before inserting to the Hardware buffer.<BR>
+ *
+ * 2015-07-09:
+ *     - Documentation updated.<BR>
+ *
+ * 2015-07-31:
+ *     - Updated the APP to support new devices.<BR>
+ *
+ * 2015-10-01:
+ *     - Iclass signal added to the APP.<BR>
+ *
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *
+ * 2015-12-15:     
+ *          - Added support for XMC4300 devices.<BR>
+ *          - Updated the APP to optimize the request source callback.<BR>
+ *          - APIs touched are ADC_QUEUE_InsertQueueEntry(), ADC_QUEUE_ResetListContents(), 
+ *            ADC_QUEUE_ReqSrcEventHandler().<BR>       
+ *
+ * 2016-01-19:
+ *          - Added new APIs ADC_QUEUE_EnableArbitration() and ADC_QUEUE_DisableArbitration().<BR>
+ *
+ * 2016-04-03:
+ *          - Total conversion time now includes post calibration time as well for XMC1x.<BR>
+ *
+ * 2016-08-18:
+ *     - Minimum sample time at low frequencies changed to incorporate Errata ADC_AI.H006 and ADC_AI.H007.
+ *
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES                                                                                                      
+ **********************************************************************************************************************/
+#include "adc_queue.h"
+
+/**********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+/**
+ * @ingroup ADC_QUEUE_datastructures
+ * @{
+ */
+""");
+List MappedUri        = null;
+String Exttrig        = "1";
+int instnum			  = 0;
+int cpu_app_was_consumed = 0;
+List MappedSrcNvicUri = null;
+List MappedClassUri   = null;
+String appInst        = null;
+String GroupNo        = null;
+String ClassNo        = null;
+String SRCNodeID      = "0";
+String priority       = "0";
+String sub_priority   = "0";
+List VarCnvModeArray  = ['XMC_VADC_CONVMODE_12BIT','XMC_VADC_CONVMODE_10BIT','XMC_VADC_CONVMODE_8BIT','XMC_VADC_CONVMODE_FASTCOMPARE'];
+List StartMode        = ['XMC_VADC_STARTMODE_WFS','XMC_VADC_STARTMODE_CIR','XMC_VADC_STARTMODE_CNR']
+List Trigger          = ['XMC_VADC_TRIGGER_EDGE_NONE','XMC_VADC_TRIGGER_EDGE_RISING','XMC_VADC_TRIGGER_EDGE_FALLING','XMC_VADC_TRIGGER_EDGE_ANY'];
+List Gating           = ['XMC_VADC_GATEMODE_BLOCK','XMC_VADC_GATEMODE_IGNORE','XMC_VADC_GATEMODE_ACTIVEHIGH','XMC_VADC_GATEMODE_ACTIVELOW'];
+List rs_priority	  = ['XMC_VADC_GROUP_RS_PRIORITY_0','XMC_VADC_GROUP_RS_PRIORITY_1','XMC_VADC_GROUP_RS_PRIORITY_2','XMC_VADC_GROUP_RS_PRIORITY_3']
+
+List Gating_signal = ['XMC_VADC_REQ_GT_A','XMC_VADC_REQ_GT_B','XMC_VADC_REQ_GT_C','XMC_VADC_REQ_GT_D','XMC_VADC_REQ_GT_E','XMC_VADC_REQ_GT_F',
+                      'XMC_VADC_REQ_GT_G','XMC_VADC_REQ_GT_H','XMC_VADC_REQ_GT_I','XMC_VADC_REQ_GT_J','XMC_VADC_REQ_GT_K','XMC_VADC_REQ_GT_L',
+                      'XMC_VADC_REQ_GT_M','XMC_VADC_REQ_GT_N','XMC_VADC_REQ_GT_O','XMC_VADC_REQ_GT_P']
+
+List trigger_signal = [ 'XMC_VADC_REQ_TR_A','XMC_VADC_REQ_TR_B','XMC_VADC_REQ_TR_C','XMC_VADC_REQ_TR_D','XMC_VADC_REQ_TR_E','XMC_VADC_REQ_TR_F',
+                        'XMC_VADC_REQ_TR_G','XMC_VADC_REQ_TR_H','XMC_VADC_REQ_TR_I','XMC_VADC_REQ_TR_J','XMC_VADC_REQ_TR_K','XMC_VADC_REQ_TR_L',
+                        'XMC_VADC_REQ_TR_M','XMC_VADC_REQ_TR_N','XMC_VADC_REQ_TR_O','XMC_VADC_REQ_TR_P']
+
+List ServiceRequestLines = ['XMC_VADC_SR_GROUP_SR0','XMC_VADC_SR_GROUP_SR1','XMC_VADC_SR_GROUP_SR2','XMC_VADC_SR_GROUP_SR3',
+                            'XMC_VADC_SR_SHARED_SR0','XMC_VADC_SR_SHARED_SR1','XMC_VADC_SR_SHARED_SR2','XMC_VADC_SR_SHARED_SR3'];
+
+String family = daveEnv.project.selectedDevice.deviceId.family;
+                        
+for (Object appIns : appInstancesList ) {
+    
+    if(appIns.gcheck_int_enable.value)
+    {
+        cpu_app_was_consumed = 1;
+    }
+}
+
+for (Object appIns : appInstancesList ) {
+    appInst          = appIns.getInstanceLabel()
+    MappedUri        = appIns.hwres_vadc_queue.getSolverUri()
+    MappedSrcNvicUri = appIns.hwres_nvicnode_srcevt.getSolverUri()
+    MappedClassUri   = appIns.hwres_vadc_qgrpclass.getSolverUri()
+    GroupNo          = MappedUri[6]
+    ClassNo          = MappedClassUri[8]
+    String irqctrl = "";
+    String nvic_sharing = '';
+    if(MappedSrcNvicUri != null)
+    {
+      SRCNodeID     = MappedSrcNvicUri[7]
+      priority		= appIns.ginterruptprio_request_src_intr.priorityValue
+      sub_priority 	= appIns.ginterruptprio_request_src_intr.subPriorityValue
+      // Dummy read for NVIC
+      appIns.hwres_nvicnode_srcevt.getRegValue("","iser_setena");
+      nvic_sharing = appIns.hwres_nvicnode_srcevt.getRegValue("","intcr_insel")
+      if(nvic_sharing != null && nvic_sharing.toInteger() != 0)
+      {
+          irqctrl = ",\n  .irqctrl = (uint32_t) ${nvic_sharing}"
+      }
+    }
+    else
+    {
+        SRCNodeID 	 = "0"
+        priority 	 = "0"
+        sub_priority = "0"
+    }
+
+
+if(appIns.gcombo_trigger_edge_sel.value == "No External Trigger")
+{
+    Exttrig = "0";
+}
+else
+{
+   Exttrig = "1";
+}
+
+out.print("""
+/**
+ * ADC_QUEUE ISR Handle for ${appInst}
+ */
+const ADC_QUEUE_ISR_t ${appInst}_reqsrc_config_${instnum} =
+{
+  .node_id          = ${SRCNodeID}U,
+  .priority         = ${priority}U,${if(family != "XMC1"){
+"\n  .sub_priority     = "+sub_priority+"U,"}else{""}}
+  .interrupt_enable = (bool)${appIns.gcheck_int_enable.value} ${if(irqctrl != "null"){irqctrl}else{}}
+};
+""")
+
+out.print("""
+/**
+ * ADC QUEUE LLD Handle for configuring the ${appInst}
+ */
+const XMC_VADC_QUEUE_CONFIG_t ${appInst}_init_config_${instnum} =
+{
+  .conv_start_mode  = (uint32_t) ${StartMode[appIns.gcombo_adc_startmode.options.indexOf(appIns.gcombo_adc_startmode.value)]}, 		/* Conversion start mode WFS/CIR/CNR*/
+  .req_src_priority = (uint32_t) ${rs_priority[appIns.gcombo_priority.options.indexOf(appIns.gcombo_priority.value)]}, /*The queue request source priority */
+  .trigger_signal   = (uint32_t) ${String temp = appIns.hwres_vadc_queue.getRegValue("","gqctrl0_xtsel"); if(temp !=null){ trigger_signal[temp.toInteger()] } else { trigger_signal[0]} }, 			/*If trigger needed the signal input*/
+  .trigger_edge     = (uint32_t) ${Trigger[appIns.gcombo_trigger_edge_sel.options.indexOf(appIns.gcombo_trigger_edge_sel.value)]},   /*Trigger edge needed if trigger enabled*/
+  .gate_signal      = (uint32_t) ${String temp = appIns.hwres_vadc_queue.getRegValue("","gqctrl0_gtsel"); if(temp !=null){ Gating_signal[temp.toInteger()] } else { Gating_signal[0]} },            /*If gating needed the signal input*/
+  .timer_mode       = (uint32_t) 0,                            /* Disabled equidistant sampling*/
+  .external_trigger = (uint32_t) ${Exttrig} 						/*External trigger Enabled/Disabled*/  
+};
+
+/**
+ * ADC_QUEUE Handle for configuring the ${appInst}
+ */
+ADC_QUEUE_t ${appInst} =
+{
+  .iclass_config_handle = {
+                           .sample_time_std_conv= (uint32_t) ${appIns.gfloat_adc_queue_stc0.value}, /*The required STCS value.*/
+                           .conversion_mode_standard        = (uint32_t) ${VarCnvModeArray[appIns.gcombo_conv_mode.options.indexOf(appIns.gcombo_conv_mode.value)]}, /* Conversion mode for ${appInst}*/
+                          },
+  .group_handle         = (XMC_VADC_GROUP_t*)(void*)VADC_G${GroupNo}, /* Group pointer for ${appInst}*/
+  .queue_config_handle  = (XMC_VADC_QUEUE_CONFIG_t*) &${appInst}_init_config_${instnum}, /* Queue configuration structure for ${appInst}*/
+  .global_handle        = (GLOBAL_ADC_t *) &${appIns.appres_global_adc.getInstanceLabel()}, /*The GLOBAL_ADC App handle*/ 
+  .rs_intr_handle       = (ADC_QUEUE_ISR_t*) &${appInst}_reqsrc_config_${instnum}, /* The request source interrupt config handler*/
+  .gating_mode          = ${Gating[appIns.gcombo_gating_sel.options.indexOf(appIns.gcombo_gating_sel.value)]},     /*Gating edge needed if gate enabled*/
+  .srv_req_node         = ${String temp = appIns.hwres_vadc_queue.getRegValue("","gsevnp_sev0np"); if(temp !=null){ ServiceRequestLines[temp.toInteger()] } else { ServiceRequestLines[0]} }, /*Service Request line for Request source Event */
+  .init_status			= ADC_QUEUE_UNINITIALIZED, /* ${appInst} INIT status*/
+  .instance_number      = (uint8_t) ${instnum},   /* APP Instance number for ${appInst}*/
+  .iclass_num           = (uint8_t) ${ClassNo},   /* The selected ICLASS configuration for ${appInst}*/
+  .group_index          = (uint8_t) ${GroupNo}    /* The Group index for ${appInst}*/
+};
+
+ADC_QUEUE_ENTRY_t adc_queue_list_ch_index_${instnum}[ADC_QUEUE_NUM_CHANNELS];
+ADC_QUEUE_ENTRY_t adc_queue_list_pos_index_${instnum}[ADC_QUEUE_NUM_CHANNELS];
+/**
+ *@}
+ */
+
+""");
+instnum++;
+}
+
+instnum=0;
+for (Object appIns : appInstancesList ) {
+    appInst          = appIns.getInstanceLabel()
+    if(appInstancesList.gcheck_int_enable.value)
+    {
+    out.print("""
+/**
+ * This function invokes the Request source handler for ${appInst}
+ */
+void ADC_QUEUE_${instnum}_ReqSrcEventHandler(void)
+{
+  ADC_QUEUE_ReqSrcEventHandler(&${appInst});
+}
+
+""");
+    }
+instnum++;
+}
+out.print("""
+
+/* API generated to initialise list pointers and clear its contents*/
+void ADC_QUEUE_lInitializeListToDefaults(uint8_t instance_num)
+{
+""");
+instnum=0;
+for (Object appIns : appInstancesList ) {
+    appInst = appIns.getInstanceLabel()
+    out.print("""
+  /* Initialise list pointers of APP Instance- ${appInst} */
+  adc_queue_list_ptrs[${instnum}][0] = adc_queue_list_ch_index_${instnum};
+  adc_queue_list_ptrs[${instnum}][1] = adc_queue_list_pos_index_${instnum};
+ """);	
+instnum++;
+}
+out.print("""
+  /* Reset channels */
+  ADC_QUEUE_ResetListContents(instance_num);
+}
+/**
+ * @}
+ */
+""");

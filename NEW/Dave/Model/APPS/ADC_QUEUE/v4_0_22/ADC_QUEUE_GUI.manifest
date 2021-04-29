@@ -1,0 +1,63 @@
+package Model.APPS.ADC_QUEUE.v4_0_22;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class ADC_QUEUE_GUI extends AppManifest {
+/* Begin : UI variable section */
+	 public GTab gtab_general_configuration;
+	 public GTab gtab_interrupt_configuration;
+	 public GCombo gcombo_trigger_edge_sel;
+	 public GCombo gcombo_gating_sel;
+	 public GCombo gcombo_priority;
+	 public GCombo gcombo_adc_startmode;
+	 public GCombo gcombo_conv_mode;
+	 public GFloat gfloat_des_sampleT;
+	 public GFloat gfloat_actual_sampleT;
+	 public GFloat gfloat_coversion_time;
+	 public GCheck gcheck_int_enable;
+	 public GLabel glabel_trigger_edge_sel;
+	 public GLabel glabel_gating_sel;
+	 public GLabel glabel_priority;
+	 public GLabel glabel_adc_startmode;
+	 public GLabel glabel_conv_mode;
+	 public GLabel glabel_des_sampleT;
+	 public GLabel glabel_actual_sampleT;
+	 public GLabel glabel_coversion_time;
+	 public GLabel glabel_conversion_limitation;
+	 public GLabel glabel_trigger_warning;
+	 public GGroup gGroup_queue_config;
+	 public GGroup gGroup_class_config;
+	 public GInterruptPrio ginterruptprio_request_src_intr;
+
+	 public ADC_QUEUE_GUI(DaveEnv daveEnv){
+
+	 gtab_general_configuration = GTab(widgetName:"gtab_general_configuration", text:"General Settings", enabled:true, visible:true)
+	 gtab_interrupt_configuration = GTab(widgetName:"gtab_interrupt_configuration", text:"Interrupt Settings", enabled:true, visible:true)
+	 gcombo_trigger_edge_sel = GCombo(widgetName:"gcombo_trigger_edge_sel", options:["No External Trigger","External Trigger Upon Rising Edge","External Trigger Upon Falling Edge","External Trigger Upon Both The Edge"], value:"No External Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_gating_sel = GCombo(widgetName:"gcombo_gating_sel", options:["No Conversion Request is Issued","All Conversion Requests are Issued","Conversion Request Issued When Gate is High","Conversion Request Issued When Gate is Low"], value:"All Conversion Requests are Issued", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_priority = GCombo(widgetName:"gcombo_priority", options:["Priority-0  (Lowest Priority)","Priority-1","Priority-2","Priority-3 (Highest Priority)"], value:"Priority-0  (Lowest Priority)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_adc_startmode = GCombo(widgetName:"gcombo_adc_startmode", options:["Wait For Start Mode","Cancel Inject Repeat Mode","Cancel Inject With Cancel Mode"], value:"Wait For Start Mode", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_conv_mode = GCombo(widgetName:"gcombo_conv_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_des_sampleT = GFloat(widgetName:"gfloat_des_sampleT", value:100, minValue:0, maxValue:8000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_actual_sampleT = GFloat(widgetName:"gfloat_actual_sampleT", value:0.0, minValue:0, maxValue:10000, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_coversion_time = GFloat(widgetName:"gfloat_coversion_time", value:0.0, minValue:0, maxValue:Double.POSITIVE_INFINITY, enabled:false, visible:true, isMandatoryValue:false)
+	 gcheck_int_enable = GCheck(widgetName:"gcheck_int_enable", value:false, enabled:true, visible:true)
+	 glabel_trigger_edge_sel = GLabel(widgetName:"glabel_trigger_edge_sel", text:"Trigger edge selection:", enabled:true, visible:true)
+	 glabel_gating_sel = GLabel(widgetName:"glabel_gating_sel", text:"Gating selection:", enabled:true, visible:true)
+	 glabel_priority = GLabel(widgetName:"glabel_priority", text:"Priority of queue source:", enabled:true, visible:true)
+	 glabel_adc_startmode = GLabel(widgetName:"glabel_adc_startmode", text:"Conversion start mode:", enabled:true, visible:true)
+	 glabel_conv_mode = GLabel(widgetName:"glabel_conv_mode", text:"Conversion mode:", enabled:true, visible:true)
+	 glabel_des_sampleT = GLabel(widgetName:"glabel_des_sampleT", text:"Desired sample time [nsec]:", enabled:true, visible:true)
+	 glabel_actual_sampleT = GLabel(widgetName:"glabel_actual_sampleT", text:"Actual sample time [nsec]:", enabled:true, visible:true)
+	 glabel_coversion_time = GLabel(widgetName:"glabel_coversion_time", text:"Total conversion time [nsec]:", enabled:true, visible:true)
+	 glabel_conversion_limitation = GLabel(widgetName:"glabel_conversion_limitation", text:"Note: Total conversion time is always calculated with post calibration enabled.", enabled:true, visible:true)
+	 glabel_trigger_warning = GLabel(widgetName:"glabel_trigger_warning", text:"\"Note: An external trigger is selected. Ensure that at least one inserted channel is configured\r\n as \"Wait for trigger\".", enabled:true, visible:true)
+	 gGroup_queue_config = GGroup(widgetName:"gGroup_queue_config", text:"Queue Settings", enabled:true, visible:true)
+	 gGroup_class_config = GGroup(widgetName:"gGroup_class_config", text:"Class Settings", enabled:true, visible:true)
+	 ginterruptprio_request_src_intr = GInterruptPrio(widgetName:"ginterruptprio_request_src_intr", priorityValue:3, minPriority:0, maxPriority:64, subPriorityValue:0, minSubPriority:0, maxSubPriority:64, subPriorityVisible:true, enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

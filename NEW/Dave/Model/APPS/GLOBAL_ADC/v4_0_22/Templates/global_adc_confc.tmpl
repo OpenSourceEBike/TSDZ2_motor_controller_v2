@@ -1,0 +1,300 @@
+package Model.APPS.GLOBAL_ADC.v4_0_22.Templates;
+
+import Model.APPS.GLOBAL_ADC.v4_0_22.GLOBAL_ADC
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.<BR>
+ *
+ * 2015-04-27:
+ *     - Configuration structure modified.<BR>
+ *     - GLOBAL_ADC_group_t changed to GLOBAL_ADC_GROUP_t.<BR>
+ *
+ * 2015-06-20:
+ *     - Updated the copyright section.<BR>
+ *
+ * 2015-09-01:
+ *     - Added support for XMC14 and XMC48/47.<BR>
+ *        
+ * 2015-10-01:
+ *     - Analog clock default value changed to 26Mhz in XMC42.<BR>
+ *     
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *   
+ * 2015-12-03:
+ *     - Added support for XMC4300 devices.<BR>
+ *     - Optimized the manifest.<BR>     
+ *
+ * 2016-03-18:
+ *     -Modified the minimum configurable value for Desired analog clock in XMC1x to 1MHz.<BR>
+ *
+ * 2016-07-08:
+ *     - Fixed incorrect case for an included header.<br>
+ *
+ * 2016-08-18:
+ *     - Added support for low frequency operations by configuring DIVS.<BR>
+ *
+ * 2019-10-08:
+ *     - Missing initialization of global_shs_ptr for XMC11<BR>
+ *
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "global_adc.h"
+
+/**********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+/**
+ * @ingroup GLOBAL_ADC_datastructures
+ * @{
+ */
+""");
+
+List MappedUri = null;
+Integer ADC_Groups = 0
+String appInst  = null;
+String GlobalNo  = null;
+List VarCnvModeArray = ['XMC_VADC_CONVMODE_12BIT','XMC_VADC_CONVMODE_10BIT','XMC_VADC_CONVMODE_8BIT','XMC_VADC_CONVMODE_FASTCOMPARE'];
+List ArbitterMode = ['XMC_VADC_GROUP_ARBMODE_ALWAYS','XMC_VADC_GROUP_ARBMODE_ONDEMAND'];
+List ArbMode_groups =[];
+List post_cal_array = [];
+String family = daveEnv.project.selectedDevice.deviceId.family;
+
+
+for (Object appIns : appInstancesList ) {
+		
+  appInst = appIns.getInstanceLabel()
+  MappedUri = appIns.hwres_vadc_global.getSolverUri()
+  
+  if (MappedUri != null) {
+	  
+	GlobalNo = MappedUri[4];
+	  
+	ArbMode_groups = [ArbitterMode[appIns.gcombo_arb_mode_group0.options.indexOf(appIns.gcombo_arb_mode_group0.value)],ArbitterMode[appIns.gcombo_arb_mode_group1.options.indexOf(appIns.gcombo_arb_mode_group1.value)],
+					  ArbitterMode[appIns.gcombo_arb_mode_group2.options.indexOf(appIns.gcombo_arb_mode_group2.value)],ArbitterMode[appIns.gcombo_arb_mode_group3.options.indexOf(appIns.gcombo_arb_mode_group3.value)] ];
+	
+	post_cal_array = [appIns.gcheck_post_cal_group0.value, appIns.gcheck_post_cal_group1.value, appIns.gcheck_post_cal_group2.value, appIns.gcheck_post_cal_group3.value];
+	
+	String device = family + daveEnv.project.selectedDevice.deviceId.series;
+
+	ADC_Groups = appIns.gint_number_of_groups_available.value;
+if(device != 'XMC11')
+{
+	for(i=0;i<ADC_Groups;i++)
+	{
+out.print("""
+/**
+ * This structure contains the group ${i} Configuration.
+ */
+const XMC_VADC_GROUP_CONFIG_t group_init_handle${i} =
+{
+  .emux_config	= { 
+					.stce_usage                = (uint32_t) 0, 					 /*Use STCE when the setting changes*/
+					.emux_mode                 = XMC_VADC_GROUP_EMUXMODE_SWCTRL, /* Mode for Emux conversion*/
+					.emux_coding               = XMC_VADC_GROUP_EMUXCODE_BINARY, /*Channel progression - binary format*/
+					.starting_external_channel = (uint32_t) 0,                   /* Channel starts at 0 for EMUX*/
+					.connected_channel         = (uint32_t) 0                    /* Channel connected to EMUX*/
+				   },
+  .class0 		= {
+             	    .sample_time_std_conv            = (uint32_t) 0,                /*The Sample time is (2*tadci)*/
+             	    .conversion_mode_standard        = XMC_VADC_CONVMODE_12BIT,     /* 12bit conversion Selected*/
+             	    .sampling_phase_emux_channel     = (uint32_t) 0,                /*The Sample time is (2*tadci)*/
+					.conversion_mode_emux            = XMC_VADC_CONVMODE_12BIT      /* 12bit conversion Selected*/
+		    	  },  /* !<ICLASS-0 */
+  .class1   	= {	
+             	    .sample_time_std_conv = (uint32_t) 0,                /*The Sample time is (2*tadci)*/
+             	    .conversion_mode_standard        = XMC_VADC_CONVMODE_12BIT,     /* 12bit conversion Selected*/
+             	    .sampling_phase_emux_channel     = (uint32_t) 0,                /*The Sample time is (2*tadci)*/
+					.conversion_mode_emux            = XMC_VADC_CONVMODE_12BIT      /* 12bit conversion Selected*/
+             	  }, /* !< ICLASS-1 */
+  .boundary0    = (uint32_t) 0,  /* Lower boundary value for Normal comparison mode*/  
+  .boundary1	= (uint32_t) 0,  /* Upper boundary value for Normal comparison mode*/
+  .arbitration_round_length = (uint32_t) 0,  /* 4 arbitration slots per round selected (tarb = 4*tadcd) */
+  .arbiter_mode             = (uint32_t) ${ArbMode_groups[i]},	/*Determines when the arbiter should run.*/		
+};
+""");
+
+	}
+}
+
+out.print("""
+/**
+ * This structure contains the Global related Configuration.
+ */
+const XMC_VADC_GLOBAL_CONFIG_t global_config =
+{  
+  .boundary0    = (uint32_t) 0, /* Lower boundary value for Normal comparison mode*/
+  .boundary1    = (uint32_t) 0, /* Upper boundary value for Normal comparison mode*/
+""");
+if(device != 'XMC11')
+{
+	out.print("""
+  .clock_config = { 
+
+	                .analog_clock_divider  = (uint32_t) ${appIns.gfloat_global_adc_analog_clock_div.value}, /*Divider Factor for the Analog Internal Clock*/
+	                .arbiter_clock_divider = (uint32_t) ${appIns.gfloat_global_adc_digital_clock_div.value}, /*Divider Factor for the Arbiter Clock*/
+	                .msb_conversion_clock  = (uint32_t) 0, /*Double Clock for the MSB Conversion */
+	              },
+""");
+}
+ out.print("""	                
+  .class0 = {
+     	      .sample_time_std_conv            = (uint32_t) 0,  		  /*The Sample time is (2*tadci)*/
+     	      .conversion_mode_standard        = XMC_VADC_CONVMODE_12BIT, /* 12bit conversion Selected*/
+""");
+if(device != 'XMC11')
+{
+	out.print("""
+     	      .sampling_phase_emux_channel     = (uint32_t) 0,			  /*The Sample time is (2*tadci)*/
+			  .conversion_mode_emux            = XMC_VADC_CONVMODE_12BIT, /* 12bit conversion Selected*/
+""");
+}
+out.print("""
+		    },  /* !<ICLASS-0 */
+  .class1 = {	
+     	      .sample_time_std_conv = (uint32_t) 0,			  /*The Sample time is (2*tadci)*/
+     	      .conversion_mode_standard        = XMC_VADC_CONVMODE_12BIT, /* 12bit conversion Selected*/
+""");
+if(device != 'XMC11')
+{
+	out.print("""
+     	      .sampling_phase_emux_channel     = (uint32_t) 0,			  /*The Sample time is (2*tadci)*/
+			  .conversion_mode_emux            = XMC_VADC_CONVMODE_12BIT, /* 12bit conversion Selected*/
+""");
+}
+out.print("""
+            }, /* !< ICLASS-1 */
+
+  .data_reduction_control         = (uint32_t) 0, /* Data Reduction disabled*/
+  .wait_for_read_mode             = (uint32_t) 0, /* GLOBRES Register will not be overwriten untill the previous value is read*/
+  .event_gen_enable               = (uint32_t) 0, /* Result Event from GLOBRES is disabled*/
+  .disable_sleep_mode_control     = (uint32_t) 0  /* Sleep mode is enabled*/
+};	
+
+""");
+
+if(device != 'XMC11')
+{
+	for(i=0;i<ADC_Groups;i++)
+	{
+out.print("""
+/**
+ * This structure contains the group LLD Config Structure with Group ptr and Group Index of Group ${i}
+ */
+GLOBAL_ADC_GROUP_t group_${i}_config = 
+{
+  .group_handle	       = (XMC_VADC_GROUP_t *) (void*) VADC_G${i},  			 /*Holds the hardware group pointer*/
+  .group_config_handle = (XMC_VADC_GROUP_CONFIG_t *) &group_init_handle${i}, /*Holds the group config structure */
+  .post_calibration    = (bool) ${post_cal_array[i]}, /* Enable or disable the post calibration*/
+  .state               = GLOBAL_ADC_UNINITIALIZED       /*The status of the ADC group */
+};
+""");
+	}
+}
+
+if((device == 'XMC11') || (device == 'XMC12') || (device == 'XMC13')|| (device == 'XMC14'))
+{
+  shs_global_ptr = """
+.global_shs_ptr       = (XMC_VADC_GLOBAL_SHS_t*)(void*) SHS0,/* Holds the SHS module pointer*/"""
+}
+else
+{
+	shs_global_ptr = ""
+}
+
+out.print("""
+/**
+ * This structure contains the all the Global Related Structures and also GLOBAL_ADC_GROUP_t Structures
+ */
+GLOBAL_ADC_t ${appInst} =
+{""")
+if(device != 'XMC11')
+{
+	out.print("""
+  .group_ptrs_array		      = { (GLOBAL_ADC_GROUP_t*) &group_0_config,
+						          (GLOBAL_ADC_GROUP_t*) &group_1_config""")
+	if(ADC_Groups == 4)
+		{ /* if the number of groups is 4*/
+	out.print(""",
+						          (GLOBAL_ADC_GROUP_t*) &group_2_config,
+						          (GLOBAL_ADC_GROUP_t*) &group_3_config
+                                },
+  .global_config_handle	      = (XMC_VADC_GLOBAL_CONFIG_t*) &global_config, /*Holds the global config structure */
+  .module_ptr			      = (XMC_VADC_GLOBAL_t*)(void*) VADC,    /*Holds the hardware module pointer*/
+  .init_state                 = GLOBAL_ADC_UNINITIALIZED, 			   /*The status of the GLOBAL_ADC APP */
+  .enable_startup_calibration = (uint32_t) ${appIns.gcheck_startup_calibration.value} /* Enable Start up calibration*/
+};
+
+""")
+		}
+	else
+		{ /* if the number of groups is 2*/
+	out.print("""
+                                },
+  .global_config_handle	      = (XMC_VADC_GLOBAL_CONFIG_t*) &global_config, /*Holds the global config structure */
+  .module_ptr			      = (XMC_VADC_GLOBAL_t*)(void*) VADC, /*Holds the hardware module pointer*/${shs_global_ptr}
+  .init_state                 = GLOBAL_ADC_UNINITIALIZED,             /*The status of the GLOBAL_ADC APP */
+  .enable_startup_calibration = (uint32_t) ${appIns.gcheck_startup_calibration.value} /* Enable Start up calibration*/
+};
+
+""")
+		}
+}
+else
+{ /*if the device is XMC1100 */
+	out.print("""
+  .global_config_handle	      = (XMC_VADC_GLOBAL_CONFIG_t*) &global_config, /*Holds the global config structure */
+  .module_ptr			      = (XMC_VADC_GLOBAL_t*)(void*) VADC, /*Holds the hardware module pointer*/${shs_global_ptr}
+  .init_state                 = GLOBAL_ADC_UNINITIALIZED,             /*The status of the GLOBAL_ADC APP */
+  .enable_startup_calibration = (uint32_t) ${appIns.gcheck_startup_calibration.value} /* Enable Start up calibration*/
+};
+""")
+}
+
+  }
+  else { // if there is no mapped URI present
+out.print("""
+  /*ADC Global resource is not mapped to GLOBAL_ADC APP*/
+""");
+  }
+}

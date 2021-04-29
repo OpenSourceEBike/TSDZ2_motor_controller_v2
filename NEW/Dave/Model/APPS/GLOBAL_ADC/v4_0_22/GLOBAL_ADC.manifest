@@ -1,0 +1,438 @@
+package Model.APPS.GLOBAL_ADC.v4_0_22;
+
+/*
+Copyright (c) 2015-2020, Infineon Technologies AG
+All rights reserved.                       
+                                           
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+following conditions are met:  
+                                                                            
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+disclaimer.                       
+ 
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+disclaimer in the documentation and/or other materials provided with the distribution.                      
+ 
+Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+products derived from this software without specific prior written permission.                                          
+                                                                            
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                                                 
+                                                                            
+To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with 
+Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+ Version        Date          Description 
+ 4.0.0       16-Feb-2015   Initial version for DAVEv4.
+ 4.0.2       27-Apr-2015   1. Configuration structure modified.<BR>
+                           2. GLOBAL_ADC_group_t changed to GLOBAL_ADC_GROUP_t.<BR>
+                           3. enable_startup_calibration made as a constant.<BR>
+                           4. UI Modified to the new format (only check-box).<BR>    
+ 4.0.4       20-Jun-2015   Updated the copyright section.<BR>
+ 4.0.5       01-Sep-2015   Added support for XMC14 and XMC48/47.<BR>                                      
+ 4.0.7       01-Oct-2015   Analog clock default value changed to 26Mhz in XMC42 .<BR>
+ 4.0.8       08-Oct-2015   Added support for XMC4700/XMC4800 devices.<BR>
+ 4.0.10      03-Dec-2015   1. Added support for XMC4300 devices.<BR>
+                           2. Optimized the manifest.<BR> 
+ 4.0.12      18-Mar-2016   Modified the minimum configurable value for Desired analog clock in XMC1x to 1MHz.<BR>
+ 4.0.14      08-Jul-2016   Fixed incorrect case for an included header. <BR>  
+ 4.0.16      17-Aug-2016   Added support for low frequency operations by configuring DIVS.<BR>                                                    
+ 4.0.18      26-Jun-2017   Added selection of the reference voltage for conversions for XMC1 family<BR>
+ 4.0.20      23-Sep-2019   Missing initialization of global_shs_ptr for XMC11<BR>
+ 4.0.22      08-Jan-2021   Modified check for minimum XMCLib version<BR>
+ *******************************************************************************/
+
+import ifx.davex.app.manifest.*
+
+class  GLOBAL_ADC extends GLOBAL_ADC_GUI {
+
+	/*-------------------------------Begin: GLOBAL_ADC property section---------------------------------------*/
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.22'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System/~Global Reg Control"]
+	
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+
+	/**
+	 * Keywords used by search feature in APPS selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ["all"]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+	
+	def softwareIDs       = ["XMC1.[1,2,3,4].*.*.*":"1.0.0", "XMC4.[1,2,3,4,5,7,8].*.*.*":"1.0.0"]
+
+	
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = true
+	
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+	
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+	
+	/**
+	 * Shareable property.
+	 * It shall be true to allows multiple APPS to require the same instance of this APP.
+	 */
+	def sharable      = true
+	
+
+	def ioApp         = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = """Initializes VADC GLOBAL and GROUP resources."""
+
+	/*-------------------------------Begin: GLOBAL_ADC property section---------------------------------------*/
+
+	/*-------------------------------Begin: User variable section---------------------------------------*/
+
+	/* Hardware Resources*/
+	MVirtualResourceGroup hwres_vadc_global_Limit
+	MVirtualResourceGroup hwres_vadc_global
+	MVirtualResourceGroup hwres_vadc_group0
+	MVirtualResourceGroup hwres_vadc_group1
+	MVirtualResourceGroup hwres_vadc_group2
+	MVirtualResourceGroup hwres_vadc_group3
+
+	MVirtualSignal  vs_global_adc_global
+
+	MVirtualSignal	vs_global_adc_g0_garbcnt
+	MVirtualSignal	vs_global_adc_g0_gsample
+	MVirtualSignal	vs_global_adc_g0_gqueuereq
+	MVirtualSignal	vs_global_adc_g0_gscanreq
+	MVirtualSignal	vs_global_adc_g0_gsyncreq
+
+	MVirtualSignal	vs_global_adc_g1_garbcnt
+	MVirtualSignal	vs_global_adc_g1_gsample
+	MVirtualSignal	vs_global_adc_g1_gqueuereq
+	MVirtualSignal	vs_global_adc_g1_gscanreq
+	MVirtualSignal	vs_global_adc_g1_gsyncreq
+
+	MVirtualSignal	vs_global_adc_g2_garbcnt
+	MVirtualSignal	vs_global_adc_g2_gsample
+	MVirtualSignal	vs_global_adc_g2_gqueuereq
+	MVirtualSignal	vs_global_adc_g2_gscanreq
+	MVirtualSignal	vs_global_adc_g2_gsyncreq
+
+	MVirtualSignal	vs_global_adc_g3_garbcnt
+	MVirtualSignal	vs_global_adc_g3_gsample
+	MVirtualSignal	vs_global_adc_g3_gqueuereq
+	MVirtualSignal	vs_global_adc_g3_gscanreq
+	MVirtualSignal	vs_global_adc_g3_gsyncreq
+
+	/* Rquired Apps*/
+	MRequiredApp appres_clock
+
+	GInteger gfloat_global_adc_analog_clock_div 	 = GInteger(widgetName:"gfloat_global_adc_analog_clock_div") /* This is analog clock divider*/
+	GInteger gfloat_global_adc_digital_clock_div   = GInteger(widgetName:"gfloat_global_adc_digital_clock_div") /* This is digital clock divider*/
+	GInteger gint_number_of_groups_available   = GInteger(widgetName:"gint_number_of_groups_available") /* This is digital clock divider*/
+	GInteger gint_global_adc_divs = GInteger(widgetName:"gint_global_adc_divs") /* This is shs clock divider*/
+
+	/*-------------------------------Begin: User variable section---------------------------------------*/
+
+	// GLOBAL_ADC Constructor
+	public GLOBAL_ADC(DaveEnv daveEnv) {
+
+		List ConvBitsArray=[12, 10, 8, 14];
+		String family,series,icPackage,family_series;
+		int number_of_groups_available;
+
+
+		family = daveEnv.project.selectedDevice.deviceId.family
+		series = daveEnv.project.selectedDevice.deviceId.series
+		icPackage = daveEnv.project.selectedDevice.deviceId.icPackage
+		family_series = family+ series;
+		
+		switch(family_series)
+		{
+			case "XMC11":
+				number_of_groups_available= 0
+				break;
+			case "XMC12":
+				number_of_groups_available= 2
+				break;
+			case "XMC13":
+				number_of_groups_available= 2
+				break;
+			case "XMC14":
+				number_of_groups_available= 2
+				break;
+			case "XMC41":
+				number_of_groups_available= 2
+				break;
+			case "XMC42":
+				number_of_groups_available= 2
+				break;
+			case "XMC43":
+				number_of_groups_available= 2
+				break;
+				
+			case "XMC44":
+				number_of_groups_available= 4
+				break;
+			case "XMC45":
+				number_of_groups_available= 4
+				break;
+			case "XMC47":
+				number_of_groups_available= 4
+				break;
+			case "XMC48":
+				number_of_groups_available= 4
+				break;
+			default:
+				number_of_groups_available= 4
+				break;
+		}
+		gint_number_of_groups_available.value  = number_of_groups_available;
+		
+		if((family_series == "XMC42") || (family_series == "XMC41") )
+		{
+			gfloat_des_analog_clk.value = 26;
+		}		
+		else if((family_series == "XMC48") || (family_series == "XMC47") )
+		{
+			gfloat_des_analog_clk.value = 28;
+		}
+		else if(family_series == "XMC14")
+		{
+			gfloat_des_analog_clk.value = 23;
+		}
+
+		/* ---------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block --------- */
+		/* ---------------------------------------------------------- */
+
+		/*********************************HW resources ********************************************/
+
+		if(family_series != 'XMC11')
+		{
+			/**
+			 * Global Limit consumption
+			 */
+			hwres_vadc_global_Limit= MVirtualResourceGroup("Limit",["peripheral", "vadc", "*", "global_limits"])
+		}
+		/**
+		 * Global hardware resource consumption
+		 */
+		hwres_vadc_global=MVirtualResourceGroup("Global",["peripheral", "vadc", "*", "global"])
+
+		/**
+		 * Group 0 Config consumption
+		 */
+		hwres_vadc_group0=MVirtualResourceGroup("Group0",["peripheral", "vadc", "*", "group", "0", "config"])
+
+		if(family_series+"_"+icPackage != "XMC11_Q024" && family_series+"_"+icPackage != "XMC11_T016")
+		{
+			/**
+			 * Group 1 Config consumption
+			 */
+			hwres_vadc_group1=MVirtualResourceGroup("Group1",["peripheral", "vadc", "*", "group", "1", "config"])
+		}
+		/**
+		 * Consume 4 groups if it is only XMC45 or XMC44 
+		 */
+		if (number_of_groups_available == 4)
+		{
+			/**
+			 * Group 2 Config consumption
+			 */
+			hwres_vadc_group2=MVirtualResourceGroup("Group2",["peripheral", "vadc", "*", "group", "2", "config"])
+
+			/**
+			 * Group 3 Config consumption
+			 */
+			hwres_vadc_group3=MVirtualResourceGroup("Group3",["peripheral", "vadc", "*", "group", "3", "config"])
+		}
+
+		/* ---------------------------------------------------------- */
+		/* -------------- APP IO Signals ---------------------------- */
+		/* ---------------------------------------------------------- */
+
+		vs_global_adc_global = MVirtualSignal(hwres_vadc_global,"global_signal", "global_signal",  true ,true)
+
+		if(family_series != 'XMC11')
+		{
+			vs_global_adc_g0_garbcnt   = MVirtualSignal(hwres_vadc_group0,"group0_end_of_arbitration_round", "garbcnt",  true ,true)
+			vs_global_adc_g0_gqueuereq = MVirtualSignal(hwres_vadc_group0,"group0_input_queue", "gqueuereq",  true ,true)
+			vs_global_adc_g0_gscanreq  = MVirtualSignal(hwres_vadc_group0,"group0_input_scan", "gscanreq",  true ,true)
+			vs_global_adc_g0_gsyncreq  = MVirtualSignal(hwres_vadc_group0,"group0_sync_request_signal", "gsyncreq",  true ,true)
+
+			vs_global_adc_g1_garbcnt   = MVirtualSignal(hwres_vadc_group1,"group1_end_of_arbitration_round", "garbcnt",  true ,true)
+			vs_global_adc_g1_gqueuereq = MVirtualSignal(hwres_vadc_group1,"group1_input_queue", "gqueuereq",  true ,true)
+			vs_global_adc_g1_gscanreq  = MVirtualSignal(hwres_vadc_group1,"group1_input_scan", "gscanreq",  true ,true)
+			vs_global_adc_g1_gsyncreq  = MVirtualSignal(hwres_vadc_group1,"group1_sync_request_signal", "gsyncreq",  true ,true)
+		}
+		/**
+		 * Virtual signals only for XMC45 and XMC44
+		 */
+		if (number_of_groups_available == 4)
+		{
+			vs_global_adc_g0_gsample   = MVirtualSignal(hwres_vadc_group0,"group0_end_of_sampling_signal", "gsample",  true ,true)
+
+			vs_global_adc_g1_gsample   = MVirtualSignal(hwres_vadc_group1,"group1_end_of_sampling_signal", "gsample",  true ,true)
+
+			vs_global_adc_g2_garbcnt   = MVirtualSignal(hwres_vadc_group2,"group2_end_of_arbitration_round", "garbcnt",  true ,true)
+			vs_global_adc_g2_gsample   = MVirtualSignal(hwres_vadc_group2,"group2_end_of_sampling_signal", "gsample",  true ,true)
+			vs_global_adc_g2_gqueuereq = MVirtualSignal(hwres_vadc_group2,"group2_input_queue", "gqueuereq",  true ,true)
+			vs_global_adc_g2_gscanreq  = MVirtualSignal(hwres_vadc_group2,"group2_input_scan", "gscanreq",  true ,true)
+			vs_global_adc_g2_gsyncreq  = MVirtualSignal(hwres_vadc_group2,"group2_sync_request_signal", "gsyncreq",  true ,true)
+
+			vs_global_adc_g3_garbcnt   = MVirtualSignal(hwres_vadc_group3,"group3_end_of_arbitration_round", "garbcnt",  true ,true)
+			vs_global_adc_g3_gsample   = MVirtualSignal(hwres_vadc_group3,"group3_end_of_sampling_signal", "gsample",  true ,true)
+			vs_global_adc_g3_gqueuereq = MVirtualSignal(hwres_vadc_group3,"group3_input_queue", "gqueuereq",  true ,true)
+			vs_global_adc_g3_gscanreq  = MVirtualSignal(hwres_vadc_group3,"group3_input_scan", "gscanreq",  true ,true)
+			vs_global_adc_g3_gsyncreq  = MVirtualSignal(hwres_vadc_group3,"group3_sync_request_signal", "gsyncreq",  true ,true)
+		}
+
+
+
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+
+		/*************** Read the peripheral clock based on device ID *****************************/
+		if (family == 'XMC4')
+		{
+			appres_clock=MRequiredApp("CLOCK_XMC4","Clock",RSHARABLE,"4.0.2")
+			gfloat_peripherial_clk_freq.value = MF({appres_clock.getVal(["gfloat_peribusfreq", "value"])}, Float)
+			//			gfloat_des_analog_clk.maxValue =MF({gfloat_peripherial_clk_freq.value/4},Float)
+			gfloat_act_analog_clk.maxValue = MF({gfloat_peripherial_clk_freq.value/2},Float)
+		}
+		else
+		{
+			appres_clock=MRequiredApp("CLOCK_XMC1","Clock",RSHARABLE,"4.0.2")
+			gfloat_peripherial_clk_freq.value = MF({appres_clock.getVal(["gfloat_mclkactfrq", "value"])}, Float)
+			//gfloat_des_analog_clk.enabled=true
+			gfloat_des_analog_clk.maxValue=MF({gfloat_peripherial_clk_freq.value},Float)
+			gfloat_des_analog_clk.minValue = 1
+			gint_global_adc_divs.value = MF({
+				Integer ret_value = ((32/gfloat_peripherial_clk_freq.value).toInteger() - 1)
+				(ret_value<0?0:ret_value)},Integer)
+		}
+
+		/* ------------------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------------------ */
+		/* ------------------------------------------------------------------- */
+		/* ------ TAB : Global Configuration --------------------------------- */
+
+		/*********************************Required Logic **********************************************/
+
+		/*Analog Clock Divider*/
+		gfloat_global_adc_analog_clock_div.value = MF({
+			Integer temp
+			temp =((Math.floor(gfloat_peripherial_clk_freq.value/gfloat_des_analog_clk.value))-1)
+			if (family == "XMC4"){
+				if(temp < 1) {(int)1}
+				else if (temp > 31) {(int)31}
+				else {(int)temp}
+			}else{
+				if(temp < 0) {(int)0}
+				else if (temp > 31) {(int)31}
+				else {(int)temp}
+			}
+		}, Integer)
+
+		/*Actual Analog Clock*/
+
+		gfloat_act_analog_clk.value = MF({
+			Integer tempdiv
+			tempdiv = Math.floor( (gfloat_peripherial_clk_freq.value) / (gfloat_des_analog_clk.value) );
+			if (family == "XMC4"){
+				if(tempdiv < 2) {gfloat_peripherial_clk_freq.value/2}
+				else if (tempdiv > 32) {gfloat_peripherial_clk_freq.value/32}
+				else {gfloat_peripherial_clk_freq.value/tempdiv}
+			}else{
+				if(tempdiv < 1) {gfloat_peripherial_clk_freq.value}
+				else if (tempdiv > 32) {gfloat_peripherial_clk_freq.value/32}
+				else {gfloat_peripherial_clk_freq.value/tempdiv}
+			}
+		}, Float)
+
+
+		/*Digital Clock Divider*/
+		gfloat_global_adc_digital_clock_div.value = MF({(gcombo_digital_clk.options.indexOf(gcombo_digital_clk.value))}, Integer)
+
+		/*Actual Digital Clock*/
+		gfloat_act_digi_clk.value = MF({(gfloat_peripherial_clk_freq.value/(gcombo_digital_clk.options.indexOf(gcombo_digital_clk.value)+1))},Float)
+
+
+		/* ------------------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------------------ */
+		/* ------------------------------------------------------------------- */
+		/* ------------ TAB : Group Configurations---------------------------- */
+
+		if(family =='XMC1')
+		{
+			ggroup_group2_configuration.visible=false;
+			ggroup_group3_configuration.visible=false;
+			if(series == '1')
+			{
+				gtab_group_configurations.visible=false;
+				ggroup_group0_configuration.visible=false;
+				ggroup_group1_configuration.visible=false;
+			}
+		}
+		else
+		{
+  		    glabel_aref.visible=false;
+			gcombo_aref.visible=false;
+		}
+		
+		if (number_of_groups_available == 2)
+		{
+			ggroup_group2_configuration.visible=false;
+			ggroup_group3_configuration.visible=false;
+		}
+	}
+
+	// File Generation
+	def generateFiles(){
+
+		copy("global_adc.c", "global_adc.c")
+		copy("global_adc.h", "global_adc.h")
+		generate("global_adc_confc.tmpl", "global_adc_conf.c")
+		generate("global_adc_confh.tmpl", "global_adc_conf.h")
+		generate("global_adc_extern.tmpl", "global_adc_extern.h")
+	}
+
+}

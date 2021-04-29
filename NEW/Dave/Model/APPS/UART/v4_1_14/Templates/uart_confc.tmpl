@@ -1,0 +1,1190 @@
+package Model.APPS.UART.v4_1_14.Templates;
+
+import Model.APPS.UART.v4_1_14.UART
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.
+ *
+ * 2015-06-20:
+ *     - Service request value moved from runtime structure to config structure.
+ *
+ * 2015-07-06:
+ *     - Structure name changed from UART_DYNAMIC_t to UART_RUNTIME_t
+ *
+ * 2015-07-30:
+ *     - Added DMA and Direct mode configuration
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "uart.h"
+
+/***********************************************************************************************************************
+ * EXTERN DECLARATIONS
+ ***********************************************************************************************************************/
+""")
+Boolean is_tx_interrupt = false
+Boolean is_rx_interrupt = false
+Boolean is_tx_dma = false
+Boolean is_rx_dma = false
+for (UART uart_inst : appInstancesList )
+{
+  if(uart_inst.gcombo_transmit_mode.value == "Interrupt")
+  {
+    is_tx_interrupt = true
+  }
+  if(uart_inst.gcombo_receive_mode.value == "Interrupt")
+  {
+    is_rx_interrupt = true
+  }
+  if(uart_inst.gcombo_transmit_mode.value == "DMA")
+  {
+    is_tx_dma = true
+  }
+  if(uart_inst.gcombo_receive_mode.value == "DMA")
+  {
+    is_rx_dma = true
+  }
+}
+
+if(is_tx_interrupt)
+{
+out.print("""
+/*
+ * Function implements the data transmission. It is called from the transmit interrupt service handler.
+ * Function pushes data to the output block and releases control. It is called again when the previous data is
+ * transmitted. When transmit FIFO is used, the function sets the trigger limit based on the size of data to be
+ * transmitted.
+ */
+extern void UART_lTransmitHandler(const UART_t * const handle);""")
+}
+
+if(is_rx_interrupt)
+{
+out.print("""
+/*
+ * Function implements the data reception. It is called from the receive interrupt service handler.
+ * Function reads data from the receive block and updates the user's buffer. It is called again when the data is
+ * received again. When receive FIFO is used, the function sets the trigger limit based on the size of data to be
+ * received.
+ */
+extern void UART_lReceiveHandler(const UART_t * const handle);""")
+}
+out.print("""
+/*
+ * Function monitors the configured protocol interrupt flags. It is called from the protocol interrupt
+ * service handler.
+ * Function reads the status of the USIC channel and checks for configured flags in the APP UI.
+ * If any callback function is provided in the APP UI, it will be called when the selected flag is set.
+ */
+extern void UART_lProtocolHandler(const UART_t * const handle);
+
+""");
+
+for (UART uart_inst : appInstancesList ) {
+  List mapped_uri        = null /* Used for holding USIC channel resource assigned by solver.*/
+  List txinterrupt_uri   = null /* Used for representing the USIC service request used for transmit interrupt.*/
+  List rxinterrupt_uri   = null /* Used for representing the USIC service request used for receive interrupt.*/
+  List errinterrupt_uri  = null /* Used for representing the USIC service request used for protocol related interrupt.*/
+  List txpin_uri         = null /* Used to represent the port pin used for transmission.*/
+  List rxpin_uri         = null /* Used to represent the port pin used for reception.*/
+  List tx_dma_uri        = null /* Used for extracting solver assigned DMA resources */
+  List rx_dma_uri        = null /* Used for extracting solver assigned DMA resources */
+  List tx_dlr_uri        = null /* Used to extract the DLR channel used*/
+  List rx_dlr_uri        = null /* Used to extract the DLR channel used*/
+  String app_label       = uart_inst.getInstanceLabel() /*Get the name provided for APP instance.*/
+  String dma_module
+  String dma_channel_tx
+  String dma_channel_rx
+  String dlr_channel_tx
+  String dlr_channel_rx
+  String dma_sr_tx
+  String dma_sr_rx
+  String dma_app_lbl
+  boolean is_any_event_enabled = (((uart_inst.gcheck_collision.value == true) && (uart_inst.gcombo_oprmode.value == "Half Duplex")) ||
+                                   (uart_inst.gcheck_receiver_noise.value == true) ||
+                                   (uart_inst.gcheck_format_errorbit0.value == true) || (uart_inst.gcheck_format_errorbit1.value == true) ||
+                                   (uart_inst.gcheck_sync_brk.value == true));
+  
+  /*Get the resources consumed by the APP and assign them to the list variables*/
+  mapped_uri = uart_inst.hwres_usic_ch.getSolverUri()
+  tx_dma_uri = uart_inst.hwres_dma_ch_tx.getSolverUri()
+  rx_dma_uri = uart_inst.hwres_dma_ch_rx.getSolverUri()
+  tx_dlr_uri = uart_inst.hwres_dlr_ch_tx.getSolverUri()
+  rx_dlr_uri = uart_inst.hwres_dlr_ch_rx.getSolverUri()
+  /*Extract DMA configuration from the URI*/
+  if((tx_dma_uri != null) && (tx_dlr_uri != null))
+  {
+    /*Extract DMA module number from the URI*/
+    dma_module = tx_dma_uri[3]
+    if(dma_module == "dma8"){dma_module = "0"}
+    else{dma_module = "1"}
+    dma_channel_tx = tx_dma_uri[6]
+    /*Extract DLR channel from the URI*/
+    dlr_channel_tx = tx_dlr_uri[6]
+    /*Read service request used for the transmit event*/
+    dma_sr_tx = uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_tbinp")
+  }
+  if((rx_dma_uri != null) && (rx_dlr_uri != null))
+  {
+    /*Extract DMA module number from the URI*/
+    dma_module = rx_dma_uri[3]
+    if(dma_module == "dma8"){dma_module = "0"}
+    else{dma_module = "1"}
+    dma_channel_rx = rx_dma_uri[6]
+    /*Extract DLR channel from the URI*/
+    dlr_channel_rx = rx_dlr_uri[6]
+    /*Read service request used for the receive event*/
+    dma_sr_rx = uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_rinp")
+  }
+
+  /*Read protocol interrupt node if any error event callback is selected*/
+  if(is_any_event_enabled)
+  {
+    errinterrupt_uri = uart_inst.hwres_nvic_node_error.getSolverUri();
+  }
+
+  /*If all the necessary resources are available*/
+  if (mapped_uri != null) {
+    /*Local strings to hold resource values derived from the URI*/
+    String UnitInst, ChannelInst, TxportNo, TxpinNo, RxportNo, RxpinNo, Tx_node, Rx_node, Err_node
+    UnitInst  = mapped_uri[4]  /*USIC module number*/
+    ChannelInst = mapped_uri[6] /*USIC channel number in the module*/ 
+    
+    txinterrupt_uri  = uart_inst.hwres_nvic_node_tx.getSolverUri();
+    rxinterrupt_uri  = uart_inst.hwres_nvic_node_rx.getSolverUri();
+    
+    if (txinterrupt_uri != null)
+    {
+      Tx_node = txinterrupt_uri[-1] 
+    }
+    if(rxinterrupt_uri != null)
+    {
+      Rx_node = rxinterrupt_uri[-1]
+    }
+    if(is_any_event_enabled)
+    {
+      Err_node = errinterrupt_uri[-1]
+    }
+    txpin_uri   = uart_inst.hwres_port_pad_uart_tx.getSolverUri()
+    if(txpin_uri != null)
+    {
+      TxportNo  = txpin_uri[4]  /*Transmit pin port number*/
+      TxpinNo   = txpin_uri[6]  /*Transmit pin number*/
+    }
+    rxpin_uri = uart_inst.hwres_port_pad_uart_rx.getSolverUri()
+    if(rxpin_uri != null)
+    {
+      RxportNo  = rxpin_uri[4]  /*Receive pin port number*/
+      RxpinNo   = rxpin_uri[6]  /*Receive pin number*/
+    }
+    
+               
+    /*List for callback functions*/
+    List handler_defs =
+    [
+      uart_inst.gstring_sync_brk.value,
+      uart_inst.gstring_receiver_noise.value,
+      uart_inst.gstring_format_errorbit0.value,
+      uart_inst.gstring_format_errorbit1.value,
+      uart_inst.gstring_collision.value
+    ]
+    /*List for callback function checkboxes*/
+    List handler_checks = 
+    [
+      uart_inst.gcheck_sync_brk.value,
+      uart_inst.gcheck_receiver_noise.value,
+      uart_inst.gcheck_format_errorbit0.value,
+      uart_inst.gcheck_format_errorbit1.value,      
+      uart_inst.gcheck_collision.value      
+    ]
+    /*Handler variable names in the structure*/
+    List handler_variables = 
+    [
+      "sync_error_cbhandler",
+      "rx_noise_error_cbhandler",
+      "format_error_bit0_cbhandler",
+      "format_error_bit1_cbhandler",
+      "collision_error_cbhandler"
+    ]
+ 
+/*Configuration structure definition*/
+  
+out.print("""
+/**********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+UART_STATUS_t ${app_label}_init(void);""")
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+out.print("""
+void ${app_label}_dma_tx_handler(XMC_DMA_CH_EVENT_t event);""")
+}
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+out.print("""
+void ${app_label}_dma_rx_handler(XMC_DMA_CH_EVENT_t event);""")
+}
+
+out.print("""
+
+/*USIC channel configuration*/
+const XMC_UART_CH_CONFIG_t ${app_label}_channel_config =
+{
+  .baudrate      = ${uart_inst.gint_desiredbaudrate.value}U,
+  .data_bits     = ${uart_inst.gcombo_databits.value}U,
+  .frame_length  = ${uart_inst.gcombo_databits.value}U,
+  .stop_bits     = ${["1",
+                      "2"
+                     ][uart_inst.gcombo_stopbits.options.indexOf(uart_inst.gcombo_stopbits.value)]}U,
+  .oversampling  = ${uart_inst.ginteger_oversampling.value}U,
+  .parity_mode   = ${["XMC_USIC_CH_PARITY_MODE_NONE",
+                      "XMC_USIC_CH_PARITY_MODE_EVEN",
+                      "XMC_USIC_CH_PARITY_MODE_ODD"
+                     ][uart_inst.gcombo_parity.options.indexOf(uart_inst.gcombo_parity.value)]}
+};""");
+
+/*Transmit pin configuration*/
+if((uart_inst.gcombo_oprmode.value == "Full Duplex") || (uart_inst.gcombo_oprmode.value == "Half Duplex")) {
+
+/*GPIO output function list*/
+List gpio_outputmode =
+["XMC_GPIO_MODE_OUTPUT_PUSH_PULL",
+"XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT3",
+"XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT4", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT5", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT6",
+"XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT7", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT8", "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9",
+"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN",
+"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT1", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT2", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT3",
+"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT4", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT5", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT6",
+"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT7", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT8", "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT9"]
+
+/*Print transmit pin configuration*/
+out.print("""
+/*Transmit pin configuration*/
+const XMC_GPIO_CONFIG_t ${app_label}_tx_pin_config   = 
+{ """);
+
+if (uart_inst.hwres_port_pad_uart_tx.getRegValue("IOCR","iocr_oe") == 1){
+
+int gpio_mode_index = 0
+
+if(uart_inst.gcheck_enablepinconfig.value == false)
+{
+/*Use pushpull configuration for fullduplex and open drain configuration for half duplex mode*/
+gpio_mode_index = (10 * uart_inst.gcombo_oprmode.options.indexOf(uart_inst.gcombo_oprmode.value)) + uart_inst.hwres_port_pad_uart_tx.getRegValue("IOCR","iocr_pcr")
+out.print("""
+  .mode             = ${gpio_outputmode[gpio_mode_index]}, """);
+}
+else
+{
+/*Use pushpull configuration or open drain configuration based on advanced pin configuration selection*/
+gpio_mode_index = (10 * uart_inst.gcombo_txpincharactristics.options.indexOf(uart_inst.gcombo_txpincharactristics.value)) + uart_inst.hwres_port_pad_uart_tx.getRegValue("IOCR","iocr_pcr")
+out.print("""
+  .mode             = ${gpio_outputmode[gpio_mode_index]}, """);
+}
+}
+out.print("""
+  .output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH""");
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+{
+  
+/*Pad strength configuration*/
+if((uart_inst.gcheck_enablepinconfig.value == true) && (uart_inst.gcombo_txpinpadconfig.value != "Don't Care")) {
+out.print(""",
+  .output_strength  = ${["Don't Care",
+                        "XMC_GPIO_OUTPUT_STRENGTH_WEAK",
+                        "XMC_GPIO_OUTPUT_STRENGTH_MEDIUM",
+                        "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE",
+                        "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SLOW_EDGE",
+                        "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE",
+                        "XMC_GPIO_OUTPUT_STRENGTH_STRONG_MEDIUM_EDGE",                       
+                        ][uart_inst.gcombo_txpinpadconfig.options.indexOf(uart_inst.gcombo_txpinpadconfig.value)]} """);
+}
+else
+{
+out.print(""",
+  .output_strength  = XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE""");
+}
+}
+out.print("""
+};
+
+/*Transmit pin configuration used for initializing*/
+const UART_TX_CONFIG_t ${app_label}_tx_pin = 
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${TxportNo}_BASE,
+  .config = &${app_label}_tx_pin_config,
+  .pin = ${TxpinNo}U
+};
+""");
+}
+
+/*DMA configuration for transmit operation*/
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+  String dlr_srsel_rs = uart_inst.hwres_dlr_ch_tx.getRegValue("SRSEL","srsel_rs")
+  String dma_cfgh_dest_rs = uart_inst.hwres_dma_ch_tx.getRegValue("CFGH","cfgh_dest_per")
+  out.print("""
+const XMC_DMA_CH_CONFIG_t ${app_label}_tx_dma_ch_config =
+{
+  .enable_interrupt = true,
+  .dst_transfer_width = (uint32_t)XMC_DMA_CH_TRANSFER_WIDTH_8,
+  .src_transfer_width = (uint32_t)XMC_DMA_CH_TRANSFER_WIDTH_8,
+  .dst_address_count_mode = (uint32_t)XMC_DMA_CH_ADDRESS_COUNT_MODE_NO_CHANGE,
+  .src_address_count_mode = (uint32_t)XMC_DMA_CH_ADDRESS_COUNT_MODE_INCREMENT,
+  .dst_burst_length = (uint32_t)XMC_DMA_CH_BURST_LENGTH_1,
+  .src_burst_length = (uint32_t)XMC_DMA_CH_BURST_LENGTH_8,
+  .transfer_flow = (uint32_t)XMC_DMA_CH_TRANSFER_FLOW_M2P_DMA,
+  .transfer_type = (uint32_t)XMC_DMA_CH_TRANSFER_TYPE_SINGLE_BLOCK,
+  .dst_handshaking = (uint32_t)XMC_DMA_CH_DST_HANDSHAKING_HARDWARE,
+  .dst_peripheral_request = DMA_PERIPHERAL_REQUEST(${dma_cfgh_dest_rs}U, ${dlr_srsel_rs}U), /*DMA${dma_module}_PERIPHERAL_REQUEST_USIC${UnitInst}_SR${dma_sr_tx}_${dlr_channel_tx}*/
+};
+
+const UART_DMA_CONFIG_t ${app_label}_tx_dma_config =
+{
+  .dma_ch_config = &${app_label}_tx_dma_ch_config,
+  .dma_channel   = ${dma_channel_tx}U
+};
+""")
+}
+
+/*DMA configuration for receive operation*/
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+  String dlr_srsel_rs = uart_inst.hwres_dlr_ch_rx.getRegValue("SRSEL","srsel_rs")
+  String dma_cfgh_src_rs = uart_inst.hwres_dma_ch_rx.getRegValue("CFGH","cfgh_src_per")
+  out.print("""
+const XMC_DMA_CH_CONFIG_t ${app_label}_rx_dma_ch_config =
+{
+  .enable_interrupt = true,
+  .dst_transfer_width = (uint32_t)XMC_DMA_CH_TRANSFER_WIDTH_8,
+  .src_transfer_width = (uint32_t)XMC_DMA_CH_TRANSFER_WIDTH_8,
+  .dst_address_count_mode = (uint32_t)XMC_DMA_CH_ADDRESS_COUNT_MODE_INCREMENT,
+  .src_address_count_mode = (uint32_t)XMC_DMA_CH_ADDRESS_COUNT_MODE_NO_CHANGE,
+  .dst_burst_length = (uint32_t)XMC_DMA_CH_BURST_LENGTH_8,
+  .src_burst_length = (uint32_t)XMC_DMA_CH_BURST_LENGTH_1,
+  .transfer_flow = (uint32_t)XMC_DMA_CH_TRANSFER_FLOW_P2M_DMA,
+  .transfer_type = (uint32_t)XMC_DMA_CH_TRANSFER_TYPE_SINGLE_BLOCK,
+  .src_handshaking = (uint32_t)XMC_DMA_CH_SRC_HANDSHAKING_HARDWARE,
+  .src_peripheral_request = DMA_PERIPHERAL_REQUEST(${dma_cfgh_src_rs}U, ${dlr_srsel_rs}U), /*DMA${dma_module}_PERIPHERAL_REQUEST_USIC${UnitInst}_SR${dma_sr_rx}_${dlr_channel_rx}*/
+};
+
+const UART_DMA_CONFIG_t ${app_label}_rx_dma_config =
+{
+  .dma_ch_config = &${app_label}_rx_dma_ch_config,
+  .dma_channel   = ${dma_channel_rx}U
+};
+""")
+}
+
+/*UART APP configuration structure*/
+out.print("""
+/*UART APP configuration structure*/
+const UART_CONFIG_t ${app_label}_config = 
+{
+  .channel_config   = &${app_label}_channel_config,
+""")
+if((uart_inst.gcombo_transmit_mode.value == "DMA") || (uart_inst.gcombo_receive_mode.value == "DMA"))
+{
+  dma_app_lbl  = uart_inst.appres_global_dma.getInstanceLabel()
+  out.print("""
+  .global_dma    = &${dma_app_lbl},
+""")
+}
+/*Transmit mode DMA configuration*/
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+  out.print("""  .transmit_dma_config = &${app_label}_tx_dma_config,""")
+}
+/* Newline*/
+out.print("""
+""")
+/*Receive mode DMA configuration*/
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+  out.print("""  .receive_dma_config = &${app_label}_rx_dma_config,""")
+}
+out.print("""
+  .fptr_uart_config = ${app_label}_init,""")
+
+/*Assign callback function names to appropriate APP structure members*/
+/*Loop through all error events*/
+/*Check if Transmit mode is Interrupt*/
+/*Assign transmit callback function*/
+if(uart_inst.gcombo_transmit_mode.value == "Interrupt")
+{
+  out.print("""
+  .tx_cbhandler = """)
+  if(uart_inst.gcheck_tx_callback.value)
+  {
+    out.print("""${uart_inst.gstring_tx_callback.value},""")
+  }
+  else
+  {
+    out.print("""NULL,""")
+  }
+}
+/*Assign receive callback value*/
+if(uart_inst.gcombo_receive_mode.value == "Interrupt")
+{
+  out.print("""
+  .rx_cbhandler = """)
+  if(uart_inst.gcheck_rx_callback.value)
+  {
+    out.print("""${uart_inst.gstring_rx_callback.value},""")
+  }
+  else
+  {
+    out.print("""NULL,""")
+  }
+}
+for(indexer = 0; indexer < handler_checks.size(); indexer++)
+{
+  /*Print spaces for alignment*/
+  out.print("""  
+  .${handler_variables[indexer]} = """);
+  /*Check if user has entered callback text*/
+  if((handler_checks[indexer]) && ((handler_defs[indexer]) && (handler_defs[indexer] != "")))
+  {
+    out.print(handler_defs[indexer])
+  }
+  else
+  {
+    out.print("NULL")
+  }
+  out.print(",")
+}
+/*Generate configuration for Tx pin only if it is not in Loopback mode*/
+if((uart_inst.gcombo_oprmode.value == "Full Duplex") || (uart_inst.gcombo_oprmode.value == "Half Duplex")) {
+out.print("""
+  .tx_pin_config    = &${app_label}_tx_pin,""")
+}
+else
+{
+out.print("""
+  .tx_pin_config    = NULL,""")
+}
+List FIFO_size_list=
+[
+  "XMC_USIC_CH_FIFO_DISABLED",
+  "XMC_USIC_CH_FIFO_SIZE_2WORDS",
+  "XMC_USIC_CH_FIFO_SIZE_4WORDS",
+  "XMC_USIC_CH_FIFO_SIZE_8WORDS",
+  "XMC_USIC_CH_FIFO_SIZE_16WORDS",
+  "XMC_USIC_CH_FIFO_SIZE_32WORDS",
+  "XMC_USIC_CH_FIFO_SIZE_64WORDS"
+]
+/*Write the UART operation mode*/
+out.print("""
+  .mode             = ${["UART_MODE_FULLDUPLEX",
+                         "UART_MODE_HALFDUPLEX",
+                         "UART_MODE_LOOPBACK"
+                        ][uart_inst.gcombo_oprmode.options.indexOf(uart_inst.gcombo_oprmode.value)]},""")
+/*Write transfer mode configuration*/
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+{
+out.print("""
+  .transmit_mode = ${["UART_TRANSFER_MODE_INTERRUPT",
+                      "UART_TRANSFER_MODE_DMA",
+                      "UART_TRANSFER_MODE_DIRECT"
+                     ][uart_inst.gcombo_transmit_mode.options.indexOf(uart_inst.gcombo_transmit_mode.value)]},
+  .receive_mode = ${["UART_TRANSFER_MODE_INTERRUPT",
+                      "UART_TRANSFER_MODE_DMA",
+                      "UART_TRANSFER_MODE_DIRECT"
+                     ][uart_inst.gcombo_receive_mode.options.indexOf(uart_inst.gcombo_receive_mode.value)]},""")
+}
+else
+{
+  out.print("""
+  .transmit_mode = ${["UART_TRANSFER_MODE_INTERRUPT",
+                      "UART_TRANSFER_MODE_DIRECT"
+                     ][uart_inst.gcombo_transmit_mode.options.indexOf(uart_inst.gcombo_transmit_mode.value)]},
+  .receive_mode = ${["UART_TRANSFER_MODE_INTERRUPT",
+                      "UART_TRANSFER_MODE_DIRECT"
+                     ][uart_inst.gcombo_receive_mode.options.indexOf(uart_inst.gcombo_receive_mode.value)]},""")
+} 
+/*Tx FIFO configuration*/
+Integer FIFO_size
+if (((uart_inst.gcheck_enabletxfifo.value == true) && (uart_inst.gcheck_enabletxfifo.enabled == true)) && 
+  (uart_inst.gcombo_transmit_mode.value != "DMA"))
+{
+  FIFO_size = uart_inst.hwres_usic_ch.getRegValue("TBCTR","tbctr_size")
+  out.print("""
+  .tx_fifo_size     = ${FIFO_size_list[FIFO_size]},""");
+}
+else
+{out.print("""
+  .tx_fifo_size     = XMC_USIC_CH_FIFO_DISABLED,""");
+}
+/*Rx FIFO configuration*/
+if (((uart_inst.gcheck_enablerxfifo.value == true) && (uart_inst.gcheck_enablerxfifo.enabled == true)) && 
+  (uart_inst.gcombo_receive_mode.value != "DMA"))
+{
+  FIFO_size = uart_inst.hwres_usic_ch.getRegValue("RBCTR","rbctr_size")
+  out.print("""
+  .rx_fifo_size     = ${FIFO_size_list[FIFO_size]},""");
+}
+else
+{out.print("""
+  .rx_fifo_size     = XMC_USIC_CH_FIFO_DISABLED,""");
+}
+/*Service request value*/
+/*Generate only if Interrupt mode is selected for transmission*/
+if(uart_inst.gcombo_transmit_mode.value == "Interrupt")
+{
+  if((uart_inst.gcheck_enabletxfifo.value == true) && (uart_inst.gcheck_enabletxfifo.enabled == true))
+  {
+    out.print("""
+  .tx_sr   = 0x${uart_inst.hwres_usic_ch.getRegValue("tbctr","tbctr_stbinp")}U,""");
+  }
+  else
+  {
+    out.print("""
+  .tx_sr   = 0x${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_tbinp")}U,""");
+  }
+}
+out.print("""
+};
+""");
+
+/*Write dynamic attributes used at runtime.*/
+out.print("""
+/*Runtime handler*/
+UART_RUNTIME_t ${app_label}_runtime = 
+{""");
+
+out.print("""
+  .tx_busy = false,""");
+
+out.print("""  
+  .rx_busy = false,
+};
+""");
+
+/*Write APP handle structure*/
+out.print("""
+/*APP handle structure*/
+UART_t ${app_label} = 
+{
+  .channel = XMC_UART${UnitInst}_CH${ChannelInst},
+  .config  = &${app_label}_config,
+  .runtime = &${app_label}_runtime
+};
+""")
+
+/*Write constant definitions used in initialization function based on UI configuration*/
+/*Enable selected events*/
+List Xmc_Uart_Events = [
+"XMC_UART_CH_EVENT_RECEIVER_NOISE",
+"XMC_UART_CH_EVENT_FORMAT_ERROR",
+"XMC_UART_CH_EVENT_SYNCHRONIZATION_BREAK",
+"XMC_UART_CH_EVENT_COLLISION"]
+List Event_selection =
+[
+(uart_inst.gcheck_receiver_noise.value == true), /*Receiver noise*/
+(uart_inst.gcheck_format_errorbit0.value == true) || (uart_inst.gcheck_format_errorbit1.value == true),  /*Format error*/
+(uart_inst.gcheck_sync_brk.value == true),    /*Synchronization break detected*/
+((uart_inst.gcheck_collision.value == true) && (uart_inst.gcombo_oprmode.value == "Half Duplex")) /*Collision detected*/
+]
+
+/*Define a variable with the bit mask of enabled protocol events*/
+if(is_any_event_enabled)
+{
+out.print("""
+  /*Enabled protocol events*/""");
+out.print("""
+const uint32_t ${app_label}_enabled_protocol_events = (""");
+indexer = 0
+Event_mask = ""
+for(indexer = 0; indexer < 4; indexer++)
+{
+  if(Event_selection[indexer] == true)
+  {
+    if(Event_mask != "")
+    {
+      Event_mask += " | "
+    }
+    Event_mask += "(uint32_t)"+Xmc_Uart_Events[indexer]
+  }
+}
+out.print(Event_mask);
+out.print(""");""");
+
+}
+
+/*Write receive pin configuration*/
+if(uart_inst.gcombo_oprmode.value == "Full Duplex"){
+out.print("""
+/*Receive pin configuration*/
+const XMC_GPIO_CONFIG_t ${app_label}_rx_pin_config   = {""");
+int temp_input_mode_index = 0
+if(uart_inst.gcheck_enablepinconfig.value == true)
+{
+temp_input_mode_index = uart_inst.gcombo_rxpincharacteristics.options.indexOf(uart_inst.gcombo_rxpincharacteristics.value)
+}
+out.print("""
+  .mode             = ${["XMC_GPIO_MODE_INPUT_TRISTATE",
+                        "XMC_GPIO_MODE_INPUT_PULL_DOWN",
+                        "XMC_GPIO_MODE_INPUT_PULL_UP",                
+                        "XMC_GPIO_MODE_INPUT_SAMPLING",
+                        "XMC_GPIO_MODE_INPUT_INVERTED_TRISTATE",
+                        "XMC_GPIO_MODE_INPUT_INVERTED_PULL_DOWN",
+                        "XMC_GPIO_MODE_INPUT_INVERTED_PULL_UP",               
+                        "XMC_GPIO_MODE_INPUT_INVERTED_SAMPLING",
+                       ][temp_input_mode_index]},
+  .output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH""");
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+if(uart_inst.gcheck_enablepinconfig.value == true)
+{
+out.print(""",
+  .input_hysteresis = ${["XMC_GPIO_INPUT_HYSTERESIS_STANDARD",
+                         "XMC_GPIO_INPUT_HYSTERESIS_LARGE"
+                        ][uart_inst.gcombo_hysteresis.options.indexOf(uart_inst.gcombo_hysteresis.value)]}""");
+}
+else
+{
+out.print(""",
+  .input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_STANDARD""");
+}
+}
+else
+{
+out.print(""",
+  .output_strength  = XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE""");
+}
+
+out.print("""
+};""");
+}
+
+/*Write the init function definition*/
+out.print("""
+/**********************************************************************************************************************
+ * API IMPLEMENTATION
+ **********************************************************************************************************************/
+/*Channel initialization function*/
+UART_STATUS_t ${app_label}_init()
+{
+  UART_STATUS_t status = UART_STATUS_SUCCESS;""");
+/*Sequence of driver API calls for initialization*/
+/*Donot initialize busy flag if in Direct mode*/
+if((!(uart_inst.gcombo_transmit_mode.value == "Direct") && (uart_inst.gcombo_receive_mode.value == "Direct")))
+{
+out.print("""
+  /*Reset the runtime state variables*/
+  ${app_label}.runtime->tx_busy = false;
+  ${app_label}.runtime->rx_busy = false;""")
+}
+
+/*Initialize DMA if configured*/
+if((uart_inst.gcombo_transmit_mode.value == "DMA") || (uart_inst.gcombo_receive_mode.value == "DMA"))
+{
+  out.print("""
+  status = (UART_STATUS_t)GLOBAL_DMA_Init(&${dma_app_lbl});""")
+}
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+  out.print("""
+  XMC_DMA_CH_Init(XMC_DMA${dma_module}, ${dma_channel_tx}U, &${app_label}_tx_dma_ch_config);
+  XMC_DMA_CH_EnableEvent(XMC_DMA${dma_module},  ${dma_channel_tx}U, XMC_DMA_CH_EVENT_TRANSFER_COMPLETE);
+""")
+}
+
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+  out.print("""
+  XMC_DMA_CH_Init(XMC_DMA${dma_module}, ${dma_channel_rx}U, &${app_label}_rx_dma_ch_config);
+  XMC_DMA_CH_EnableEvent(XMC_DMA${dma_module},  ${dma_channel_rx}U, XMC_DMA_CH_EVENT_TRANSFER_COMPLETE);
+""")
+}
+  
+/*Write receive pin configuration*/
+if(uart_inst.gcombo_oprmode.value == "Full Duplex"){
+out.print("""
+  /*Configure Receive pin*/
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT${RxportNo}_BASE, ${RxpinNo}U, &${app_label}_rx_pin_config);""");
+}
+out.print("""
+  /* Initialize USIC channel in UART mode*/
+  XMC_UART_CH_Init(XMC_UART${UnitInst}_CH${ChannelInst}, &${app_label}_channel_config);
+  /*Set input source path*/
+  XMC_USIC_CH_SetInputSource(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX0, ${uart_inst.hwres_usic_ch.getRegValue("dx0cr","dx0cr_dsel")}U);""");
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+out.print("""
+  XMC_USIC_CH_SetInputSource(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX3, ${uart_inst.hwres_usic_ch.getRegValue("dx3cr","dx3cr_dsel")}U);
+  XMC_USIC_CH_SetInputSource(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX5, ${uart_inst.hwres_usic_ch.getRegValue("dx5cr","dx5cr_dsel")}U);""");
+}
+if(uart_inst.gcheck_msb_first.value)
+{
+out.print("""
+  /* MSB first */
+  XMC_USIC_CH_SetShiftDirection(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_SHIFT_DIRECTION_MSB_FIRST);
+""");
+}
+if(uart_inst.gcheck_invert_data_output.value)
+{
+out.print("""
+  /* Invert output data */
+  XMC_USIC_CH_SetDataOutputMode(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_DATA_OUTPUT_MODE_INVERTED);
+""");
+}
+if(uart_inst.gcheck_invert_data_input.value)
+{
+out.print("""
+  /* Invert input data */
+  XMC_USIC_CH_EnableInputInversion(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX0);""");
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+out.print("""
+  XMC_USIC_CH_EnableInputInversion(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX3);
+  XMC_USIC_CH_EnableInputInversion(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX5);""");
+}
+}
+
+/*If collision detection enabled, configure DX1DSEL to DX1F*/
+/*Event_selection[3] checks if collision detection is enabled and half duplex mode selected*/
+if(Event_selection[3])
+{
+out.print("""
+  /*Configure DX1 input stage to sample DOUT0 to detect collision*/
+  XMC_USIC_CH_SetInputSource(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INPUT_DX1, ${uart_inst.hwres_usic_ch.getRegValue("dx1cr","dx1cr_dsel")}U);""");
+}
+  
+if (((uart_inst.gcheck_enabletxfifo.value == true) && (uart_inst.gcheck_enabletxfifo.enabled == true)) && 
+  (uart_inst.gcombo_transmit_mode.value != "DMA"))
+{
+  FIFO_size = uart_inst.hwres_usic_ch.getRegValue("TBCTR","tbctr_size")
+out.print("""
+  /*Configure transmit FIFO*/
+  XMC_USIC_CH_TXFIFO_Configure(XMC_UART${UnitInst}_CH${ChannelInst},
+        ${uart_inst.hwres_usic_ch.getRegValue("TBCTR","tbctr_dptr")}U,
+        ${FIFO_size_list[FIFO_size]},
+        1U);""");
+}
+if (((uart_inst.gcheck_enablerxfifo.value == true) && (uart_inst.gcheck_enablerxfifo.enabled == true)) && 
+  (uart_inst.gcombo_receive_mode.value != "DMA"))
+{
+  FIFO_size = uart_inst.hwres_usic_ch.getRegValue("RBCTR","rbctr_size")
+
+  if(uart_inst.gcombo_receive_mode.value == "Direct")
+  {
+out.print("""
+  /*Configure receive FIFO*/
+  XMC_USIC_CH_RXFIFO_Configure(XMC_UART${UnitInst}_CH${ChannelInst},
+        ${uart_inst.hwres_usic_ch.getRegValue("RBCTR","rbctr_dptr")}U,
+        ${FIFO_size_list[FIFO_size]},
+        ${power_2(FIFO_size)-1}U);""")
+  }
+  else
+  {
+out.print("""
+  /*Configure receive FIFO*/
+  XMC_USIC_CH_RXFIFO_Configure(XMC_UART${UnitInst}_CH${ChannelInst},
+        ${uart_inst.hwres_usic_ch.getRegValue("RBCTR","rbctr_dptr")}U,
+        ${FIFO_size_list[FIFO_size]},
+        0U);""")
+  }
+}
+out.print("""
+  /* Start UART */
+  XMC_UART_CH_Start(XMC_UART${UnitInst}_CH${ChannelInst});
+""");
+if((uart_inst.gcombo_oprmode.value == "Full Duplex") || (uart_inst.gcombo_oprmode.value == "Half Duplex"))
+{
+out.print("""
+  /* Initialize UART TX pin */
+  XMC_GPIO_Init((XMC_GPIO_PORT_t *)PORT${TxportNo}_BASE, ${TxpinNo}U, &${app_label}_tx_pin_config);
+""");
+}
+
+/* Interrupt configurations */
+if(uart_inst.hwres_usic_ch.getRegValue("ccr","ccr_tbien") == 1)
+{
+out.print("""
+  /*Set service request for transmit interrupt*/
+  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INTERRUPT_NODE_POINTER_TRANSMIT_BUFFER,
+     ${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_tbinp")}U);""");
+   /*Transmit mode 'Direct*/
+   if(uart_inst.gcombo_transmit_mode.value == "Direct")
+   {
+     out.print("""
+  /*Enable UART transmit event*/
+  XMC_USIC_CH_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, (uint32_t)XMC_USIC_CH_EVENT_TRANSMIT_BUFFER);""")
+   }
+}
+if(uart_inst.hwres_usic_ch.getRegValue("ccr","ccr_rien") == 1)
+{
+out.print("""
+  /*Set service request for receive interrupt*/
+  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INTERRUPT_NODE_POINTER_RECEIVE,
+     ${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_rinp")}U);""");
+   /*Enable event if mode is "Direct*/
+   if(uart_inst.gcombo_receive_mode.value == "Direct")
+   {
+   out.print("""
+  /*Enable UART standard receive event*/
+  XMC_USIC_CH_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_EVENT_STANDARD_RECEIVE);""")
+   }
+}
+if(uart_inst.hwres_usic_ch.getRegValue("ccr","ccr_aien") == 1)
+{
+out.print("""
+  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INTERRUPT_NODE_POINTER_ALTERNATE_RECEIVE,
+     ${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_ainp")}U);""");
+   /*Enable event if mode is "Direct*/
+   if(uart_inst.gcombo_receive_mode.value == "Direct")
+   {
+   out.print("""
+  /*Enable UART alternative receive event*/
+  XMC_USIC_CH_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_EVENT_ALTERNATIVE_RECEIVE);""")
+   }
+}
+out.print("""
+  /*Set service request for UART protocol events*/
+  XMC_USIC_CH_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_INTERRUPT_NODE_POINTER_PROTOCOL,
+     ${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_pinp")}U);""");
+
+if ((uart_inst.gcheck_enabletxfifo.value == true) && (uart_inst.gcheck_enabletxfifo.enabled == true))
+{
+  if(uart_inst.hwres_usic_ch.getRegValue("tbctr","tbctr_stbien") == 1)
+  {
+  out.print("""
+  /*Set service request for tx FIFO transmit interrupt*/
+  XMC_USIC_CH_TXFIFO_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_TXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
+      ${uart_inst.hwres_usic_ch.getRegValue("tbctr","tbctr_stbinp")}U);""");
+    /*Transmit mode 'Direct*/
+    if(uart_inst.gcombo_transmit_mode.value == "Direct")
+    {
+      out.print("""
+  /*Enable UART transmit event*/
+  XMC_USIC_CH_TXFIFO_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst},(uint32_t)XMC_USIC_CH_TXFIFO_EVENT_CONF_STANDARD);""")
+    }
+  }
+}
+
+if ((uart_inst.gcheck_enablerxfifo.value == true) && (uart_inst.gcheck_enablerxfifo.enabled == true))
+{
+  if(uart_inst.hwres_usic_ch.getRegValue("rbctr","rbctr_srbien") == 1)
+  {
+  out.print("""
+  /*Set service request for rx FIFO receive interrupt*/
+  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_STANDARD,
+       0x${uart_inst.hwres_usic_ch.getRegValue("rbctr","rbctr_srbinp")}U);""");
+     /*Receive mode 'Direct*/
+     if(uart_inst.gcombo_receive_mode.value == "Direct")
+     {
+       out.print("""
+  /*Enable UART receive event*/
+  XMC_USIC_CH_RXFIFO_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_RXFIFO_EVENT_CONF_STANDARD);""")
+     }
+  }
+  if((uart_inst.hwres_usic_ch.getRegValue("rbctr","rbctr_arbien") == 1))
+  {
+  out.print("""
+  XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_RXFIFO_INTERRUPT_NODE_POINTER_ALTERNATE,
+       0x${uart_inst.hwres_usic_ch.getRegValue("rbctr","rbctr_arbinp")}U);""");
+     /*Receive mode 'Direct*/
+     if(uart_inst.gcombo_receive_mode.value == "Direct")
+     {
+       out.print("""
+  /*Enable UART alternate receive event*/
+  XMC_USIC_CH_RXFIFO_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, XMC_USIC_CH_RXFIFO_EVENT_CONF_ALTERNATE);""")
+     }
+  }
+}
+
+if(is_any_event_enabled){
+out.print("""
+  /*Enable UART protocol event detection for selected events*/
+  XMC_UART_CH_EnableEvent(XMC_UART${UnitInst}_CH${ChannelInst}, ${app_label}_enabled_protocol_events);""");
+}
+
+
+/*Configure interrupt priority only if interrupt is used*/
+if(txinterrupt_uri != null)
+{
+/*Configure NVIC node properties*/
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+out.print("""
+  /*Set priority and enable NVIC node for transmit interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Tx_node}, ${uart_inst.ginterruptprio_tx.priorityValue}U);""");
+  if(daveEnv.project.selectedDevice.deviceId.series == "4")
+  {
+    if ((uart_inst.gcheck_enabletxfifo.value == true) && (uart_inst.gcheck_enabletxfifo.enabled == true))
+    {
+out.print("""
+  XMC_SCU_SetInterruptControl(${Tx_node}U, XMC_SCU_IRQCTRL_USIC${UnitInst}_SR${uart_inst.hwres_usic_ch.getRegValue("tbctr","tbctr_stbinp")}_IRQ${Tx_node});""");
+    }
+    else
+    {
+out.print("""
+  XMC_SCU_SetInterruptControl(${Tx_node}U, XMC_SCU_IRQCTRL_USIC${UnitInst}_SR${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_tbinp")}_IRQ${Tx_node});""");
+    }
+  }
+}
+else
+{
+out.print("""
+  /*Set priority and enable NVIC node for transmit interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Tx_node}, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
+                        ${uart_inst.ginterruptprio_tx.priorityValue}U, ${uart_inst.ginterruptprio_tx.subPriorityValue}U));""");
+}
+out.print("""
+  NVIC_EnableIRQ((IRQn_Type)${Tx_node});""");
+}
+
+/*Configure interrupt priority only if interrupt is used*/
+if(rxinterrupt_uri != null)
+{
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+out.print("""
+  /*Set priority and enable NVIC node for receive interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Rx_node}, ${uart_inst.ginterruptprio_rx.priorityValue}U);""");
+  if(daveEnv.project.selectedDevice.deviceId.series == "4")
+  {
+    if ((uart_inst.gcheck_enablerxfifo.value == true) && (uart_inst.gcheck_enablerxfifo.enabled == true))
+    {
+out.print("""
+  XMC_SCU_SetInterruptControl(${Rx_node}U, XMC_SCU_IRQCTRL_USIC${UnitInst}_SR${uart_inst.hwres_usic_ch.getRegValue("rbctr","rbctr_srbinp")}_IRQ${Rx_node});""");
+    }
+    else
+    {
+out.print("""
+  XMC_SCU_SetInterruptControl(${Rx_node}U, XMC_SCU_IRQCTRL_USIC${UnitInst}_SR${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_rinp")}_IRQ${Rx_node});""");
+    }
+  }
+}
+else
+{
+out.print("""
+  /*Set priority and enable NVIC node for receive interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Rx_node}, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
+                      ${uart_inst.ginterruptprio_rx.priorityValue}U, ${uart_inst.ginterruptprio_rx.subPriorityValue}U));""");
+}
+out.print("""
+  NVIC_EnableIRQ((IRQn_Type)${Rx_node});""");
+}
+
+if(is_any_event_enabled)
+{
+if(daveEnv.project.selectedDevice.deviceId.family == "XMC1")
+{
+out.print("""
+  /*Set priority and enable NVIC node for UART protocol interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Err_node}, ${uart_inst.ginterruptprio_error.priorityValue}U);""");
+  if(daveEnv.project.selectedDevice.deviceId.series == "4")
+  {
+out.print("""
+  XMC_SCU_SetInterruptControl(${Err_node}U, XMC_SCU_IRQCTRL_USIC${UnitInst}_SR${uart_inst.hwres_usic_ch.getRegValue("inpr","inpr_pinp")}_IRQ${Err_node});""");
+  }
+}
+else
+{
+out.print("""
+  /*Set priority and enable NVIC node for UART protocol interrupt*/
+  NVIC_SetPriority((IRQn_Type)${Err_node}, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),
+                      ${uart_inst.ginterruptprio_error.priorityValue}U,  ${uart_inst.ginterruptprio_error.subPriorityValue}U));""");
+}
+out.print("""
+  NVIC_EnableIRQ((IRQn_Type)${Err_node});
+""");
+}
+
+/*DMA callback registration for receive mode*/
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+  /*Register transfer complete event handler*/
+  out.print("""
+  /*Register transfer complete event handler*/
+  XMC_DMA_CH_SetEventHandler(XMC_DMA${dma_module}, ${dma_channel_rx}U, ${app_label}_dma_rx_handler);""")
+}
+
+/*DMA callback registration for transmit mode*/
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+  /*Register transfer complete event handler*/
+  out.print("""
+  /*Register transfer complete event handler*/
+  XMC_DMA_CH_SetEventHandler(XMC_DMA${dma_module}, ${dma_channel_tx}U, ${app_label}_dma_tx_handler);
+  /* make DMA ready for transmission*/
+  XMC_USIC_CH_TriggerServiceRequest(XMC_UART${UnitInst}_CH${ChannelInst}, ${dma_sr_tx}U); """)
+}
+
+out.print("""
+  return status;
+}""");
+
+/*Interrupt handlers*/
+if(txinterrupt_uri != null)
+{
+out.print("""
+/*Interrupt handlers*/
+/*Transmit ISR*/
+void ${app_label}_TX_HANDLER()
+{
+  UART_lTransmitHandler(&${app_label});
+}
+""")
+}
+
+if(rxinterrupt_uri != null)
+{
+out.print("""
+/*Receive ISR*/
+void ${app_label}_RX_HANDLER()
+{
+  UART_lReceiveHandler(&${app_label});
+}
+""")
+}
+if(is_any_event_enabled)
+{
+out.print("""
+/*Error ISR*/
+void ${app_label}_ERR_HANDLER()
+{
+  UART_lProtocolHandler(&${app_label});
+}
+""");
+}
+
+/*Transmit mode DMA transfer complete handler*/
+if(uart_inst.gcombo_transmit_mode.value == "DMA")
+{
+  out.print("""
+
+void ${app_label}_dma_tx_handler(XMC_DMA_CH_EVENT_t event)
+{
+  if(event == XMC_DMA_CH_EVENT_TRANSFER_COMPLETE)
+  {
+    ${app_label}.runtime->tx_busy = false;""")
+  if(uart_inst.gcheck_tx_callback.value == true)
+  {
+    out.print("""
+    ${uart_inst.gstring_tx_callback.value}();
+""")
+  }
+out.print("""
+  }
+}
+""")
+}
+
+/*Receive mode DMA transfer complete handler*/
+if(uart_inst.gcombo_receive_mode.value == "DMA")
+{
+  out.print("""
+
+void ${app_label}_dma_rx_handler(XMC_DMA_CH_EVENT_t event)
+{
+  if(event == XMC_DMA_CH_EVENT_TRANSFER_COMPLETE)
+  {
+    ${app_label}.runtime->rx_busy = false;""")
+  if(uart_inst.gcheck_rx_callback.value == true)
+  {
+    out.print("""
+    ${uart_inst.gstring_rx_callback.value}();
+""")
+  }
+out.print("""
+  }
+}
+""")
+}
+
+/*Unused multiplexer values to be read so to avoid file generation warning
+LLD api to initialize the GPIO configures any pin to digital IO. 
+So PDISC bitfield need not be read*/
+Integer Dummy_Mux_Read
+Dummy_Mux_Read = uart_inst.hwres_port_pad_uart_tx.getRegValue("pdisc","pdisc_pdis")
+Dummy_Mux_Read = uart_inst.hwres_port_pad_uart_rx.getRegValue("pdisc","pdisc_pdis")
+Dummy_Mux_Read = uart_inst.hwres_port_pad_uart_tx.getRegValue("hwsel","hwsel_hw")
+Dummy_Mux_Read = uart_inst.hwres_port_pad_uart_rx.getRegValue("hwsel","hwsel_hw")
+/*Dummy read for interrupt enable bit*/
+if(uart_inst.gcombo_transmit_mode.value == "Interrupt")
+{
+  Dummy_Mux_Read = uart_inst.hwres_nvic_node_tx.getRegValue("iser","iser_setena")
+}
+if(uart_inst.gcombo_receive_mode.value == "Interrupt")
+{
+  Dummy_Mux_Read = uart_inst.hwres_nvic_node_rx.getRegValue("iser","iser_setena")
+}
+if(uart_inst.gcheck_collision.value || uart_inst.gcheck_format_errorbit0.value || uart_inst.gcheck_format_errorbit1.value || uart_inst.gcheck_receiver_noise.value ||
+  uart_inst.gcheck_sync_brk.value)
+{
+  Dummy_Mux_Read = uart_inst.hwres_nvic_node_error.getRegValue("iser","iser_setena")
+}
+
+/*Since INTCR_INSEL is updated by constructing the enum*/
+if((daveEnv.project.selectedDevice.deviceId.family == "XMC1") && 
+   (daveEnv.project.selectedDevice.deviceId.series == "4"))
+{
+  if(txinterrupt_uri != null)
+  {
+    Dummy_Mux_Read = uart_inst.hwres_nvic_node_tx.getRegValue("intcr","intcr_insel")
+  }
+  if(rxinterrupt_uri != null)
+  {
+    Dummy_Mux_Read = uart_inst.hwres_nvic_node_rx.getRegValue("intcr","intcr_insel")
+  }
+  if(is_any_event_enabled)
+  {
+    Dummy_Mux_Read = uart_inst.hwres_nvic_node_error.getRegValue("intcr","intcr_insel")
+  }
+}
+}/*Mapped uri*/
+}/*For all instances*/
+out.print("""
+/*CODE_BLOCK_END*/
+""");
+/*Local function to calculate power of 2*/
+/*Used for getting FIFO size is number of words*/
+def power_2(def x){
+  def y = 1
+  for(int i=0; i< x; i++)
+  {
+    y = 2 * y;
+  }
+  return y
+}

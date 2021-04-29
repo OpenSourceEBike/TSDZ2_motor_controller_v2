@@ -1,0 +1,79 @@
+package Model.APPS.GLOBAL_ADC.v4_0_22;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class GLOBAL_ADC_GUI extends AppManifest {
+/* Begin : UI variable section */
+	 public GTab gtab_global_configuration;
+	 public GTab gtab_group_configurations;
+	 public GCombo gcombo_digital_clk;
+	 public GCombo gcombo_aref;
+	 public GCombo gcombo_arb_mode_group0;
+	 public GCombo gcombo_arb_mode_group1;
+	 public GCombo gcombo_arb_mode_group2;
+	 public GCombo gcombo_arb_mode_group3;
+	 public GFloat gfloat_peripherial_clk_freq;
+	 public GFloat gfloat_des_analog_clk;
+	 public GFloat gfloat_act_analog_clk;
+	 public GFloat gfloat_act_digi_clk;
+	 public GCheck gcheck_startup_calibration;
+	 public GCheck gcheck_post_cal_group0;
+	 public GCheck gcheck_post_cal_group1;
+	 public GCheck gcheck_post_cal_group2;
+	 public GCheck gcheck_post_cal_group3;
+	 public GLabel glabel_peripherial_clk_freq;
+	 public GLabel glabel_des_analog_clk;
+	 public GLabel glabel_act_analog_clk;
+	 public GLabel glabel_digital_clk;
+	 public GLabel glabel_act_digi_clk;
+	 public GLabel glabel_aref;
+	 public GLabel glabel_arb_mode_group0;
+	 public GLabel glabel_arb_mode_group1;
+	 public GLabel glabel_arb_mode_group2;
+	 public GLabel glabel_arb_mode_group3;
+	 public GGroup ggroup_clock;
+	 public GGroup ggroup_group0_configuration;
+	 public GGroup ggroup_group1_configuration;
+	 public GGroup ggroup_group2_configuration;
+	 public GGroup ggroup_group3_configuration;
+
+	 public GLOBAL_ADC_GUI(DaveEnv daveEnv){
+
+	 gtab_global_configuration = GTab(widgetName:"gtab_global_configuration", text:"General Settings", enabled:true, visible:true)
+	 gtab_group_configurations = GTab(widgetName:"gtab_group_configurations", text:"Advanced Settings", enabled:true, visible:true)
+	 gcombo_digital_clk = GCombo(widgetName:"gcombo_digital_clk", options:["fADC","fADC/2","fADC/3","fADC/4"], value:"fADC", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_aref = GCombo(widgetName:"gcombo_aref", options:["External reference if VDD >= 3.0V (upper supply range)","Internal reference if VDD >= 3.0V (upper supply range)","Internal reference if VDD < 3.0V  (lower supply range)"], value:"External reference if VDD >= 3.0V (upper supply range)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group0 = GCombo(widgetName:"gcombo_arb_mode_group0", options:["Runs Permanently","Starts With Conversion Request"], value:"Runs Permanently", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group1 = GCombo(widgetName:"gcombo_arb_mode_group1", options:["Runs Permanently","Starts With Conversion Request"], value:"Runs Permanently", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group2 = GCombo(widgetName:"gcombo_arb_mode_group2", options:["Runs Permanently","Starts With Conversion Request"], value:"Runs Permanently", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group3 = GCombo(widgetName:"gcombo_arb_mode_group3", options:["Runs Permanently","Starts With Conversion Request"], value:"Runs Permanently", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_peripherial_clk_freq = GFloat(widgetName:"gfloat_peripherial_clk_freq", value:120, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_des_analog_clk = GFloat(widgetName:"gfloat_des_analog_clk", value:30, minValue:2, maxValue:30, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_act_analog_clk = GFloat(widgetName:"gfloat_act_analog_clk", value:0.0, minValue:0, maxValue:60, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_act_digi_clk = GFloat(widgetName:"gfloat_act_digi_clk", value:120, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gcheck_startup_calibration = GCheck(widgetName:"gcheck_startup_calibration", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group0 = GCheck(widgetName:"gcheck_post_cal_group0", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group1 = GCheck(widgetName:"gcheck_post_cal_group1", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group2 = GCheck(widgetName:"gcheck_post_cal_group2", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group3 = GCheck(widgetName:"gcheck_post_cal_group3", value:true, enabled:true, visible:true)
+	 glabel_peripherial_clk_freq = GLabel(widgetName:"glabel_peripherial_clk_freq", text:"Peripheral bus clock [MHz]:", enabled:true, visible:true)
+	 glabel_des_analog_clk = GLabel(widgetName:"glabel_des_analog_clk", text:"Desired analog clock [MHz]:", enabled:true, visible:true)
+	 glabel_act_analog_clk = GLabel(widgetName:"glabel_act_analog_clk", text:"Actual analog clock [MHz]:", enabled:true, visible:true)
+	 glabel_digital_clk = GLabel(widgetName:"glabel_digital_clk", text:"Digital clock:", enabled:true, visible:true)
+	 glabel_act_digi_clk = GLabel(widgetName:"glabel_act_digi_clk", text:"Actual digital clock [MHz]:", enabled:true, visible:true)
+	 glabel_aref = GLabel(widgetName:"glabel_aref", text:"Analog reference voltage:", enabled:true, visible:true)
+	 glabel_arb_mode_group0 = GLabel(widgetName:"glabel_arb_mode_group0", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arb_mode_group1 = GLabel(widgetName:"glabel_arb_mode_group1", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arb_mode_group2 = GLabel(widgetName:"glabel_arb_mode_group2", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arb_mode_group3 = GLabel(widgetName:"glabel_arb_mode_group3", text:"Arbitration mode:", enabled:true, visible:true)
+	 ggroup_clock = GGroup(widgetName:"ggroup_clock", text:"Clock Settings", enabled:true, visible:true)
+	 ggroup_group0_configuration = GGroup(widgetName:"ggroup_group0_configuration", text:"Group 0 Settings", enabled:true, visible:true)
+	 ggroup_group1_configuration = GGroup(widgetName:"ggroup_group1_configuration", text:"Group 1 Settings", enabled:true, visible:true)
+	 ggroup_group2_configuration = GGroup(widgetName:"ggroup_group2_configuration", text:"Group 2 Settings", enabled:true, visible:true)
+	 ggroup_group3_configuration = GGroup(widgetName:"ggroup_group3_configuration", text:"Group 3 Settings", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

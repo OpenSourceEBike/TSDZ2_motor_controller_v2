@@ -1,0 +1,45 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "main.c"
+  14              	 .section .text.startup.main,"ax",%progbits
+  15              	 .align 1
+  16              	 .global main
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	main:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 FFF7FEFF 	 bl DAVE_Init
+  23 0006 0028     	 cmp r0,#0
+  24 0008 00D0     	 beq .L2
+  25              	.L3:
+  26 000a FEE7     	 b .L3
+  27              	.L2:
+  28 000c 0148     	 ldr r0,.L6
+  29 000e FFF7FEFF 	 bl PMSM_FOC_MotorStart
+  30              	.L4:
+  31 0012 FEE7     	 b .L4
+  32              	.L7:
+  33              	 .align 2
+  34              	.L6:
+  35 0014 00000000 	 .word PMSM_FOC_0
+  37              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:15     .text.startup.main:00000000 $t
+    {standard input}:20     .text.startup.main:00000000 main
+    {standard input}:35     .text.startup.main:00000014 $d
+
+UNDEFINED SYMBOLS
+DAVE_Init
+PMSM_FOC_MotorStart
+PMSM_FOC_0

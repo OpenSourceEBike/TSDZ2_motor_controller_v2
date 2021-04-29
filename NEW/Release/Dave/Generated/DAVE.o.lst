@@ -1,0 +1,60 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "DAVE.c"
+  14              	 .section .text.DAVE_Init,"ax",%progbits
+  15              	 .align 1
+  16              	 .weak DAVE_Init
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	DAVE_Init:
+  21 0000 08B5     	 push {r3,lr}
+  22 0002 0948     	 ldr r0,.L5
+  23 0004 FFF7FEFF 	 bl CLOCK_XMC1_Init
+  24 0008 0028     	 cmp r0,#0
+  25 000a 0CD1     	 bne .L3
+  26 000c 0748     	 ldr r0,.L5+4
+  27 000e FFF7FEFF 	 bl UART_Init
+  28 0012 0028     	 cmp r0,#0
+  29 0014 07D1     	 bne .L3
+  30 0016 0648     	 ldr r0,.L5+8
+  31 0018 FFF7FEFF 	 bl PMSM_FOC_Init
+  32 001c 0028     	 cmp r0,#0
+  33 001e 02D1     	 bne .L3
+  34 0020 0448     	 ldr r0,.L5+12
+  35 0022 FFF7FEFF 	 bl HALL_POSIF_Init
+  36              	.L3:
+  37              	 
+  38 0026 08BD     	 pop {r3,pc}
+  39              	.L6:
+  40              	 .align 2
+  41              	.L5:
+  42 0028 00000000 	 .word CLOCK_XMC1_0
+  43 002c 00000000 	 .word UART_0
+  44 0030 00000000 	 .word PMSM_FOC_0
+  45 0034 00000000 	 .word HALL_POSIF_0
+  47              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 DAVE.c
+    {standard input}:15     .text.DAVE_Init:00000000 $t
+    {standard input}:20     .text.DAVE_Init:00000000 DAVE_Init
+    {standard input}:42     .text.DAVE_Init:00000028 $d
+
+UNDEFINED SYMBOLS
+CLOCK_XMC1_Init
+UART_Init
+PMSM_FOC_Init
+HALL_POSIF_Init
+CLOCK_XMC1_0
+UART_0
+PMSM_FOC_0
+HALL_POSIF_0

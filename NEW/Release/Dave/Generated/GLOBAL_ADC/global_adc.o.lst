@@ -1,0 +1,126 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "global_adc.c"
+  14              	 .section .text.GLOBAL_ADC_GetAppVersion,"ax",%progbits
+  15              	 .align 1
+  16              	 .global GLOBAL_ADC_GetAppVersion
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	GLOBAL_ADC_GetAppVersion:
+  21 0000 0148     	 ldr r0,.L2
+  22 0002 82B0     	 sub sp,sp,#8
+  23 0004 02B0     	 add sp,sp,#8
+  24              	 
+  25 0006 7047     	 bx lr
+  26              	.L3:
+  27              	 .align 2
+  28              	.L2:
+  29 0008 04001600 	 .word 1441796
+  31              	 .section .text.GLOBAL_ADC_Init,"ax",%progbits
+  32              	 .align 1
+  33              	 .global GLOBAL_ADC_Init
+  34              	 .code 16
+  35              	 .thumb_func
+  37              	GLOBAL_ADC_Init:
+  38 0000 70B5     	 push {r4,r5,r6,lr}
+  39 0002 037E     	 ldrb r3,[r0,#24]
+  40 0004 041C     	 mov r4,r0
+  41 0006 022B     	 cmp r3,#2
+  42 0008 3ED1     	 bne .L5
+  43 000a C068     	 ldr r0,[r0,#12]
+  44 000c A168     	 ldr r1,[r4,#8]
+  45 000e FFF7FEFF 	 bl XMC_VADC_GLOBAL_Init
+  46 0012 251C     	 mov r5,r4
+  47 0014 0026     	 mov r6,#0
+  48              	.L7:
+  49 0016 2B68     	 ldr r3,[r5]
+  50 0018 03CB     	 ldmia r3!,{r0,r1}
+  51 001a FFF7FEFF 	 bl XMC_VADC_GROUP_Init
+  52 001e 2B68     	 ldr r3,[r5]
+  53 0020 0321     	 mov r1,#3
+  54 0022 1868     	 ldr r0,[r3]
+  55 0024 FFF7FEFF 	 bl XMC_VADC_GROUP_SetPowerMode
+  56 0028 2B68     	 ldr r3,[r5]
+  57 002a 1B7A     	 ldrb r3,[r3,#8]
+  58 002c 002B     	 cmp r3,#0
+  59 002e 08D1     	 bne .L6
+  60 0030 301C     	 mov r0,r6
+  61 0032 0122     	 mov r2,#1
+  62 0034 1030     	 add r0,r0,#16
+  63 0036 8240     	 lsl r2,r2,r0
+  64 0038 E368     	 ldr r3,[r4,#12]
+  65 003a 0433     	 add r3,r3,#4
+  66 003c D96F     	 ldr r1,[r3,#124]
+  67 003e 0A43     	 orr r2,r1
+  68 0040 DA67     	 str r2,[r3,#124]
+  69              	.L6:
+  70 0042 F1B2     	 uxtb r1,r6
+  71 0044 2069     	 ldr r0,[r4,#16]
+  72 0046 FFF7FEFF 	 bl XMC_VADC_GLOBAL_SHS_EnableAcceleratedMode
+  73 004a 0022     	 mov r2,#0
+  74 004c 08CD     	 ldmia r5!,{r3}
+  75 004e 5A72     	 strb r2,[r3,#9]
+  76 0050 012E     	 cmp r6,#1
+  77 0052 01D0     	 beq .L14
+  78 0054 0126     	 mov r6,#1
+  79 0056 DEE7     	 b .L7
+  80              	.L14:
+  81 0058 8020     	 mov r0,#128
+  82 005a 2369     	 ldr r3,[r4,#16]
+  83 005c 0B4A     	 ldr r2,.L15
+  84 005e 196C     	 ldr r1,[r3,#64]
+  85 0060 0002     	 lsl r0,r0,#8
+  86 0062 1140     	 and r1,r2
+  87 0064 0143     	 orr r1,r0
+  88 0066 1964     	 str r1,[r3,#64]
+  89 0068 1A6C     	 ldr r2,[r3,#64]
+  90 006a 0949     	 ldr r1,.L15+4
+  91 006c 0243     	 orr r2,r0
+  92 006e 1A64     	 str r2,[r3,#64]
+  93 0070 1A6C     	 ldr r2,[r3,#64]
+  94 0072 0A40     	 and r2,r1
+  95 0074 0243     	 orr r2,r0
+  96 0076 1A64     	 str r2,[r3,#64]
+  97 0078 637E     	 ldrb r3,[r4,#25]
+  98 007a 002B     	 cmp r3,#0
+  99 007c 02D0     	 beq .L8
+ 100 007e E068     	 ldr r0,[r4,#12]
+ 101 0080 FFF7FEFF 	 bl XMC_VADC_GLOBAL_StartupCalibration
+ 102              	.L8:
+ 103 0084 0023     	 mov r3,#0
+ 104 0086 2376     	 strb r3,[r4,#24]
+ 105              	.L5:
+ 106 0088 207E     	 ldrb r0,[r4,#24]
+ 107              	 
+ 108 008a 70BD     	 pop {r4,r5,r6,pc}
+ 109              	.L16:
+ 110              	 .align 2
+ 111              	.L15:
+ 112 008c F07FFFFF 	 .word -32784
+ 113 0090 FFF3FFFF 	 .word -3073
+ 115              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 global_adc.c
+    {standard input}:15     .text.GLOBAL_ADC_GetAppVersion:00000000 $t
+    {standard input}:20     .text.GLOBAL_ADC_GetAppVersion:00000000 GLOBAL_ADC_GetAppVersion
+    {standard input}:29     .text.GLOBAL_ADC_GetAppVersion:00000008 $d
+    {standard input}:32     .text.GLOBAL_ADC_Init:00000000 $t
+    {standard input}:37     .text.GLOBAL_ADC_Init:00000000 GLOBAL_ADC_Init
+    {standard input}:112    .text.GLOBAL_ADC_Init:0000008c $d
+
+UNDEFINED SYMBOLS
+XMC_VADC_GLOBAL_Init
+XMC_VADC_GROUP_Init
+XMC_VADC_GROUP_SetPowerMode
+XMC_VADC_GLOBAL_SHS_EnableAcceleratedMode
+XMC_VADC_GLOBAL_StartupCalibration

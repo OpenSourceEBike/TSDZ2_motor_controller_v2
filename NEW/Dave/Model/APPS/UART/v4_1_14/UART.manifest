@@ -1,0 +1,692 @@
+package Model.APPS.UART.v4_1_14;
+
+/*
+ Copyright (c) 2015-2020, Infineon Technologies AG
+ All rights reserved.
+                      
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+                                       
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+                                       
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                       
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+Version        Date          Description 
+
+  4.0.0       16-Feb-2015   Initial version for DAVEv4
+  4.0.1       20-Feb-2015   Cosmetic improvement in code template
+  4.0.2       24-Apr-2015   1. Optimized manifest and template implementation<br>
+                            2. Added new API for changing baudrate.
+  4.0.4       15-Jun-2015   Added return type for Abort APIs and removed underscore('_') 
+                            from the API name.
+  4.0.6       25-Jun-2015   Protocol event handling improved.
+  4.0.8       01-Jul-2015   Structure name changed from UART_DYNAMIC_t to UART_RUNTIME_t
+  4.0.10      09-Jul-2015   1. Status APIs renamed.
+                            <ul><li>UART_GetProtocolStatus => UART_GetFlagStatus
+                            <li>UART_ClearProtocolStatus => UART_ClearFlag</ul>
+                            2. Removed APIs <ul><li>UART_GetTransmitFIFOStatus, <li>UART_GetReceiveFIFOStatus,
+                            <li>UART_ClearTransmitFIFOStatus, <li>UART_ClearReceiveFIFOStatus</ul>
+  4.1.0       14-Jul-2015   Added DMA and Direct mode support.
+  4.1.2       09-Oct-2015   Productized DMA and Direct mode features.<br>
+  4.1.4       17-Dec-2015   Added support for XMC4300 device series.<br>
+  4.1.6       09-Apr-2016   Added support for transmit port pad class change based on speed.<br>
+                            Added APIs UART_IsTxBusy() and UART_IsRxBusy().<br>
+  4.1.8       04-Jul-2016   Pad signals are exposed to user for external connection with other APPs.<br>
+  4.1.10      09-Sep-2016   Added option to invert input/output data<br>
+                            Added option to select the LSB or MSB first output<br>
+  4.1.12  	  16-Jul-2018   Fix documentation adding UART_AbortReceive() and UART_AbortTransmit()<br>
+  4.1.14      09-Jan-2021   Modified check for minimum XMCLib version. <BR>
+*******************************************************************************/
+
+
+// Import statements
+import ifx.davex.app.manifest.*
+import java.util.regex.Matcher
+
+class  UART extends UART_GUI {
+
+  /*-----------------------Begin : APP Properties-------------------------------------------------------*/
+  /* Note  : UART properties are mandatory and important */
+  /**
+   * APP version
+   * Format: a string with three digit separated by a dot.
+   */
+  def version            = '4.1.14'
+  /**
+   * APP categories declaration.
+   * It is list of strings. Subcategories are separated by slash.
+   * No limits on number of categories and subcategories depth.
+   */
+  def categoriesDescription = ["Communication/General Purpose"]
+
+  /**
+   * Minimum DAVE version required for this APP.
+   * 
+   * It is string with three digit separated by a dot.
+   */
+  def minDaveVersion           = "4.0.0"
+
+  /**
+   * Keywords used by search feature in APPs selection view
+   * 
+   * It is a list of string.
+   */
+  def keywords      = [
+      "Simple Uart",
+      "Communication",
+      "Serial",
+      "USIC",
+      "UART",
+      "ALL"
+  ]
+
+  /** 
+   * softwareIDs is used to declare which devices are compatible with this APP.
+   * It is a map with key a string containing a pattern that shall match the SW id of
+   * the device and as value the minimal version of the APP.
+   */
+  def softwareIDs       = [
+		"XMC4.1.*.*.*":"1.0.0",
+		"XMC4.2.*.*.*":"1.0.0",
+		"XMC4.3.*.*.*":"1.0.0",
+		"XMC4.4.*.*.*":"1.0.0",
+		"XMC4.5.*.*.*":"1.0.0",
+		"XMC4.7.*.*.*":"1.0.0",
+		"XMC4.8.*.*.*":"1.0.0",
+		"XMC1.1.*.*.*":"1.0.0",
+		"XMC1.2.*.*.*":"1.0.0",
+		"XMC1.3.*.*.*":"1.0.0",
+		"XMC1.4.*.*.*":"1.0.0"
+		]
+  /**
+   * Singleton property:
+   * When it is true the APP can be instantiated only once.
+   */
+  def singleton     = false
+  /**
+   * initProvider property
+   * It shall be true to add a call to <AppName>_Init()
+   */
+  def initProvider  = true
+  /**
+   * Deprecated APP
+   * Set it to true to indicate that the APP shall be not used for new projects.
+   */
+  def deprecated    = false
+  /**
+   * Sharable property.
+   * It shall be true to allows multiple APPs to require the same instance of this APP.
+   */
+  def sharable      = false
+
+  /**
+   *  APP function description.
+   */
+  def description = "UART APP configures a USIC channel to perform \ntransmit & receive operations using UART protocol."
+/* ----------------------End: APP Properties----------------------------------------------------------*/
+/*-----------------------Begin : User Variables for hardware resources and virtual signals------------*/    
+  GFloat gfloat_peripheralclock = GFloat(widgetName:"gfloat_peripheralclock")  /* To get the peripheral clock */ 
+
+  MVirtualResourceGroup hwres_usic_ch            /*USIC channel hardware resource*/
+  MVirtualResourceGroup hwres_port_pad_uart_rx   /*Receive pin pad resource*/
+  MVirtualResourceGroup hwres_port_pad_uart_tx   /*Transmit pin pad resource*/
+  MVirtualResourceGroup hwres_nvic_node_tx       /*Transmit interrupt NVIC node*/
+  MVirtualResourceGroup hwres_nvic_node_rx       /*Receive interrupt NVIC node*/
+  MVirtualResourceGroup hwres_nvic_node_error    /*UART protocol interrupt NVIC node*/
+  MVirtualResourceGroup hwres_dma_ch_tx          /*DMA channel resource used for DMA transmit mode*/
+  MVirtualResourceGroup hwres_dma_ch_rx          /*DMA channel resource used for DMA receive mode*/
+  MVirtualResourceGroup hwres_dlr_ch_tx          /*DLR line used for transmit source transfer trigger.*/
+  MVirtualResourceGroup hwres_dlr_ch_rx          /*DLR line used for receive destination transfer trigger.*/
+  MVirtualSignal vs_uart_dx0ins                  /*USIC input stage DX0 input selection DX0INS*/
+  MVirtualSignal vs_uart_dx1ins                  /*USIC input stage DX1 input selection DX1INS, 
+                                                  used for collision detection in half duplex mode*/
+  MVirtualSignal vs_uart_dx3ins                  /*USIC input stage DX3 input selection DX3INS, 
+                                                  used for configuring loopback mode using XMC1000 devices*/
+  MVirtualSignal vs_uart_dout0                   /*USIC output DOUT0 signal*/
+  MVirtualSignal vs_uart_rxpad                   /*Signal representing the receive pad*/
+  MVirtualSignal vs_uart_txpad                   /*Signal representing the transmit pad*/
+  MVirtualSignal vs_uart_std_tx_int              /*Signal representing the standard buffer transmit interrupt*/
+  MVirtualSignal vs_uart_std_rx_int              /*Signal representing the standard buffer receive interrupt*/
+  MVirtualSignal vs_uart_tx_shift_int            /*Signal representing the transmit shift interrupt*/
+  MVirtualSignal vs_uart_rx_start_int            /*Signal representing the receive start interrupt*/
+  MVirtualSignal vs_uart_alt_rx_int              /*Signal representing the standard buffer alternative receive interrupt*/
+  MVirtualSignal vs_uart_proto_specfic_int       /*Signal representing the UART protocol specific event interrupt*/
+  MVirtualSignal vs_uart_fifo_tx_int             /*Signal representing the FIFO transmit buffer interrupt*/
+  MVirtualSignal vs_uart_fifo_tx_err_int         /*Signal representing the transmit FIFO buffer error interrupt*/
+  MVirtualSignal vs_uart_fifo_rx_int             /*Signal representing the FIFO standard receive buffer interrupt*/
+  MVirtualSignal vs_uart_fifo_rx_err_int         /*Signal representing the receive FIFO buffer error interrupt*/
+  MVirtualSignal vs_uart_fifo_alt_rx_int         /*Signal representing the FIFO alternative receive buffer interrupt*/
+  MVirtualSignal vs_interrupt_uart_tx            /*Signal representing the transmit interrupt NVIC input*/
+  MVirtualSignal vs_interrupt_uart_rx            /*Signal representing the receive interrupt NVIC input*/
+  MVirtualSignal vs_interrupt_uart_error         /*Signal representing the protocol interrupt NVIC input*/
+  MVirtualSignal vs_src_trigger_dlr_rx_in        /*Signal representing DLR connection for DMA receive trigger*/
+  MVirtualSignal vs_dst_trigger_dlr_tx_in        /*Signal representing DLR connection for DMA transmit trigger*/
+  MVirtualSignal vs_src_trigger_dlr_rx_out       /*Signal output from the DLR to be connected to the DMA channel*/
+  MVirtualSignal vs_dst_trigger_dlr_tx_out       /*Signal output from the DLR to be connected to the DMA channel*/
+  MVirtualSignal vs_dma_interrupt_tx             /*Signal representing the DMA transfer complete interrupt*/
+  MVirtualSignal vs_dma_interrupt_rx             /*Signal representing the DMA reception complete interrupt*/
+  MVirtualSignal vs_dma_ch_dst_req_tx            /*Signal representing DMA channel destination peripheral request (tx)*/
+  MVirtualSignal vs_dma_ch_src_req_rx            /*Signal representing DMA channel source peripheral request (rx)*/
+  MVirtualSignalRA vsra_gpdma_interrupt          /*Virtual signal from the GLOBAL_DMA APP*/
+  MRequiredApp appres_clock                      /*Consumed clock APP*/
+  MRequiredApp appres_cpu                        /*Consumed CPU APP*/
+  MRequiredApp appres_global_dma                 /*GLOBAL_DMA APP consumed if DMA mode is used*/
+  SolverVariable sv_dma_modules = SolverVariable()  /*Solver variable with the list of DMA modules DMA0 and DMA1*/
+  /*-----------------End : User Variables for hardware resources and virtual signals--------------------*/
+  /*-----------------Begin : APP Constructor and Logic -------------------------------------------------*/
+  public UART(DaveEnv daveEnv) {
+    /* -------------------------------------------------------------- */
+    /*-----------------------Local variables & constants ------------*/
+    /* -------------------------------------------------------------- */
+    boolean isfamily_4x      = false /* Identify if target family is XMC4000 */
+    boolean is_xmc45_device  = false /* Used to identify XMC45 device */
+    boolean is_xmc48_device  = false
+    boolean is_xmc47_device  = false
+    
+    /* -------------------------------------------------------------- */
+    /*----------------------Manifest function references -------------*/
+    /* -------------------------------------------------------------- */ 
+    /*MF variable for operation mode-> Full duplex*/
+    MF is_mode_FullDuplex         = MF({gcombo_oprmode.value == "Full Duplex"}, Boolean)
+    /*MF variable for operation mode-> Half duplex*/
+    MF is_mode_HalfDuplex         = MF({gcombo_oprmode.value == "Half Duplex"}, Boolean)
+    /*MF variable to check if operation mode is full duplex or half duplex but not loopback*/
+    MF is_mode_Full_r_HalfDuplex  = MF({(gcombo_oprmode.value == "Full Duplex") || (gcombo_oprmode.value == "Half Duplex")}, Boolean)
+    MF is_txFIFO_enabled          = MF({((gcheck_enabletxfifo.value) && (gcombo_transmit_mode.value != "DMA"))}, Boolean)
+    MF is_txFIFO_disabled         = MF({((gcheck_enabletxfifo.value == false) || (gcombo_transmit_mode.value == "DMA"))}, Boolean)
+    MF is_rxFIFO_enabled          = MF({((gcheck_enablerxfifo.value) && (gcombo_receive_mode.value != "DMA"))}, Boolean)
+    MF is_rxFIFO_disabled         = MF({((gcheck_enablerxfifo.value == false) || (gcombo_receive_mode.value == "DMA"))}, Boolean)
+    MF is_pinconfig_enabled       = MF({(gcheck_enablepinconfig.value)}, Boolean)
+    MF is_DMA_used                = MF({(gcombo_transmit_mode.value == "DMA") || (gcombo_receive_mode.value == "DMA")}, Boolean)
+    MF is_tx_mode_DMA             = MF({(gcombo_transmit_mode.value == "DMA")}, Boolean)
+    MF is_rx_mode_DMA             = MF({(gcombo_receive_mode.value == "DMA")}, Boolean)
+    MF is_tx_mode_direct          = MF({(gcombo_transmit_mode.value == "Direct")}, Boolean)
+    MF is_rx_mode_direct          = MF({(gcombo_receive_mode.value == "Direct")}, Boolean)
+    /*Check if any error callback function is registered*/
+    MF is_error_check_enabled     = MF({gcheck_receiver_noise.value || gcheck_format_errorbit0.value || gcheck_format_errorbit1.value ||
+                                        gcheck_sync_brk.value || (gcheck_collision.value && (gcombo_oprmode.value == "Half Duplex"))}, Boolean)
+    MF are_errors_disabled        = MF({!(gcheck_receiver_noise.value || gcheck_format_errorbit0.value || gcheck_format_errorbit1.value ||
+                                        gcheck_sync_brk.value || (gcheck_collision.value && (gcombo_oprmode.value == "Half Duplex")))}, Boolean)
+    /*Check if any interrupt is used*/
+    MF is_irq_used                = MF({gcheck_receiver_noise.value || gcheck_format_errorbit0.value || gcheck_format_errorbit1.value ||
+                                        gcheck_sync_brk.value || (gcheck_collision.value && (gcombo_oprmode.value == "Half Duplex")) || 
+                                        (gcombo_transmit_mode.value == "Interrupt") || (gcombo_receive_mode.value == "Interrupt")},Boolean)
+    /*Get the list of pad driver speed classes based on UI selection*/
+    MF speed_class = MF({
+                          if (gcombo_txpinpadconfig.value == "Weak Driver" || gcombo_txpinpadconfig.value == "Medium Driver" || 
+                              gcombo_txpinpadconfig.value == "Don't Care") {
+							  if(gint_actualbuadrate.value < 6000000)
+							  {
+								  ['A1', 'A1+', 'A2']
+							  }
+							  else if((gint_actualbuadrate.value >= 6000000) && (gint_actualbuadrate.value < 25000000))
+							  {
+								  ['A1+', 'A2']
+							  }
+							  else
+							  {
+								  ['A2']
+							  }
+                          }
+                          else if (gcombo_txpinpadconfig.value == "Strong Driver Slow Edge") {
+                             ['A1+']
+                          }
+                          else if (gcombo_txpinpadconfig.value == "Strong Driver Soft Edge") {
+                             ['A1+', 'A2']
+                          }
+                          else {
+                             ['A2']
+                          }
+                        }, List)
+        
+	gcombo_txpinpadconfig.options = MF({
+		if (gint_actualbuadrate.value < 25000000)
+		{
+		  ["Don't Care", "Weak Driver", "Medium Driver", "Strong Driver Soft Edge",
+		   "Strong Driver Slow Edge", "Strong Driver Sharp Edge", "Strong Driver Medium Edge"]
+		}
+		else
+		{
+		  ["Don't Care", "Weak Driver", "Medium Driver", "Strong Driver Soft Edge",
+		   "Strong Driver Sharp Edge", "Strong Driver Medium Edge"]
+		}
+	},List)
+    /* -------------------------------------------------------------- */
+    /* ---------- Target Specific User Variable Initialization ------ */
+    /* -------------------------------------------------------------- */     
+    if (daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+    {    
+        isfamily_4x = true
+        if(daveEnv.project.selectedDevice.deviceId.series == "5")
+        {
+          is_xmc45_device = true
+        }
+        if(daveEnv.project.selectedDevice.deviceId.series == "8")
+        {
+          is_xmc48_device = true
+        }
+        if(daveEnv.project.selectedDevice.deviceId.series == "7")
+        {
+          is_xmc47_device = true
+        }
+    }                
+    /* -------------------------------------------------------------- */
+    /* ------------ APP consumption Block --------------------------- */
+    /* -------------------------------------------------------------- */
+    if(isfamily_4x)
+    {
+      appres_clock =  MRequiredApp("CLOCK_XMC4","Clock APP", RSHARABLE, "4.0.2")
+      appres_cpu = MRequiredApp("CPU_CTRL_XMC4", "CPU APP", RSHARABLE, "4.0.2", is_irq_used)
+      appres_global_dma = MRequiredApp("GLOBAL_DMA", "GLOBAL_DMA APP", RSHARABLE, "4.0.2", is_DMA_used)
+    }
+    else
+    {
+      appres_clock =  MRequiredApp("CLOCK_XMC1","Clock APP", RSHARABLE, "4.0.2")
+      appres_cpu = MRequiredApp("CPU_CTRL_XMC1", "CPU APP", RSHARABLE, "4.0.2", is_irq_used)
+    }
+    
+    /* -------------------------------------------------------------- */
+    /* ------------ Hardware resource consumption block ------------- */
+    /* -------------------------------------------------------------- */
+    hwres_port_pad_uart_rx = MVirtualResourceGroup("Receive Pin", ["port", "p", "*", "pad", "*"], is_mode_FullDuplex)
+    hwres_port_pad_uart_tx = MVirtualResourceGroup("Transmit Pin", ["port", "p", "*", "pad", "*"], is_mode_Full_r_HalfDuplex)
+    hwres_usic_ch = MVirtualResourceGroup("Channel", ["peripheral", "usic", "*", "channel", "*"])
+    hwres_nvic_node_tx = MVirtualResourceGroup("NVIC Node Tx", ["peripheral", "cpu", "0", "nvic", "interrupt", "*"], MF({(gcombo_transmit_mode.value == "Interrupt")}, Boolean))
+    hwres_nvic_node_rx = MVirtualResourceGroup("NVIC Node Rx", ["peripheral", "cpu", "0", "nvic", "interrupt", "*"], MF({(gcombo_receive_mode.value == "Interrupt")}, Boolean))
+    hwres_nvic_node_error = MVirtualResourceGroup("NVIC Node Error", ["peripheral", "cpu", "0", "nvic", "interrupt", "*"], is_error_check_enabled)
+    hwres_dma_ch_tx = MVirtualResourceGroup("DMA channel Tx", ["peripheral", sv_dma_modules, "0", "ch", "*"], is_tx_mode_DMA)
+    hwres_dma_ch_rx = MVirtualResourceGroup("DMA channel Rx", ["peripheral", sv_dma_modules, "0", "ch", "*"], is_rx_mode_DMA)
+    hwres_dlr_ch_tx = MVirtualResourceGroup("DLR channel Tx", ["peripheral", "dlr", "0", "ch", "*"], is_tx_mode_DMA)
+    hwres_dlr_ch_rx = MVirtualResourceGroup("DLR channel Rx", ["peripheral", "dlr", "0", "ch", "*"], is_rx_mode_DMA)
+    if(is_xmc45_device || is_xmc48_device || is_xmc47_device)
+    {
+      addUriElementRangeConstraint(sv_dma_modules, ["dma8", "dma4"])
+    }
+    else
+    {
+      addUriElementRangeConstraint(sv_dma_modules, ["dma8"])
+    }
+    
+    /*Set CCR_HPCEN bitfield to 0 for avoiding any pin hw functionality like HWO and HWI*/
+    addRegisterBitFieldConstraint(hwres_usic_ch, "ccr_hpcen", [0]);
+    /*Set transmit FIFO size to 0 if FIFO not enabled on UI*/
+    addRegisterBitFieldConstraint( hwres_usic_ch, "tbctr_size", [0], is_txFIFO_disabled)
+    /*Set receive FIFO size to 0 if FIFO not enabled on UI*/
+    addRegisterBitFieldConstraint( hwres_usic_ch, "rbctr_size", [0], is_rxFIFO_disabled)
+    /*When FIFO is enabled, set the size based on UI selection. Refer USIC->TBCTR/RBCTR->SIZE bitfield in reference manual*/
+    addRegisterBitFieldConstraint( hwres_usic_ch, "tbctr_size", MF({[gcombo_txfifosize.options.indexOf(gcombo_txfifosize.value) + 1]}, List), is_txFIFO_enabled)
+    addRegisterBitFieldConstraint( hwres_usic_ch, "rbctr_size", MF({[gcombo_rxfifosize.options.indexOf(gcombo_rxfifosize.value) + 1]}, List), is_rxFIFO_enabled)
+    
+    /*For detection of data collision in half duplex mode, DX1 input stage should be connected to DOUT0 by connecting DX1INS to DX1F.*/
+    addRegisterBitFieldConstraint( hwres_usic_ch, "dx1cr_dsel", [5], MF({if((gcheck_collision.value == true) && 
+                                 (gcombo_oprmode.value == "Half Duplex")) return true else return false}, Boolean))
+    /* -------------------------------------------------------------- */
+    /* -------------- APP IO Signals -------------------------------- */
+    /* -------------------------------------------------------------- */
+    vs_uart_dx0ins            =  MVirtualSignal( hwres_usic_ch, "dx0_input_stage", "dx0ins", true, false)
+    vs_uart_dx3ins            =  MVirtualSignal( hwres_usic_ch, "dx3_input_stage","dx3ins", true, false)
+    vs_uart_dout0             =  MVirtualSignal( hwres_usic_ch, "dout0_output","dout0",  true, false)
+    @AddPin
+    vs_uart_rxpad             =  MVirtualSignal( hwres_port_pad_uart_rx, "rxd_pin",  "pad", is_mode_FullDuplex, is_mode_FullDuplex)
+    @AddPin
+    vs_uart_txpad             =  MVirtualSignal( hwres_port_pad_uart_tx, MF({
+			if((gcombo_oprmode.value == "Half Duplex"))
+			{
+				"txd/rxd_pin"
+			}
+			else
+			{
+				"txd_pin"
+			}
+		},String), "pad", is_mode_Full_r_HalfDuplex, is_mode_Full_r_HalfDuplex)
+    vs_uart_std_tx_int        =  MVirtualSignal( hwres_usic_ch, "event_transmit_buffer","transmit_buffer_int", is_txFIFO_disabled, MF({((gcombo_transmit_mode.value == "Direct") && (gcheck_enabletxfifo.value == false))}, Boolean))
+    vs_uart_std_rx_int        =  MVirtualSignal( hwres_usic_ch, "event_std_receive", "standard_receive_int", is_rxFIFO_disabled, MF({((gcombo_receive_mode.value == "Direct") && (gcheck_enablerxfifo.value == false))}, Boolean))
+    vs_uart_alt_rx_int        =  MVirtualSignal( hwres_usic_ch, "event_alt_receive",  "alternate_receive_int", is_rxFIFO_disabled, MF({((gcombo_receive_mode.value == "Direct") && (gcheck_enablerxfifo.value == false))}, Boolean))
+    vs_uart_proto_specfic_int =  MVirtualSignal( hwres_usic_ch, "event_protocol", "protocol_specific_int", true, are_errors_disabled)
+    vs_uart_fifo_tx_int       =  MVirtualSignal( hwres_usic_ch, "event_fifo_transmit","standard_transmit_buffer_int", is_txFIFO_enabled, MF({((gcombo_transmit_mode.value == "Direct") && (gcheck_enabletxfifo.value))}, Boolean))
+    vs_uart_fifo_rx_int       =  MVirtualSignal( hwres_usic_ch, "event_fifo_std_receive", "standard_receive_buffer_int", is_rxFIFO_enabled,MF({((gcombo_receive_mode.value == "Direct") && (gcheck_enablerxfifo.value))}, Boolean))
+    vs_uart_fifo_alt_rx_int   =  MVirtualSignal( hwres_usic_ch, "event_fifo_alt_receive", "alternate_receive_buffer_int", is_rxFIFO_enabled, MF({((gcombo_receive_mode.value == "Direct") && (gcheck_enablerxfifo.value))}, Boolean))
+    vs_interrupt_uart_tx      =  MVirtualSignal( hwres_nvic_node_tx, "sr_transmit", "signal_in", MF({(gcombo_transmit_mode.value == "Interrupt")}, Boolean), false)
+    vs_interrupt_uart_rx      =  MVirtualSignal( hwres_nvic_node_rx, "sr_receive", "signal_in", MF({(gcombo_receive_mode.value == "Interrupt")}, Boolean), false)
+    vs_interrupt_uart_error   =  MVirtualSignal( hwres_nvic_node_error, "sr_protocol_events", "signal_in", is_error_check_enabled, false)
+    vs_dma_interrupt_tx       =  MVirtualSignal( hwres_dma_ch_tx, "DMA Transfer complete event", "dma_int", is_tx_mode_DMA, false)
+    vs_dma_interrupt_rx       =  MVirtualSignal( hwres_dma_ch_rx, "DMA Transfer complete event", "dma_int", is_rx_mode_DMA, false)
+    vs_src_trigger_dlr_rx_in  =  MVirtualSignal( hwres_dlr_ch_rx, "source_trigger","in", is_rx_mode_DMA, false)
+    vs_dst_trigger_dlr_tx_in  =  MVirtualSignal( hwres_dlr_ch_tx, "destination_trigger","in", is_tx_mode_DMA, false)
+    vs_src_trigger_dlr_rx_out =  MVirtualSignal( hwres_dlr_ch_rx, "dlr_out", "out", is_rx_mode_DMA, false)
+    vs_dst_trigger_dlr_tx_out =  MVirtualSignal( hwres_dlr_ch_tx, "dlr_out", "out", is_tx_mode_DMA, false)
+    vs_dma_ch_dst_req_tx      =  MVirtualSignal( hwres_dma_ch_tx, "Destination request", "dest_req", is_tx_mode_DMA, false)
+    vs_dma_ch_src_req_rx      =  MVirtualSignal( hwres_dma_ch_rx, "Source request", "src_req", is_rx_mode_DMA, false)
+    if(isfamily_4x == true)
+    {
+      vsra_gpdma_interrupt      =  MVirtualSignalRA( appres_global_dma, "interrupt_dma")
+    }
+    /* -------------------------------------------------------------- */
+    /* ---------------- APP IO Connections -------------------------- */
+    /* -------------------------------------------------------------- */
+    /*In full duplex mode, receive pin is configured for UART rx function*/
+    addConnectionConstraint( vs_uart_rxpad, vs_uart_dx0ins, is_mode_FullDuplex)
+    /*Transmit pin is used only in full duplex or half duplex modes and not in loopback mode.*/
+    addConnectionConstraint( vs_uart_dout0, vs_uart_txpad, is_mode_Full_r_HalfDuplex)
+    /*Transmit signal and receive signal are interconnected in half duplex mode*/
+    addConnectionConstraint( vs_uart_txpad, vs_uart_dx0ins, is_mode_HalfDuplex)
+
+    addConnectionConstraint( vs_uart_dout0, vs_uart_dx0ins, MF({(gcombo_oprmode.value == "Loop Back")}, Boolean))
+    
+    /*Configure standard buffer interrupt if FIFO not enabled*/
+    addConnectionConstraint(vs_uart_std_tx_int, vs_interrupt_uart_tx, MF({((gcombo_transmit_mode.value == "Interrupt")&&(gcheck_enabletxfifo.value == false))},Boolean))
+    addConnectionConstraint(vs_uart_std_rx_int, vs_interrupt_uart_rx, MF({((gcombo_receive_mode.value == "Interrupt")&&(gcheck_enablerxfifo.value == false))},Boolean))
+    addConnectionConstraint(vs_uart_alt_rx_int, vs_interrupt_uart_rx, MF({((gcombo_receive_mode.value == "Interrupt")&&(gcheck_enablerxfifo.value == false))},Boolean))
+    
+    /*Configure FIFO related interrupt when FIFO is enabled*/
+    addConnectionConstraint(vs_uart_fifo_tx_int, vs_interrupt_uart_tx, MF({((gcombo_transmit_mode.value == "Interrupt")&&(gcheck_enabletxfifo.value))},Boolean))
+    addConnectionConstraint(vs_uart_fifo_rx_int, vs_interrupt_uart_rx, MF({((gcombo_receive_mode.value == "Interrupt")&&(gcheck_enablerxfifo.value))},Boolean))
+    addConnectionConstraint(vs_uart_fifo_alt_rx_int, vs_interrupt_uart_rx, MF({((gcombo_receive_mode.value == "Interrupt")&&(gcheck_enablerxfifo.value))},Boolean))
+    
+    addConnectionConstraint(vs_uart_proto_specfic_int, vs_interrupt_uart_error, is_error_check_enabled)
+    
+    if(isfamily_4x == true)
+    {
+      addConnectionConstraint(vs_uart_std_tx_int, vs_dst_trigger_dlr_tx_in, is_tx_mode_DMA)
+      addConnectionConstraint(vs_uart_std_rx_int, vs_src_trigger_dlr_rx_in, is_rx_mode_DMA)
+      addConnectionConstraint(vs_uart_alt_rx_int, vs_src_trigger_dlr_rx_in, is_rx_mode_DMA)
+      addConnectionConstraint(vs_dma_interrupt_tx, vsra_gpdma_interrupt, is_tx_mode_DMA)
+      addConnectionConstraint(vs_dma_interrupt_rx, vsra_gpdma_interrupt, is_rx_mode_DMA)
+      addConnectionConstraint(vs_dst_trigger_dlr_tx_out, vs_dma_ch_dst_req_tx, is_tx_mode_DMA)
+      addConnectionConstraint(vs_src_trigger_dlr_rx_out, vs_dma_ch_src_req_rx, is_rx_mode_DMA)
+    }
+    
+        
+    /* ------------------------------------------------------------- */
+    /* ------------ APP Configuration ------------------------------ */
+    /* ------------------------------------------------------------- */
+    /* ------ Code for static initial configuration of UI---------- */
+
+    /*Make all callback function warning messages invisible*/    
+    gmessage_tx_callback_empty.visible = false
+    gmessage_rx_callback_empty.visible = false
+    gmessage_sync_empty.visible = false
+    gmessage_frmt_1_empty.visible = false
+    gmessage_frmt_0_empty.visible = false
+    gmessage_rn_empty.visible = false
+    gmessage_collision_callback_empty.visible = false
+
+    if(isfamily_4x)
+    {
+      /*DMA mode is available in XMC4x devices*/
+      gcombo_transmit_mode.options = ["Interrupt","DMA","Direct"]
+      gcombo_receive_mode.options = ["Interrupt","DMA","Direct"]
+      /*Make pad strength configuration visible*/
+      gcombo_txpinpadconfig.visible = true
+      glabel_txpinpadconfig.visible = true
+      /*Hide pin hysteresis configuration*/
+      glabel_hysteresis.visible = false
+      gcombo_hysteresis.visible = false
+      /*Make interrupt subpriority configuration visible*/
+      ginterruptprio_tx.subPriorityVisible = true
+      ginterruptprio_rx.subPriorityVisible = true
+      ginterruptprio_error.subPriorityVisible = true
+      /*Set the default priority value to least priority*/
+      ginterruptprio_tx.priorityValue = 63
+      ginterruptprio_rx.priorityValue = 63
+      ginterruptprio_error.priorityValue = 63
+    }
+    else
+    {
+      /*DMA mode is not available in XMC1x devices*/
+      gcombo_transmit_mode.options = ["Interrupt","Direct"]
+      gcombo_receive_mode.options = ["Interrupt","Direct"]
+      /*Make pin hysteresis configuration visible*/
+      glabel_hysteresis.visible = true
+      gcombo_hysteresis.visible = true
+      /*Hide pad strength configuration*/
+      gcombo_txpinpadconfig.visible = false
+      glabel_txpinpadconfig.visible = false
+      /*Hide interrupt subpriority configuration*/
+      ginterruptprio_tx.subPriorityVisible = false
+      ginterruptprio_rx.subPriorityVisible = false
+      ginterruptprio_error.subPriorityVisible = false      
+      /*Set the default priority and max priority value possible*/
+      ginterruptprio_tx.priorityValue = 3
+      ginterruptprio_tx.maxPriority = 3
+      ginterruptprio_rx.priorityValue = 3
+      ginterruptprio_rx.maxPriority = 3
+      ginterruptprio_error.priorityValue = 3
+      ginterruptprio_error.maxPriority = 3
+    }
+
+    /* ------ Code for dynamic changes based on UI -------- */
+    /*Loopback mode does not consume any pins. So "Pin Settings" tab should not be visible*/
+    gtab_PinConfig.visible     = MF({gcombo_oprmode.value != "Loop Back"}, Boolean)
+    /*Receive pin characteristics should be disabled in half duplex mode.*/
+    ggroup_rxpinconfig.visible = MF({ ((gcheck_enablepinconfig.value == true) && (gcombo_oprmode.value != "Half Duplex"))}, Boolean)
+    ggroup_txpinconfig.visible = is_pinconfig_enabled
+    
+    gcheck_enabletxfifo.enabled = MF({(gcombo_transmit_mode.value != "DMA")}, Boolean)
+    gcombo_txfifosize.enabled  = is_txFIFO_enabled
+    glabel_txfifosize.enabled  = is_txFIFO_enabled
+    
+    gcheck_enablerxfifo.enabled = MF({(gcombo_receive_mode.value != "DMA")}, Boolean)
+    gcombo_rxfifosize.enabled     = is_rxFIFO_enabled
+    glabel_rxfifosize.enabled     = is_rxFIFO_enabled
+    
+    glabel_fifo_note.enabled = MF({(gcheck_enabletxfifo.enabled && gcheck_enablerxfifo.enabled)},Boolean)
+
+    if (isfamily_4x){
+      /*Read the peripheral bus clock to derive maximum baudrate value*/
+      gfloat_peripheralclock.value = MF({appres_clock.getVal(["gfloat_peribusfreq", "value"])}, Float)
+      gint_desiredbaudrate.maxValue = MF({
+        int max_baud 
+        if(gfloat_peripheralclock.value != null)
+        {
+          max_baud = (((gfloat_peripheralclock.value )/(ginteger_oversampling.value)) * (1000000))
+        }
+        else
+        {
+          max_baud = 0
+        }
+        return max_baud
+      },Integer)
+      /*Update maxvalue of actual baudrate widget to avoid out of range value popup on updating the value.*/
+      gint_actualbuadrate.maxValue = MF({gint_desiredbaudrate.maxValue}, Integer)
+      /*Add constraint for the pad class based on the pad strength selected*/
+      addResourcePropertyConstraint(hwres_port_pad_uart_tx, "speed_class of rg_property", speed_class, is_pinconfig_enabled)
+      
+      /*Read maximum value of subpriority from the CPU APP*/
+      MF max_subpriority = MF({
+        if(gcheck_receiver_noise.value || gcheck_format_errorbit0.value || gcheck_format_errorbit1.value ||
+         gcheck_sync_brk.value || ((gcombo_oprmode.value == "Half Duplex") && (gcheck_collision.value)) || 
+         (gcombo_transmit_mode.value == "Interrupt") || (gcombo_receive_mode.value == "Interrupt"))
+        {
+          return appres_cpu.getVal(["gint_maxInterruptSubPriority", "value"])
+        }
+        else
+        {
+          return 0
+        }
+      }, Integer)
+      ginterruptprio_tx.maxSubPriority = max_subpriority
+      ginterruptprio_rx.maxSubPriority = max_subpriority
+      ginterruptprio_error.maxSubPriority = max_subpriority
+      /*Read maximum value of pre-emption priority from the CPU APP*/
+      MF max_priority = MF({
+        if(gcheck_receiver_noise.value || gcheck_format_errorbit0.value || gcheck_format_errorbit1.value ||
+         gcheck_sync_brk.value || ((gcombo_oprmode.value == "Half Duplex") && (gcheck_collision.value)) || 
+         (gcombo_transmit_mode.value == "Interrupt") || (gcombo_receive_mode.value == "Interrupt"))
+        {
+          return appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"])
+        }
+        else
+        {
+          return 63
+        }
+      }, Integer)
+      ginterruptprio_tx.maxPriority = max_priority
+      ginterruptprio_rx.maxPriority = max_priority
+      ginterruptprio_error.maxPriority = max_priority
+    }
+    else
+    {
+      /*Read the MCLK value to derive maximum baudrate value*/
+      gfloat_peripheralclock.value = MF({appres_clock.getVal(["gfloat_mclkactfrq", "value"])}, Float)
+      gint_desiredbaudrate.maxValue = MF({
+        int max_baud
+        if(gfloat_peripheralclock.value != null)
+        {
+          max_baud = (((gfloat_peripheralclock.value )/(ginteger_oversampling.value)) * (1000000))
+        }
+        else
+        {
+          max_baud = 0
+        }
+        return max_baud
+      },Integer)
+      /*Update maxvalue of actual baudrate widget to avoid out of range value popup on updating the value.*/
+      gint_actualbuadrate.maxValue = MF({gint_desiredbaudrate.maxValue}, Integer)
+    }
+    
+    /*Enable collision detection only if the mode is half duplex*/
+    gcheck_collision.visible = is_mode_HalfDuplex
+    gstring_collision.visible = is_mode_HalfDuplex
+    
+    /*Callback registration should be enabled only if the mode is not 'Direct'*/
+    ggroup_transmit_interrupt.enabled = MF({gcombo_transmit_mode.value != "Direct"}, Boolean)
+    ggroup_receive_interrupt.enabled = MF({gcombo_receive_mode.value != "Direct"}, Boolean)
+    /*Interrupt priority configuration should not visible for DMA mode*/
+    ginterruptprio_tx.enabled = MF({gcombo_transmit_mode.value == "Interrupt"}, Boolean)
+    ginterruptprio_rx.enabled = MF({gcombo_receive_mode.value == "Interrupt"}, Boolean)
+    
+    /*Enable the callback function text box if the respective checkbox is enabled*/
+    gstring_tx_callback.enabled = MF({gcheck_tx_callback.value}, Boolean)
+    gstring_rx_callback.enabled = MF({gcheck_rx_callback.value}, Boolean)
+    gstring_collision.enabled = MF({gcheck_collision.value}, Boolean)
+    gstring_receiver_noise.enabled = MF({gcheck_receiver_noise.value}, Boolean)
+    gstring_format_errorbit0.enabled = MF({gcheck_format_errorbit0.value}, Boolean)
+    gstring_format_errorbit1.enabled = MF({gcheck_format_errorbit1.value}, Boolean)
+    gstring_sync_brk.enabled = MF({gcheck_sync_brk.value}, Boolean)
+    
+    /*String for validating the string entered as callback function name*/
+    String fn_regexp = ~/^[^\d\W]\w*\Z/
+    
+    /*Check whether the entered string in callback function field is a valid function name*/
+    gmessage_tx_callback_empty.visible = MF({
+      Matcher matcher_tx = (gstring_tx_callback.value =~ fn_regexp)
+      Boolean ExpressionMatch_tx = !matcher_tx.matches()
+      if(gcheck_tx_callback.value == true){ return ExpressionMatch_tx} else{ return false}},Boolean)
+    gmessage_rx_callback_empty.visible = MF({
+      Matcher matcher_rx = (gstring_rx_callback.value =~ fn_regexp)
+      Boolean ExpressionMatch_rx = !matcher_rx.matches()
+      if(gcheck_rx_callback.value == true){ return ExpressionMatch_rx} else{ return false}},Boolean)
+    gmessage_collision_callback_empty.visible = MF({
+      Matcher matcher_collision = (gstring_collision.value =~ fn_regexp)
+      Boolean ExpressionMatch_collision = !matcher_collision.matches()
+      if(gcheck_collision.value == true){ return ExpressionMatch_collision} else{ return false}},Boolean)
+    gmessage_rn_empty.visible = MF({
+      Matcher matcher_rn = (gstring_receiver_noise.value =~ fn_regexp)
+      Boolean ExpressionMatch_rn = !matcher_rn.matches()
+      if(gcheck_receiver_noise.value == true){ return ExpressionMatch_rn} else{ return false}},Boolean)
+    gmessage_frmt_0_empty.visible = MF({
+      Matcher matcher_frmt_0 = (gstring_format_errorbit0.value =~ fn_regexp)
+      Boolean ExpressionMatch_frmt_0 = !matcher_frmt_0.matches()
+      if(gcheck_format_errorbit0.value == true){ return ExpressionMatch_frmt_0} else{ return false}},Boolean)
+    gmessage_frmt_1_empty.visible = MF({
+      Matcher matcher_frmt_1 = (gstring_format_errorbit1.value =~ fn_regexp)
+      Boolean ExpressionMatch_frmt_1 = !matcher_frmt_1.matches()
+      if(gcheck_format_errorbit1.value == true){ return ExpressionMatch_frmt_1} else{ return false}},Boolean)
+    gmessage_sync_empty.visible = MF({
+      Matcher matcher_sync = (gstring_sync_brk.value =~ fn_regexp)
+      Boolean ExpressionMatch_sync = !matcher_sync.matches()
+      if(gcheck_sync_brk.value == true){ return ExpressionMatch_sync} else{ return false}},Boolean)
+
+    /*--------Derive the actual baudrate based on the formula used in the embedded code for deriving the divider values.-----*/
+    /* The logic used below is based on fractional divider configuration that uses fFD = fPERIPH *(n/1024). 'n' represents the 'step' value
+     * fFD is used by the clock dividers PDIV and DCTQ to obtain the required baudrate. DCTQ is the 'Oversampling' configuration from 
+     * 'Advanced Settings' tab. Baudrate = fFD/((PDIV+1)*(DCTQ+1)).
+     * The logic iterates through the entire range of 'step'[0 to 1023] to check for the PDIV value with least fractional difference between 
+     * the 'Desired baudrate' and the calculated baudrate using dividers. Finally, the value of 'step' and PDIV, that generated the least 
+     * fractional difference with desired baudrate will be chosen for calculating the actual baudrate. */
+    gint_actualbuadrate.value =MF({
+      float peripheral_clock
+      int clock_divider = 1023
+      int clock_divider_min      
+      int pdiv
+      int pdiv_int
+      int pdiv_int_min
+      int pdiv_frac
+      int pdiv_frac_min        
+      int rate
+      int oversampling
+      int calBaud
+      int max_baud = (((gfloat_peripheralclock.value * 1023)/(ginteger_oversampling.value)) * (1000000/1024))
+            
+      if(gint_desiredbaudrate.value > max_baud)
+      {
+        rate = max_baud / 100
+      }
+      else
+      {
+        rate = gint_desiredbaudrate.value / 100
+      }
+      /* The rate and peripheral clock are divide by 100 to be able to use only 32bit arithmetic */
+      peripheral_clock =  (gfloat_peripheralclock.value * 10000)//Integer.parseInt(gfloat_peripheralclock.value * 10000)
+      
+      oversampling = ginteger_oversampling.value;
+    
+      clock_divider_min = 1
+      pdiv_int_min = 1
+      pdiv_frac_min = 1023
+    
+      /*Iterate through the entire range of 'step'[1 to 1023]. 0 disables the clock. So excluded.*/
+      /*Iteration is started with 1023 in decreasing order*/
+      while(clock_divider > 0)
+      {
+        /*Derive value of PDIV using baudrate, clock(fFD), DCTQ and intermediate 'step' value*/
+        pdiv = ((peripheral_clock * clock_divider) / (rate * oversampling))
+        pdiv_int = pdiv >> 10/*Divide by 1024 as used in deriving fFD*/
+        pdiv_frac = pdiv & 1023/*Gives the fraction on dividing by PDIV*/
+    
+        /*Update the values if the fraction is smaller*/
+        if ((pdiv_int < 1024) && (pdiv_frac < pdiv_frac_min))
+        {
+          pdiv_frac_min = pdiv_frac
+          pdiv_int_min = pdiv_int
+          clock_divider_min = clock_divider
+        }
+        clock_divider--
+      }
+      /*Calculate the equivalent baudrate obtained using the divider values and clock*/
+      calBaud = (gfloat_peripheralclock.value * 1000000L * (clock_divider_min))/((oversampling)*1024*(pdiv_int_min))
+                
+      return calBaud
+    },Integer) 
+        /*-------------------End: Baudrate calculation--------------------*/
+  }
+  /*------------------End : APP Constructor and Logic---------------------------------------------------*/
+  /*------------------Begin: File Generation------------------------------------------------------------*/
+  def generateFiles(){
+    copy("uart.c", "uart.c")
+    copy("uart.h", "uart.h")
+    generate("uart_confc.tmpl", "uart_conf.c")
+    generate("uart_confh.tmpl", "uart_conf.h")
+    generate("uart_externh.tmpl", "uart_extern.h")
+  }
+/*------------------End: File Generation--------------------------------------------------------------*/
+}
+

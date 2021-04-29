@@ -1,0 +1,34 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "cpu_ctrl_xmc1_conf.c"
+  14              	 .section .text.SystemCoreSetup,"ax",%progbits
+  15              	 .align 1
+  16              	 .global SystemCoreSetup
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	SystemCoreSetup:
+  21              	 
+  22 0000 7047     	 bx lr
+  24              	 .global CPU_CTRL_XMC1_0
+  25              	 .section .bss.CPU_CTRL_XMC1_0,"aw",%nobits
+  28              	CPU_CTRL_XMC1_0:
+  29 0000 00       	 .space 1
+  30              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 cpu_ctrl_xmc1_conf.c
+    {standard input}:15     .text.SystemCoreSetup:00000000 $t
+    {standard input}:20     .text.SystemCoreSetup:00000000 SystemCoreSetup
+    {standard input}:28     .bss.CPU_CTRL_XMC1_0:00000000 CPU_CTRL_XMC1_0
+    {standard input}:29     .bss.CPU_CTRL_XMC1_0:00000000 $d
+
+NO UNDEFINED SYMBOLS

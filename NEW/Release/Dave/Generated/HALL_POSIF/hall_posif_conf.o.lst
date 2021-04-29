@@ -1,0 +1,225 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "hall_posif_conf.c"
+  14              	 .global HALL_POSIF_0
+  15              	 .global HALL_POSIF_0_Config
+  16              	 .global HALL_POSIF_0_PosifConf
+  17              	 .global HALL_POSIF_0_InitHandle
+  18              	 .global HALL_POSIF_0_capture
+  19              	 .global HALL_POSIF_0_phasedelay
+  20              	 .global HALL_POSIF_0_capture_init
+  21              	 .global HALL_POSIF_0_capture_eventconfig
+  22              	 .global HALL_POSIF_0_phdelay_eventconfig
+  23              	 .global HALL_POSIF_0_phdelaytimer_init
+  24              	 .global HALL_POSIF_0_H1_PadResource
+  25              	 .global HALL_POSIF_0_H2_PadResource
+  26              	 .global HALL_POSIF_0_H3_PadResource
+  27              	 .global HALL_POSIF_0_Hall_PadConfig
+  28              	 .section .data.HALL_POSIF_0_capture,"aw",%progbits
+  29              	 .align 2
+  32              	HALL_POSIF_0_capture:
+  33 0000 00020448 	 .word 1208222208
+  34 0004 00000448 	 .word 1208221696
+  35 0008 10000000 	 .word 16
+  36 000c 01       	 .byte 1
+  37 000d 000000   	 .space 3
+  38              	 .section .data.HALL_POSIF_0_InitHandle,"aw",%progbits
+  39              	 .align 2
+  42              	HALL_POSIF_0_InitHandle:
+  43 0000 10       	 .byte 16
+  44 0001 00       	 .space 1
+  45 0002 00       	 .byte 0
+  46 0003 00       	 .byte 0
+  47              	 .section .data.HALL_POSIF_0_Config,"aw",%progbits
+  48              	 .align 2
+  51              	HALL_POSIF_0_Config:
+  52 0000 00       	 .byte 0
+  53 0001 00       	 .byte 0
+  54 0002 00       	 .byte 0
+  55 0003 00       	 .byte 0
+  56 0004 00       	 .byte 0
+  57 0005 00       	 .byte 0
+  58 0006 00       	 .byte 0
+  59 0007 00       	 .byte 0
+  60 0008 00       	 .byte 0
+  61 0009 00       	 .byte 0
+  62 000a 00       	 .byte 0
+  63 000b 00       	 .byte 0
+  64 000c 00       	 .byte 0
+  65 000d 00       	 .byte 0
+  66 000e 0000     	 .space 2
+  67 0010 00879303 	 .word 60000000
+  68 0014 2202     	 .short 546
+  69 0016 0600     	 .short 6
+  70 0018 0B00     	 .short 11
+  71 001a 00       	 .byte 0
+  72 001b 00       	 .byte 0
+  73 001c 00       	 .byte 0
+  74 001d 00       	 .byte 0
+  75 001e 00       	 .byte 0
+  76 001f 00       	 .space 1
+  77              	 .section .data.HALL_POSIF_0_H1_PadResource,"aw",%progbits
+  78              	 .align 2
+  81              	HALL_POSIF_0_H1_PadResource:
+  82 0000 00010440 	 .word 1074004224
+  83 0004 02       	 .byte 2
+  84 0005 000000   	 .space 3
+  85              	 .section .data.HALL_POSIF_0_capture_eventconfig,"aw",%progbits
+  88              	HALL_POSIF_0_capture_eventconfig:
+  89 0000 05       	 .byte 5
+  90 0001 01       	 .byte 1
+  91 0002 00       	 .byte 0
+  92 0003 00       	 .byte 0
+  93              	 .section .bss.HALL_POSIF_0_PosifConf,"aw",%nobits
+  94              	 .align 2
+  97              	HALL_POSIF_0_PosifConf:
+  98 0000 00000000 	 .space 4
+  99              	 .section .data.HALL_POSIF_0_Hall_PadConfig,"aw",%progbits
+ 100              	 .align 2
+ 103              	HALL_POSIF_0_Hall_PadConfig:
+ 104 0000 00       	 .byte 0
+ 105 0001 00       	 .byte 0
+ 106 0002 0000     	 .space 2
+ 107 0004 00000100 	 .word 65536
+ 108              	 .section .data.HALL_POSIF_0_capture_init,"aw",%progbits
+ 109              	 .align 2
+ 112              	HALL_POSIF_0_capture_init:
+ 113 0000 20       	 .byte 32
+ 114 0001 00       	 .byte 0
+ 115 0002 0000     	 .space 2
+ 116 0004 00000000 	 .space 4
+ 117              	 .section .data.HALL_POSIF_0_phdelay_eventconfig,"aw",%progbits
+ 120              	HALL_POSIF_0_phdelay_eventconfig:
+ 121 0000 04       	 .byte 4
+ 122 0001 01       	 .byte 1
+ 123 0002 00       	 .byte 0
+ 124 0003 00       	 .byte 0
+ 125              	 .section .data.HALL_POSIF_0,"aw",%progbits
+ 126              	 .align 2
+ 129              	HALL_POSIF_0:
+ 130 0000 00000000 	 .word 0
+ 131 0004 00000000 	 .space 20
+ 131      00000000 
+ 131      00000000 
+ 131      00000000 
+ 131      00000000 
+ 132 0018 00       	 .byte 0
+ 133 0019 19       	 .byte 25
+ 134 001a 32       	 .byte 50
+ 135 001b 13       	 .byte 19
+ 136 001c 2C       	 .byte 44
+ 137 001d 0D       	 .byte 13
+ 138 001e 26       	 .byte 38
+ 139 001f 00       	 .byte 0
+ 140 0020 00       	 .byte 0
+ 141 0021 29       	 .byte 41
+ 142 0022 1A       	 .byte 26
+ 143 0023 0B       	 .byte 11
+ 144 0024 34       	 .byte 52
+ 145 0025 25       	 .byte 37
+ 146 0026 16       	 .byte 22
+ 147 0027 00       	 .byte 0
+ 148 0028 00000000 	 .word HALL_POSIF_0_H1_PadResource
+ 149 002c 00000000 	 .word HALL_POSIF_0_H2_PadResource
+ 150 0030 00000000 	 .word HALL_POSIF_0_H3_PadResource
+ 151 0034 00000000 	 .word HALL_POSIF_0_phdelaytimer_init
+ 152 0038 00000000 	 .word HALL_POSIF_0_capture_init
+ 153 003c 00000150 	 .word 1342242816
+ 154 0040 00000000 	 .word HALL_POSIF_0_Config
+ 155 0044 00000000 	 .word HALL_POSIF_0_InitHandle
+ 156 0048 00000000 	 .word HALL_POSIF_0_PosifConf
+ 157 004c 00000000 	 .word HALL_POSIF_0_phasedelay
+ 158 0050 00000000 	 .word HALL_POSIF_0_capture
+ 159 0054 00000000 	 .word HALL_POSIF_0_phdelay_eventconfig
+ 160 0058 00000000 	 .word HALL_POSIF_0_capture_eventconfig
+ 161 005c 00000000 	 .word HALL_POSIF_0_Hall_PadConfig
+ 162 0060 00000000 	 .word GLOBAL_POSIF_0
+ 163 0064 38000000 	 .word 56
+ 164 0068 00000000 	 .word GLOBAL_CCU4_0
+ 165 006c 00       	 .byte 0
+ 166 006d 000000   	 .space 3
+ 167 0070 00000000 	 .word 0
+ 168 0074 00000000 	 .word 0
+ 169 0078 00       	 .byte 0
+ 170 0079 000000   	 .space 3
+ 171 007c 00000000 	 .word 0
+ 172 0080 FF7F0000 	 .word 32767
+ 173 0084 00       	 .byte 0
+ 174 0085 00       	 .space 1
+ 175 0086 2202     	 .short 546
+ 176 0088 0000     	 .short 0
+ 177 008a 00       	 .byte 0
+ 178 008b 00       	 .byte 0
+ 179              	 .section .data.HALL_POSIF_0_phasedelay,"aw",%progbits
+ 180              	 .align 2
+ 183              	HALL_POSIF_0_phasedelay:
+ 184 0000 00010448 	 .word 1208221952
+ 185 0004 00000448 	 .word 1208221696
+ 186 0008 01000000 	 .word 1
+ 187 000c 00       	 .byte 0
+ 188 000d 000000   	 .space 3
+ 189              	 .section .data.HALL_POSIF_0_H3_PadResource,"aw",%progbits
+ 190              	 .align 2
+ 193              	HALL_POSIF_0_H3_PadResource:
+ 194 0000 00010440 	 .word 1074004224
+ 195 0004 00       	 .byte 0
+ 196 0005 000000   	 .space 3
+ 197              	 .section .data.HALL_POSIF_0_H2_PadResource,"aw",%progbits
+ 198              	 .align 2
+ 201              	HALL_POSIF_0_H2_PadResource:
+ 202 0000 00010440 	 .word 1074004224
+ 203 0004 01       	 .byte 1
+ 204 0005 000000   	 .space 3
+ 205              	 .section .data.HALL_POSIF_0_phdelaytimer_init,"aw",%progbits
+ 206              	 .align 2
+ 209              	HALL_POSIF_0_phdelaytimer_init:
+ 210 0000 06       	 .byte 6
+ 211 0001 00       	 .byte 0
+ 212 0002 00       	 .byte 0
+ 213 0003 00       	 .byte 0
+ 214 0004 06       	 .byte 6
+ 215 0005 00       	 .byte 0
+ 216 0006 0000     	 .space 2
+ 217              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 hall_posif_conf.c
+    {standard input}:129    .data.HALL_POSIF_0:00000000 HALL_POSIF_0
+    {standard input}:51     .data.HALL_POSIF_0_Config:00000000 HALL_POSIF_0_Config
+    {standard input}:97     .bss.HALL_POSIF_0_PosifConf:00000000 HALL_POSIF_0_PosifConf
+    {standard input}:42     .data.HALL_POSIF_0_InitHandle:00000000 HALL_POSIF_0_InitHandle
+    {standard input}:32     .data.HALL_POSIF_0_capture:00000000 HALL_POSIF_0_capture
+    {standard input}:183    .data.HALL_POSIF_0_phasedelay:00000000 HALL_POSIF_0_phasedelay
+    {standard input}:112    .data.HALL_POSIF_0_capture_init:00000000 HALL_POSIF_0_capture_init
+    {standard input}:88     .data.HALL_POSIF_0_capture_eventconfig:00000000 HALL_POSIF_0_capture_eventconfig
+    {standard input}:120    .data.HALL_POSIF_0_phdelay_eventconfig:00000000 HALL_POSIF_0_phdelay_eventconfig
+    {standard input}:209    .data.HALL_POSIF_0_phdelaytimer_init:00000000 HALL_POSIF_0_phdelaytimer_init
+    {standard input}:81     .data.HALL_POSIF_0_H1_PadResource:00000000 HALL_POSIF_0_H1_PadResource
+    {standard input}:201    .data.HALL_POSIF_0_H2_PadResource:00000000 HALL_POSIF_0_H2_PadResource
+    {standard input}:193    .data.HALL_POSIF_0_H3_PadResource:00000000 HALL_POSIF_0_H3_PadResource
+    {standard input}:103    .data.HALL_POSIF_0_Hall_PadConfig:00000000 HALL_POSIF_0_Hall_PadConfig
+    {standard input}:29     .data.HALL_POSIF_0_capture:00000000 $d
+    {standard input}:39     .data.HALL_POSIF_0_InitHandle:00000000 $d
+    {standard input}:48     .data.HALL_POSIF_0_Config:00000000 $d
+    {standard input}:78     .data.HALL_POSIF_0_H1_PadResource:00000000 $d
+    {standard input}:94     .bss.HALL_POSIF_0_PosifConf:00000000 $d
+    {standard input}:100    .data.HALL_POSIF_0_Hall_PadConfig:00000000 $d
+    {standard input}:109    .data.HALL_POSIF_0_capture_init:00000000 $d
+    {standard input}:126    .data.HALL_POSIF_0:00000000 $d
+    {standard input}:180    .data.HALL_POSIF_0_phasedelay:00000000 $d
+    {standard input}:190    .data.HALL_POSIF_0_H3_PadResource:00000000 $d
+    {standard input}:198    .data.HALL_POSIF_0_H2_PadResource:00000000 $d
+    {standard input}:206    .data.HALL_POSIF_0_phdelaytimer_init:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_POSIF_0
+GLOBAL_CCU4_0

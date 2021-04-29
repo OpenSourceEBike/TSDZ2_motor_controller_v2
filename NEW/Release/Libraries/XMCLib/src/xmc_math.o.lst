@@ -1,0 +1,756 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "xmc_math.c"
+  14              	 .section .text.XMC_MATH_DIV_IsBusy,"ax",%progbits
+  15              	 .align 1
+  16              	 .global XMC_MATH_DIV_IsBusy
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	XMC_MATH_DIV_IsBusy:
+  21 0000 024B     	 ldr r3,.L2
+  22              	 
+  23 0002 186B     	 ldr r0,[r3,#48]
+  24 0004 0123     	 mov r3,#1
+  25 0006 1840     	 and r0,r3
+  26 0008 7047     	 bx lr
+  27              	.L3:
+  28 000a C046     	 .align 2
+  29              	.L2:
+  30 000c 00000340 	 .word 1073938432
+  32              	 .section .text.XMC_MATH_CORDIC_IsBusy,"ax",%progbits
+  33              	 .align 1
+  34              	 .global XMC_MATH_CORDIC_IsBusy
+  35              	 .code 16
+  36              	 .thumb_func
+  38              	XMC_MATH_CORDIC_IsBusy:
+  39 0000 024B     	 ldr r3,.L5
+  40              	 
+  41 0002 186C     	 ldr r0,[r3,#64]
+  42 0004 0123     	 mov r3,#1
+  43 0006 1840     	 and r0,r3
+  44 0008 7047     	 bx lr
+  45              	.L6:
+  46 000a C046     	 .align 2
+  47              	.L5:
+  48 000c 00000340 	 .word 1073938432
+  50              	 .section .text.XMC_MATH_GetEventStatus,"ax",%progbits
+  51              	 .align 1
+  52              	 .global XMC_MATH_GetEventStatus
+  53              	 .code 16
+  54              	 .thumb_func
+  56              	XMC_MATH_GetEventStatus:
+  57 0000 034B     	 ldr r3,.L8
+  58              	 
+  59 0002 1B69     	 ldr r3,[r3,#16]
+  60 0004 1840     	 and r0,r3
+  61 0006 431E     	 sub r3,r0,#1
+  62 0008 9841     	 sbc r0,r0,r3
+  63 000a C0B2     	 uxtb r0,r0
+  64 000c 7047     	 bx lr
+  65              	.L9:
+  66 000e C046     	 .align 2
+  67              	.L8:
+  68 0010 00000340 	 .word 1073938432
+  70              	 .section .text.__aeabi_uidiv,"ax",%progbits
+  71              	 .align 1
+  72              	 .global __aeabi_uidiv
+  73              	 .code 16
+  74              	 .thumb_func
+  76              	__aeabi_uidiv:
+  77 0000 10B5     	 push {r4,lr}
+  78              	
+  79 0002 EFF31082 	 MRS r2,primask
+  80              	
+  81              	
+  82 0006 72B6     	 cpsid i
+  83              	
+  84              	 .code 16
+  85 0008 0424     	 mov r4,#4
+  86 000a 044B     	 ldr r3,.L11
+  87 000c 5C63     	 str r4,[r3,#52]
+  88 000e 1862     	 str r0,[r3,#32]
+  89 0010 5962     	 str r1,[r3,#36]
+  90 0012 986A     	 ldr r0,[r3,#40]
+  91              	
+  92 0014 82F31088 	 MSR primask,r2
+  93              	
+  94              	 .code 16
+  95              	 
+  96 0018 10BD     	 pop {r4,pc}
+  97              	.L12:
+  98 001a C046     	 .align 2
+  99              	.L11:
+ 100 001c 00000340 	 .word 1073938432
+ 102              	 .section .text.__aeabi_idiv,"ax",%progbits
+ 103              	 .align 1
+ 104              	 .global __aeabi_idiv
+ 105              	 .code 16
+ 106              	 .thumb_func
+ 108              	__aeabi_idiv:
+ 109 0000 10B5     	 push {r4,lr}
+ 110              	
+ 111 0002 EFF31082 	 MRS r2,primask
+ 112              	
+ 113              	
+ 114 0006 72B6     	 cpsid i
+ 115              	
+ 116              	 .code 16
+ 117 0008 0024     	 mov r4,#0
+ 118 000a 044B     	 ldr r3,.L14
+ 119 000c 5C63     	 str r4,[r3,#52]
+ 120 000e 1862     	 str r0,[r3,#32]
+ 121 0010 5962     	 str r1,[r3,#36]
+ 122 0012 986A     	 ldr r0,[r3,#40]
+ 123              	
+ 124 0014 82F31088 	 MSR primask,r2
+ 125              	
+ 126              	 .code 16
+ 127              	 
+ 128 0018 10BD     	 pop {r4,pc}
+ 129              	.L15:
+ 130 001a C046     	 .align 2
+ 131              	.L14:
+ 132 001c 00000340 	 .word 1073938432
+ 134              	 .section .text.__aeabi_uidivmod,"ax",%progbits
+ 135              	 .align 1
+ 136              	 .global __aeabi_uidivmod
+ 137              	 .code 16
+ 138              	 .thumb_func
+ 140              	__aeabi_uidivmod:
+ 141 0000 10B5     	 push {r4,lr}
+ 142              	
+ 143 0002 EFF31082 	 MRS r2,primask
+ 144              	
+ 145              	
+ 146 0006 72B6     	 cpsid i
+ 147              	
+ 148              	 .code 16
+ 149 0008 0424     	 mov r4,#4
+ 150 000a 044B     	 ldr r3,.L17
+ 151 000c 5C63     	 str r4,[r3,#52]
+ 152 000e 1862     	 str r0,[r3,#32]
+ 153 0010 5962     	 str r1,[r3,#36]
+ 154 0012 D96A     	 ldr r1,[r3,#44]
+ 155 0014 986A     	 ldr r0,[r3,#40]
+ 156              	
+ 157 0016 82F31088 	 MSR primask,r2
+ 158              	
+ 159              	 .code 16
+ 160              	 
+ 161 001a 10BD     	 pop {r4,pc}
+ 162              	.L18:
+ 163              	 .align 2
+ 164              	.L17:
+ 165 001c 00000340 	 .word 1073938432
+ 167              	 .section .text.__aeabi_idivmod,"ax",%progbits
+ 168              	 .align 1
+ 169              	 .global __aeabi_idivmod
+ 170              	 .code 16
+ 171              	 .thumb_func
+ 173              	__aeabi_idivmod:
+ 174 0000 10B5     	 push {r4,lr}
+ 175              	
+ 176 0002 EFF31082 	 MRS r2,primask
+ 177              	
+ 178              	
+ 179 0006 72B6     	 cpsid i
+ 180              	
+ 181              	 .code 16
+ 182 0008 0024     	 mov r4,#0
+ 183 000a 044B     	 ldr r3,.L20
+ 184 000c 5C63     	 str r4,[r3,#52]
+ 185 000e 1862     	 str r0,[r3,#32]
+ 186 0010 5962     	 str r1,[r3,#36]
+ 187 0012 D96A     	 ldr r1,[r3,#44]
+ 188 0014 986A     	 ldr r0,[r3,#40]
+ 189              	
+ 190 0016 82F31088 	 MSR primask,r2
+ 191              	
+ 192              	 .code 16
+ 193              	 
+ 194 001a 10BD     	 pop {r4,pc}
+ 195              	.L21:
+ 196              	 .align 2
+ 197              	.L20:
+ 198 001c 00000340 	 .word 1073938432
+ 200              	 .section .text.XMC_MATH_CORDIC_Cos,"ax",%progbits
+ 201              	 .align 1
+ 202              	 .global XMC_MATH_CORDIC_Cos
+ 203              	 .code 16
+ 204              	 .thumb_func
+ 206              	XMC_MATH_CORDIC_Cos:
+ 207 0000 0022     	 mov r2,#0
+ 208 0002 0A21     	 mov r1,#10
+ 209 0004 054B     	 ldr r3,.L23
+ 210 0006 0002     	 lsl r0,r0,#8
+ 211 0008 1A64     	 str r2,[r3,#64]
+ 212 000a 5964     	 str r1,[r3,#68]
+ 213 000c 1865     	 str r0,[r3,#80]
+ 214 000e DA64     	 str r2,[r3,#76]
+ 215 0010 034A     	 ldr r2,.L23+4
+ 216              	 
+ 217 0012 9A64     	 str r2,[r3,#72]
+ 218 0014 586D     	 ldr r0,[r3,#84]
+ 219 0016 0012     	 asr r0,r0,#8
+ 220 0018 7047     	 bx lr
+ 221              	.L24:
+ 222 001a C046     	 .align 2
+ 223              	.L23:
+ 224 001c 00000340 	 .word 1073938432
+ 225 0020 0076BA4D 	 .word 1304065536
+ 227              	 .section .text.XMC_MATH_CORDIC_Sin,"ax",%progbits
+ 228              	 .align 1
+ 229              	 .global XMC_MATH_CORDIC_Sin
+ 230              	 .code 16
+ 231              	 .thumb_func
+ 233              	XMC_MATH_CORDIC_Sin:
+ 234 0000 0022     	 mov r2,#0
+ 235 0002 0A21     	 mov r1,#10
+ 236 0004 054B     	 ldr r3,.L26
+ 237 0006 0002     	 lsl r0,r0,#8
+ 238 0008 1A64     	 str r2,[r3,#64]
+ 239 000a 5964     	 str r1,[r3,#68]
+ 240 000c 1865     	 str r0,[r3,#80]
+ 241 000e DA64     	 str r2,[r3,#76]
+ 242 0010 034A     	 ldr r2,.L26+4
+ 243              	 
+ 244 0012 9A64     	 str r2,[r3,#72]
+ 245 0014 986D     	 ldr r0,[r3,#88]
+ 246 0016 0012     	 asr r0,r0,#8
+ 247 0018 7047     	 bx lr
+ 248              	.L27:
+ 249 001a C046     	 .align 2
+ 250              	.L26:
+ 251 001c 00000340 	 .word 1073938432
+ 252 0020 0076BA4D 	 .word 1304065536
+ 254              	 .section .text.XMC_MATH_CORDIC_Tan,"ax",%progbits
+ 255              	 .align 1
+ 256              	 .global XMC_MATH_CORDIC_Tan
+ 257              	 .code 16
+ 258              	 .thumb_func
+ 260              	XMC_MATH_CORDIC_Tan:
+ 261 0000 1C22     	 mov r2,#28
+ 262 0002 084B     	 ldr r3,.L29
+ 263 0004 0A21     	 mov r1,#10
+ 264 0006 5A60     	 str r2,[r3,#4]
+ 265 0008 B022     	 mov r2,#176
+ 266 000a 1205     	 lsl r2,r2,#20
+ 267 000c 5A63     	 str r2,[r3,#52]
+ 268 000e 0022     	 mov r2,#0
+ 269 0010 0002     	 lsl r0,r0,#8
+ 270 0012 1A64     	 str r2,[r3,#64]
+ 271 0014 5964     	 str r1,[r3,#68]
+ 272 0016 1865     	 str r0,[r3,#80]
+ 273 0018 DA64     	 str r2,[r3,#76]
+ 274 001a 034A     	 ldr r2,.L29+4
+ 275              	 
+ 276 001c 9A64     	 str r2,[r3,#72]
+ 277 001e 986A     	 ldr r0,[r3,#40]
+ 278 0020 7047     	 bx lr
+ 279              	.L30:
+ 280 0022 C046     	 .align 2
+ 281              	.L29:
+ 282 0024 00000340 	 .word 1073938432
+ 283 0028 0076BA4D 	 .word 1304065536
+ 285              	 .section .text.XMC_MATH_CORDIC_ArcTan,"ax",%progbits
+ 286              	 .align 1
+ 287              	 .global XMC_MATH_CORDIC_ArcTan
+ 288              	 .code 16
+ 289              	 .thumb_func
+ 291              	XMC_MATH_CORDIC_ArcTan:
+ 292 0000 10B5     	 push {r4,lr}
+ 293 0002 0022     	 mov r2,#0
+ 294 0004 0224     	 mov r4,#2
+ 295 0006 054B     	 ldr r3,.L32
+ 296 0008 0902     	 lsl r1,r1,#8
+ 297 000a 0002     	 lsl r0,r0,#8
+ 298 000c 1A64     	 str r2,[r3,#64]
+ 299 000e 5C64     	 str r4,[r3,#68]
+ 300 0010 1A65     	 str r2,[r3,#80]
+ 301 0012 D964     	 str r1,[r3,#76]
+ 302 0014 9864     	 str r0,[r3,#72]
+ 303 0016 D86D     	 ldr r0,[r3,#92]
+ 304              	 
+ 305 0018 0012     	 asr r0,r0,#8
+ 306 001a 10BD     	 pop {r4,pc}
+ 307              	.L33:
+ 308              	 .align 2
+ 309              	.L32:
+ 310 001c 00000340 	 .word 1073938432
+ 312              	 .section .text.XMC_MATH_CORDIC_Cosh,"ax",%progbits
+ 313              	 .align 1
+ 314              	 .global XMC_MATH_CORDIC_Cosh
+ 315              	 .code 16
+ 316              	 .thumb_func
+ 318              	XMC_MATH_CORDIC_Cosh:
+ 319 0000 0022     	 mov r2,#0
+ 320 0002 0E21     	 mov r1,#14
+ 321 0004 054B     	 ldr r3,.L35
+ 322 0006 0002     	 lsl r0,r0,#8
+ 323 0008 1A64     	 str r2,[r3,#64]
+ 324 000a 5964     	 str r1,[r3,#68]
+ 325 000c 1865     	 str r0,[r3,#80]
+ 326 000e DA64     	 str r2,[r3,#76]
+ 327 0010 034A     	 ldr r2,.L35+4
+ 328              	 
+ 329 0012 9A64     	 str r2,[r3,#72]
+ 330 0014 586D     	 ldr r0,[r3,#84]
+ 331 0016 0012     	 asr r0,r0,#8
+ 332 0018 7047     	 bx lr
+ 333              	.L36:
+ 334 001a C046     	 .align 2
+ 335              	.L35:
+ 336 001c 00000340 	 .word 1073938432
+ 337 0020 00A1474D 	 .word 1296539904
+ 339              	 .section .text.XMC_MATH_CORDIC_Sinh,"ax",%progbits
+ 340              	 .align 1
+ 341              	 .global XMC_MATH_CORDIC_Sinh
+ 342              	 .code 16
+ 343              	 .thumb_func
+ 345              	XMC_MATH_CORDIC_Sinh:
+ 346 0000 0022     	 mov r2,#0
+ 347 0002 0E21     	 mov r1,#14
+ 348 0004 054B     	 ldr r3,.L38
+ 349 0006 0002     	 lsl r0,r0,#8
+ 350 0008 1A64     	 str r2,[r3,#64]
+ 351 000a 5964     	 str r1,[r3,#68]
+ 352 000c 1865     	 str r0,[r3,#80]
+ 353 000e DA64     	 str r2,[r3,#76]
+ 354 0010 034A     	 ldr r2,.L38+4
+ 355              	 
+ 356 0012 9A64     	 str r2,[r3,#72]
+ 357 0014 986D     	 ldr r0,[r3,#88]
+ 358 0016 0012     	 asr r0,r0,#8
+ 359 0018 7047     	 bx lr
+ 360              	.L39:
+ 361 001a C046     	 .align 2
+ 362              	.L38:
+ 363 001c 00000340 	 .word 1073938432
+ 364 0020 00A1474D 	 .word 1296539904
+ 366              	 .section .text.XMC_MATH_CORDIC_Tanh,"ax",%progbits
+ 367              	 .align 1
+ 368              	 .global XMC_MATH_CORDIC_Tanh
+ 369              	 .code 16
+ 370              	 .thumb_func
+ 372              	XMC_MATH_CORDIC_Tanh:
+ 373 0000 1C22     	 mov r2,#28
+ 374 0002 084B     	 ldr r3,.L41
+ 375 0004 0E21     	 mov r1,#14
+ 376 0006 5A60     	 str r2,[r3,#4]
+ 377 0008 B022     	 mov r2,#176
+ 378 000a 1205     	 lsl r2,r2,#20
+ 379 000c 5A63     	 str r2,[r3,#52]
+ 380 000e 0022     	 mov r2,#0
+ 381 0010 0002     	 lsl r0,r0,#8
+ 382 0012 1A64     	 str r2,[r3,#64]
+ 383 0014 5964     	 str r1,[r3,#68]
+ 384 0016 1865     	 str r0,[r3,#80]
+ 385 0018 DA64     	 str r2,[r3,#76]
+ 386 001a 034A     	 ldr r2,.L41+4
+ 387              	 
+ 388 001c 9A64     	 str r2,[r3,#72]
+ 389 001e 986A     	 ldr r0,[r3,#40]
+ 390 0020 7047     	 bx lr
+ 391              	.L42:
+ 392 0022 C046     	 .align 2
+ 393              	.L41:
+ 394 0024 00000340 	 .word 1073938432
+ 395 0028 00A1474D 	 .word 1296539904
+ 397              	 .section .text.XMC_MATH_CORDIC_CosNB,"ax",%progbits
+ 398              	 .align 1
+ 399              	 .global XMC_MATH_CORDIC_CosNB
+ 400              	 .code 16
+ 401              	 .thumb_func
+ 403              	XMC_MATH_CORDIC_CosNB:
+ 404 0000 0022     	 mov r2,#0
+ 405 0002 0A21     	 mov r1,#10
+ 406 0004 044B     	 ldr r3,.L44
+ 407 0006 0002     	 lsl r0,r0,#8
+ 408 0008 1A64     	 str r2,[r3,#64]
+ 409 000a 5964     	 str r1,[r3,#68]
+ 410 000c 1865     	 str r0,[r3,#80]
+ 411 000e DA64     	 str r2,[r3,#76]
+ 412 0010 024A     	 ldr r2,.L44+4
+ 413              	 
+ 414 0012 9A64     	 str r2,[r3,#72]
+ 415 0014 7047     	 bx lr
+ 416              	.L45:
+ 417 0016 C046     	 .align 2
+ 418              	.L44:
+ 419 0018 00000340 	 .word 1073938432
+ 420 001c 0076BA4D 	 .word 1304065536
+ 422              	 .section .text.XMC_MATH_CORDIC_SinNB,"ax",%progbits
+ 423              	 .align 1
+ 424              	 .global XMC_MATH_CORDIC_SinNB
+ 425              	 .code 16
+ 426              	 .thumb_func
+ 428              	XMC_MATH_CORDIC_SinNB:
+ 429 0000 0022     	 mov r2,#0
+ 430 0002 0A21     	 mov r1,#10
+ 431 0004 044B     	 ldr r3,.L47
+ 432 0006 0002     	 lsl r0,r0,#8
+ 433 0008 1A64     	 str r2,[r3,#64]
+ 434 000a 5964     	 str r1,[r3,#68]
+ 435 000c 1865     	 str r0,[r3,#80]
+ 436 000e DA64     	 str r2,[r3,#76]
+ 437 0010 024A     	 ldr r2,.L47+4
+ 438              	 
+ 439 0012 9A64     	 str r2,[r3,#72]
+ 440 0014 7047     	 bx lr
+ 441              	.L48:
+ 442 0016 C046     	 .align 2
+ 443              	.L47:
+ 444 0018 00000340 	 .word 1073938432
+ 445 001c 0076BA4D 	 .word 1304065536
+ 447              	 .section .text.XMC_MATH_CORDIC_TanNB,"ax",%progbits
+ 448              	 .align 1
+ 449              	 .global XMC_MATH_CORDIC_TanNB
+ 450              	 .code 16
+ 451              	 .thumb_func
+ 453              	XMC_MATH_CORDIC_TanNB:
+ 454 0000 1C22     	 mov r2,#28
+ 455 0002 074B     	 ldr r3,.L50
+ 456 0004 0A21     	 mov r1,#10
+ 457 0006 5A60     	 str r2,[r3,#4]
+ 458 0008 B022     	 mov r2,#176
+ 459 000a 1205     	 lsl r2,r2,#20
+ 460 000c 5A63     	 str r2,[r3,#52]
+ 461 000e 0022     	 mov r2,#0
+ 462 0010 0002     	 lsl r0,r0,#8
+ 463 0012 1A64     	 str r2,[r3,#64]
+ 464 0014 5964     	 str r1,[r3,#68]
+ 465 0016 1865     	 str r0,[r3,#80]
+ 466 0018 DA64     	 str r2,[r3,#76]
+ 467 001a 024A     	 ldr r2,.L50+4
+ 468              	 
+ 469 001c 9A64     	 str r2,[r3,#72]
+ 470 001e 7047     	 bx lr
+ 471              	.L51:
+ 472              	 .align 2
+ 473              	.L50:
+ 474 0020 00000340 	 .word 1073938432
+ 475 0024 0076BA4D 	 .word 1304065536
+ 477              	 .section .text.XMC_MATH_CORDIC_ArcTanNB,"ax",%progbits
+ 478              	 .align 1
+ 479              	 .global XMC_MATH_CORDIC_ArcTanNB
+ 480              	 .code 16
+ 481              	 .thumb_func
+ 483              	XMC_MATH_CORDIC_ArcTanNB:
+ 484 0000 10B5     	 push {r4,lr}
+ 485 0002 0022     	 mov r2,#0
+ 486 0004 0224     	 mov r4,#2
+ 487 0006 044B     	 ldr r3,.L53
+ 488 0008 0902     	 lsl r1,r1,#8
+ 489 000a 0002     	 lsl r0,r0,#8
+ 490 000c 1A64     	 str r2,[r3,#64]
+ 491              	 
+ 492 000e 5C64     	 str r4,[r3,#68]
+ 493 0010 1A65     	 str r2,[r3,#80]
+ 494 0012 D964     	 str r1,[r3,#76]
+ 495 0014 9864     	 str r0,[r3,#72]
+ 496 0016 10BD     	 pop {r4,pc}
+ 497              	.L54:
+ 498              	 .align 2
+ 499              	.L53:
+ 500 0018 00000340 	 .word 1073938432
+ 502              	 .section .text.XMC_MATH_CORDIC_CoshNB,"ax",%progbits
+ 503              	 .align 1
+ 504              	 .global XMC_MATH_CORDIC_CoshNB
+ 505              	 .code 16
+ 506              	 .thumb_func
+ 508              	XMC_MATH_CORDIC_CoshNB:
+ 509 0000 0022     	 mov r2,#0
+ 510 0002 0E21     	 mov r1,#14
+ 511 0004 044B     	 ldr r3,.L56
+ 512 0006 0002     	 lsl r0,r0,#8
+ 513 0008 1A64     	 str r2,[r3,#64]
+ 514 000a 5964     	 str r1,[r3,#68]
+ 515 000c 1865     	 str r0,[r3,#80]
+ 516 000e DA64     	 str r2,[r3,#76]
+ 517 0010 024A     	 ldr r2,.L56+4
+ 518              	 
+ 519 0012 9A64     	 str r2,[r3,#72]
+ 520 0014 7047     	 bx lr
+ 521              	.L57:
+ 522 0016 C046     	 .align 2
+ 523              	.L56:
+ 524 0018 00000340 	 .word 1073938432
+ 525 001c 00A1474D 	 .word 1296539904
+ 527              	 .section .text.XMC_MATH_CORDIC_SinhNB,"ax",%progbits
+ 528              	 .align 1
+ 529              	 .global XMC_MATH_CORDIC_SinhNB
+ 530              	 .code 16
+ 531              	 .thumb_func
+ 533              	XMC_MATH_CORDIC_SinhNB:
+ 534 0000 0022     	 mov r2,#0
+ 535 0002 0E21     	 mov r1,#14
+ 536 0004 044B     	 ldr r3,.L59
+ 537 0006 0002     	 lsl r0,r0,#8
+ 538 0008 1A64     	 str r2,[r3,#64]
+ 539 000a 5964     	 str r1,[r3,#68]
+ 540 000c 1865     	 str r0,[r3,#80]
+ 541 000e DA64     	 str r2,[r3,#76]
+ 542 0010 024A     	 ldr r2,.L59+4
+ 543              	 
+ 544 0012 9A64     	 str r2,[r3,#72]
+ 545 0014 7047     	 bx lr
+ 546              	.L60:
+ 547 0016 C046     	 .align 2
+ 548              	.L59:
+ 549 0018 00000340 	 .word 1073938432
+ 550 001c 00A1474D 	 .word 1296539904
+ 552              	 .section .text.XMC_MATH_CORDIC_TanhNB,"ax",%progbits
+ 553              	 .align 1
+ 554              	 .global XMC_MATH_CORDIC_TanhNB
+ 555              	 .code 16
+ 556              	 .thumb_func
+ 558              	XMC_MATH_CORDIC_TanhNB:
+ 559 0000 1C22     	 mov r2,#28
+ 560 0002 074B     	 ldr r3,.L62
+ 561 0004 0E21     	 mov r1,#14
+ 562 0006 5A60     	 str r2,[r3,#4]
+ 563 0008 B022     	 mov r2,#176
+ 564 000a 1205     	 lsl r2,r2,#20
+ 565 000c 5A63     	 str r2,[r3,#52]
+ 566 000e 0022     	 mov r2,#0
+ 567 0010 0002     	 lsl r0,r0,#8
+ 568 0012 1A64     	 str r2,[r3,#64]
+ 569 0014 5964     	 str r1,[r3,#68]
+ 570 0016 1865     	 str r0,[r3,#80]
+ 571 0018 DA64     	 str r2,[r3,#76]
+ 572 001a 024A     	 ldr r2,.L62+4
+ 573              	 
+ 574 001c 9A64     	 str r2,[r3,#72]
+ 575 001e 7047     	 bx lr
+ 576              	.L63:
+ 577              	 .align 2
+ 578              	.L62:
+ 579 0020 00000340 	 .word 1073938432
+ 580 0024 00A1474D 	 .word 1296539904
+ 582              	 .section .text.XMC_MATH_DIV_UnsignedDivNB,"ax",%progbits
+ 583              	 .align 1
+ 584              	 .global XMC_MATH_DIV_UnsignedDivNB
+ 585              	 .code 16
+ 586              	 .thumb_func
+ 588              	XMC_MATH_DIV_UnsignedDivNB:
+ 589 0000 0422     	 mov r2,#4
+ 590 0002 024B     	 ldr r3,.L65
+ 591              	 
+ 592 0004 5A63     	 str r2,[r3,#52]
+ 593 0006 1862     	 str r0,[r3,#32]
+ 594 0008 5962     	 str r1,[r3,#36]
+ 595 000a 7047     	 bx lr
+ 596              	.L66:
+ 597              	 .align 2
+ 598              	.L65:
+ 599 000c 00000340 	 .word 1073938432
+ 601              	 .section .text.XMC_MATH_DIV_SignedDivNB,"ax",%progbits
+ 602              	 .align 1
+ 603              	 .global XMC_MATH_DIV_SignedDivNB
+ 604              	 .code 16
+ 605              	 .thumb_func
+ 607              	XMC_MATH_DIV_SignedDivNB:
+ 608 0000 0022     	 mov r2,#0
+ 609 0002 024B     	 ldr r3,.L68
+ 610              	 
+ 611 0004 5A63     	 str r2,[r3,#52]
+ 612 0006 1862     	 str r0,[r3,#32]
+ 613 0008 5962     	 str r1,[r3,#36]
+ 614 000a 7047     	 bx lr
+ 615              	.L69:
+ 616              	 .align 2
+ 617              	.L68:
+ 618 000c 00000340 	 .word 1073938432
+ 620              	 .section .text.XMC_MATH_DIV_UnsignedModNB,"ax",%progbits
+ 621              	 .align 1
+ 622              	 .global XMC_MATH_DIV_UnsignedModNB
+ 623              	 .code 16
+ 624              	 .thumb_func
+ 626              	XMC_MATH_DIV_UnsignedModNB:
+ 627 0000 0422     	 mov r2,#4
+ 628 0002 024B     	 ldr r3,.L71
+ 629              	 
+ 630 0004 5A63     	 str r2,[r3,#52]
+ 631 0006 1862     	 str r0,[r3,#32]
+ 632 0008 5962     	 str r1,[r3,#36]
+ 633 000a 7047     	 bx lr
+ 634              	.L72:
+ 635              	 .align 2
+ 636              	.L71:
+ 637 000c 00000340 	 .word 1073938432
+ 639              	 .section .text.XMC_MATH_DIV_SignedModNB,"ax",%progbits
+ 640              	 .align 1
+ 641              	 .global XMC_MATH_DIV_SignedModNB
+ 642              	 .code 16
+ 643              	 .thumb_func
+ 645              	XMC_MATH_DIV_SignedModNB:
+ 646 0000 0022     	 mov r2,#0
+ 647 0002 024B     	 ldr r3,.L74
+ 648              	 
+ 649 0004 5A63     	 str r2,[r3,#52]
+ 650 0006 1862     	 str r0,[r3,#32]
+ 651 0008 5962     	 str r1,[r3,#36]
+ 652 000a 7047     	 bx lr
+ 653              	.L75:
+ 654              	 .align 2
+ 655              	.L74:
+ 656 000c 00000340 	 .word 1073938432
+ 658              	 .section .text.XMC_MATH_CORDIC_Q15_Sqrt,"ax",%progbits
+ 659              	 .align 1
+ 660              	 .global XMC_MATH_CORDIC_Q15_Sqrt
+ 661              	 .code 16
+ 662              	 .thumb_func
+ 664              	XMC_MATH_CORDIC_Q15_Sqrt:
+ 665 0000 0022     	 mov r2,#0
+ 666 0002 094B     	 ldr r3,.L77
+ 667 0004 C003     	 lsl r0,r0,#15
+ 668 0006 1A64     	 str r2,[r3,#64]
+ 669 0008 0632     	 add r2,r2,#6
+ 670 000a 5A64     	 str r2,[r3,#68]
+ 671 000c F022     	 mov r2,#240
+ 672 000e 1206     	 lsl r2,r2,#24
+ 673 0010 8218     	 add r2,r0,r2
+ 674 0012 DA64     	 str r2,[r3,#76]
+ 675 0014 8022     	 mov r2,#128
+ 676 0016 5205     	 lsl r2,r2,#21
+ 677 0018 8018     	 add r0,r0,r2
+ 678 001a 9864     	 str r0,[r3,#72]
+ 679 001c 586D     	 ldr r0,[r3,#84]
+ 680 001e 034B     	 ldr r3,.L77+4
+ 681 0020 800B     	 lsr r0,r0,#14
+ 682 0022 5843     	 mul r0,r3
+ 683              	 
+ 684 0024 0014     	 asr r0,r0,#16
+ 685 0026 7047     	 bx lr
+ 686              	.L78:
+ 687              	 .align 2
+ 688              	.L77:
+ 689 0028 00000340 	 .word 1073938432
+ 690 002c 909A0000 	 .word 39568
+ 692              	 .section .text.XMC_MATH_CORDIC_Q31_Sqrt,"ax",%progbits
+ 693              	 .align 1
+ 694              	 .global XMC_MATH_CORDIC_Q31_Sqrt
+ 695              	 .code 16
+ 696              	 .thumb_func
+ 698              	XMC_MATH_CORDIC_Q31_Sqrt:
+ 699 0000 0022     	 mov r2,#0
+ 700 0002 094B     	 ldr r3,.L80
+ 701 0004 4010     	 asr r0,r0,#1
+ 702 0006 1A64     	 str r2,[r3,#64]
+ 703 0008 0632     	 add r2,r2,#6
+ 704 000a 5A64     	 str r2,[r3,#68]
+ 705 000c F022     	 mov r2,#240
+ 706 000e 1206     	 lsl r2,r2,#24
+ 707 0010 8218     	 add r2,r0,r2
+ 708 0012 DA64     	 str r2,[r3,#76]
+ 709 0014 8022     	 mov r2,#128
+ 710 0016 5205     	 lsl r2,r2,#21
+ 711 0018 8018     	 add r0,r0,r2
+ 712 001a 9864     	 str r0,[r3,#72]
+ 713 001c 586D     	 ldr r0,[r3,#84]
+ 714 001e 034B     	 ldr r3,.L80+4
+ 715 0020 800B     	 lsr r0,r0,#14
+ 716 0022 5843     	 mul r0,r3
+ 717              	 
+ 718 0024 7047     	 bx lr
+ 719              	.L81:
+ 720 0026 C046     	 .align 2
+ 721              	.L80:
+ 722 0028 00000340 	 .word 1073938432
+ 723 002c 909A0000 	 .word 39568
+ 725              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_math.c
+    {standard input}:15     .text.XMC_MATH_DIV_IsBusy:00000000 $t
+    {standard input}:20     .text.XMC_MATH_DIV_IsBusy:00000000 XMC_MATH_DIV_IsBusy
+    {standard input}:30     .text.XMC_MATH_DIV_IsBusy:0000000c $d
+    {standard input}:33     .text.XMC_MATH_CORDIC_IsBusy:00000000 $t
+    {standard input}:38     .text.XMC_MATH_CORDIC_IsBusy:00000000 XMC_MATH_CORDIC_IsBusy
+    {standard input}:48     .text.XMC_MATH_CORDIC_IsBusy:0000000c $d
+    {standard input}:51     .text.XMC_MATH_GetEventStatus:00000000 $t
+    {standard input}:56     .text.XMC_MATH_GetEventStatus:00000000 XMC_MATH_GetEventStatus
+    {standard input}:68     .text.XMC_MATH_GetEventStatus:00000010 $d
+    {standard input}:71     .text.__aeabi_uidiv:00000000 $t
+    {standard input}:76     .text.__aeabi_uidiv:00000000 __aeabi_uidiv
+    {standard input}:100    .text.__aeabi_uidiv:0000001c $d
+    {standard input}:103    .text.__aeabi_idiv:00000000 $t
+    {standard input}:108    .text.__aeabi_idiv:00000000 __aeabi_idiv
+    {standard input}:132    .text.__aeabi_idiv:0000001c $d
+    {standard input}:135    .text.__aeabi_uidivmod:00000000 $t
+    {standard input}:140    .text.__aeabi_uidivmod:00000000 __aeabi_uidivmod
+    {standard input}:165    .text.__aeabi_uidivmod:0000001c $d
+    {standard input}:168    .text.__aeabi_idivmod:00000000 $t
+    {standard input}:173    .text.__aeabi_idivmod:00000000 __aeabi_idivmod
+    {standard input}:198    .text.__aeabi_idivmod:0000001c $d
+    {standard input}:201    .text.XMC_MATH_CORDIC_Cos:00000000 $t
+    {standard input}:206    .text.XMC_MATH_CORDIC_Cos:00000000 XMC_MATH_CORDIC_Cos
+    {standard input}:224    .text.XMC_MATH_CORDIC_Cos:0000001c $d
+    {standard input}:228    .text.XMC_MATH_CORDIC_Sin:00000000 $t
+    {standard input}:233    .text.XMC_MATH_CORDIC_Sin:00000000 XMC_MATH_CORDIC_Sin
+    {standard input}:251    .text.XMC_MATH_CORDIC_Sin:0000001c $d
+    {standard input}:255    .text.XMC_MATH_CORDIC_Tan:00000000 $t
+    {standard input}:260    .text.XMC_MATH_CORDIC_Tan:00000000 XMC_MATH_CORDIC_Tan
+    {standard input}:282    .text.XMC_MATH_CORDIC_Tan:00000024 $d
+    {standard input}:286    .text.XMC_MATH_CORDIC_ArcTan:00000000 $t
+    {standard input}:291    .text.XMC_MATH_CORDIC_ArcTan:00000000 XMC_MATH_CORDIC_ArcTan
+    {standard input}:310    .text.XMC_MATH_CORDIC_ArcTan:0000001c $d
+    {standard input}:313    .text.XMC_MATH_CORDIC_Cosh:00000000 $t
+    {standard input}:318    .text.XMC_MATH_CORDIC_Cosh:00000000 XMC_MATH_CORDIC_Cosh
+    {standard input}:336    .text.XMC_MATH_CORDIC_Cosh:0000001c $d
+    {standard input}:340    .text.XMC_MATH_CORDIC_Sinh:00000000 $t
+    {standard input}:345    .text.XMC_MATH_CORDIC_Sinh:00000000 XMC_MATH_CORDIC_Sinh
+    {standard input}:363    .text.XMC_MATH_CORDIC_Sinh:0000001c $d
+    {standard input}:367    .text.XMC_MATH_CORDIC_Tanh:00000000 $t
+    {standard input}:372    .text.XMC_MATH_CORDIC_Tanh:00000000 XMC_MATH_CORDIC_Tanh
+    {standard input}:394    .text.XMC_MATH_CORDIC_Tanh:00000024 $d
+    {standard input}:398    .text.XMC_MATH_CORDIC_CosNB:00000000 $t
+    {standard input}:403    .text.XMC_MATH_CORDIC_CosNB:00000000 XMC_MATH_CORDIC_CosNB
+    {standard input}:419    .text.XMC_MATH_CORDIC_CosNB:00000018 $d
+    {standard input}:423    .text.XMC_MATH_CORDIC_SinNB:00000000 $t
+    {standard input}:428    .text.XMC_MATH_CORDIC_SinNB:00000000 XMC_MATH_CORDIC_SinNB
+    {standard input}:444    .text.XMC_MATH_CORDIC_SinNB:00000018 $d
+    {standard input}:448    .text.XMC_MATH_CORDIC_TanNB:00000000 $t
+    {standard input}:453    .text.XMC_MATH_CORDIC_TanNB:00000000 XMC_MATH_CORDIC_TanNB
+    {standard input}:474    .text.XMC_MATH_CORDIC_TanNB:00000020 $d
+    {standard input}:478    .text.XMC_MATH_CORDIC_ArcTanNB:00000000 $t
+    {standard input}:483    .text.XMC_MATH_CORDIC_ArcTanNB:00000000 XMC_MATH_CORDIC_ArcTanNB
+    {standard input}:500    .text.XMC_MATH_CORDIC_ArcTanNB:00000018 $d
+    {standard input}:503    .text.XMC_MATH_CORDIC_CoshNB:00000000 $t
+    {standard input}:508    .text.XMC_MATH_CORDIC_CoshNB:00000000 XMC_MATH_CORDIC_CoshNB
+    {standard input}:524    .text.XMC_MATH_CORDIC_CoshNB:00000018 $d
+    {standard input}:528    .text.XMC_MATH_CORDIC_SinhNB:00000000 $t
+    {standard input}:533    .text.XMC_MATH_CORDIC_SinhNB:00000000 XMC_MATH_CORDIC_SinhNB
+    {standard input}:549    .text.XMC_MATH_CORDIC_SinhNB:00000018 $d
+    {standard input}:553    .text.XMC_MATH_CORDIC_TanhNB:00000000 $t
+    {standard input}:558    .text.XMC_MATH_CORDIC_TanhNB:00000000 XMC_MATH_CORDIC_TanhNB
+    {standard input}:579    .text.XMC_MATH_CORDIC_TanhNB:00000020 $d
+    {standard input}:583    .text.XMC_MATH_DIV_UnsignedDivNB:00000000 $t
+    {standard input}:588    .text.XMC_MATH_DIV_UnsignedDivNB:00000000 XMC_MATH_DIV_UnsignedDivNB
+    {standard input}:599    .text.XMC_MATH_DIV_UnsignedDivNB:0000000c $d
+    {standard input}:602    .text.XMC_MATH_DIV_SignedDivNB:00000000 $t
+    {standard input}:607    .text.XMC_MATH_DIV_SignedDivNB:00000000 XMC_MATH_DIV_SignedDivNB
+    {standard input}:618    .text.XMC_MATH_DIV_SignedDivNB:0000000c $d
+    {standard input}:621    .text.XMC_MATH_DIV_UnsignedModNB:00000000 $t
+    {standard input}:626    .text.XMC_MATH_DIV_UnsignedModNB:00000000 XMC_MATH_DIV_UnsignedModNB
+    {standard input}:637    .text.XMC_MATH_DIV_UnsignedModNB:0000000c $d
+    {standard input}:640    .text.XMC_MATH_DIV_SignedModNB:00000000 $t
+    {standard input}:645    .text.XMC_MATH_DIV_SignedModNB:00000000 XMC_MATH_DIV_SignedModNB
+    {standard input}:656    .text.XMC_MATH_DIV_SignedModNB:0000000c $d
+    {standard input}:659    .text.XMC_MATH_CORDIC_Q15_Sqrt:00000000 $t
+    {standard input}:664    .text.XMC_MATH_CORDIC_Q15_Sqrt:00000000 XMC_MATH_CORDIC_Q15_Sqrt
+    {standard input}:689    .text.XMC_MATH_CORDIC_Q15_Sqrt:00000028 $d
+    {standard input}:693    .text.XMC_MATH_CORDIC_Q31_Sqrt:00000000 $t
+    {standard input}:698    .text.XMC_MATH_CORDIC_Q31_Sqrt:00000000 XMC_MATH_CORDIC_Q31_Sqrt
+    {standard input}:722    .text.XMC_MATH_CORDIC_Q31_Sqrt:00000028 $d
+
+NO UNDEFINED SYMBOLS

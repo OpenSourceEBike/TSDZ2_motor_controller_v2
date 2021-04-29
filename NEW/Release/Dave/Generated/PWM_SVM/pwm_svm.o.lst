@@ -1,0 +1,3189 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "pwm_svm.c"
+  14              	 .section .ram_code,"ax",%progbits
+  15              	 .align 1
+  16              	 .code 16
+  17              	 .thumb_func
+  19              	PWM_SVM_lSymCompValUpdate:
+  20 0000 021C     	 mov r2,r0
+  21 0002 031C     	 mov r3,r0
+  22 0004 A432     	 add r2,r2,#164
+  23 0006 70B5     	 push {r4,r5,r6,lr}
+  24 0008 1068     	 ldr r0,[r2]
+  25 000a 1E1C     	 mov r6,r3
+  26 000c 0722     	 mov r2,#7
+  27 000e 1C1C     	 mov r4,r3
+  28 0010 1040     	 and r0,r2
+  29 0012 1D6F     	 ldr r5,[r3,#112]
+  30 0014 B836     	 add r6,r6,#184
+  31 0016 596F     	 ldr r1,[r3,#116]
+  32 0018 9A6F     	 ldr r2,[r3,#120]
+  33 001a B634     	 add r4,r4,#182
+  34 001c 0428     	 cmp r0,#4
+  35 001e 2BD8     	 bhi .L2
+  36 0020 FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+  37              	.L4:
+  38 0024 03       	 .byte (.L3-.L4)/2
+  39 0025 0A       	 .byte (.L5-.L4)/2
+  40 0026 12       	 .byte (.L6-.L4)/2
+  41 0027 1B       	 .byte (.L7-.L4)/2
+  42 0028 22       	 .byte (.L8-.L4)/2
+  43 0029 00       	 .p2align 1
+  44              	.L3:
+  45 002a 3088     	 ldrh r0,[r6]
+  46 002c B033     	 add r3,r3,#176
+  47 002e 2860     	 str r0,[r5]
+  48 0030 1B88     	 ldrh r3,[r3]
+  49 0032 C318     	 add r3,r0,r3
+  50 0034 0B60     	 str r3,[r1]
+  51 0036 05E0     	 b .L12
+  52              	.L5:
+  53 0038 AE33     	 add r3,r3,#174
+  54 003a 3088     	 ldrh r0,[r6]
+  55 003c 1B88     	 ldrh r3,[r3]
+  56 003e C318     	 add r3,r0,r3
+  57 0040 2B60     	 str r3,[r5]
+  58 0042 0860     	 str r0,[r1]
+  59              	.L12:
+  60 0044 2388     	 ldrh r3,[r4]
+  61 0046 06E0     	 b .L11
+  62              	.L6:
+  63 0048 2088     	 ldrh r0,[r4]
+  64 004a B033     	 add r3,r3,#176
+  65 004c 2860     	 str r0,[r5]
+  66 004e 3088     	 ldrh r0,[r6]
+  67 0050 0860     	 str r0,[r1]
+  68 0052 1B88     	 ldrh r3,[r3]
+  69 0054 C318     	 add r3,r0,r3
+  70              	.L11:
+  71 0056 1360     	 str r3,[r2]
+  72 0058 16E0     	 b .L1
+  73              	.L7:
+  74 005a 2088     	 ldrh r0,[r4]
+  75 005c AE33     	 add r3,r3,#174
+  76 005e 2860     	 str r0,[r5]
+  77 0060 3088     	 ldrh r0,[r6]
+  78 0062 1B88     	 ldrh r3,[r3]
+  79 0064 C318     	 add r3,r0,r3
+  80 0066 05E0     	 b .L13
+  81              	.L8:
+  82 0068 B033     	 add r3,r3,#176
+  83 006a 3088     	 ldrh r0,[r6]
+  84 006c 1B88     	 ldrh r3,[r3]
+  85 006e 1B18     	 add r3,r3,r0
+  86 0070 2B60     	 str r3,[r5]
+  87 0072 2388     	 ldrh r3,[r4]
+  88              	.L13:
+  89 0074 0B60     	 str r3,[r1]
+  90 0076 06E0     	 b .L10
+  91              	.L2:
+  92 0078 3088     	 ldrh r0,[r6]
+  93 007a AE33     	 add r3,r3,#174
+  94 007c 2860     	 str r0,[r5]
+  95 007e 2488     	 ldrh r4,[r4]
+  96 0080 0C60     	 str r4,[r1]
+  97 0082 1B88     	 ldrh r3,[r3]
+  98 0084 1818     	 add r0,r3,r0
+  99              	.L10:
+ 100 0086 1060     	 str r0,[r2]
+ 101              	.L1:
+ 102              	 
+ 103 0088 70BD     	 pop {r4,r5,r6,pc}
+ 105              	 .section .text.PWM_SVM_lAsymCompValUpdate,"ax",%progbits
+ 106              	 .align 1
+ 107              	 .code 16
+ 108              	 .thumb_func
+ 110              	PWM_SVM_lAsymCompValUpdate:
+ 111 0000 021C     	 mov r2,r0
+ 112 0002 031C     	 mov r3,r0
+ 113 0004 A432     	 add r2,r2,#164
+ 114 0006 F0B5     	 push {r4,r5,r6,r7,lr}
+ 115 0008 1068     	 ldr r0,[r2]
+ 116 000a 1E1C     	 mov r6,r3
+ 117 000c 0722     	 mov r2,#7
+ 118 000e 1C1C     	 mov r4,r3
+ 119 0010 1040     	 and r0,r2
+ 120 0012 1D6F     	 ldr r5,[r3,#112]
+ 121 0014 B836     	 add r6,r6,#184
+ 122 0016 D96F     	 ldr r1,[r3,#124]
+ 123 0018 BC34     	 add r4,r4,#188
+ 124 001a 5A6F     	 ldr r2,[r3,#116]
+ 125 001c 0428     	 cmp r0,#4
+ 126 001e 66D8     	 bhi .L16
+ 127 0020 1F1C     	 mov r7,r3
+ 128 0022 B637     	 add r7,r7,#182
+ 129 0024 FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+ 130              	.L18:
+ 131 0028 03       	 .byte (.L17-.L18)/2
+ 132 0029 0F       	 .byte (.L19-.L18)/2
+ 133 002a 27       	 .byte (.L20-.L18)/2
+ 134 002b 3A       	 .byte (.L21-.L18)/2
+ 135 002c 4C       	 .byte (.L22-.L18)/2
+ 136 002d 00       	 .p2align 1
+ 137              	.L17:
+ 138 002e 3088     	 ldrh r0,[r6]
+ 139 0030 2860     	 str r0,[r5]
+ 140 0032 2488     	 ldrh r4,[r4]
+ 141 0034 0C60     	 str r4,[r1]
+ 142 0036 191C     	 mov r1,r3
+ 143 0038 B031     	 add r1,r1,#176
+ 144 003a 0988     	 ldrh r1,[r1]
+ 145 003c 0918     	 add r1,r1,r0
+ 146 003e 1160     	 str r1,[r2]
+ 147 0040 1A1D     	 add r2,r3,#4
+ 148 0042 D26F     	 ldr r2,[r2,#124]
+ 149 0044 0AE0     	 b .L26
+ 150              	.L19:
+ 151 0046 181C     	 mov r0,r3
+ 152 0048 AE30     	 add r0,r0,#174
+ 153 004a 3688     	 ldrh r6,[r6]
+ 154 004c 0088     	 ldrh r0,[r0]
+ 155 004e 8019     	 add r0,r0,r6
+ 156 0050 2860     	 str r0,[r5]
+ 157 0052 0860     	 str r0,[r1]
+ 158 0054 1660     	 str r6,[r2]
+ 159 0056 1A1D     	 add r2,r3,#4
+ 160 0058 D26F     	 ldr r2,[r2,#124]
+ 161 005a 2188     	 ldrh r1,[r4]
+ 162              	.L26:
+ 163 005c 1160     	 str r1,[r2]
+ 164 005e 191C     	 mov r1,r3
+ 165 0060 B631     	 add r1,r1,#182
+ 166 0062 9A6F     	 ldr r2,[r3,#120]
+ 167 0064 0988     	 ldrh r1,[r1]
+ 168 0066 1160     	 str r1,[r2]
+ 169 0068 1A1C     	 mov r2,r3
+ 170 006a BA33     	 add r3,r3,#186
+ 171 006c 0832     	 add r2,r2,#8
+ 172 006e D26F     	 ldr r2,[r2,#124]
+ 173 0070 1B88     	 ldrh r3,[r3]
+ 174 0072 1360     	 str r3,[r2]
+ 175 0074 52E0     	 b .L15
+ 176              	.L20:
+ 177 0076 3888     	 ldrh r0,[r7]
+ 178 0078 2860     	 str r0,[r5]
+ 179 007a 181C     	 mov r0,r3
+ 180 007c BA30     	 add r0,r0,#186
+ 181 007e 0088     	 ldrh r0,[r0]
+ 182 0080 0860     	 str r0,[r1]
+ 183 0082 3188     	 ldrh r1,[r6]
+ 184 0084 1160     	 str r1,[r2]
+ 185 0086 1A1D     	 add r2,r3,#4
+ 186 0088 D26F     	 ldr r2,[r2,#124]
+ 187 008a 2088     	 ldrh r0,[r4]
+ 188 008c 1060     	 str r0,[r2]
+ 189 008e 1A1C     	 mov r2,r3
+ 190 0090 B032     	 add r2,r2,#176
+ 191 0092 1288     	 ldrh r2,[r2]
+ 192 0094 986F     	 ldr r0,[r3,#120]
+ 193 0096 5218     	 add r2,r2,r1
+ 194 0098 0260     	 str r2,[r0]
+ 195 009a 3CE0     	 b .L25
+ 196              	.L21:
+ 197 009c 3888     	 ldrh r0,[r7]
+ 198 009e 2860     	 str r0,[r5]
+ 199 00a0 181C     	 mov r0,r3
+ 200 00a2 BA30     	 add r0,r0,#186
+ 201 00a4 0088     	 ldrh r0,[r0]
+ 202 00a6 0860     	 str r0,[r1]
+ 203 00a8 191C     	 mov r1,r3
+ 204 00aa AE31     	 add r1,r1,#174
+ 205 00ac 3088     	 ldrh r0,[r6]
+ 206 00ae 0988     	 ldrh r1,[r1]
+ 207 00b0 0918     	 add r1,r1,r0
+ 208 00b2 1160     	 str r1,[r2]
+ 209 00b4 1A1D     	 add r2,r3,#4
+ 210 00b6 D26F     	 ldr r2,[r2,#124]
+ 211 00b8 1160     	 str r1,[r2]
+ 212 00ba 9A6F     	 ldr r2,[r3,#120]
+ 213 00bc 1060     	 str r0,[r2]
+ 214 00be 12E0     	 b .L27
+ 215              	.L22:
+ 216 00c0 181C     	 mov r0,r3
+ 217 00c2 B030     	 add r0,r0,#176
+ 218 00c4 3688     	 ldrh r6,[r6]
+ 219 00c6 0088     	 ldrh r0,[r0]
+ 220 00c8 8019     	 add r0,r0,r6
+ 221 00ca 2860     	 str r0,[r5]
+ 222 00cc 0860     	 str r0,[r1]
+ 223 00ce 191C     	 mov r1,r3
+ 224 00d0 B631     	 add r1,r1,#182
+ 225 00d2 0988     	 ldrh r1,[r1]
+ 226 00d4 1160     	 str r1,[r2]
+ 227 00d6 191C     	 mov r1,r3
+ 228 00d8 1A1D     	 add r2,r3,#4
+ 229 00da BA31     	 add r1,r1,#186
+ 230 00dc D26F     	 ldr r2,[r2,#124]
+ 231 00de 0988     	 ldrh r1,[r1]
+ 232 00e0 1160     	 str r1,[r2]
+ 233 00e2 9A6F     	 ldr r2,[r3,#120]
+ 234 00e4 1660     	 str r6,[r2]
+ 235              	.L27:
+ 236 00e6 0833     	 add r3,r3,#8
+ 237 00e8 DB6F     	 ldr r3,[r3,#124]
+ 238 00ea 2288     	 ldrh r2,[r4]
+ 239 00ec 15E0     	 b .L24
+ 240              	.L16:
+ 241 00ee 3088     	 ldrh r0,[r6]
+ 242 00f0 2860     	 str r0,[r5]
+ 243 00f2 2488     	 ldrh r4,[r4]
+ 244 00f4 0C60     	 str r4,[r1]
+ 245 00f6 191C     	 mov r1,r3
+ 246 00f8 B631     	 add r1,r1,#182
+ 247 00fa 0988     	 ldrh r1,[r1]
+ 248 00fc 1160     	 str r1,[r2]
+ 249 00fe 191C     	 mov r1,r3
+ 250 0100 1A1D     	 add r2,r3,#4
+ 251 0102 BA31     	 add r1,r1,#186
+ 252 0104 D26F     	 ldr r2,[r2,#124]
+ 253 0106 0988     	 ldrh r1,[r1]
+ 254 0108 1160     	 str r1,[r2]
+ 255 010a 1A1C     	 mov r2,r3
+ 256 010c AE32     	 add r2,r2,#174
+ 257 010e 1288     	 ldrh r2,[r2]
+ 258 0110 996F     	 ldr r1,[r3,#120]
+ 259 0112 1218     	 add r2,r2,r0
+ 260 0114 0A60     	 str r2,[r1]
+ 261              	.L25:
+ 262 0116 0833     	 add r3,r3,#8
+ 263 0118 DB6F     	 ldr r3,[r3,#124]
+ 264              	.L24:
+ 265 011a 1A60     	 str r2,[r3]
+ 266              	.L15:
+ 267              	 
+ 268 011c F0BD     	 pop {r4,r5,r6,r7,pc}
+ 270              	 .section .ram_code
+ 271              	 .align 1
+ 272              	 .global PWM_SVM_CalCmpValueSym7
+ 273              	 .code 16
+ 274              	 .thumb_func
+ 276              	PWM_SVM_CalCmpValueSym7:
+ 277 008a 38B5     	 push {r3,r4,r5,lr}
+ 278 008c 011C     	 mov r1,r0
+ 279 008e 031C     	 mov r3,r0
+ 280 0090 AE31     	 add r1,r1,#174
+ 281 0092 C233     	 add r3,r3,#194
+ 282 0094 1B88     	 ldrh r3,[r3]
+ 283 0096 0A88     	 ldrh r2,[r1]
+ 284 0098 9A42     	 cmp r2,r3
+ 285 009a 00D2     	 bcs .L29
+ 286 009c 0B80     	 strh r3,[r1]
+ 287              	.L29:
+ 288 009e 021C     	 mov r2,r0
+ 289 00a0 B032     	 add r2,r2,#176
+ 290 00a2 1488     	 ldrh r4,[r2]
+ 291 00a4 9C42     	 cmp r4,r3
+ 292 00a6 00D2     	 bcs .L30
+ 293 00a8 1380     	 strh r3,[r2]
+ 294              	.L30:
+ 295 00aa 031C     	 mov r3,r0
+ 296 00ac 051C     	 mov r5,r0
+ 297 00ae 9C33     	 add r3,r3,#156
+ 298 00b0 0C88     	 ldrh r4,[r1]
+ 299 00b2 1B68     	 ldr r3,[r3]
+ 300 00b4 1188     	 ldrh r1,[r2]
+ 301 00b6 9BB2     	 uxth r3,r3
+ 302 00b8 0A19     	 add r2,r1,r4
+ 303 00ba 9A18     	 add r2,r3,r2
+ 304 00bc 92B2     	 uxth r2,r2
+ 305 00be B635     	 add r5,r5,#182
+ 306 00c0 5208     	 lsr r2,r2,#1
+ 307 00c2 2A80     	 strh r2,[r5]
+ 308 00c4 021C     	 mov r2,r0
+ 309 00c6 1B1B     	 sub r3,r3,r4
+ 310 00c8 5B1A     	 sub r3,r3,r1
+ 311 00ca 9BB2     	 uxth r3,r3
+ 312 00cc 5B08     	 lsr r3,r3,#1
+ 313 00ce B832     	 add r2,r2,#184
+ 314 00d0 1380     	 strh r3,[r2]
+ 315 00d2 FFF795FF 	 bl PWM_SVM_lSymCompValUpdate
+ 316              	 
+ 317 00d6 38BD     	 pop {r3,r4,r5,pc}
+ 319              	 .align 1
+ 320              	 .global PWM_SVM_CalCmpValueSym5
+ 321              	 .code 16
+ 322              	 .thumb_func
+ 324              	PWM_SVM_CalCmpValueSym5:
+ 325 00d8 38B5     	 push {r3,r4,r5,lr}
+ 326 00da 011C     	 mov r1,r0
+ 327 00dc 031C     	 mov r3,r0
+ 328 00de AE31     	 add r1,r1,#174
+ 329 00e0 C233     	 add r3,r3,#194
+ 330 00e2 1B88     	 ldrh r3,[r3]
+ 331 00e4 0A88     	 ldrh r2,[r1]
+ 332 00e6 9A42     	 cmp r2,r3
+ 333 00e8 00D2     	 bcs .L32
+ 334 00ea 0B80     	 strh r3,[r1]
+ 335              	.L32:
+ 336 00ec 021C     	 mov r2,r0
+ 337 00ee B032     	 add r2,r2,#176
+ 338 00f0 1488     	 ldrh r4,[r2]
+ 339 00f2 9C42     	 cmp r4,r3
+ 340 00f4 00D2     	 bcs .L33
+ 341 00f6 1380     	 strh r3,[r2]
+ 342              	.L33:
+ 343 00f8 031C     	 mov r3,r0
+ 344 00fa 041C     	 mov r4,r0
+ 345 00fc 9C33     	 add r3,r3,#156
+ 346 00fe 1B68     	 ldr r3,[r3]
+ 347 0100 B634     	 add r4,r4,#182
+ 348 0102 9BB2     	 uxth r3,r3
+ 349 0104 5D1C     	 add r5,r3,#1
+ 350 0106 2580     	 strh r5,[r4]
+ 351 0108 0988     	 ldrh r1,[r1]
+ 352 010a 1288     	 ldrh r2,[r2]
+ 353 010c 5B1A     	 sub r3,r3,r1
+ 354 010e 9B1A     	 sub r3,r3,r2
+ 355 0110 021C     	 mov r2,r0
+ 356 0112 B832     	 add r2,r2,#184
+ 357 0114 1380     	 strh r3,[r2]
+ 358 0116 FFF773FF 	 bl PWM_SVM_lSymCompValUpdate
+ 359              	 
+ 360 011a 38BD     	 pop {r3,r4,r5,pc}
+ 362              	 .section .text.PWM_SVM_CalCmpValueAsym7,"ax",%progbits
+ 363              	 .align 1
+ 364              	 .global PWM_SVM_CalCmpValueAsym7
+ 365              	 .code 16
+ 366              	 .thumb_func
+ 368              	PWM_SVM_CalCmpValueAsym7:
+ 369 0000 70B5     	 push {r4,r5,r6,lr}
+ 370 0002 021C     	 mov r2,r0
+ 371 0004 051C     	 mov r5,r0
+ 372 0006 041C     	 mov r4,r0
+ 373 0008 AE35     	 add r5,r5,#174
+ 374 000a C232     	 add r2,r2,#194
+ 375 000c 2B88     	 ldrh r3,[r5]
+ 376 000e 1188     	 ldrh r1,[r2]
+ 377 0010 B234     	 add r4,r4,#178
+ 378 0012 8B42     	 cmp r3,r1
+ 379 0014 08D2     	 bcs .L35
+ 380 0016 5B00     	 lsl r3,r3,#1
+ 381 0018 9BB2     	 uxth r3,r3
+ 382 001a 8B42     	 cmp r3,r1
+ 383 001c 01D3     	 bcc .L36
+ 384 001e 2B80     	 strh r3,[r5]
+ 385 0020 00E0     	 b .L37
+ 386              	.L36:
+ 387 0022 2980     	 strh r1,[r5]
+ 388              	.L37:
+ 389 0024 2B88     	 ldrh r3,[r5]
+ 390 0026 00E0     	 b .L43
+ 391              	.L35:
+ 392 0028 0023     	 mov r3,#0
+ 393              	.L43:
+ 394 002a 021C     	 mov r2,r0
+ 395 002c 061C     	 mov r6,r0
+ 396 002e 2380     	 strh r3,[r4]
+ 397 0030 B032     	 add r2,r2,#176
+ 398 0032 1388     	 ldrh r3,[r2]
+ 399 0034 B436     	 add r6,r6,#180
+ 400 0036 8B42     	 cmp r3,r1
+ 401 0038 08D2     	 bcs .L39
+ 402 003a 5B00     	 lsl r3,r3,#1
+ 403 003c 9BB2     	 uxth r3,r3
+ 404 003e 8B42     	 cmp r3,r1
+ 405 0040 01D3     	 bcc .L40
+ 406 0042 1380     	 strh r3,[r2]
+ 407 0044 00E0     	 b .L41
+ 408              	.L40:
+ 409 0046 1180     	 strh r1,[r2]
+ 410              	.L41:
+ 411 0048 1388     	 ldrh r3,[r2]
+ 412 004a 00E0     	 b .L44
+ 413              	.L39:
+ 414 004c 0023     	 mov r3,#0
+ 415              	.L44:
+ 416 004e 3380     	 strh r3,[r6]
+ 417 0050 031C     	 mov r3,r0
+ 418 0052 9C33     	 add r3,r3,#156
+ 419 0054 1968     	 ldr r1,[r3]
+ 420 0056 2D88     	 ldrh r5,[r5]
+ 421 0058 1288     	 ldrh r2,[r2]
+ 422 005a 8BB2     	 uxth r3,r1
+ 423 005c 5B19     	 add r3,r3,r5
+ 424 005e 491B     	 sub r1,r1,r5
+ 425 0060 061C     	 mov r6,r0
+ 426 0062 9B18     	 add r3,r3,r2
+ 427 0064 8A1A     	 sub r2,r1,r2
+ 428 0066 011C     	 mov r1,r0
+ 429 0068 5B10     	 asr r3,r3,#1
+ 430 006a 92B2     	 uxth r2,r2
+ 431 006c B636     	 add r6,r6,#182
+ 432 006e 9BB2     	 uxth r3,r3
+ 433 0070 5208     	 lsr r2,r2,#1
+ 434 0072 B831     	 add r1,r1,#184
+ 435 0074 3380     	 strh r3,[r6]
+ 436 0076 0439     	 sub r1,r1,#4
+ 437 0078 8A80     	 strh r2,[r1,#4]
+ 438 007a 0988     	 ldrh r1,[r1]
+ 439              	 
+ 440 007c 5B1A     	 sub r3,r3,r1
+ 441 007e 011C     	 mov r1,r0
+ 442 0080 BA31     	 add r1,r1,#186
+ 443 0082 0B80     	 strh r3,[r1]
+ 444 0084 2388     	 ldrh r3,[r4]
+ 445 0086 D218     	 add r2,r2,r3
+ 446 0088 031C     	 mov r3,r0
+ 447 008a BC33     	 add r3,r3,#188
+ 448 008c 1A80     	 strh r2,[r3]
+ 449 008e FFF7FEFF 	 bl PWM_SVM_lAsymCompValUpdate
+ 450 0092 70BD     	 pop {r4,r5,r6,pc}
+ 452              	 .section .text.PWM_SVM_CalCmpValueAsym5,"ax",%progbits
+ 453              	 .align 1
+ 454              	 .global PWM_SVM_CalCmpValueAsym5
+ 455              	 .code 16
+ 456              	 .thumb_func
+ 458              	PWM_SVM_CalCmpValueAsym5:
+ 459 0000 011C     	 mov r1,r0
+ 460 0002 021C     	 mov r2,r0
+ 461 0004 70B5     	 push {r4,r5,r6,lr}
+ 462 0006 C232     	 add r2,r2,#194
+ 463 0008 AE31     	 add r1,r1,#174
+ 464 000a 1488     	 ldrh r4,[r2]
+ 465 000c 0B88     	 ldrh r3,[r1]
+ 466 000e 103A     	 sub r2,r2,#16
+ 467 0010 A342     	 cmp r3,r4
+ 468 0012 08D2     	 bcs .L46
+ 469 0014 5B00     	 lsl r3,r3,#1
+ 470 0016 9BB2     	 uxth r3,r3
+ 471 0018 A342     	 cmp r3,r4
+ 472 001a 01D3     	 bcc .L47
+ 473 001c 0B80     	 strh r3,[r1]
+ 474 001e 00E0     	 b .L48
+ 475              	.L47:
+ 476 0020 0C80     	 strh r4,[r1]
+ 477              	.L48:
+ 478 0022 0B88     	 ldrh r3,[r1]
+ 479 0024 00E0     	 b .L51
+ 480              	.L46:
+ 481 0026 0023     	 mov r3,#0
+ 482              	.L51:
+ 483 0028 051C     	 mov r5,r0
+ 484 002a 1380     	 strh r3,[r2]
+ 485 002c B035     	 add r5,r5,#176
+ 486 002e 2B88     	 ldrh r3,[r5]
+ 487 0030 A342     	 cmp r3,r4
+ 488 0032 00D2     	 bcs .L50
+ 489 0034 2C80     	 strh r4,[r5]
+ 490              	.L50:
+ 491 0036 031C     	 mov r3,r0
+ 492 0038 061C     	 mov r6,r0
+ 493 003a 9C33     	 add r3,r3,#156
+ 494 003c 1B68     	 ldr r3,[r3]
+ 495 003e B636     	 add r6,r6,#182
+ 496 0040 9BB2     	 uxth r3,r3
+ 497 0042 5C1C     	 add r4,r3,#1
+ 498 0044 A4B2     	 uxth r4,r4
+ 499 0046 3480     	 strh r4,[r6]
+ 500 0048 0988     	 ldrh r1,[r1]
+ 501              	 
+ 502 004a 5B1A     	 sub r3,r3,r1
+ 503 004c 2988     	 ldrh r1,[r5]
+ 504 004e 5B1A     	 sub r3,r3,r1
+ 505 0050 011C     	 mov r1,r0
+ 506 0052 9BB2     	 uxth r3,r3
+ 507 0054 B831     	 add r1,r1,#184
+ 508 0056 0B80     	 strh r3,[r1]
+ 509 0058 4C80     	 strh r4,[r1,#2]
+ 510 005a 1288     	 ldrh r2,[r2]
+ 511 005c 9B18     	 add r3,r3,r2
+ 512 005e 021C     	 mov r2,r0
+ 513 0060 BC32     	 add r2,r2,#188
+ 514 0062 1380     	 strh r3,[r2]
+ 515 0064 FFF7FEFF 	 bl PWM_SVM_lAsymCompValUpdate
+ 516 0068 70BD     	 pop {r4,r5,r6,pc}
+ 518              	 .section .text.PWM_SVM_Calc3av5segmentCompVal,"ax",%progbits
+ 519              	 .align 1
+ 520              	 .global PWM_SVM_Calc3av5segmentCompVal
+ 521              	 .code 16
+ 522              	 .thumb_func
+ 524              	PWM_SVM_Calc3av5segmentCompVal:
+ 525 0000 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 526 0002 041C     	 mov r4,r0
+ 527 0004 031C     	 mov r3,r0
+ 528 0006 051C     	 mov r5,r0
+ 529 0008 011C     	 mov r1,r0
+ 530 000a 261C     	 mov r6,r4
+ 531 000c C033     	 add r3,r3,#192
+ 532 000e 1B88     	 ldrh r3,[r3]
+ 533 0010 C235     	 add r5,r5,#194
+ 534 0012 B031     	 add r1,r1,#176
+ 535 0014 9C30     	 add r0,r0,#156
+ 536 0016 AE36     	 add r6,r6,#174
+ 537 0018 002B     	 cmp r3,#0
+ 538 001a 14D1     	 bne .L53
+ 539 001c 2A88     	 ldrh r2,[r5]
+ 540 001e 0B88     	 ldrh r3,[r1]
+ 541 0020 0068     	 ldr r0,[r0]
+ 542 0022 D318     	 add r3,r2,r3
+ 543 0024 9FB2     	 uxth r7,r3
+ 544 0026 0F80     	 strh r7,[r1]
+ 545 0028 3388     	 ldrh r3,[r6]
+ 546 002a C31A     	 sub r3,r0,r3
+ 547 002c 9B1A     	 sub r3,r3,r2
+ 548 002e DB1B     	 sub r3,r3,r7
+ 549 0030 271C     	 mov r7,r4
+ 550 0032 9BB2     	 uxth r3,r3
+ 551 0034 BC37     	 add r7,r7,#188
+ 552 0036 3B80     	 strh r3,[r7]
+ 553 0038 5B08     	 lsr r3,r3,#1
+ 554 003a 043F     	 sub r7,r7,#4
+ 555 003c 3B80     	 strh r3,[r7]
+ 556 003e 023F     	 sub r7,r7,#2
+ 557 0040 3880     	 strh r0,[r7]
+ 558 0042 9B18     	 add r3,r3,r2
+ 559 0044 12E0     	 b .L64
+ 560              	.L53:
+ 561 0046 2B88     	 ldrh r3,[r5]
+ 562 0048 3788     	 ldrh r7,[r6]
+ 563 004a 0268     	 ldr r2,[r0]
+ 564 004c DF19     	 add r7,r3,r7
+ 565 004e BFB2     	 uxth r7,r7
+ 566 0050 3780     	 strh r7,[r6]
+ 567 0052 0888     	 ldrh r0,[r1]
+ 568 0054 101A     	 sub r0,r2,r0
+ 569 0056 C31A     	 sub r3,r0,r3
+ 570 0058 201C     	 mov r0,r4
+ 571 005a DB1B     	 sub r3,r3,r7
+ 572 005c 9BB2     	 uxth r3,r3
+ 573 005e BC30     	 add r0,r0,#188
+ 574 0060 0380     	 strh r3,[r0]
+ 575 0062 0438     	 sub r0,r0,#4
+ 576 0064 5B08     	 lsr r3,r3,#1
+ 577 0066 0380     	 strh r3,[r0]
+ 578 0068 0238     	 sub r0,r0,#2
+ 579 006a 0280     	 strh r2,[r0]
+ 580              	.L64:
+ 581 006c 221C     	 mov r2,r4
+ 582 006e BE32     	 add r2,r2,#190
+ 583 0070 1380     	 strh r3,[r2]
+ 584 0072 2368     	 ldr r3,[r4]
+ 585 0074 1F7C     	 ldrb r7,[r3,#16]
+ 586 0076 231C     	 mov r3,r4
+ 587 0078 B633     	 add r3,r3,#182
+ 588 007a 0093     	 str r3,[sp]
+ 589 007c 012F     	 cmp r7,#1
+ 590 007e 15D1     	 bne .L55
+ 591 0080 3288     	 ldrh r2,[r6]
+ 592 0082 1B88     	 ldrh r3,[r3]
+ 593 0084 5008     	 lsr r0,r2,#1
+ 594 0086 181A     	 sub r0,r3,r0
+ 595 0088 80B2     	 uxth r0,r0
+ 596 008a 0190     	 str r0,[sp,#4]
+ 597 008c 9B1A     	 sub r3,r3,r2
+ 598 008e 0A88     	 ldrh r2,[r1]
+ 599 0090 6069     	 ldr r0,[r4,#20]
+ 600 0092 5208     	 lsr r2,r2,#1
+ 601 0094 9A1A     	 sub r2,r3,r2
+ 602 0096 92B2     	 uxth r2,r2
+ 603 0098 0068     	 ldr r0,[r0]
+ 604 009a 0021     	 mov r1,#0
+ 605 009c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 606 00a0 6369     	 ldr r3,[r4,#20]
+ 607 00a2 391C     	 mov r1,r7
+ 608 00a4 1868     	 ldr r0,[r3]
+ 609 00a6 019A     	 ldr r2,[sp,#4]
+ 610 00a8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 611              	.L55:
+ 612 00ac 231C     	 mov r3,r4
+ 613 00ae A433     	 add r3,r3,#164
+ 614 00b0 1868     	 ldr r0,[r3]
+ 615 00b2 271C     	 mov r7,r4
+ 616 00b4 0723     	 mov r3,#7
+ 617 00b6 B837     	 add r7,r7,#184
+ 618 00b8 1840     	 and r0,r3
+ 619 00ba A368     	 ldr r3,[r4,#8]
+ 620 00bc 0428     	 cmp r0,#4
+ 621 00be 00D9     	 bls .LCB674
+ 622 00c0 D8E0     	 b .L56
+ 623              	.LCB674:
+ 624 00c2 221C     	 mov r2,r4
+ 625 00c4 BE32     	 add r2,r2,#190
+ 626 00c6 FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+ 627              	.L58:
+ 628 00ca 03       	 .byte (.L57-.L58)/2
+ 629 00cb 29       	 .byte (.L59-.L58)/2
+ 630 00cc 56       	 .byte (.L60-.L58)/2
+ 631 00cd 74       	 .byte (.L61-.L58)/2
+ 632 00ce A5       	 .byte (.L62-.L58)/2
+ 633 00cf 00       	 .p2align 1
+ 634              	.L57:
+ 635 00d0 2988     	 ldrh r1,[r5]
+ 636 00d2 3A88     	 ldrh r2,[r7]
+ 637 00d4 1868     	 ldr r0,[r3]
+ 638 00d6 8A18     	 add r2,r1,r2
+ 639 00d8 92B2     	 uxth r2,r2
+ 640 00da 0021     	 mov r1,#0
+ 641 00dc FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 642 00e0 221C     	 mov r2,r4
+ 643 00e2 A368     	 ldr r3,[r4,#8]
+ 644 00e4 B632     	 add r2,r2,#182
+ 645 00e6 0092     	 str r2,[sp]
+ 646 00e8 1868     	 ldr r0,[r3]
+ 647 00ea 1288     	 ldrh r2,[r2]
+ 648 00ec 0121     	 mov r1,#1
+ 649 00ee FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 650 00f2 221C     	 mov r2,r4
+ 651 00f4 E368     	 ldr r3,[r4,#12]
+ 652 00f6 BE32     	 add r2,r2,#190
+ 653 00f8 1868     	 ldr r0,[r3]
+ 654 00fa 1288     	 ldrh r2,[r2]
+ 655 00fc 0021     	 mov r1,#0
+ 656 00fe FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 657 0102 009B     	 ldr r3,[sp]
+ 658 0104 3288     	 ldrh r2,[r6]
+ 659 0106 1B88     	 ldrh r3,[r3]
+ 660 0108 E168     	 ldr r1,[r4,#12]
+ 661 010a 9A1A     	 sub r2,r3,r2
+ 662 010c 92B2     	 uxth r2,r2
+ 663 010e 0868     	 ldr r0,[r1]
+ 664 0110 0121     	 mov r1,#1
+ 665 0112 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 666 0116 2369     	 ldr r3,[r4,#16]
+ 667 0118 3A88     	 ldrh r2,[r7]
+ 668 011a 22E0     	 b .L68
+ 669              	.L59:
+ 670 011c 271C     	 mov r7,r4
+ 671 011e 1868     	 ldr r0,[r3]
+ 672 0120 1288     	 ldrh r2,[r2]
+ 673 0122 0021     	 mov r1,#0
+ 674 0124 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 675 0128 3288     	 ldrh r2,[r6]
+ 676 012a 261C     	 mov r6,r4
+ 677 012c B637     	 add r7,r7,#182
+ 678 012e 3B88     	 ldrh r3,[r7]
+ 679 0130 A168     	 ldr r1,[r4,#8]
+ 680 0132 9A1A     	 sub r2,r3,r2
+ 681 0134 0868     	 ldr r0,[r1]
+ 682 0136 92B2     	 uxth r2,r2
+ 683 0138 0121     	 mov r1,#1
+ 684 013a B836     	 add r6,r6,#184
+ 685 013c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 686 0140 3388     	 ldrh r3,[r6]
+ 687 0142 2A88     	 ldrh r2,[r5]
+ 688 0144 E168     	 ldr r1,[r4,#12]
+ 689 0146 D218     	 add r2,r2,r3
+ 690 0148 0868     	 ldr r0,[r1]
+ 691 014a 92B2     	 uxth r2,r2
+ 692 014c 0021     	 mov r1,#0
+ 693 014e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 694 0152 E368     	 ldr r3,[r4,#12]
+ 695 0154 3A88     	 ldrh r2,[r7]
+ 696 0156 1868     	 ldr r0,[r3]
+ 697 0158 0121     	 mov r1,#1
+ 698 015a FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 699 015e 2369     	 ldr r3,[r4,#16]
+ 700 0160 3288     	 ldrh r2,[r6]
+ 701              	.L68:
+ 702 0162 1868     	 ldr r0,[r3]
+ 703 0164 0021     	 mov r1,#0
+ 704 0166 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 705 016a 2169     	 ldr r1,[r4,#16]
+ 706 016c BC34     	 add r4,r4,#188
+ 707 016e 2A88     	 ldrh r2,[r5]
+ 708 0170 2388     	 ldrh r3,[r4]
+ 709 0172 D218     	 add r2,r2,r3
+ 710 0174 ADE0     	 b .L67
+ 711              	.L60:
+ 712 0176 1868     	 ldr r0,[r3]
+ 713 0178 3A88     	 ldrh r2,[r7]
+ 714 017a 0021     	 mov r1,#0
+ 715 017c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 716 0180 231C     	 mov r3,r4
+ 717 0182 BC33     	 add r3,r3,#188
+ 718 0184 1B88     	 ldrh r3,[r3]
+ 719 0186 2A88     	 ldrh r2,[r5]
+ 720 0188 A168     	 ldr r1,[r4,#8]
+ 721 018a D218     	 add r2,r2,r3
+ 722 018c 0868     	 ldr r0,[r1]
+ 723 018e 92B2     	 uxth r2,r2
+ 724 0190 0121     	 mov r1,#1
+ 725 0192 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 726 0196 3B88     	 ldrh r3,[r7]
+ 727 0198 2A88     	 ldrh r2,[r5]
+ 728 019a E168     	 ldr r1,[r4,#12]
+ 729 019c D218     	 add r2,r2,r3
+ 730 019e 0868     	 ldr r0,[r1]
+ 731 01a0 92B2     	 uxth r2,r2
+ 732 01a2 0021     	 mov r1,#0
+ 733 01a4 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 734 01a8 E368     	 ldr r3,[r4,#12]
+ 735 01aa 009A     	 ldr r2,[sp]
+ 736 01ac 1868     	 ldr r0,[r3]
+ 737 01ae 1288     	 ldrh r2,[r2]
+ 738 01b0 7FE0     	 b .L66
+ 739              	.L61:
+ 740 01b2 1868     	 ldr r0,[r3]
+ 741 01b4 3A88     	 ldrh r2,[r7]
+ 742 01b6 0021     	 mov r1,#0
+ 743 01b8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 744 01bc 231C     	 mov r3,r4
+ 745 01be BC33     	 add r3,r3,#188
+ 746 01c0 1B88     	 ldrh r3,[r3]
+ 747 01c2 2A88     	 ldrh r2,[r5]
+ 748 01c4 A168     	 ldr r1,[r4,#8]
+ 749 01c6 D218     	 add r2,r2,r3
+ 750 01c8 0868     	 ldr r0,[r1]
+ 751 01ca 92B2     	 uxth r2,r2
+ 752 01cc 0121     	 mov r1,#1
+ 753 01ce FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 754 01d2 221C     	 mov r2,r4
+ 755 01d4 E368     	 ldr r3,[r4,#12]
+ 756 01d6 BE32     	 add r2,r2,#190
+ 757 01d8 1868     	 ldr r0,[r3]
+ 758 01da 1288     	 ldrh r2,[r2]
+ 759 01dc 0021     	 mov r1,#0
+ 760 01de FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 761 01e2 231C     	 mov r3,r4
+ 762 01e4 B633     	 add r3,r3,#182
+ 763 01e6 0093     	 str r3,[sp]
+ 764 01e8 1B88     	 ldrh r3,[r3]
+ 765 01ea 3288     	 ldrh r2,[r6]
+ 766 01ec E168     	 ldr r1,[r4,#12]
+ 767 01ee 9A1A     	 sub r2,r3,r2
+ 768 01f0 0868     	 ldr r0,[r1]
+ 769 01f2 92B2     	 uxth r2,r2
+ 770 01f4 0121     	 mov r1,#1
+ 771 01f6 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 772 01fa 3B88     	 ldrh r3,[r7]
+ 773 01fc 2A88     	 ldrh r2,[r5]
+ 774 01fe 2169     	 ldr r1,[r4,#16]
+ 775 0200 D218     	 add r2,r2,r3
+ 776 0202 92B2     	 uxth r2,r2
+ 777 0204 0868     	 ldr r0,[r1]
+ 778 0206 0021     	 mov r1,#0
+ 779 0208 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 780 020c 009A     	 ldr r2,[sp]
+ 781 020e 2369     	 ldr r3,[r4,#16]
+ 782 0210 1288     	 ldrh r2,[r2]
+ 783 0212 2DE0     	 b .L69
+ 784              	.L62:
+ 785 0214 271C     	 mov r7,r4
+ 786 0216 1868     	 ldr r0,[r3]
+ 787 0218 1288     	 ldrh r2,[r2]
+ 788 021a 0021     	 mov r1,#0
+ 789 021c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 790 0220 3288     	 ldrh r2,[r6]
+ 791 0222 261C     	 mov r6,r4
+ 792 0224 B637     	 add r7,r7,#182
+ 793 0226 3B88     	 ldrh r3,[r7]
+ 794 0228 A168     	 ldr r1,[r4,#8]
+ 795 022a 9A1A     	 sub r2,r3,r2
+ 796 022c 0868     	 ldr r0,[r1]
+ 797 022e 92B2     	 uxth r2,r2
+ 798 0230 0121     	 mov r1,#1
+ 799 0232 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 800 0236 E368     	 ldr r3,[r4,#12]
+ 801 0238 B836     	 add r6,r6,#184
+ 802 023a 1868     	 ldr r0,[r3]
+ 803 023c 3288     	 ldrh r2,[r6]
+ 804 023e 0021     	 mov r1,#0
+ 805 0240 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 806 0244 231C     	 mov r3,r4
+ 807 0246 BC33     	 add r3,r3,#188
+ 808 0248 1B88     	 ldrh r3,[r3]
+ 809 024a 2A88     	 ldrh r2,[r5]
+ 810 024c E168     	 ldr r1,[r4,#12]
+ 811 024e D218     	 add r2,r2,r3
+ 812 0250 0868     	 ldr r0,[r1]
+ 813 0252 92B2     	 uxth r2,r2
+ 814 0254 0121     	 mov r1,#1
+ 815 0256 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 816 025a 3388     	 ldrh r3,[r6]
+ 817 025c 2A88     	 ldrh r2,[r5]
+ 818 025e 2169     	 ldr r1,[r4,#16]
+ 819 0260 D218     	 add r2,r2,r3
+ 820 0262 92B2     	 uxth r2,r2
+ 821 0264 0868     	 ldr r0,[r1]
+ 822 0266 0021     	 mov r1,#0
+ 823 0268 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 824 026c 2369     	 ldr r3,[r4,#16]
+ 825 026e 3A88     	 ldrh r2,[r7]
+ 826              	.L69:
+ 827 0270 1868     	 ldr r0,[r3]
+ 828 0272 30E0     	 b .L65
+ 829              	.L56:
+ 830 0274 2988     	 ldrh r1,[r5]
+ 831 0276 3A88     	 ldrh r2,[r7]
+ 832 0278 1868     	 ldr r0,[r3]
+ 833 027a 8A18     	 add r2,r1,r2
+ 834 027c 92B2     	 uxth r2,r2
+ 835 027e 0021     	 mov r1,#0
+ 836 0280 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 837 0284 221C     	 mov r2,r4
+ 838 0286 A368     	 ldr r3,[r4,#8]
+ 839 0288 B632     	 add r2,r2,#182
+ 840 028a 0092     	 str r2,[sp]
+ 841 028c 1868     	 ldr r0,[r3]
+ 842 028e 1288     	 ldrh r2,[r2]
+ 843 0290 0121     	 mov r1,#1
+ 844 0292 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 845 0296 E368     	 ldr r3,[r4,#12]
+ 846 0298 3A88     	 ldrh r2,[r7]
+ 847 029a 1868     	 ldr r0,[r3]
+ 848 029c 0021     	 mov r1,#0
+ 849 029e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 850 02a2 231C     	 mov r3,r4
+ 851 02a4 BC33     	 add r3,r3,#188
+ 852 02a6 E168     	 ldr r1,[r4,#12]
+ 853 02a8 2A88     	 ldrh r2,[r5]
+ 854 02aa 1B88     	 ldrh r3,[r3]
+ 855 02ac 0868     	 ldr r0,[r1]
+ 856 02ae D218     	 add r2,r2,r3
+ 857 02b0 92B2     	 uxth r2,r2
+ 858              	.L66:
+ 859 02b2 0121     	 mov r1,#1
+ 860 02b4 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 861 02b8 221C     	 mov r2,r4
+ 862 02ba 2369     	 ldr r3,[r4,#16]
+ 863 02bc BE32     	 add r2,r2,#190
+ 864 02be 1288     	 ldrh r2,[r2]
+ 865 02c0 1868     	 ldr r0,[r3]
+ 866 02c2 0021     	 mov r1,#0
+ 867 02c4 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 868 02c8 009B     	 ldr r3,[sp]
+ 869 02ca 3288     	 ldrh r2,[r6]
+ 870 02cc 1B88     	 ldrh r3,[r3]
+ 871 02ce 2169     	 ldr r1,[r4,#16]
+ 872 02d0 9A1A     	 sub r2,r3,r2
+ 873              	.L67:
+ 874 02d2 0868     	 ldr r0,[r1]
+ 875 02d4 92B2     	 uxth r2,r2
+ 876              	.L65:
+ 877 02d6 0121     	 mov r1,#1
+ 878 02d8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 879              	 
+ 880 02dc F7BD     	 pop {r0,r1,r2,r4,r5,r6,r7,pc}
+ 882              	 .section .text.PWM_SVM_Calc4av7segmentCompVal,"ax",%progbits
+ 883              	 .align 1
+ 884              	 .global PWM_SVM_Calc4av7segmentCompVal
+ 885              	 .code 16
+ 886              	 .thumb_func
+ 888              	PWM_SVM_Calc4av7segmentCompVal:
+ 889 0000 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 890 0002 061C     	 mov r6,r0
+ 891 0004 021C     	 mov r2,r0
+ 892 0006 C236     	 add r6,r6,#194
+ 893 0008 AE32     	 add r2,r2,#174
+ 894 000a 3388     	 ldrh r3,[r6]
+ 895 000c 0092     	 str r2,[sp]
+ 896 000e 041C     	 mov r4,r0
+ 897 0010 1088     	 ldrh r0,[r2]
+ 898 0012 251C     	 mov r5,r4
+ 899 0014 1818     	 add r0,r3,r0
+ 900 0016 82B2     	 uxth r2,r0
+ 901 0018 9446     	 mov ip,r2
+ 902 001a 6146     	 mov r1,ip
+ 903 001c 009A     	 ldr r2,[sp]
+ 904 001e B835     	 add r5,r5,#184
+ 905 0020 1180     	 strh r1,[r2]
+ 906 0022 221C     	 mov r2,r4
+ 907 0024 B032     	 add r2,r2,#176
+ 908 0026 1088     	 ldrh r0,[r2]
+ 909 0028 143A     	 sub r2,r2,#20
+ 910 002a 1818     	 add r0,r3,r0
+ 911 002c 80B2     	 uxth r0,r0
+ 912 002e 9082     	 strh r0,[r2,#20]
+ 913 0030 1168     	 ldr r1,[r2]
+ 914 0032 6246     	 mov r2,ip
+ 915 0034 1718     	 add r7,r2,r0
+ 916 0036 221C     	 mov r2,r4
+ 917 0038 CF1B     	 sub r7,r1,r7
+ 918 003a BFB2     	 uxth r7,r7
+ 919 003c 5B00     	 lsl r3,r3,#1
+ 920 003e FB1A     	 sub r3,r7,r3
+ 921 0040 9BB2     	 uxth r3,r3
+ 922 0042 BC32     	 add r2,r2,#188
+ 923 0044 1380     	 strh r3,[r2]
+ 924 0046 9B08     	 lsr r3,r3,#2
+ 925 0048 2B80     	 strh r3,[r5]
+ 926 004a 023A     	 sub r2,r2,#2
+ 927 004c CB1A     	 sub r3,r1,r3
+ 928 004e 1780     	 strh r7,[r2]
+ 929 0050 9BB2     	 uxth r3,r3
+ 930 0052 043A     	 sub r2,r2,#4
+ 931 0054 1380     	 strh r3,[r2]
+ 932 0056 2268     	 ldr r2,[r4]
+ 933 0058 177C     	 ldrb r7,[r2,#16]
+ 934 005a 012F     	 cmp r7,#1
+ 935 005c 14D1     	 bne .L71
+ 936 005e 6246     	 mov r2,ip
+ 937 0060 5208     	 lsr r2,r2,#1
+ 938 0062 9A1A     	 sub r2,r3,r2
+ 939 0064 4008     	 lsr r0,r0,#1
+ 940 0066 0192     	 str r2,[sp,#4]
+ 941 0068 021C     	 mov r2,r0
+ 942 006a 6244     	 add r2,r2,ip
+ 943 006c 9B1A     	 sub r3,r3,r2
+ 944 006e 9AB2     	 uxth r2,r3
+ 945 0070 6369     	 ldr r3,[r4,#20]
+ 946 0072 0021     	 mov r1,#0
+ 947 0074 1868     	 ldr r0,[r3]
+ 948 0076 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 949 007a 6A46     	 mov r2,sp
+ 950 007c 6369     	 ldr r3,[r4,#20]
+ 951 007e 9288     	 ldrh r2,[r2,#4]
+ 952 0080 1868     	 ldr r0,[r3]
+ 953 0082 391C     	 mov r1,r7
+ 954 0084 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 955              	.L71:
+ 956 0088 231C     	 mov r3,r4
+ 957 008a A433     	 add r3,r3,#164
+ 958 008c 1868     	 ldr r0,[r3]
+ 959 008e 0723     	 mov r3,#7
+ 960 0090 1840     	 and r0,r3
+ 961 0092 A368     	 ldr r3,[r4,#8]
+ 962 0094 0428     	 cmp r0,#4
+ 963 0096 00D9     	 bls .LCB1035
+ 964 0098 CAE0     	 b .L72
+ 965              	.LCB1035:
+ 966 009a FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+ 967              	.L74:
+ 968 009e 03       	 .byte (.L73-.L74)/2
+ 969 009f 27       	 .byte (.L75-.L74)/2
+ 970 00a0 56       	 .byte (.L76-.L74)/2
+ 971 00a1 76       	 .byte (.L77-.L74)/2
+ 972 00a2 96       	 .byte (.L78-.L74)/2
+ 973 00a3 00       	 .p2align 1
+ 974              	.L73:
+ 975 00a4 251C     	 mov r5,r4
+ 976 00a6 271C     	 mov r7,r4
+ 977 00a8 3288     	 ldrh r2,[r6]
+ 978 00aa B835     	 add r5,r5,#184
+ 979 00ac 2988     	 ldrh r1,[r5]
+ 980 00ae 5200     	 lsl r2,r2,#1
+ 981 00b0 5218     	 add r2,r2,r1
+ 982 00b2 1868     	 ldr r0,[r3]
+ 983 00b4 92B2     	 uxth r2,r2
+ 984 00b6 0021     	 mov r1,#0
+ 985 00b8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 986 00bc A368     	 ldr r3,[r4,#8]
+ 987 00be B637     	 add r7,r7,#182
+ 988 00c0 1868     	 ldr r0,[r3]
+ 989 00c2 3A88     	 ldrh r2,[r7]
+ 990 00c4 0121     	 mov r1,#1
+ 991 00c6 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 992 00ca 2B88     	 ldrh r3,[r5]
+ 993 00cc 3288     	 ldrh r2,[r6]
+ 994 00ce E168     	 ldr r1,[r4,#12]
+ 995 00d0 D218     	 add r2,r2,r3
+ 996 00d2 0868     	 ldr r0,[r1]
+ 997 00d4 92B2     	 uxth r2,r2
+ 998 00d6 0021     	 mov r1,#0
+ 999 00d8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1000 00dc 009A     	 ldr r2,[sp]
+ 1001 00de 3B88     	 ldrh r3,[r7]
+ 1002 00e0 1288     	 ldrh r2,[r2]
+ 1003 00e2 E168     	 ldr r1,[r4,#12]
+ 1004 00e4 9A1A     	 sub r2,r3,r2
+ 1005 00e6 92B2     	 uxth r2,r2
+ 1006 00e8 0868     	 ldr r0,[r1]
+ 1007 00ea 20E0     	 b .L83
+ 1008              	.L75:
+ 1009 00ec 271C     	 mov r7,r4
+ 1010 00ee 3188     	 ldrh r1,[r6]
+ 1011 00f0 2A88     	 ldrh r2,[r5]
+ 1012 00f2 1868     	 ldr r0,[r3]
+ 1013 00f4 8A18     	 add r2,r1,r2
+ 1014 00f6 92B2     	 uxth r2,r2
+ 1015 00f8 0021     	 mov r1,#0
+ 1016 00fa FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1017 00fe 009A     	 ldr r2,[sp]
+ 1018 0100 B637     	 add r7,r7,#182
+ 1019 0102 3B88     	 ldrh r3,[r7]
+ 1020 0104 1288     	 ldrh r2,[r2]
+ 1021 0106 A168     	 ldr r1,[r4,#8]
+ 1022 0108 9A1A     	 sub r2,r3,r2
+ 1023 010a 0868     	 ldr r0,[r1]
+ 1024 010c 92B2     	 uxth r2,r2
+ 1025 010e 0121     	 mov r1,#1
+ 1026 0110 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1027 0114 3288     	 ldrh r2,[r6]
+ 1028 0116 2B88     	 ldrh r3,[r5]
+ 1029 0118 E168     	 ldr r1,[r4,#12]
+ 1030 011a 5200     	 lsl r2,r2,#1
+ 1031 011c D218     	 add r2,r2,r3
+ 1032 011e 0868     	 ldr r0,[r1]
+ 1033 0120 92B2     	 uxth r2,r2
+ 1034 0122 0021     	 mov r1,#0
+ 1035 0124 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1036 0128 E368     	 ldr r3,[r4,#12]
+ 1037 012a 3A88     	 ldrh r2,[r7]
+ 1038 012c 1868     	 ldr r0,[r3]
+ 1039              	.L83:
+ 1040 012e 0121     	 mov r1,#1
+ 1041 0130 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1042 0134 2369     	 ldr r3,[r4,#16]
+ 1043 0136 2A88     	 ldrh r2,[r5]
+ 1044 0138 1868     	 ldr r0,[r3]
+ 1045 013a 0021     	 mov r1,#0
+ 1046 013c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1047 0140 2169     	 ldr r1,[r4,#16]
+ 1048 0142 BA34     	 add r4,r4,#186
+ 1049 0144 2388     	 ldrh r3,[r4]
+ 1050 0146 2A88     	 ldrh r2,[r5]
+ 1051 0148 A3E0     	 b .L82
+ 1052              	.L76:
+ 1053 014a 1868     	 ldr r0,[r3]
+ 1054 014c 2A88     	 ldrh r2,[r5]
+ 1055 014e 0021     	 mov r1,#0
+ 1056 0150 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1057 0154 231C     	 mov r3,r4
+ 1058 0156 271C     	 mov r7,r4
+ 1059 0158 BA33     	 add r3,r3,#186
+ 1060 015a 1B88     	 ldrh r3,[r3]
+ 1061 015c 2A88     	 ldrh r2,[r5]
+ 1062 015e A168     	 ldr r1,[r4,#8]
+ 1063 0160 9A1A     	 sub r2,r3,r2
+ 1064 0162 0868     	 ldr r0,[r1]
+ 1065 0164 92B2     	 uxth r2,r2
+ 1066 0166 0121     	 mov r1,#1
+ 1067 0168 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1068 016c 3288     	 ldrh r2,[r6]
+ 1069 016e 2B88     	 ldrh r3,[r5]
+ 1070 0170 E168     	 ldr r1,[r4,#12]
+ 1071 0172 5200     	 lsl r2,r2,#1
+ 1072 0174 D218     	 add r2,r2,r3
+ 1073 0176 0868     	 ldr r0,[r1]
+ 1074 0178 92B2     	 uxth r2,r2
+ 1075 017a 0021     	 mov r1,#0
+ 1076 017c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1077 0180 E368     	 ldr r3,[r4,#12]
+ 1078 0182 B637     	 add r7,r7,#182
+ 1079 0184 3A88     	 ldrh r2,[r7]
+ 1080 0186 1868     	 ldr r0,[r3]
+ 1081 0188 73E0     	 b .L81
+ 1082              	.L77:
+ 1083 018a 1868     	 ldr r0,[r3]
+ 1084 018c 2A88     	 ldrh r2,[r5]
+ 1085 018e 0021     	 mov r1,#0
+ 1086 0190 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1087 0194 231C     	 mov r3,r4
+ 1088 0196 271C     	 mov r7,r4
+ 1089 0198 BA33     	 add r3,r3,#186
+ 1090 019a 1B88     	 ldrh r3,[r3]
+ 1091 019c 2A88     	 ldrh r2,[r5]
+ 1092 019e A168     	 ldr r1,[r4,#8]
+ 1093 01a0 9A1A     	 sub r2,r3,r2
+ 1094 01a2 0868     	 ldr r0,[r1]
+ 1095 01a4 92B2     	 uxth r2,r2
+ 1096 01a6 0121     	 mov r1,#1
+ 1097 01a8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1098 01ac 2B88     	 ldrh r3,[r5]
+ 1099 01ae 3288     	 ldrh r2,[r6]
+ 1100 01b0 E168     	 ldr r1,[r4,#12]
+ 1101 01b2 D218     	 add r2,r2,r3
+ 1102 01b4 92B2     	 uxth r2,r2
+ 1103 01b6 0868     	 ldr r0,[r1]
+ 1104 01b8 0021     	 mov r1,#0
+ 1105 01ba FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1106 01be 009A     	 ldr r2,[sp]
+ 1107 01c0 B637     	 add r7,r7,#182
+ 1108 01c2 E168     	 ldr r1,[r4,#12]
+ 1109 01c4 3B88     	 ldrh r3,[r7]
+ 1110 01c6 1288     	 ldrh r2,[r2]
+ 1111 01c8 1EE0     	 b .L84
+ 1112              	.L78:
+ 1113 01ca 271C     	 mov r7,r4
+ 1114 01cc 3188     	 ldrh r1,[r6]
+ 1115 01ce 2A88     	 ldrh r2,[r5]
+ 1116 01d0 1868     	 ldr r0,[r3]
+ 1117 01d2 8A18     	 add r2,r1,r2
+ 1118 01d4 92B2     	 uxth r2,r2
+ 1119 01d6 0021     	 mov r1,#0
+ 1120 01d8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1121 01dc 009A     	 ldr r2,[sp]
+ 1122 01de B637     	 add r7,r7,#182
+ 1123 01e0 3B88     	 ldrh r3,[r7]
+ 1124 01e2 1288     	 ldrh r2,[r2]
+ 1125 01e4 A168     	 ldr r1,[r4,#8]
+ 1126 01e6 9A1A     	 sub r2,r3,r2
+ 1127 01e8 0868     	 ldr r0,[r1]
+ 1128 01ea 92B2     	 uxth r2,r2
+ 1129 01ec 0121     	 mov r1,#1
+ 1130 01ee FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1131 01f2 E368     	 ldr r3,[r4,#12]
+ 1132 01f4 2A88     	 ldrh r2,[r5]
+ 1133 01f6 1868     	 ldr r0,[r3]
+ 1134 01f8 0021     	 mov r1,#0
+ 1135 01fa FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1136 01fe 231C     	 mov r3,r4
+ 1137 0200 BA33     	 add r3,r3,#186
+ 1138 0202 E168     	 ldr r1,[r4,#12]
+ 1139 0204 1B88     	 ldrh r3,[r3]
+ 1140 0206 2A88     	 ldrh r2,[r5]
+ 1141              	.L84:
+ 1142 0208 9A1A     	 sub r2,r3,r2
+ 1143 020a 0868     	 ldr r0,[r1]
+ 1144 020c 92B2     	 uxth r2,r2
+ 1145 020e 0121     	 mov r1,#1
+ 1146 0210 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1147 0214 3288     	 ldrh r2,[r6]
+ 1148 0216 2B88     	 ldrh r3,[r5]
+ 1149 0218 2169     	 ldr r1,[r4,#16]
+ 1150 021a 5200     	 lsl r2,r2,#1
+ 1151 021c D218     	 add r2,r2,r3
+ 1152 021e 0868     	 ldr r0,[r1]
+ 1153 0220 92B2     	 uxth r2,r2
+ 1154 0222 0021     	 mov r1,#0
+ 1155 0224 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1156 0228 2369     	 ldr r3,[r4,#16]
+ 1157 022a 3A88     	 ldrh r2,[r7]
+ 1158 022c 1868     	 ldr r0,[r3]
+ 1159 022e 33E0     	 b .L80
+ 1160              	.L72:
+ 1161 0230 251C     	 mov r5,r4
+ 1162 0232 271C     	 mov r7,r4
+ 1163 0234 B835     	 add r5,r5,#184
+ 1164 0236 3288     	 ldrh r2,[r6]
+ 1165 0238 2988     	 ldrh r1,[r5]
+ 1166 023a 5200     	 lsl r2,r2,#1
+ 1167 023c 5218     	 add r2,r2,r1
+ 1168 023e 1868     	 ldr r0,[r3]
+ 1169 0240 92B2     	 uxth r2,r2
+ 1170 0242 0021     	 mov r1,#0
+ 1171 0244 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1172 0248 A368     	 ldr r3,[r4,#8]
+ 1173 024a B637     	 add r7,r7,#182
+ 1174 024c 1868     	 ldr r0,[r3]
+ 1175 024e 3A88     	 ldrh r2,[r7]
+ 1176 0250 0121     	 mov r1,#1
+ 1177 0252 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1178 0256 E368     	 ldr r3,[r4,#12]
+ 1179 0258 2A88     	 ldrh r2,[r5]
+ 1180 025a 1868     	 ldr r0,[r3]
+ 1181 025c 0021     	 mov r1,#0
+ 1182 025e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1183 0262 231C     	 mov r3,r4
+ 1184 0264 BA33     	 add r3,r3,#186
+ 1185 0266 E168     	 ldr r1,[r4,#12]
+ 1186 0268 1B88     	 ldrh r3,[r3]
+ 1187 026a 2A88     	 ldrh r2,[r5]
+ 1188 026c 0868     	 ldr r0,[r1]
+ 1189 026e 9A1A     	 sub r2,r3,r2
+ 1190 0270 92B2     	 uxth r2,r2
+ 1191              	.L81:
+ 1192 0272 0121     	 mov r1,#1
+ 1193 0274 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1194 0278 2B88     	 ldrh r3,[r5]
+ 1195 027a 3288     	 ldrh r2,[r6]
+ 1196 027c 2169     	 ldr r1,[r4,#16]
+ 1197 027e D218     	 add r2,r2,r3
+ 1198 0280 92B2     	 uxth r2,r2
+ 1199 0282 0868     	 ldr r0,[r1]
+ 1200 0284 0021     	 mov r1,#0
+ 1201 0286 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1202 028a 009A     	 ldr r2,[sp]
+ 1203 028c 2169     	 ldr r1,[r4,#16]
+ 1204 028e 3B88     	 ldrh r3,[r7]
+ 1205 0290 1288     	 ldrh r2,[r2]
+ 1206              	.L82:
+ 1207 0292 9A1A     	 sub r2,r3,r2
+ 1208 0294 0868     	 ldr r0,[r1]
+ 1209 0296 92B2     	 uxth r2,r2
+ 1210              	.L80:
+ 1211 0298 0121     	 mov r1,#1
+ 1212 029a FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1213              	 
+ 1214 029e F7BD     	 pop {r0,r1,r2,r4,r5,r6,r7,pc}
+ 1216              	 .section .text.PWM_SVM_lEnableEvent,"ax",%progbits
+ 1217              	 .align 1
+ 1218              	 .global PWM_SVM_lEnableEvent
+ 1219              	 .code 16
+ 1220              	 .thumb_func
+ 1222              	PWM_SVM_lEnableEvent:
+ 1223 0000 0368     	 ldr r3,[r0]
+ 1224 0002 10B5     	 push {r4,lr}
+ 1225 0004 1A1C     	 mov r2,r3
+ 1226 0006 4432     	 add r2,r2,#68
+ 1227 0008 1478     	 ldrb r4,[r2]
+ 1228 000a 012C     	 cmp r4,#1
+ 1229 000c 05D1     	 bne .L86
+ 1230 000e 8268     	 ldr r2,[r0,#8]
+ 1231 0010 1268     	 ldr r2,[r2]
+ 1232 0012 A432     	 add r2,r2,#164
+ 1233 0014 1168     	 ldr r1,[r2]
+ 1234 0016 2143     	 orr r1,r4
+ 1235 0018 1160     	 str r1,[r2]
+ 1236              	.L86:
+ 1237 001a 4533     	 add r3,r3,#69
+ 1238 001c 1B78     	 ldrb r3,[r3]
+ 1239 001e 012B     	 cmp r3,#1
+ 1240 0020 07D1     	 bne .L85
+ 1241 0022 8021     	 mov r1,#128
+ 1242 0024 8368     	 ldr r3,[r0,#8]
+ 1243 0026 C900     	 lsl r1,r1,#3
+ 1244 0028 1B68     	 ldr r3,[r3]
+ 1245 002a A433     	 add r3,r3,#164
+ 1246 002c 1A68     	 ldr r2,[r3]
+ 1247 002e 0A43     	 orr r2,r1
+ 1248 0030 1A60     	 str r2,[r3]
+ 1249              	.L85:
+ 1250              	 
+ 1251 0032 10BD     	 pop {r4,pc}
+ 1253              	 .section .text.PWM_SVM_InverterDisable,"ax",%progbits
+ 1254              	 .align 1
+ 1255              	 .global PWM_SVM_InverterDisable
+ 1256              	 .code 16
+ 1257              	 .thumb_func
+ 1259              	PWM_SVM_InverterDisable:
+ 1260 0000 0368     	 ldr r3,[r0]
+ 1261 0002 DB7C     	 ldrb r3,[r3,#19]
+ 1262 0004 012B     	 cmp r3,#1
+ 1263 0006 05D1     	 bne .L89
+ 1264 0008 836D     	 ldr r3,[r0,#88]
+ 1265 000a 1A68     	 ldr r2,[r3]
+ 1266 000c 1979     	 ldrb r1,[r3,#4]
+ 1267 000e 8023     	 mov r3,#128
+ 1268 0010 5B02     	 lsl r3,r3,#9
+ 1269 0012 05E0     	 b .L91
+ 1270              	.L89:
+ 1271 0014 022B     	 cmp r3,#2
+ 1272 0016 05D1     	 bne .L88
+ 1273 0018 836D     	 ldr r3,[r0,#88]
+ 1274 001a 1A68     	 ldr r2,[r3]
+ 1275 001c 1979     	 ldrb r1,[r3,#4]
+ 1276 001e 0123     	 mov r3,#1
+ 1277              	.L91:
+ 1278 0020 8B40     	 lsl r3,r3,r1
+ 1279 0022 5360     	 str r3,[r2,#4]
+ 1280              	.L88:
+ 1281              	 
+ 1282 0024 7047     	 bx lr
+ 1284              	 .section .text.PWM_SVM_InverterEnable,"ax",%progbits
+ 1285              	 .align 1
+ 1286              	 .global PWM_SVM_InverterEnable
+ 1287              	 .code 16
+ 1288              	 .thumb_func
+ 1290              	PWM_SVM_InverterEnable:
+ 1291 0000 0368     	 ldr r3,[r0]
+ 1292 0002 DB7C     	 ldrb r3,[r3,#19]
+ 1293 0004 012B     	 cmp r3,#1
+ 1294 0006 05D1     	 bne .L93
+ 1295 0008 826D     	 ldr r2,[r0,#88]
+ 1296 000a 1168     	 ldr r1,[r2]
+ 1297 000c 1279     	 ldrb r2,[r2,#4]
+ 1298 000e 9340     	 lsl r3,r3,r2
+ 1299 0010 4B60     	 str r3,[r1,#4]
+ 1300 0012 08E0     	 b .L92
+ 1301              	.L93:
+ 1302 0014 022B     	 cmp r3,#2
+ 1303 0016 06D1     	 bne .L92
+ 1304 0018 836D     	 ldr r3,[r0,#88]
+ 1305 001a 1979     	 ldrb r1,[r3,#4]
+ 1306 001c 1A68     	 ldr r2,[r3]
+ 1307 001e 8023     	 mov r3,#128
+ 1308 0020 5B02     	 lsl r3,r3,#9
+ 1309 0022 8B40     	 lsl r3,r3,r1
+ 1310 0024 5360     	 str r3,[r2,#4]
+ 1311              	.L92:
+ 1312              	 
+ 1313 0026 7047     	 bx lr
+ 1315              	 .section .text.PWM_SVM_lCurrentTrigSliceInit,"ax",%progbits
+ 1316              	 .align 1
+ 1317              	 .global PWM_SVM_lCurrentTrigSliceInit
+ 1318              	 .code 16
+ 1319              	 .thumb_func
+ 1321              	PWM_SVM_lCurrentTrigSliceInit:
+ 1322 0000 70B5     	 push {r4,r5,r6,lr}
+ 1323 0002 041C     	 mov r4,r0
+ 1324 0004 261C     	 mov r6,r4
+ 1325 0006 4369     	 ldr r3,[r0,#20]
+ 1326 0008 E169     	 ldr r1,[r4,#28]
+ 1327 000a 1868     	 ldr r0,[r3]
+ 1328 000c FFF7FEFF 	 bl XMC_CCU8_SLICE_CompareInit
+ 1329 0010 6369     	 ldr r3,[r4,#20]
+ 1330 0012 9C36     	 add r6,r6,#156
+ 1331 0014 1868     	 ldr r0,[r3]
+ 1332 0016 3188     	 ldrh r1,[r6]
+ 1333 0018 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 1334 001c 6369     	 ldr r3,[r4,#20]
+ 1335 001e 0121     	 mov r1,#1
+ 1336 0020 1868     	 ldr r0,[r3]
+ 1337 0022 626E     	 ldr r2,[r4,#100]
+ 1338 0024 FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 1339 0028 0122     	 mov r2,#1
+ 1340 002a 6369     	 ldr r3,[r4,#20]
+ 1341 002c 6168     	 ldr r1,[r4,#4]
+ 1342 002e 1879     	 ldrb r0,[r3,#4]
+ 1343 0030 8240     	 lsl r2,r2,r0
+ 1344 0032 CA60     	 str r2,[r1,#12]
+ 1345 0034 2268     	 ldr r2,[r4]
+ 1346 0036 157C     	 ldrb r5,[r2,#16]
+ 1347 0038 022D     	 cmp r5,#2
+ 1348 003a 0DD1     	 bne .L96
+ 1349 003c D17A     	 ldrb r1,[r2,#11]
+ 1350 003e 3268     	 ldr r2,[r6]
+ 1351 0040 1868     	 ldr r0,[r3]
+ 1352 0042 92B2     	 uxth r2,r2
+ 1353 0044 5208     	 lsr r2,r2,#1
+ 1354 0046 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1355 004a 6369     	 ldr r3,[r4,#20]
+ 1356 004c 1B68     	 ldr r3,[r3]
+ 1357 004e A433     	 add r3,r3,#164
+ 1358 0050 1A68     	 ldr r2,[r3]
+ 1359 0052 1543     	 orr r5,r2
+ 1360 0054 1D60     	 str r5,[r3]
+ 1361 0056 2EE0     	 b .L97
+ 1362              	.L96:
+ 1363 0058 012D     	 cmp r5,#1
+ 1364 005a 2CD1     	 bne .L97
+ 1365 005c 3288     	 ldrh r2,[r6]
+ 1366 005e 1868     	 ldr r0,[r3]
+ 1367 0060 9208     	 lsr r2,r2,#2
+ 1368 0062 0021     	 mov r1,#0
+ 1369 0064 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1370 0068 3268     	 ldr r2,[r6]
+ 1371 006a 6369     	 ldr r3,[r4,#20]
+ 1372 006c 92B2     	 uxth r2,r2
+ 1373 006e 5208     	 lsr r2,r2,#1
+ 1374 0070 1868     	 ldr r0,[r3]
+ 1375 0072 291C     	 mov r1,r5
+ 1376 0074 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1377 0078 231C     	 mov r3,r4
+ 1378 007a 9233     	 add r3,r3,#146
+ 1379 007c 1A78     	 ldrb r2,[r3]
+ 1380 007e 6369     	 ldr r3,[r4,#20]
+ 1381 0080 1B68     	 ldr r3,[r3]
+ 1382 0082 A433     	 add r3,r3,#164
+ 1383 0084 002A     	 cmp r2,#0
+ 1384 0086 0ED1     	 bne .L98
+ 1385 0088 0421     	 mov r1,#4
+ 1386 008a 1A68     	 ldr r2,[r3]
+ 1387 008c 0A43     	 orr r2,r1
+ 1388 008e 1A60     	 str r2,[r3]
+ 1389 0090 1A68     	 ldr r2,[r3]
+ 1390 0092 4918     	 add r1,r1,r1
+ 1391 0094 0A43     	 orr r2,r1
+ 1392 0096 1A60     	 str r2,[r3]
+ 1393 0098 1A68     	 ldr r2,[r3]
+ 1394 009a 0831     	 add r1,r1,#8
+ 1395 009c 0A43     	 orr r2,r1
+ 1396 009e 1A60     	 str r2,[r3]
+ 1397 00a0 1A68     	 ldr r2,[r3]
+ 1398 00a2 1031     	 add r1,r1,#16
+ 1399 00a4 05E0     	 b .L99
+ 1400              	.L98:
+ 1401 00a6 0421     	 mov r1,#4
+ 1402 00a8 1A68     	 ldr r2,[r3]
+ 1403 00aa 0A43     	 orr r2,r1
+ 1404 00ac 1A60     	 str r2,[r3]
+ 1405 00ae 1A68     	 ldr r2,[r3]
+ 1406 00b0 0C31     	 add r1,r1,#12
+ 1407              	.L99:
+ 1408 00b2 0A43     	 orr r2,r1
+ 1409 00b4 1A60     	 str r2,[r3]
+ 1410              	.L97:
+ 1411 00b6 6369     	 ldr r3,[r4,#20]
+ 1412 00b8 2268     	 ldr r2,[r4]
+ 1413 00ba 1B68     	 ldr r3,[r3]
+ 1414 00bc 526B     	 ldr r2,[r2,#52]
+ 1415 00be A833     	 add r3,r3,#168
+ 1416 00c0 1968     	 ldr r1,[r3]
+ 1417              	 
+ 1418 00c2 0A43     	 orr r2,r1
+ 1419 00c4 1A60     	 str r2,[r3]
+ 1420 00c6 70BD     	 pop {r4,r5,r6,pc}
+ 1422              	 .section .ram_code
+ 1423              	 .align 1
+ 1424              	 .global PWM_SVM_TimecalcUsingCORDIC
+ 1425              	 .code 16
+ 1426              	 .thumb_func
+ 1428              	PWM_SVM_TimecalcUsingCORDIC:
+ 1429 011c 1202     	 lsl r2,r2,#8
+ 1430 011e 130A     	 lsr r3,r2,#8
+ 1431 0120 0622     	 mov r2,#6
+ 1432 0122 F0B5     	 push {r4,r5,r6,r7,lr}
+ 1433 0124 041C     	 mov r4,r0
+ 1434 0126 5A43     	 mul r2,r3
+ 1435 0128 A434     	 add r4,r4,#164
+ 1436 012a 120E     	 lsr r2,r2,#24
+ 1437 012c 2260     	 str r2,[r4]
+ 1438 012e 3D4C     	 ldr r4,.L106
+ 1439 0130 2A25     	 mov r5,#42
+ 1440 0132 6243     	 mul r2,r4
+ 1441 0134 9A1A     	 sub r2,r3,r2
+ 1442 0136 031C     	 mov r3,r0
+ 1443 0138 A833     	 add r3,r3,#168
+ 1444 013a 1A60     	 str r2,[r3]
+ 1445 013c 0023     	 mov r3,#0
+ 1446 013e 3A4C     	 ldr r4,.L106+4
+ 1447 0140 1202     	 lsl r2,r2,#8
+ 1448 0142 2364     	 str r3,[r4,#64]
+ 1449 0144 6564     	 str r5,[r4,#68]
+ 1450 0146 2265     	 str r2,[r4,#80]
+ 1451 0148 E364     	 str r3,[r4,#76]
+ 1452 014a 8023     	 mov r3,#128
+ 1453 014c 85B0     	 sub sp,sp,#20
+ 1454 014e DB02     	 lsl r3,r3,#11
+ 1455 0150 A364     	 str r3,[r4,#72]
+ 1456 0152 0394     	 str r4,[sp,#12]
+ 1457              	.L101:
+ 1458 0154 039B     	 ldr r3,[sp,#12]
+ 1459 0156 344E     	 ldr r6,.L106+4
+ 1460 0158 1A6C     	 ldr r2,[r3,#64]
+ 1461 015a 0123     	 mov r3,#1
+ 1462 015c 1A40     	 and r2,r3
+ 1463 015e 0192     	 str r2,[sp,#4]
+ 1464 0160 F8D1     	 bne .L101
+ 1465 0162 AE24     	 mov r4,#174
+ 1466 0164 A446     	 mov ip,r4
+ 1467 0166 776D     	 ldr r7,[r6,#84]
+ 1468 0168 304B     	 ldr r3,.L106+8
+ 1469 016a 3F0A     	 lsr r7,r7,#8
+ 1470 016c 5F43     	 mul r7,r3
+ 1471 016e BB0A     	 lsr r3,r7,#10
+ 1472 0170 0093     	 str r3,[sp]
+ 1473 0172 B36D     	 ldr r3,[r6,#88]
+ 1474 0174 2E4A     	 ldr r2,.L106+12
+ 1475 0176 1B0A     	 lsr r3,r3,#8
+ 1476 0178 5A43     	 mul r2,r3
+ 1477 017a 0B1C     	 mov r3,r1
+ 1478 017c 8444     	 add ip,ip,r0
+ 1479 017e 6446     	 mov r4,ip
+ 1480 0180 970A     	 lsr r7,r2,#10
+ 1481 0182 0292     	 str r2,[sp,#8]
+ 1482 0184 7B43     	 mul r3,r7
+ 1483 0186 0268     	 ldr r2,[r0]
+ 1484 0188 0432     	 add r2,r2,#4
+ 1485 018a D58F     	 ldrh r5,[r2,#62]
+ 1486 018c 9A0B     	 lsr r2,r3,#14
+ 1487 018e 6A43     	 mul r2,r5
+ 1488 0190 920A     	 lsr r2,r2,#10
+ 1489 0192 92B2     	 uxth r2,r2
+ 1490 0194 2280     	 strh r2,[r4]
+ 1491 0196 009C     	 ldr r4,[sp]
+ 1492 0198 6143     	 mul r1,r4
+ 1493 019a CB1A     	 sub r3,r1,r3
+ 1494 019c 011C     	 mov r1,r0
+ 1495 019e DB0B     	 lsr r3,r3,#15
+ 1496 01a0 6B43     	 mul r3,r5
+ 1497 01a2 9B0A     	 lsr r3,r3,#10
+ 1498 01a4 9BB2     	 uxth r3,r3
+ 1499 01a6 B031     	 add r1,r1,#176
+ 1500 01a8 0B80     	 strh r3,[r1]
+ 1501 01aa 9B18     	 add r3,r3,r2
+ 1502 01ac 021C     	 mov r2,r0
+ 1503 01ae 051C     	 mov r5,r0
+ 1504 01b0 9C32     	 add r2,r2,#156
+ 1505 01b2 1268     	 ldr r2,[r2]
+ 1506 01b4 9BB2     	 uxth r3,r3
+ 1507 01b6 91B2     	 uxth r1,r2
+ 1508 01b8 CC1A     	 sub r4,r1,r3
+ 1509 01ba AC35     	 add r5,r5,#172
+ 1510 01bc 2C80     	 strh r4,[r5]
+ 1511 01be 9342     	 cmp r3,r2
+ 1512 01c0 21D9     	 bls .L102
+ 1513 01c2 031C     	 mov r3,r0
+ 1514 01c4 C833     	 add r3,r3,#200
+ 1515 01c6 1B88     	 ldrh r3,[r3]
+ 1516 01c8 012B     	 cmp r3,#1
+ 1517 01ca 1CD1     	 bne .L102
+ 1518 01cc 029B     	 ldr r3,[sp,#8]
+ 1519 01ce 009C     	 ldr r4,[sp]
+ 1520 01d0 1B0E     	 lsr r3,r3,#24
+ 1521 01d2 5343     	 mul r3,r2
+ 1522 01d4 E41B     	 sub r4,r4,r7
+ 1523 01d6 E40B     	 lsr r4,r4,#15
+ 1524 01d8 A446     	 mov ip,r4
+ 1525 01da 164C     	 ldr r4,.L106+16
+ 1526 01dc 6744     	 add r7,r7,ip
+ 1527 01de 7463     	 str r4,[r6,#52]
+ 1528 01e0 3362     	 str r3,[r6,#32]
+ 1529 01e2 6B46     	 mov r3,sp
+ 1530 01e4 9B88     	 ldrh r3,[r3,#4]
+ 1531 01e6 7762     	 str r7,[r6,#36]
+ 1532 01e8 2B80     	 strh r3,[r5]
+ 1533              	.L103:
+ 1534 01ea 039B     	 ldr r3,[sp,#12]
+ 1535 01ec 1B6B     	 ldr r3,[r3,#48]
+ 1536 01ee 002B     	 cmp r3,#0
+ 1537 01f0 FBD1     	 bne .L103
+ 1538 01f2 041C     	 mov r4,r0
+ 1539 01f4 0C4B     	 ldr r3,.L106+4
+ 1540 01f6 AE34     	 add r4,r4,#174
+ 1541 01f8 9B6A     	 ldr r3,[r3,#40]
+ 1542 01fa 9BB2     	 uxth r3,r3
+ 1543 01fc 2380     	 strh r3,[r4]
+ 1544 01fe C91A     	 sub r1,r1,r3
+ 1545 0200 031C     	 mov r3,r0
+ 1546 0202 B033     	 add r3,r3,#176
+ 1547 0204 1980     	 strh r1,[r3]
+ 1548              	.L102:
+ 1549 0206 031C     	 mov r3,r0
+ 1550 0208 AE33     	 add r3,r3,#174
+ 1551 020a 1988     	 ldrh r1,[r3]
+ 1552 020c 9142     	 cmp r1,r2
+ 1553 020e 01D9     	 bls .L104
+ 1554 0210 0021     	 mov r1,#0
+ 1555 0212 1980     	 strh r1,[r3]
+ 1556              	.L104:
+ 1557 0214 B030     	 add r0,r0,#176
+ 1558 0216 0388     	 ldrh r3,[r0]
+ 1559 0218 9342     	 cmp r3,r2
+ 1560 021a 01D9     	 bls .L100
+ 1561 021c 0023     	 mov r3,#0
+ 1562 021e 0380     	 strh r3,[r0]
+ 1563              	.L100:
+ 1564 0220 05B0     	 add sp,sp,#20
+ 1565              	 
+ 1566 0222 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 1567              	.L107:
+ 1568              	 .align 2
+ 1569              	.L106:
+ 1570 0224 AAAA2A00 	 .word 2796202
+ 1571 0228 00000340 	 .word 1073938432
+ 1572 022c 4F430000 	 .word 17231
+ 1573 0230 DD260000 	 .word 9949
+ 1574 0234 04830300 	 .word 230148
+ 1576              	 .align 1
+ 1577              	 .global PWM_SVM_TimecalcUsingLUT
+ 1578              	 .code 16
+ 1579              	 .thumb_func
+ 1581              	PWM_SVM_TimecalcUsingLUT:
+ 1582 0238 0623     	 mov r3,#6
+ 1583 023a F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 1584 023c 1202     	 lsl r2,r2,#8
+ 1585 023e 920D     	 lsr r2,r2,#22
+ 1586 0240 5A43     	 mul r2,r3
+ 1587 0242 031C     	 mov r3,r0
+ 1588 0244 9505     	 lsl r5,r2,#22
+ 1589 0246 A833     	 add r3,r3,#168
+ 1590 0248 AD0D     	 lsr r5,r5,#22
+ 1591 024a 1D60     	 str r5,[r3]
+ 1592 024c 920A     	 lsr r2,r2,#10
+ 1593 024e 043B     	 sub r3,r3,#4
+ 1594 0250 1A60     	 str r2,[r3]
+ 1595 0252 2233     	 add r3,r3,#34
+ 1596 0254 1B88     	 ldrh r3,[r3]
+ 1597 0256 0E1C     	 add r6,r1,#0
+ 1598 0258 9942     	 cmp r1,r3
+ 1599 025a 00D9     	 bls .L109
+ 1600 025c 1E1C     	 add r6,r3,#0
+ 1601              	.L109:
+ 1602 025e 234B     	 ldr r3,.L112
+ 1603 0260 234F     	 ldr r7,.L112+4
+ 1604 0262 5B1B     	 sub r3,r3,r5
+ 1605 0264 5B00     	 lsl r3,r3,#1
+ 1606 0266 DC5B     	 ldrh r4,[r3,r7]
+ 1607 0268 0368     	 ldr r3,[r0]
+ 1608 026a 221C     	 mov r2,r4
+ 1609 026c 0433     	 add r3,r3,#4
+ 1610 026e D98F     	 ldrh r1,[r3,#62]
+ 1611 0270 B023     	 mov r3,#176
+ 1612 0272 9C46     	 mov ip,r3
+ 1613 0274 8444     	 add ip,ip,r0
+ 1614 0276 6346     	 mov r3,ip
+ 1615 0278 B6B2     	 uxth r6,r6
+ 1616 027a 7243     	 mul r2,r6
+ 1617 027c 6D00     	 lsl r5,r5,#1
+ 1618 027e D213     	 asr r2,r2,#15
+ 1619 0280 ED5B     	 ldrh r5,[r5,r7]
+ 1620 0282 92B2     	 uxth r2,r2
+ 1621 0284 4A43     	 mul r2,r1
+ 1622 0286 6E43     	 mul r6,r5
+ 1623 0288 9212     	 asr r2,r2,#10
+ 1624 028a 92B2     	 uxth r2,r2
+ 1625 028c F613     	 asr r6,r6,#15
+ 1626 028e 1A80     	 strh r2,[r3]
+ 1627 0290 B3B2     	 uxth r3,r6
+ 1628 0292 061C     	 mov r6,r0
+ 1629 0294 5943     	 mul r1,r3
+ 1630 0296 8912     	 asr r1,r1,#10
+ 1631 0298 8BB2     	 uxth r3,r1
+ 1632 029a AE36     	 add r6,r6,#174
+ 1633 029c 3380     	 strh r3,[r6]
+ 1634 029e D318     	 add r3,r2,r3
+ 1635 02a0 021C     	 mov r2,r0
+ 1636 02a2 9C32     	 add r2,r2,#156
+ 1637 02a4 1268     	 ldr r2,[r2]
+ 1638 02a6 9BB2     	 uxth r3,r3
+ 1639 02a8 91B2     	 uxth r1,r2
+ 1640 02aa CF1A     	 sub r7,r1,r3
+ 1641 02ac 0193     	 str r3,[sp,#4]
+ 1642 02ae 3B1C     	 mov r3,r7
+ 1643 02b0 071C     	 mov r7,r0
+ 1644 02b2 AC37     	 add r7,r7,#172
+ 1645 02b4 3B80     	 strh r3,[r7]
+ 1646 02b6 019B     	 ldr r3,[sp,#4]
+ 1647 02b8 9342     	 cmp r3,r2
+ 1648 02ba 16D9     	 bls .L108
+ 1649 02bc C830     	 add r0,r0,#200
+ 1650 02be 0388     	 ldrh r3,[r0]
+ 1651 02c0 012B     	 cmp r3,#1
+ 1652 02c2 12D1     	 bne .L108
+ 1653 02c4 6A43     	 mul r2,r5
+ 1654 02c6 0B4B     	 ldr r3,.L112+8
+ 1655 02c8 0B48     	 ldr r0,.L112+12
+ 1656 02ca 2C19     	 add r4,r5,r4
+ 1657 02cc 5863     	 str r0,[r3,#52]
+ 1658 02ce 1A62     	 str r2,[r3,#32]
+ 1659 02d0 0022     	 mov r2,#0
+ 1660 02d2 5C62     	 str r4,[r3,#36]
+ 1661 02d4 3A80     	 strh r2,[r7]
+ 1662              	.L111:
+ 1663 02d6 1A6B     	 ldr r2,[r3,#48]
+ 1664 02d8 002A     	 cmp r2,#0
+ 1665 02da FCD1     	 bne .L111
+ 1666 02dc 054B     	 ldr r3,.L112+8
+ 1667 02de 9B6A     	 ldr r3,[r3,#40]
+ 1668 02e0 9BB2     	 uxth r3,r3
+ 1669 02e2 3380     	 strh r3,[r6]
+ 1670 02e4 C91A     	 sub r1,r1,r3
+ 1671 02e6 6346     	 mov r3,ip
+ 1672 02e8 1980     	 strh r1,[r3]
+ 1673              	.L108:
+ 1674              	 
+ 1675 02ea F7BD     	 pop {r0,r1,r2,r4,r5,r6,r7,pc}
+ 1676              	.L113:
+ 1677              	 .align 2
+ 1678              	.L112:
+ 1679 02ec FF030000 	 .word 1023
+ 1680 02f0 00000000 	 .word Sinus60_tab
+ 1681 02f4 00000340 	 .word 1073938432
+ 1682 02f8 04830300 	 .word 230148
+ 1684              	 .section .text.PWM_SVM_GetAppVersion,"ax",%progbits
+ 1685              	 .align 1
+ 1686              	 .global PWM_SVM_GetAppVersion
+ 1687              	 .code 16
+ 1688              	 .thumb_func
+ 1690              	PWM_SVM_GetAppVersion:
+ 1691 0000 0148     	 ldr r0,.L115
+ 1692 0002 82B0     	 sub sp,sp,#8
+ 1693 0004 02B0     	 add sp,sp,#8
+ 1694              	 
+ 1695 0006 7047     	 bx lr
+ 1696              	.L116:
+ 1697              	 .align 2
+ 1698              	.L115:
+ 1699 0008 04001E00 	 .word 1966084
+ 1701              	 .section .text.PWM_SVM_Init,"ax",%progbits
+ 1702              	 .align 1
+ 1703              	 .global PWM_SVM_Init
+ 1704              	 .code 16
+ 1705              	 .thumb_func
+ 1707              	PWM_SVM_Init:
+ 1708 0000 031C     	 mov r3,r0
+ 1709 0002 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 1710 0004 0022     	 mov r2,#0
+ 1711 0006 9033     	 add r3,r3,#144
+ 1712 0008 1B78     	 ldrb r3,[r3]
+ 1713 000a 0668     	 ldr r6,[r0]
+ 1714 000c 0092     	 str r2,[sp]
+ 1715 000e 9342     	 cmp r3,r2
+ 1716 0010 00D0     	 beq .LCB1860
+ 1717 0012 AAE0     	 b .L118
+ 1718              	.LCB1860:
+ 1719 0014 041C     	 mov r4,r0
+ 1720 0016 806E     	 ldr r0,[r0,#104]
+ 1721 0018 FFF7FEFF 	 bl GLOBAL_CCU8_Init
+ 1722 001c 251C     	 mov r5,r4
+ 1723 001e 271C     	 mov r7,r4
+ 1724 0020 0190     	 str r0,[sp,#4]
+ 1725 0022 0090     	 str r0,[sp]
+ 1726 0024 2035     	 add r5,r5,#32
+ 1727 0026 3837     	 add r7,r7,#56
+ 1728              	.L119:
+ 1729 0028 2B68     	 ldr r3,[r5]
+ 1730 002a AA69     	 ldr r2,[r5,#24]
+ 1731 002c 1979     	 ldrb r1,[r3,#4]
+ 1732 002e 1868     	 ldr r0,[r3]
+ 1733 0030 0435     	 add r5,r5,#4
+ 1734 0032 FFF7FEFF 	 bl XMC_GPIO_Init
+ 1735 0036 BD42     	 cmp r5,r7
+ 1736 0038 F6D1     	 bne .L119
+ 1737 003a 331C     	 mov r3,r6
+ 1738 003c 4733     	 add r3,r3,#71
+ 1739 003e 1B78     	 ldrb r3,[r3]
+ 1740 0040 012B     	 cmp r3,#1
+ 1741 0042 0CD1     	 bne .L120
+ 1742 0044 236D     	 ldr r3,[r4,#80]
+ 1743 0046 626D     	 ldr r2,[r4,#84]
+ 1744 0048 1979     	 ldrb r1,[r3,#4]
+ 1745 004a 1868     	 ldr r0,[r3]
+ 1746 004c FFF7FEFF 	 bl XMC_GPIO_Init
+ 1747 0050 236D     	 ldr r3,[r4,#80]
+ 1748 0052 2268     	 ldr r2,[r4]
+ 1749 0054 1979     	 ldrb r1,[r3,#4]
+ 1750 0056 927C     	 ldrb r2,[r2,#18]
+ 1751 0058 1868     	 ldr r0,[r3]
+ 1752 005a FFF7FEFF 	 bl XMC_GPIO_SetHardwareControl
+ 1753              	.L120:
+ 1754 005e F37C     	 ldrb r3,[r6,#19]
+ 1755 0060 002B     	 cmp r3,#0
+ 1756 0062 05D0     	 beq .L121
+ 1757 0064 A36D     	 ldr r3,[r4,#88]
+ 1758 0066 E26D     	 ldr r2,[r4,#92]
+ 1759 0068 1979     	 ldrb r1,[r3,#4]
+ 1760 006a 1868     	 ldr r0,[r3]
+ 1761 006c FFF7FEFF 	 bl XMC_GPIO_Init
+ 1762              	.L121:
+ 1763 0070 201C     	 mov r0,r4
+ 1764 0072 251C     	 mov r5,r4
+ 1765 0074 FFF7FEFF 	 bl PWM_SVM_InverterDisable
+ 1766 0078 0027     	 mov r7,#0
+ 1767 007a 0835     	 add r5,r5,#8
+ 1768              	.L123:
+ 1769 007c 2B68     	 ldr r3,[r5]
+ 1770 007e A169     	 ldr r1,[r4,#24]
+ 1771 0080 1868     	 ldr r0,[r3]
+ 1772 0082 FFF7FEFF 	 bl XMC_CCU8_SLICE_CompareInit
+ 1773 0086 2B68     	 ldr r3,[r5]
+ 1774 0088 E16E     	 ldr r1,[r4,#108]
+ 1775 008a 1868     	 ldr r0,[r3]
+ 1776 008c FFF7FEFF 	 bl XMC_CCU8_SLICE_DeadTimeInit
+ 1777 0090 2B68     	 ldr r3,[r5]
+ 1778 0092 0121     	 mov r1,#1
+ 1779 0094 1868     	 ldr r0,[r3]
+ 1780 0096 626E     	 ldr r2,[r4,#100]
+ 1781 0098 FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 1782 009c 331C     	 mov r3,r6
+ 1783 009e 4733     	 add r3,r3,#71
+ 1784 00a0 1B78     	 ldrb r3,[r3]
+ 1785 00a2 012B     	 cmp r3,#1
+ 1786 00a4 10D1     	 bne .L122
+ 1787 00a6 2B68     	 ldr r3,[r5]
+ 1788 00a8 0321     	 mov r1,#3
+ 1789 00aa 1868     	 ldr r0,[r3]
+ 1790 00ac 226E     	 ldr r2,[r4,#96]
+ 1791 00ae FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureEvent
+ 1792 00b2 321C     	 mov r2,r6
+ 1793 00b4 4832     	 add r2,r2,#72
+ 1794 00b6 1278     	 ldrb r2,[r2]
+ 1795 00b8 2B68     	 ldr r3,[r5]
+ 1796 00ba 501E     	 sub r0,r2,#1
+ 1797 00bc 8241     	 sbc r2,r2,r0
+ 1798 00be 717C     	 ldrb r1,[r6,#17]
+ 1799 00c0 D2B2     	 uxtb r2,r2
+ 1800 00c2 1868     	 ldr r0,[r3]
+ 1801 00c4 FFF7FEFF 	 bl XMC_CCU8_SLICE_TrapConfig
+ 1802              	.L122:
+ 1803 00c8 221C     	 mov r2,r4
+ 1804 00ca 9C32     	 add r2,r2,#156
+ 1805 00cc 2B68     	 ldr r3,[r5]
+ 1806 00ce 1168     	 ldr r1,[r2]
+ 1807 00d0 1868     	 ldr r0,[r3]
+ 1808 00d2 89B2     	 uxth r1,r1
+ 1809 00d4 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 1810 00d8 0021     	 mov r1,#0
+ 1811 00da 2B68     	 ldr r3,[r5]
+ 1812 00dc 0A1C     	 mov r2,r1
+ 1813 00de 1868     	 ldr r0,[r3]
+ 1814 00e0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1815 00e4 2B68     	 ldr r3,[r5]
+ 1816 00e6 0121     	 mov r1,#1
+ 1817 00e8 1868     	 ldr r0,[r3]
+ 1818 00ea 0022     	 mov r2,#0
+ 1819 00ec FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCompareMatch
+ 1820 00f0 2368     	 ldr r3,[r4]
+ 1821 00f2 2A68     	 ldr r2,[r5]
+ 1822 00f4 DB19     	 add r3,r3,r7
+ 1823 00f6 197B     	 ldrb r1,[r3,#12]
+ 1824 00f8 1068     	 ldr r0,[r2]
+ 1825 00fa FFF7FEFF 	 bl XMC_CCU8_SLICE_ConfigureStatusBitOutput
+ 1826 00fe 01CD     	 ldmia r5!,{r0}
+ 1827 0100 B900     	 lsl r1,r7,#2
+ 1828 0102 0368     	 ldr r3,[r0]
+ 1829 0104 7118     	 add r1,r6,r1
+ 1830 0106 A833     	 add r3,r3,#168
+ 1831 0108 1A68     	 ldr r2,[r3]
+ 1832 010a 0137     	 add r7,r7,#1
+ 1833 010c 9446     	 mov ip,r2
+ 1834 010e 8A6A     	 ldr r2,[r1,#40]
+ 1835 0110 6146     	 mov r1,ip
+ 1836 0112 0A43     	 orr r2,r1
+ 1837 0114 1A60     	 str r2,[r3]
+ 1838 0116 0123     	 mov r3,#1
+ 1839 0118 0179     	 ldrb r1,[r0,#4]
+ 1840 011a 6268     	 ldr r2,[r4,#4]
+ 1841 011c 8B40     	 lsl r3,r3,r1
+ 1842 011e D360     	 str r3,[r2,#12]
+ 1843 0120 032F     	 cmp r7,#3
+ 1844 0122 ABD1     	 bne .L123
+ 1845 0124 201C     	 mov r0,r4
+ 1846 0126 FFF7FEFF 	 bl PWM_SVM_lEnableEvent
+ 1847 012a 337C     	 ldrb r3,[r6,#16]
+ 1848 012c 002B     	 cmp r3,#0
+ 1849 012e 02D0     	 beq .L124
+ 1850 0130 201C     	 mov r0,r4
+ 1851 0132 FFF7FEFF 	 bl PWM_SVM_lCurrentTrigSliceInit
+ 1852              	.L124:
+ 1853 0136 8020     	 mov r0,#128
+ 1854 0138 4000     	 lsl r0,r0,#1
+ 1855 013a FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 1856 013e 6368     	 ldr r3,[r4,#4]
+ 1857 0140 726A     	 ldr r2,[r6,#36]
+ 1858 0142 1A61     	 str r2,[r3,#16]
+ 1859 0144 221C     	 mov r2,r4
+ 1860 0146 E36E     	 ldr r3,[r4,#108]
+ 1861 0148 9432     	 add r2,r2,#148
+ 1862 014a 1979     	 ldrb r1,[r3,#4]
+ 1863 014c 1160     	 str r1,[r2]
+ 1864 014e 5979     	 ldrb r1,[r3,#5]
+ 1865 0150 1B78     	 ldrb r3,[r3]
+ 1866 0152 5160     	 str r1,[r2,#4]
+ 1867 0154 9B09     	 lsr r3,r3,#6
+ 1868 0156 033A     	 sub r2,r2,#3
+ 1869 0158 1370     	 strb r3,[r2]
+ 1870 015a 019B     	 ldr r3,[sp,#4]
+ 1871 015c 012B     	 cmp r3,#1
+ 1872 015e 04D0     	 beq .L118
+ 1873 0160 0123     	 mov r3,#1
+ 1874 0162 9034     	 add r4,r4,#144
+ 1875 0164 2370     	 strb r3,[r4]
+ 1876 0166 0023     	 mov r3,#0
+ 1877 0168 0093     	 str r3,[sp]
+ 1878              	.L118:
+ 1879 016a 0098     	 ldr r0,[sp]
+ 1880              	 
+ 1881 016c FEBD     	 pop {r1,r2,r3,r4,r5,r6,r7,pc}
+ 1883              	 .section .text.PWM_SVM_Start,"ax",%progbits
+ 1884              	 .align 1
+ 1885              	 .global PWM_SVM_Start
+ 1886              	 .code 16
+ 1887              	 .thumb_func
+ 1889              	PWM_SVM_Start:
+ 1890 0000 031C     	 mov r3,r0
+ 1891 0002 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 1892 0004 0222     	 mov r2,#2
+ 1893 0006 9033     	 add r3,r3,#144
+ 1894 0008 0093     	 str r3,[sp]
+ 1895 000a 1B78     	 ldrb r3,[r3]
+ 1896 000c 0568     	 ldr r5,[r0]
+ 1897 000e 9343     	 bic r3,r2
+ 1898 0010 012B     	 cmp r3,#1
+ 1899 0012 00D0     	 beq .LCB2056
+ 1900 0014 92E0     	 b .L135
+ 1901              	.LCB2056:
+ 1902 0016 021C     	 mov r2,r0
+ 1903 0018 0023     	 mov r3,#0
+ 1904 001a 041C     	 mov r4,r0
+ 1905 001c AE32     	 add r2,r2,#174
+ 1906 001e 1380     	 strh r3,[r2]
+ 1907 0020 5380     	 strh r3,[r2,#2]
+ 1908 0022 9380     	 strh r3,[r2,#4]
+ 1909 0024 D380     	 strh r3,[r2,#6]
+ 1910 0026 1381     	 strh r3,[r2,#8]
+ 1911 0028 5381     	 strh r3,[r2,#10]
+ 1912 002a 9381     	 strh r3,[r2,#12]
+ 1913 002c D381     	 strh r3,[r2,#14]
+ 1914 002e 0A3A     	 sub r2,r2,#10
+ 1915 0030 1360     	 str r3,[r2]
+ 1916 0032 9383     	 strh r3,[r2,#28]
+ 1917 0034 FFF7FEFF 	 bl PWM_SVM_InverterEnable
+ 1918 0038 231C     	 mov r3,r4
+ 1919 003a 261C     	 mov r6,r4
+ 1920 003c 1433     	 add r3,r3,#20
+ 1921 003e 0836     	 add r6,r6,#8
+ 1922 0040 0193     	 str r3,[sp,#4]
+ 1923              	.L138:
+ 1924 0042 2F1C     	 mov r7,r5
+ 1925 0044 4737     	 add r7,r7,#71
+ 1926 0046 3B78     	 ldrb r3,[r7]
+ 1927 0048 012B     	 cmp r3,#1
+ 1928 004a 08D1     	 bne .L137
+ 1929 004c 8022     	 mov r2,#128
+ 1930 004e 3368     	 ldr r3,[r6]
+ 1931 0050 D200     	 lsl r2,r2,#3
+ 1932 0052 1B68     	 ldr r3,[r3]
+ 1933 0054 B033     	 add r3,r3,#176
+ 1934 0056 1A60     	 str r2,[r3]
+ 1935 0058 8022     	 mov r2,#128
+ 1936 005a 1201     	 lsl r2,r2,#4
+ 1937 005c 1A60     	 str r2,[r3]
+ 1938              	.L137:
+ 1939 005e 0121     	 mov r1,#1
+ 1940 0060 08CE     	 ldmia r6!,{r3}
+ 1941 0062 0A1C     	 mov r2,r1
+ 1942 0064 1868     	 ldr r0,[r3]
+ 1943 0066 FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 1944 006a 019B     	 ldr r3,[sp,#4]
+ 1945 006c 9E42     	 cmp r6,r3
+ 1946 006e E8D1     	 bne .L138
+ 1947 0070 3B78     	 ldrb r3,[r7]
+ 1948 0072 012B     	 cmp r3,#1
+ 1949 0074 1AD1     	 bne .L139
+ 1950 0076 A368     	 ldr r3,[r4,#8]
+ 1951 0078 1968     	 ldr r1,[r3]
+ 1952 007a 2B7D     	 ldrb r3,[r5,#20]
+ 1953 007c 4A69     	 ldr r2,[r1,#20]
+ 1954 007e 5800     	 lsl r0,r3,#1
+ 1955 0080 0343     	 orr r3,r0
+ 1956 0082 5B04     	 lsl r3,r3,#17
+ 1957 0084 1343     	 orr r3,r2
+ 1958 0086 4B61     	 str r3,[r1,#20]
+ 1959 0088 E368     	 ldr r3,[r4,#12]
+ 1960 008a 1968     	 ldr r1,[r3]
+ 1961 008c 6B7D     	 ldrb r3,[r5,#21]
+ 1962 008e 4A69     	 ldr r2,[r1,#20]
+ 1963 0090 5800     	 lsl r0,r3,#1
+ 1964 0092 0343     	 orr r3,r0
+ 1965 0094 5B04     	 lsl r3,r3,#17
+ 1966 0096 1343     	 orr r3,r2
+ 1967 0098 4B61     	 str r3,[r1,#20]
+ 1968 009a 2369     	 ldr r3,[r4,#16]
+ 1969 009c 1968     	 ldr r1,[r3]
+ 1970 009e AB7D     	 ldrb r3,[r5,#22]
+ 1971 00a0 4A69     	 ldr r2,[r1,#20]
+ 1972 00a2 5800     	 lsl r0,r3,#1
+ 1973 00a4 0343     	 orr r3,r0
+ 1974 00a6 5B04     	 lsl r3,r3,#17
+ 1975 00a8 1343     	 orr r3,r2
+ 1976 00aa 4B61     	 str r3,[r1,#20]
+ 1977              	.L139:
+ 1978 00ac 2B7C     	 ldrb r3,[r5,#16]
+ 1979 00ae 002B     	 cmp r3,#0
+ 1980 00b0 1DD0     	 beq .L140
+ 1981 00b2 0121     	 mov r1,#1
+ 1982 00b4 6369     	 ldr r3,[r4,#20]
+ 1983 00b6 0A1C     	 mov r2,r1
+ 1984 00b8 1868     	 ldr r0,[r3]
+ 1985 00ba FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 1986 00be A368     	 ldr r3,[r4,#8]
+ 1987 00c0 2A7C     	 ldrb r2,[r5,#16]
+ 1988 00c2 1E68     	 ldr r6,[r3]
+ 1989 00c4 E068     	 ldr r0,[r4,#12]
+ 1990 00c6 2169     	 ldr r1,[r4,#16]
+ 1991 00c8 231C     	 mov r3,r4
+ 1992 00ca 012A     	 cmp r2,#1
+ 1993 00cc 03D1     	 bne .L141
+ 1994 00ce C233     	 add r3,r3,#194
+ 1995 00d0 1B88     	 ldrh r3,[r3]
+ 1996 00d2 5B08     	 lsr r3,r3,#1
+ 1997 00d4 02E0     	 b .L149
+ 1998              	.L141:
+ 1999 00d6 9433     	 add r3,r3,#148
+ 2000 00d8 1B68     	 ldr r3,[r3]
+ 2001 00da DBB2     	 uxtb r3,r3
+ 2002              	.L149:
+ 2003 00dc AA1C     	 add r2,r5,#2
+ 2004 00de D28F     	 ldrh r2,[r2,#62]
+ 2005 00e0 9B18     	 add r3,r3,r2
+ 2006 00e2 0268     	 ldr r2,[r0]
+ 2007 00e4 9BB2     	 uxth r3,r3
+ 2008 00e6 3367     	 str r3,[r6,#112]
+ 2009 00e8 1367     	 str r3,[r2,#112]
+ 2010 00ea 0A68     	 ldr r2,[r1]
+ 2011 00ec 1367     	 str r3,[r2,#112]
+ 2012              	.L140:
+ 2013 00ee 144E     	 ldr r6,.L150
+ 2014 00f0 2A6A     	 ldr r2,[r5,#32]
+ 2015 00f2 336B     	 ldr r3,[r6,#48]
+ 2016 00f4 0021     	 mov r1,#0
+ 2017 00f6 1343     	 orr r3,r2
+ 2018 00f8 3363     	 str r3,[r6,#48]
+ 2019 00fa A368     	 ldr r3,[r4,#8]
+ 2020 00fc 0122     	 mov r2,#1
+ 2021 00fe 1868     	 ldr r0,[r3]
+ 2022 0100 FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 2023 0104 E368     	 ldr r3,[r4,#12]
+ 2024 0106 0021     	 mov r1,#0
+ 2025 0108 1868     	 ldr r0,[r3]
+ 2026 010a 0122     	 mov r2,#1
+ 2027 010c FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 2028 0110 2369     	 ldr r3,[r4,#16]
+ 2029 0112 0021     	 mov r1,#0
+ 2030 0114 1868     	 ldr r0,[r3]
+ 2031 0116 0122     	 mov r2,#1
+ 2032 0118 FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 2033 011c 2B7C     	 ldrb r3,[r5,#16]
+ 2034 011e 002B     	 cmp r3,#0
+ 2035 0120 05D0     	 beq .L142
+ 2036 0122 6369     	 ldr r3,[r4,#20]
+ 2037 0124 0021     	 mov r1,#0
+ 2038 0126 1868     	 ldr r0,[r3]
+ 2039 0128 0122     	 mov r2,#1
+ 2040 012a FFF7FEFF 	 bl XMC_CCU8_SLICE_StartConfig
+ 2041              	.L142:
+ 2042 012e 2A6A     	 ldr r2,[r5,#32]
+ 2043 0130 336B     	 ldr r3,[r6,#48]
+ 2044 0132 9343     	 bic r3,r2
+ 2045 0134 3363     	 str r3,[r6,#48]
+ 2046 0136 0223     	 mov r3,#2
+ 2047 0138 009A     	 ldr r2,[sp]
+ 2048 013a 1370     	 strb r3,[r2]
+ 2049              	.L135:
+ 2050              	 
+ 2051 013c F7BD     	 pop {r0,r1,r2,r4,r5,r6,r7,pc}
+ 2052              	.L151:
+ 2053 013e C046     	 .align 2
+ 2054              	.L150:
+ 2055 0140 00000140 	 .word 1073807360
+ 2057              	 .section .text.PWM_SVM_Stop,"ax",%progbits
+ 2058              	 .align 1
+ 2059              	 .global PWM_SVM_Stop
+ 2060              	 .code 16
+ 2061              	 .thumb_func
+ 2063              	PWM_SVM_Stop:
+ 2064 0000 F7B5     	 push {r0,r1,r2,r4,r5,r6,r7,lr}
+ 2065 0002 0568     	 ldr r5,[r0]
+ 2066 0004 041C     	 mov r4,r0
+ 2067 0006 FFF7FEFF 	 bl PWM_SVM_InverterDisable
+ 2068 000a 2B1C     	 mov r3,r5
+ 2069 000c 4733     	 add r3,r3,#71
+ 2070 000e 1B78     	 ldrb r3,[r3]
+ 2071 0010 A768     	 ldr r7,[r4,#8]
+ 2072 0012 012B     	 cmp r3,#1
+ 2073 0014 23D1     	 bne .L153
+ 2074 0016 2B7D     	 ldrb r3,[r5,#20]
+ 2075 0018 3868     	 ldr r0,[r7]
+ 2076 001a 5900     	 lsl r1,r3,#1
+ 2077 001c 4269     	 ldr r2,[r0,#20]
+ 2078 001e 0B43     	 orr r3,r1
+ 2079 0020 5B04     	 lsl r3,r3,#17
+ 2080 0022 9A43     	 bic r2,r3
+ 2081 0024 E368     	 ldr r3,[r4,#12]
+ 2082 0026 4261     	 str r2,[r0,#20]
+ 2083 0028 1968     	 ldr r1,[r3]
+ 2084 002a 6B7D     	 ldrb r3,[r5,#21]
+ 2085 002c 4A69     	 ldr r2,[r1,#20]
+ 2086 002e 5E00     	 lsl r6,r3,#1
+ 2087 0030 3343     	 orr r3,r6
+ 2088 0032 5B04     	 lsl r3,r3,#17
+ 2089 0034 9A43     	 bic r2,r3
+ 2090 0036 2369     	 ldr r3,[r4,#16]
+ 2091 0038 4A61     	 str r2,[r1,#20]
+ 2092 003a 1A68     	 ldr r2,[r3]
+ 2093 003c AB7D     	 ldrb r3,[r5,#22]
+ 2094 003e 5669     	 ldr r6,[r2,#20]
+ 2095 0040 B030     	 add r0,r0,#176
+ 2096 0042 0196     	 str r6,[sp,#4]
+ 2097 0044 5E00     	 lsl r6,r3,#1
+ 2098 0046 3343     	 orr r3,r6
+ 2099 0048 019E     	 ldr r6,[sp,#4]
+ 2100 004a 5B04     	 lsl r3,r3,#17
+ 2101 004c 9E43     	 bic r6,r3
+ 2102 004e 8023     	 mov r3,#128
+ 2103 0050 5661     	 str r6,[r2,#20]
+ 2104 0052 1B01     	 lsl r3,r3,#4
+ 2105 0054 B031     	 add r1,r1,#176
+ 2106 0056 B032     	 add r2,r2,#176
+ 2107 0058 0360     	 str r3,[r0]
+ 2108 005a 0B60     	 str r3,[r1]
+ 2109 005c 1360     	 str r3,[r2]
+ 2110              	.L153:
+ 2111 005e 0123     	 mov r3,#1
+ 2112 0060 3A68     	 ldr r2,[r7]
+ 2113 0062 1361     	 str r3,[r2,#16]
+ 2114 0064 E268     	 ldr r2,[r4,#12]
+ 2115 0066 1268     	 ldr r2,[r2]
+ 2116 0068 1361     	 str r3,[r2,#16]
+ 2117 006a 2269     	 ldr r2,[r4,#16]
+ 2118 006c 1268     	 ldr r2,[r2]
+ 2119 006e 1361     	 str r3,[r2,#16]
+ 2120 0070 2A7C     	 ldrb r2,[r5,#16]
+ 2121 0072 002A     	 cmp r2,#0
+ 2122 0074 02D0     	 beq .L154
+ 2123 0076 6269     	 ldr r2,[r4,#20]
+ 2124 0078 1268     	 ldr r2,[r2]
+ 2125 007a 1361     	 str r3,[r2,#16]
+ 2126              	.L154:
+ 2127 007c 044A     	 ldr r2,.L158
+ 2128 007e 296A     	 ldr r1,[r5,#32]
+ 2129 0080 136B     	 ldr r3,[r2,#48]
+ 2130 0082 9034     	 add r4,r4,#144
+ 2131 0084 8B43     	 bic r3,r1
+ 2132 0086 1363     	 str r3,[r2,#48]
+ 2133 0088 0323     	 mov r3,#3
+ 2134              	 
+ 2135 008a 2370     	 strb r3,[r4]
+ 2136 008c F7BD     	 pop {r0,r1,r2,r4,r5,r6,r7,pc}
+ 2137              	.L159:
+ 2138 008e C046     	 .align 2
+ 2139              	.L158:
+ 2140 0090 00000140 	 .word 1073807360
+ 2142              	 .section .ram_code
+ 2143              	 .align 1
+ 2144              	 .global PWM_SVM_SVMUpdate
+ 2145              	 .code 16
+ 2146              	 .thumb_func
+ 2148              	PWM_SVM_SVMUpdate:
+ 2149 02fc 38B5     	 push {r3,r4,r5,lr}
+ 2150 02fe 031C     	 mov r3,r0
+ 2151 0300 041C     	 mov r4,r0
+ 2152 0302 8C33     	 add r3,r3,#140
+ 2153 0304 1B68     	 ldr r3,[r3]
+ 2154 0306 0568     	 ldr r5,[r0]
+ 2155 0308 9847     	 blx r3
+ 2156 030a 231C     	 mov r3,r4
+ 2157 030c 8833     	 add r3,r3,#136
+ 2158 030e 1B68     	 ldr r3,[r3]
+ 2159 0310 201C     	 mov r0,r4
+ 2160 0312 9847     	 blx r3
+ 2161 0314 6268     	 ldr r2,[r4,#4]
+ 2162 0316 6B6A     	 ldr r3,[r5,#36]
+ 2163 0318 1169     	 ldr r1,[r2,#16]
+ 2164              	 
+ 2165 031a 0B43     	 orr r3,r1
+ 2166 031c 1361     	 str r3,[r2,#16]
+ 2167 031e 38BD     	 pop {r3,r4,r5,pc}
+ 2169              	 .global __aeabi_uidiv
+ 2170              	 .section .text.PWM_SVM_SetPWMFrequency,"ax",%progbits
+ 2171              	 .align 1
+ 2172              	 .global PWM_SVM_SetPWMFrequency
+ 2173              	 .code 16
+ 2174              	 .thumb_func
+ 2176              	PWM_SVM_SetPWMFrequency:
+ 2177 0000 031C     	 mov r3,r0
+ 2178 0002 F0B5     	 push {r4,r5,r6,r7,lr}
+ 2179 0004 9033     	 add r3,r3,#144
+ 2180 0006 1E78     	 ldrb r6,[r3]
+ 2181 0008 0222     	 mov r2,#2
+ 2182 000a 0123     	 mov r3,#1
+ 2183 000c 85B0     	 sub sp,sp,#20
+ 2184 000e 0568     	 ldr r5,[r0]
+ 2185 0010 9643     	 bic r6,r2
+ 2186 0012 9E42     	 cmp r6,r3
+ 2187 0014 4FD1     	 bne .L162
+ 2188 0016 EC6B     	 ldr r4,[r5,#60]
+ 2189 0018 131C     	 mov r3,r2
+ 2190 001a A142     	 cmp r1,r4
+ 2191 001c 4BD9     	 bls .L162
+ 2192 001e AA6B     	 ldr r2,[r5,#56]
+ 2193 0020 9142     	 cmp r1,r2
+ 2194 0022 48D8     	 bhi .L162
+ 2195 0024 041C     	 mov r4,r0
+ 2196 0026 E869     	 ldr r0,[r5,#28]
+ 2197 0028 FFF7FEFF 	 bl __aeabi_uidiv
+ 2198 002c A369     	 ldr r3,[r4,#24]
+ 2199 002e 1B78     	 ldrb r3,[r3]
+ 2200 0030 3342     	 tst r3,r6
+ 2201 0032 00D0     	 beq .L176
+ 2202 0034 4008     	 lsr r0,r0,#1
+ 2203              	.L176:
+ 2204 0036 431E     	 sub r3,r0,#1
+ 2205 0038 0193     	 str r3,[sp,#4]
+ 2206 003a 231C     	 mov r3,r4
+ 2207 003c 9233     	 add r3,r3,#146
+ 2208 003e 1B78     	 ldrb r3,[r3]
+ 2209 0040 042B     	 cmp r3,#4
+ 2210 0042 08D1     	 bne .L165
+ 2211 0044 231C     	 mov r3,r4
+ 2212 0046 C433     	 add r3,r3,#196
+ 2213 0048 1A88     	 ldrh r2,[r3]
+ 2214 004a 0323     	 mov r3,#3
+ 2215 004c 5343     	 mul r3,r2
+ 2216 004e 8022     	 mov r2,#128
+ 2217 0050 D201     	 lsl r2,r2,#7
+ 2218 0052 D71A     	 sub r7,r2,r3
+ 2219 0054 0CE0     	 b .L166
+ 2220              	.L165:
+ 2221 0056 052B     	 cmp r3,#5
+ 2222 0058 08D1     	 bne .L172
+ 2223 005a 231C     	 mov r3,r4
+ 2224 005c 8022     	 mov r2,#128
+ 2225 005e C433     	 add r3,r3,#196
+ 2226 0060 1B88     	 ldrh r3,[r3]
+ 2227 0062 D201     	 lsl r2,r2,#7
+ 2228 0064 9B00     	 lsl r3,r3,#2
+ 2229 0066 5B42     	 neg r3,r3
+ 2230 0068 9F18     	 add r7,r3,r2
+ 2231 006a 01E0     	 b .L166
+ 2232              	.L172:
+ 2233 006c 8027     	 mov r7,#128
+ 2234 006e FF01     	 lsl r7,r7,#7
+ 2235              	.L166:
+ 2236 0070 231C     	 mov r3,r4
+ 2237 0072 261C     	 mov r6,r4
+ 2238 0074 1433     	 add r3,r3,#20
+ 2239 0076 0836     	 add r6,r6,#8
+ 2240 0078 0393     	 str r3,[sp,#12]
+ 2241              	.L167:
+ 2242 007a 6A46     	 mov r2,sp
+ 2243 007c 08CE     	 ldmia r6!,{r3}
+ 2244 007e 9288     	 ldrh r2,[r2,#4]
+ 2245 0080 1868     	 ldr r0,[r3]
+ 2246 0082 111C     	 mov r1,r2
+ 2247 0084 0292     	 str r2,[sp,#8]
+ 2248 0086 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2249 008a 039B     	 ldr r3,[sp,#12]
+ 2250 008c 9E42     	 cmp r6,r3
+ 2251 008e F4D1     	 bne .L167
+ 2252 0090 2368     	 ldr r3,[r4]
+ 2253 0092 1B7C     	 ldrb r3,[r3,#16]
+ 2254 0094 002B     	 cmp r3,#0
+ 2255 0096 04D0     	 beq .L168
+ 2256 0098 6369     	 ldr r3,[r4,#20]
+ 2257 009a 0299     	 ldr r1,[sp,#8]
+ 2258 009c 1868     	 ldr r0,[r3]
+ 2259 009e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2260              	.L168:
+ 2261 00a2 6368     	 ldr r3,[r4,#4]
+ 2262 00a4 6A6A     	 ldr r2,[r5,#36]
+ 2263 00a6 1A61     	 str r2,[r3,#16]
+ 2264 00a8 231C     	 mov r3,r4
+ 2265 00aa 019A     	 ldr r2,[sp,#4]
+ 2266 00ac 9C33     	 add r3,r3,#156
+ 2267 00ae 1A60     	 str r2,[r3]
+ 2268 00b0 0023     	 mov r3,#0
+ 2269 00b2 C634     	 add r4,r4,#198
+ 2270 00b4 2780     	 strh r7,[r4]
+ 2271              	.L162:
+ 2272 00b6 181C     	 mov r0,r3
+ 2273 00b8 05B0     	 add sp,sp,#20
+ 2274              	 
+ 2275 00ba F0BD     	 pop {r4,r5,r6,r7,pc}
+ 2277              	 .section .text.PWM_SVM_GetPWMFrequency,"ax",%progbits
+ 2278              	 .align 1
+ 2279              	 .global PWM_SVM_GetPWMFrequency
+ 2280              	 .code 16
+ 2281              	 .thumb_func
+ 2283              	PWM_SVM_GetPWMFrequency:
+ 2284 0000 8269     	 ldr r2,[r0,#24]
+ 2285 0002 08B5     	 push {r3,lr}
+ 2286 0004 0368     	 ldr r3,[r0]
+ 2287 0006 9C30     	 add r0,r0,#156
+ 2288 0008 0168     	 ldr r1,[r0]
+ 2289 000a 1278     	 ldrb r2,[r2]
+ 2290 000c 0131     	 add r1,r1,#1
+ 2291 000e D207     	 lsl r2,r2,#31
+ 2292 0010 00D5     	 bpl .L180
+ 2293 0012 4900     	 lsl r1,r1,#1
+ 2294              	.L180:
+ 2295 0014 D869     	 ldr r0,[r3,#28]
+ 2296 0016 FFF7FEFF 	 bl __aeabi_uidiv
+ 2297              	 
+ 2298 001a 08BD     	 pop {r3,pc}
+ 2300              	 .section .text.PWM_SVM_SetDeadTime,"ax",%progbits
+ 2301              	 .align 1
+ 2302              	 .global PWM_SVM_SetDeadTime
+ 2303              	 .code 16
+ 2304              	 .thumb_func
+ 2306              	PWM_SVM_SetDeadTime:
+ 2307 0000 031C     	 mov r3,r0
+ 2308 0002 F0B5     	 push {r4,r5,r6,r7,lr}
+ 2309 0004 9133     	 add r3,r3,#145
+ 2310 0006 1D78     	 ldrb r5,[r3]
+ 2311 0008 0368     	 ldr r3,[r0]
+ 2312 000a 85B0     	 sub sp,sp,#20
+ 2313 000c DB69     	 ldr r3,[r3,#28]
+ 2314 000e 041C     	 mov r4,r0
+ 2315 0010 0193     	 str r3,[sp,#4]
+ 2316 0012 0F1E     	 sub r7,r1,#0
+ 2317 0014 9742     	 cmp r7,r2
+ 2318 0016 00D2     	 bcs .L182
+ 2319 0018 171C     	 mov r7,r2
+ 2320              	.L182:
+ 2321 001a 3E1C     	 mov r6,r7
+ 2322 001c 2C4B     	 ldr r3,.L196
+ 2323 001e 333E     	 sub r6,r6,#51
+ 2324 0020 0220     	 mov r0,#2
+ 2325 0022 9E42     	 cmp r6,r3
+ 2326 0024 51D8     	 bhi .L183
+ 2327 0026 0291     	 str r1,[sp,#8]
+ 2328 0028 FA21     	 mov r1,#250
+ 2329 002a 0198     	 ldr r0,[sp,#4]
+ 2330 002c 8900     	 lsl r1,r1,#2
+ 2331 002e E840     	 lsr r0,r0,r5
+ 2332 0030 0392     	 str r2,[sp,#12]
+ 2333 0032 FFF7FEFF 	 bl __aeabi_uidiv
+ 2334 0036 061C     	 mov r6,r0
+ 2335 0038 7843     	 mul r0,r7
+ 2336              	.L194:
+ 2337 003a 2649     	 ldr r1,.L196+4
+ 2338 003c FFF7FEFF 	 bl __aeabi_uidiv
+ 2339 0040 FF28     	 cmp r0,#255
+ 2340 0042 11D8     	 bhi .L185
+ 2341              	.L189:
+ 2342 0044 231C     	 mov r3,r4
+ 2343 0046 271C     	 mov r7,r4
+ 2344 0048 9833     	 add r3,r3,#152
+ 2345 004a 0193     	 str r3,[sp,#4]
+ 2346 004c 039A     	 ldr r2,[sp,#12]
+ 2347 004e 029B     	 ldr r3,[sp,#8]
+ 2348 0050 9437     	 add r7,r7,#148
+ 2349 0052 9342     	 cmp r3,r2
+ 2350 0054 16D9     	 bls .L195
+ 2351 0056 3860     	 str r0,[r7]
+ 2352 0058 0398     	 ldr r0,[sp,#12]
+ 2353 005a 1E49     	 ldr r1,.L196+4
+ 2354 005c 7043     	 mul r0,r6
+ 2355 005e FFF7FEFF 	 bl __aeabi_uidiv
+ 2356 0062 019B     	 ldr r3,[sp,#4]
+ 2357 0064 1860     	 str r0,[r3]
+ 2358 0066 15E0     	 b .L190
+ 2359              	.L185:
+ 2360 0068 032D     	 cmp r5,#3
+ 2361 006a EBD8     	 bhi .L189
+ 2362 006c FA21     	 mov r1,#250
+ 2363 006e 0135     	 add r5,r5,#1
+ 2364 0070 0198     	 ldr r0,[sp,#4]
+ 2365 0072 EDB2     	 uxtb r5,r5
+ 2366 0074 E840     	 lsr r0,r0,r5
+ 2367 0076 8900     	 lsl r1,r1,#2
+ 2368 0078 FFF7FEFF 	 bl __aeabi_uidiv
+ 2369 007c 061C     	 mov r6,r0
+ 2370 007e 381C     	 mov r0,r7
+ 2371 0080 7043     	 mul r0,r6
+ 2372 0082 DAE7     	 b .L194
+ 2373              	.L195:
+ 2374 0084 019B     	 ldr r3,[sp,#4]
+ 2375 0086 1349     	 ldr r1,.L196+4
+ 2376 0088 1860     	 str r0,[r3]
+ 2377 008a 0298     	 ldr r0,[sp,#8]
+ 2378 008c 7043     	 mul r0,r6
+ 2379 008e FFF7FEFF 	 bl __aeabi_uidiv
+ 2380 0092 3860     	 str r0,[r7]
+ 2381              	.L190:
+ 2382 0094 231C     	 mov r3,r4
+ 2383 0096 261C     	 mov r6,r4
+ 2384 0098 1433     	 add r3,r3,#20
+ 2385 009a 0836     	 add r6,r6,#8
+ 2386 009c 0193     	 str r3,[sp,#4]
+ 2387              	.L191:
+ 2388 009e 2368     	 ldr r3,[r4]
+ 2389 00a0 3068     	 ldr r0,[r6]
+ 2390 00a2 197A     	 ldrb r1,[r3,#8]
+ 2391 00a4 231C     	 mov r3,r4
+ 2392 00a6 9833     	 add r3,r3,#152
+ 2393 00a8 1B68     	 ldr r3,[r3]
+ 2394 00aa 3A78     	 ldrb r2,[r7]
+ 2395 00ac DBB2     	 uxtb r3,r3
+ 2396 00ae 0068     	 ldr r0,[r0]
+ 2397 00b0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetDeadTimeValue
+ 2398 00b4 08CE     	 ldmia r6!,{r3}
+ 2399 00b6 291C     	 mov r1,r5
+ 2400 00b8 1868     	 ldr r0,[r3]
+ 2401 00ba FFF7FEFF 	 bl XMC_CCU8_SLICE_SetDeadTimePrescaler
+ 2402 00be 019B     	 ldr r3,[sp,#4]
+ 2403 00c0 9E42     	 cmp r6,r3
+ 2404 00c2 ECD1     	 bne .L191
+ 2405 00c4 0020     	 mov r0,#0
+ 2406 00c6 9134     	 add r4,r4,#145
+ 2407 00c8 2570     	 strb r5,[r4]
+ 2408              	.L183:
+ 2409 00ca 05B0     	 add sp,sp,#20
+ 2410              	 
+ 2411 00cc F0BD     	 pop {r4,r5,r6,r7,pc}
+ 2412              	.L197:
+ 2413 00ce C046     	 .align 2
+ 2414              	.L196:
+ 2415 00d0 55130000 	 .word 4949
+ 2416 00d4 40420F00 	 .word 1000000
+ 2418              	 .section .text.PWM_SVM_GetRisingEdgeDeadTime,"ax",%progbits
+ 2419              	 .align 1
+ 2420              	 .global PWM_SVM_GetRisingEdgeDeadTime
+ 2421              	 .code 16
+ 2422              	 .thumb_func
+ 2424              	PWM_SVM_GetRisingEdgeDeadTime:
+ 2425 0000 FA21     	 mov r1,#250
+ 2426 0002 10B5     	 push {r4,lr}
+ 2427 0004 041C     	 mov r4,r0
+ 2428 0006 0368     	 ldr r3,[r0]
+ 2429 0008 8900     	 lsl r1,r1,#2
+ 2430 000a D869     	 ldr r0,[r3,#28]
+ 2431 000c FFF7FEFF 	 bl __aeabi_uidiv
+ 2432 0010 231C     	 mov r3,r4
+ 2433 0012 9133     	 add r3,r3,#145
+ 2434 0014 1978     	 ldrb r1,[r3]
+ 2435 0016 9434     	 add r4,r4,#148
+ 2436 0018 C840     	 lsr r0,r0,r1
+ 2437 001a 011C     	 mov r1,r0
+ 2438 001c 0448     	 ldr r0,.L199
+ 2439 001e FFF7FEFF 	 bl __aeabi_uidiv
+ 2440 0022 FA21     	 mov r1,#250
+ 2441 0024 2368     	 ldr r3,[r4]
+ 2442 0026 8900     	 lsl r1,r1,#2
+ 2443 0028 5843     	 mul r0,r3
+ 2444 002a FFF7FEFF 	 bl __aeabi_uidiv
+ 2445              	 
+ 2446 002e 10BD     	 pop {r4,pc}
+ 2447              	.L200:
+ 2448              	 .align 2
+ 2449              	.L199:
+ 2450 0030 00CA9A3B 	 .word 1000000000
+ 2452              	 .section .text.PWM_SVM_GetFallingEdgeDeadTime,"ax",%progbits
+ 2453              	 .align 1
+ 2454              	 .global PWM_SVM_GetFallingEdgeDeadTime
+ 2455              	 .code 16
+ 2456              	 .thumb_func
+ 2458              	PWM_SVM_GetFallingEdgeDeadTime:
+ 2459 0000 FA21     	 mov r1,#250
+ 2460 0002 10B5     	 push {r4,lr}
+ 2461 0004 041C     	 mov r4,r0
+ 2462 0006 0368     	 ldr r3,[r0]
+ 2463 0008 8900     	 lsl r1,r1,#2
+ 2464 000a D869     	 ldr r0,[r3,#28]
+ 2465 000c FFF7FEFF 	 bl __aeabi_uidiv
+ 2466 0010 231C     	 mov r3,r4
+ 2467 0012 9133     	 add r3,r3,#145
+ 2468 0014 1978     	 ldrb r1,[r3]
+ 2469 0016 9834     	 add r4,r4,#152
+ 2470 0018 C840     	 lsr r0,r0,r1
+ 2471 001a 011C     	 mov r1,r0
+ 2472 001c 0448     	 ldr r0,.L202
+ 2473 001e FFF7FEFF 	 bl __aeabi_uidiv
+ 2474 0022 FA21     	 mov r1,#250
+ 2475 0024 2368     	 ldr r3,[r4]
+ 2476 0026 8900     	 lsl r1,r1,#2
+ 2477 0028 5843     	 mul r0,r3
+ 2478 002a FFF7FEFF 	 bl __aeabi_uidiv
+ 2479              	 
+ 2480 002e 10BD     	 pop {r4,pc}
+ 2481              	.L203:
+ 2482              	 .align 2
+ 2483              	.L202:
+ 2484 0030 00CA9A3B 	 .word 1000000000
+ 2486              	 .section .text.PWM_SVM_SetTmin,"ax",%progbits
+ 2487              	 .align 1
+ 2488              	 .global PWM_SVM_SetTmin
+ 2489              	 .code 16
+ 2490              	 .thumb_func
+ 2492              	PWM_SVM_SetTmin:
+ 2493 0000 38B5     	 push {r3,r4,r5,lr}
+ 2494 0002 0268     	 ldr r2,[r0]
+ 2495 0004 0A4C     	 ldr r4,.L207
+ 2496 0006 031C     	 mov r3,r0
+ 2497 0008 D069     	 ldr r0,[r2,#28]
+ 2498 000a 0222     	 mov r2,#2
+ 2499 000c A142     	 cmp r1,r4
+ 2500 000e 0DD8     	 bhi .L205
+ 2501 0010 0D1C     	 mov r5,r1
+ 2502 0012 FA21     	 mov r1,#250
+ 2503 0014 8900     	 lsl r1,r1,#2
+ 2504 0016 1C1C     	 mov r4,r3
+ 2505 0018 FFF7FEFF 	 bl __aeabi_uidiv
+ 2506 001c 0549     	 ldr r1,.L207+4
+ 2507 001e 6843     	 mul r0,r5
+ 2508 0020 FFF7FEFF 	 bl __aeabi_uidiv
+ 2509 0024 231C     	 mov r3,r4
+ 2510 0026 0022     	 mov r2,#0
+ 2511 0028 C233     	 add r3,r3,#194
+ 2512 002a 1880     	 strh r0,[r3]
+ 2513              	.L205:
+ 2514 002c 101C     	 mov r0,r2
+ 2515              	 
+ 2516 002e 38BD     	 pop {r3,r4,r5,pc}
+ 2517              	.L208:
+ 2518              	 .align 2
+ 2519              	.L207:
+ 2520 0030 88130000 	 .word 5000
+ 2521 0034 40420F00 	 .word 1000000
+ 2523              	 .section .text.PWM_SVM_GetTmin,"ax",%progbits
+ 2524              	 .align 1
+ 2525              	 .global PWM_SVM_GetTmin
+ 2526              	 .code 16
+ 2527              	 .thumb_func
+ 2529              	PWM_SVM_GetTmin:
+ 2530 0000 FA21     	 mov r1,#250
+ 2531 0002 0368     	 ldr r3,[r0]
+ 2532 0004 10B5     	 push {r4,lr}
+ 2533 0006 8900     	 lsl r1,r1,#2
+ 2534 0008 041C     	 mov r4,r0
+ 2535 000a D869     	 ldr r0,[r3,#28]
+ 2536 000c FFF7FEFF 	 bl __aeabi_uidiv
+ 2537 0010 011C     	 mov r1,r0
+ 2538 0012 0548     	 ldr r0,.L210
+ 2539 0014 FFF7FEFF 	 bl __aeabi_uidiv
+ 2540 0018 FA21     	 mov r1,#250
+ 2541 001a C234     	 add r4,r4,#194
+ 2542 001c 2388     	 ldrh r3,[r4]
+ 2543 001e 8900     	 lsl r1,r1,#2
+ 2544 0020 5843     	 mul r0,r3
+ 2545 0022 FFF7FEFF 	 bl __aeabi_uidiv
+ 2546              	 
+ 2547 0026 10BD     	 pop {r4,pc}
+ 2548              	.L211:
+ 2549              	 .align 2
+ 2550              	.L210:
+ 2551 0028 00CA9A3B 	 .word 1000000000
+ 2553              	 .section .text.PWM_SVM_lDynamicSVMSchemeModification,"ax",%progbits
+ 2554              	 .align 1
+ 2555              	 .global PWM_SVM_lDynamicSVMSchemeModification
+ 2556              	 .code 16
+ 2557              	 .thumb_func
+ 2559              	PWM_SVM_lDynamicSVMSchemeModification:
+ 2560 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 2561 0002 031C     	 mov r3,r0
+ 2562 0004 0529     	 cmp r1,#5
+ 2563 0006 76D8     	 bhi .L212
+ 2564 0008 1C1C     	 mov r4,r3
+ 2565 000a 081C     	 mov r0,r1
+ 2566 000c 9234     	 add r4,r4,#146
+ 2567 000e FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+ 2568              	.L215:
+ 2569 0012 03       	 .byte (.L214-.L215)/2
+ 2570 0013 2A       	 .byte (.L216-.L215)/2
+ 2571 0014 30       	 .byte (.L217-.L215)/2
+ 2572 0015 43       	 .byte (.L218-.L215)/2
+ 2573 0016 4B       	 .byte (.L219-.L215)/2
+ 2574 0017 5E       	 .byte (.L220-.L215)/2
+ 2575              	 .p2align 1
+ 2576              	.L214:
+ 2577 0018 2278     	 ldrb r2,[r4]
+ 2578 001a 022A     	 cmp r2,#2
+ 2579 001c 6BD1     	 bne .L212
+ 2580 001e 1E68     	 ldr r6,[r3]
+ 2581 0020 1D1C     	 mov r5,r3
+ 2582 0022 337C     	 ldrb r3,[r6,#16]
+ 2583 0024 012B     	 cmp r3,#1
+ 2584 0026 18D1     	 bne .L221
+ 2585 0028 6B69     	 ldr r3,[r5,#20]
+ 2586 002a 0421     	 mov r1,#4
+ 2587 002c 1868     	 ldr r0,[r3]
+ 2588 002e 0827     	 mov r7,#8
+ 2589 0030 021C     	 mov r2,r0
+ 2590 0032 A432     	 add r2,r2,#164
+ 2591 0034 1368     	 ldr r3,[r2]
+ 2592 0036 0B43     	 orr r3,r1
+ 2593 0038 1360     	 str r3,[r2]
+ 2594 003a 1368     	 ldr r3,[r2]
+ 2595 003c 3B43     	 orr r3,r7
+ 2596 003e 1360     	 str r3,[r2]
+ 2597 0040 1368     	 ldr r3,[r2]
+ 2598 0042 FF19     	 add r7,r7,r7
+ 2599 0044 3B43     	 orr r3,r7
+ 2600 0046 1360     	 str r3,[r2]
+ 2601 0048 1368     	 ldr r3,[r2]
+ 2602 004a 1037     	 add r7,r7,#16
+ 2603 004c 3B43     	 orr r3,r7
+ 2604 004e 1360     	 str r3,[r2]
+ 2605 0050 B26A     	 ldr r2,[r6,#40]
+ 2606 0052 1207     	 lsl r2,r2,#28
+ 2607 0054 920F     	 lsr r2,r2,#30
+ 2608 0056 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 2609              	.L221:
+ 2610 005a 0023     	 mov r3,#0
+ 2611 005c 2370     	 strb r3,[r4]
+ 2612 005e 2B1C     	 mov r3,r5
+ 2613 0060 254A     	 ldr r2,.L223
+ 2614 0062 8833     	 add r3,r3,#136
+ 2615 0064 46E0     	 b .L222
+ 2616              	.L216:
+ 2617 0066 2378     	 ldrb r3,[r4]
+ 2618 0068 032B     	 cmp r3,#3
+ 2619 006a 44D1     	 bne .L212
+ 2620 006c 023B     	 sub r3,r3,#2
+ 2621 006e 2370     	 strb r3,[r4]
+ 2622 0070 41E0     	 b .L212
+ 2623              	.L217:
+ 2624 0072 2278     	 ldrb r2,[r4]
+ 2625 0074 002A     	 cmp r2,#0
+ 2626 0076 3ED1     	 bne .L212
+ 2627 0078 0820     	 mov r0,#8
+ 2628 007a 5A69     	 ldr r2,[r3,#20]
+ 2629 007c 8833     	 add r3,r3,#136
+ 2630 007e 1268     	 ldr r2,[r2]
+ 2631 0080 A432     	 add r2,r2,#164
+ 2632 0082 1168     	 ldr r1,[r2]
+ 2633 0084 8143     	 bic r1,r0
+ 2634 0086 1160     	 str r1,[r2]
+ 2635 0088 1168     	 ldr r1,[r2]
+ 2636 008a 1830     	 add r0,r0,#24
+ 2637 008c 8143     	 bic r1,r0
+ 2638 008e 1160     	 str r1,[r2]
+ 2639 0090 0222     	 mov r2,#2
+ 2640 0092 2270     	 strb r2,[r4]
+ 2641 0094 194A     	 ldr r2,.L223+4
+ 2642 0096 2DE0     	 b .L222
+ 2643              	.L218:
+ 2644 0098 2278     	 ldrb r2,[r4]
+ 2645 009a 012A     	 cmp r2,#1
+ 2646 009c 2BD1     	 bne .L212
+ 2647 009e 0232     	 add r2,r2,#2
+ 2648 00a0 2270     	 strb r2,[r4]
+ 2649 00a2 8833     	 add r3,r3,#136
+ 2650 00a4 164A     	 ldr r2,.L223+8
+ 2651 00a6 25E0     	 b .L222
+ 2652              	.L219:
+ 2653 00a8 2278     	 ldrb r2,[r4]
+ 2654 00aa 052A     	 cmp r2,#5
+ 2655 00ac 23D1     	 bne .L212
+ 2656 00ae 1A1C     	 mov r2,r3
+ 2657 00b0 C432     	 add r2,r2,#196
+ 2658 00b2 1188     	 ldrh r1,[r2]
+ 2659 00b4 0322     	 mov r2,#3
+ 2660 00b6 4A43     	 mul r2,r1
+ 2661 00b8 8021     	 mov r1,#128
+ 2662 00ba C901     	 lsl r1,r1,#7
+ 2663 00bc 8A1A     	 sub r2,r1,r2
+ 2664 00be 191C     	 mov r1,r3
+ 2665 00c0 C631     	 add r1,r1,#198
+ 2666 00c2 0A80     	 strh r2,[r1]
+ 2667 00c4 0422     	 mov r2,#4
+ 2668 00c6 8833     	 add r3,r3,#136
+ 2669 00c8 2270     	 strb r2,[r4]
+ 2670 00ca 0E4A     	 ldr r2,.L223+12
+ 2671 00cc 12E0     	 b .L222
+ 2672              	.L220:
+ 2673 00ce 2278     	 ldrb r2,[r4]
+ 2674 00d0 042A     	 cmp r2,#4
+ 2675 00d2 10D1     	 bne .L212
+ 2676 00d4 1A1C     	 mov r2,r3
+ 2677 00d6 C432     	 add r2,r2,#196
+ 2678 00d8 1188     	 ldrh r1,[r2]
+ 2679 00da 0422     	 mov r2,#4
+ 2680 00dc 5242     	 neg r2,r2
+ 2681 00de 4A43     	 mul r2,r1
+ 2682 00e0 8021     	 mov r1,#128
+ 2683 00e2 C901     	 lsl r1,r1,#7
+ 2684 00e4 5218     	 add r2,r2,r1
+ 2685 00e6 191C     	 mov r1,r3
+ 2686 00e8 C631     	 add r1,r1,#198
+ 2687 00ea 0A80     	 strh r2,[r1]
+ 2688 00ec 0522     	 mov r2,#5
+ 2689 00ee 2270     	 strb r2,[r4]
+ 2690 00f0 054A     	 ldr r2,.L223+16
+ 2691 00f2 8833     	 add r3,r3,#136
+ 2692              	.L222:
+ 2693 00f4 1A60     	 str r2,[r3]
+ 2694              	.L212:
+ 2695              	 
+ 2696 00f6 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 2697              	.L224:
+ 2698              	 .align 2
+ 2699              	.L223:
+ 2700 00f8 00000000 	 .word PWM_SVM_CalCmpValueSym7
+ 2701 00fc 00000000 	 .word PWM_SVM_CalCmpValueSym5
+ 2702 0100 00000000 	 .word PWM_SVM_CalCmpValueAsym5
+ 2703 0104 00000000 	 .word PWM_SVM_Calc3av5segmentCompVal
+ 2704 0108 00000000 	 .word PWM_SVM_Calc4av7segmentCompVal
+ 2706              	 .section .text.PWM_SVM_lCAPeriodValueConfig,"ax",%progbits
+ 2707              	 .align 1
+ 2708              	 .global PWM_SVM_lCAPeriodValueConfig
+ 2709              	 .code 16
+ 2710              	 .thumb_func
+ 2712              	PWM_SVM_lCAPeriodValueConfig:
+ 2713 0000 38B5     	 push {r3,r4,r5,lr}
+ 2714 0002 031C     	 mov r3,r0
+ 2715 0004 9233     	 add r3,r3,#146
+ 2716 0006 1B78     	 ldrb r3,[r3]
+ 2717 0008 032B     	 cmp r3,#3
+ 2718 000a 28D9     	 bls .L225
+ 2719 000c 051C     	 mov r5,r0
+ 2720 000e 041C     	 mov r4,r0
+ 2721 0010 9C35     	 add r5,r5,#156
+ 2722 0012 2B68     	 ldr r3,[r5]
+ 2723 0014 591C     	 add r1,r3,#1
+ 2724 0016 4908     	 lsr r1,r1,#1
+ 2725 0018 8368     	 ldr r3,[r0,#8]
+ 2726 001a 0139     	 sub r1,r1,#1
+ 2727 001c 1868     	 ldr r0,[r3]
+ 2728 001e 2960     	 str r1,[r5]
+ 2729 0020 89B2     	 uxth r1,r1
+ 2730 0022 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2731 0026 E368     	 ldr r3,[r4,#12]
+ 2732 0028 2988     	 ldrh r1,[r5]
+ 2733 002a 1868     	 ldr r0,[r3]
+ 2734 002c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2735 0030 2369     	 ldr r3,[r4,#16]
+ 2736 0032 2988     	 ldrh r1,[r5]
+ 2737 0034 1868     	 ldr r0,[r3]
+ 2738 0036 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2739 003a 2368     	 ldr r3,[r4]
+ 2740 003c 1B7C     	 ldrb r3,[r3,#16]
+ 2741 003e 002B     	 cmp r3,#0
+ 2742 0040 05D0     	 beq .L227
+ 2743 0042 6369     	 ldr r3,[r4,#20]
+ 2744 0044 2968     	 ldr r1,[r5]
+ 2745 0046 1868     	 ldr r0,[r3]
+ 2746 0048 89B2     	 uxth r1,r1
+ 2747 004a FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2748              	.L227:
+ 2749 004e 2268     	 ldr r2,[r4]
+ 2750 0050 6368     	 ldr r3,[r4,#4]
+ 2751 0052 526A     	 ldr r2,[r2,#36]
+ 2752 0054 C634     	 add r4,r4,#198
+ 2753 0056 1A61     	 str r2,[r3,#16]
+ 2754 0058 8023     	 mov r3,#128
+ 2755 005a DB01     	 lsl r3,r3,#7
+ 2756 005c 2380     	 strh r3,[r4]
+ 2757              	.L225:
+ 2758              	 
+ 2759 005e 38BD     	 pop {r3,r4,r5,pc}
+ 2761              	 .section .text.PWM_SVM_lEAPeriodValueConfig,"ax",%progbits
+ 2762              	 .align 1
+ 2763              	 .global PWM_SVM_lEAPeriodValueConfig
+ 2764              	 .code 16
+ 2765              	 .thumb_func
+ 2767              	PWM_SVM_lEAPeriodValueConfig:
+ 2768 0000 38B5     	 push {r3,r4,r5,lr}
+ 2769 0002 031C     	 mov r3,r0
+ 2770 0004 9233     	 add r3,r3,#146
+ 2771 0006 1B78     	 ldrb r3,[r3]
+ 2772 0008 032B     	 cmp r3,#3
+ 2773 000a 22D8     	 bhi .L231
+ 2774 000c 051C     	 mov r5,r0
+ 2775 000e 041C     	 mov r4,r0
+ 2776 0010 9C35     	 add r5,r5,#156
+ 2777 0012 2B68     	 ldr r3,[r5]
+ 2778 0014 5900     	 lsl r1,r3,#1
+ 2779 0016 8368     	 ldr r3,[r0,#8]
+ 2780 0018 0131     	 add r1,r1,#1
+ 2781 001a 1868     	 ldr r0,[r3]
+ 2782 001c 2960     	 str r1,[r5]
+ 2783 001e 89B2     	 uxth r1,r1
+ 2784 0020 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2785 0024 E368     	 ldr r3,[r4,#12]
+ 2786 0026 2988     	 ldrh r1,[r5]
+ 2787 0028 1868     	 ldr r0,[r3]
+ 2788 002a FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2789 002e 2369     	 ldr r3,[r4,#16]
+ 2790 0030 2988     	 ldrh r1,[r5]
+ 2791 0032 1868     	 ldr r0,[r3]
+ 2792 0034 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2793 0038 2368     	 ldr r3,[r4]
+ 2794 003a 1B7C     	 ldrb r3,[r3,#16]
+ 2795 003c 002B     	 cmp r3,#0
+ 2796 003e 05D0     	 beq .L233
+ 2797 0040 6369     	 ldr r3,[r4,#20]
+ 2798 0042 2968     	 ldr r1,[r5]
+ 2799 0044 1868     	 ldr r0,[r3]
+ 2800 0046 89B2     	 uxth r1,r1
+ 2801 0048 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerPeriodMatch
+ 2802              	.L233:
+ 2803 004c 0CCC     	 ldmia r4!,{r2,r3}
+ 2804 004e 526A     	 ldr r2,[r2,#36]
+ 2805 0050 1A61     	 str r2,[r3,#16]
+ 2806              	.L231:
+ 2807              	 
+ 2808 0052 38BD     	 pop {r3,r4,r5,pc}
+ 2810              	 .section .text.PWM_SVM_lStaticSVMSchemeModification,"ax",%progbits
+ 2811              	 .align 1
+ 2812              	 .global PWM_SVM_lStaticSVMSchemeModification
+ 2813              	 .code 16
+ 2814              	 .thumb_func
+ 2816              	PWM_SVM_lStaticSVMSchemeModification:
+ 2817 0000 F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 2818 0002 0368     	 ldr r3,[r0]
+ 2819 0004 041C     	 mov r4,r0
+ 2820 0006 4633     	 add r3,r3,#70
+ 2821 0008 1B78     	 ldrb r3,[r3]
+ 2822 000a 0E1C     	 mov r6,r1
+ 2823 000c 002B     	 cmp r3,#0
+ 2824 000e 00D0     	 beq .LCB3096
+ 2825 0010 0CE1     	 b .L237
+ 2826              	.LCB3096:
+ 2827 0012 0529     	 cmp r1,#5
+ 2828 0014 00D9     	 bls .LCB3098
+ 2829 0016 07E1     	 b .L239
+ 2830              	.LCB3098:
+ 2831 0018 251C     	 mov r5,r4
+ 2832 001a 081C     	 mov r0,r1
+ 2833 001c A368     	 ldr r3,[r4,#8]
+ 2834 001e 8835     	 add r5,r5,#136
+ 2835 0020 FFF7FEFF 	 bl __gnu_thumb1_case_uqi
+ 2836              	.L241:
+ 2837 0024 03       	 .byte (.L240-.L241)/2
+ 2838 0025 3C       	 .byte (.L242-.L241)/2
+ 2839 0026 5F       	 .byte (.L243-.L241)/2
+ 2840 0027 82       	 .byte (.L244-.L241)/2
+ 2841 0028 A5       	 .byte (.L245-.L241)/2
+ 2842 0029 D3       	 .byte (.L246-.L241)/2
+ 2843              	 .p2align 1
+ 2844              	.L240:
+ 2845 002a 1868     	 ldr r0,[r3]
+ 2846 002c 0121     	 mov r1,#1
+ 2847 002e FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2848 0032 E368     	 ldr r3,[r4,#12]
+ 2849 0034 0121     	 mov r1,#1
+ 2850 0036 1868     	 ldr r0,[r3]
+ 2851 0038 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2852 003c 2369     	 ldr r3,[r4,#16]
+ 2853 003e 0121     	 mov r1,#1
+ 2854 0040 1868     	 ldr r0,[r3]
+ 2855 0042 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2856 0046 201C     	 mov r0,r4
+ 2857 0048 FFF7FEFF 	 bl PWM_SVM_lCAPeriodValueConfig
+ 2858 004c 0122     	 mov r2,#1
+ 2859 004e A368     	 ldr r3,[r4,#8]
+ 2860 0050 1968     	 ldr r1,[r3]
+ 2861 0052 8B6C     	 ldr r3,[r1,#72]
+ 2862 0054 9343     	 bic r3,r2
+ 2863 0056 8B64     	 str r3,[r1,#72]
+ 2864 0058 E368     	 ldr r3,[r4,#12]
+ 2865 005a 1968     	 ldr r1,[r3]
+ 2866 005c 8B6C     	 ldr r3,[r1,#72]
+ 2867 005e 9343     	 bic r3,r2
+ 2868 0060 8B64     	 str r3,[r1,#72]
+ 2869 0062 2369     	 ldr r3,[r4,#16]
+ 2870 0064 1968     	 ldr r1,[r3]
+ 2871 0066 8B6C     	 ldr r3,[r1,#72]
+ 2872 0068 9343     	 bic r3,r2
+ 2873 006a 8B64     	 str r3,[r1,#72]
+ 2874 006c 2168     	 ldr r1,[r4]
+ 2875 006e 0B7C     	 ldrb r3,[r1,#16]
+ 2876 0070 9342     	 cmp r3,r2
+ 2877 0072 11D1     	 bne .L247
+ 2878 0074 6369     	 ldr r3,[r4,#20]
+ 2879 0076 0827     	 mov r7,#8
+ 2880 0078 1868     	 ldr r0,[r3]
+ 2881 007a 031C     	 mov r3,r0
+ 2882 007c A433     	 add r3,r3,#164
+ 2883 007e 1A68     	 ldr r2,[r3]
+ 2884 0080 3A43     	 orr r2,r7
+ 2885 0082 1A60     	 str r2,[r3]
+ 2886 0084 1A68     	 ldr r2,[r3]
+ 2887 0086 1837     	 add r7,r7,#24
+ 2888 0088 3A43     	 orr r2,r7
+ 2889 008a 1A60     	 str r2,[r3]
+ 2890 008c 4A6B     	 ldr r2,[r1,#52]
+ 2891 008e 0421     	 mov r1,#4
+ 2892 0090 1207     	 lsl r2,r2,#28
+ 2893 0092 920F     	 lsr r2,r2,#30
+ 2894 0094 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetInterruptNode
+ 2895              	.L247:
+ 2896 0098 654B     	 ldr r3,.L249
+ 2897 009a C4E0     	 b .L248
+ 2898              	.L242:
+ 2899 009c 1868     	 ldr r0,[r3]
+ 2900 009e 0121     	 mov r1,#1
+ 2901 00a0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2902 00a4 E368     	 ldr r3,[r4,#12]
+ 2903 00a6 0121     	 mov r1,#1
+ 2904 00a8 1868     	 ldr r0,[r3]
+ 2905 00aa FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2906 00ae 2369     	 ldr r3,[r4,#16]
+ 2907 00b0 0121     	 mov r1,#1
+ 2908 00b2 1868     	 ldr r0,[r3]
+ 2909 00b4 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2910 00b8 201C     	 mov r0,r4
+ 2911 00ba FFF7FEFF 	 bl PWM_SVM_lCAPeriodValueConfig
+ 2912 00be 0122     	 mov r2,#1
+ 2913 00c0 A368     	 ldr r3,[r4,#8]
+ 2914 00c2 1968     	 ldr r1,[r3]
+ 2915 00c4 8B6C     	 ldr r3,[r1,#72]
+ 2916 00c6 1343     	 orr r3,r2
+ 2917 00c8 8B64     	 str r3,[r1,#72]
+ 2918 00ca E368     	 ldr r3,[r4,#12]
+ 2919 00cc 1968     	 ldr r1,[r3]
+ 2920 00ce 8B6C     	 ldr r3,[r1,#72]
+ 2921 00d0 1343     	 orr r3,r2
+ 2922 00d2 8B64     	 str r3,[r1,#72]
+ 2923 00d4 2369     	 ldr r3,[r4,#16]
+ 2924 00d6 1968     	 ldr r1,[r3]
+ 2925 00d8 8B6C     	 ldr r3,[r1,#72]
+ 2926 00da 1343     	 orr r3,r2
+ 2927 00dc 8B64     	 str r3,[r1,#72]
+ 2928 00de 554B     	 ldr r3,.L249+4
+ 2929 00e0 A1E0     	 b .L248
+ 2930              	.L243:
+ 2931 00e2 1868     	 ldr r0,[r3]
+ 2932 00e4 0121     	 mov r1,#1
+ 2933 00e6 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2934 00ea E368     	 ldr r3,[r4,#12]
+ 2935 00ec 0121     	 mov r1,#1
+ 2936 00ee 1868     	 ldr r0,[r3]
+ 2937 00f0 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2938 00f4 2369     	 ldr r3,[r4,#16]
+ 2939 00f6 0121     	 mov r1,#1
+ 2940 00f8 1868     	 ldr r0,[r3]
+ 2941 00fa FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2942 00fe 201C     	 mov r0,r4
+ 2943 0100 FFF7FEFF 	 bl PWM_SVM_lCAPeriodValueConfig
+ 2944 0104 0122     	 mov r2,#1
+ 2945 0106 A368     	 ldr r3,[r4,#8]
+ 2946 0108 1968     	 ldr r1,[r3]
+ 2947 010a 8B6C     	 ldr r3,[r1,#72]
+ 2948 010c 9343     	 bic r3,r2
+ 2949 010e 8B64     	 str r3,[r1,#72]
+ 2950 0110 E368     	 ldr r3,[r4,#12]
+ 2951 0112 1968     	 ldr r1,[r3]
+ 2952 0114 8B6C     	 ldr r3,[r1,#72]
+ 2953 0116 9343     	 bic r3,r2
+ 2954 0118 8B64     	 str r3,[r1,#72]
+ 2955 011a 2369     	 ldr r3,[r4,#16]
+ 2956 011c 1968     	 ldr r1,[r3]
+ 2957 011e 8B6C     	 ldr r3,[r1,#72]
+ 2958 0120 9343     	 bic r3,r2
+ 2959 0122 8B64     	 str r3,[r1,#72]
+ 2960 0124 444B     	 ldr r3,.L249+8
+ 2961 0126 7EE0     	 b .L248
+ 2962              	.L244:
+ 2963 0128 1868     	 ldr r0,[r3]
+ 2964 012a 0121     	 mov r1,#1
+ 2965 012c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2966 0130 E368     	 ldr r3,[r4,#12]
+ 2967 0132 0121     	 mov r1,#1
+ 2968 0134 1868     	 ldr r0,[r3]
+ 2969 0136 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2970 013a 2369     	 ldr r3,[r4,#16]
+ 2971 013c 0121     	 mov r1,#1
+ 2972 013e 1868     	 ldr r0,[r3]
+ 2973 0140 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2974 0144 201C     	 mov r0,r4
+ 2975 0146 FFF7FEFF 	 bl PWM_SVM_lCAPeriodValueConfig
+ 2976 014a 0122     	 mov r2,#1
+ 2977 014c A368     	 ldr r3,[r4,#8]
+ 2978 014e 1968     	 ldr r1,[r3]
+ 2979 0150 8B6C     	 ldr r3,[r1,#72]
+ 2980 0152 1343     	 orr r3,r2
+ 2981 0154 8B64     	 str r3,[r1,#72]
+ 2982 0156 E368     	 ldr r3,[r4,#12]
+ 2983 0158 1968     	 ldr r1,[r3]
+ 2984 015a 8B6C     	 ldr r3,[r1,#72]
+ 2985 015c 1343     	 orr r3,r2
+ 2986 015e 8B64     	 str r3,[r1,#72]
+ 2987 0160 2369     	 ldr r3,[r4,#16]
+ 2988 0162 1968     	 ldr r1,[r3]
+ 2989 0164 8B6C     	 ldr r3,[r1,#72]
+ 2990 0166 1343     	 orr r3,r2
+ 2991 0168 8B64     	 str r3,[r1,#72]
+ 2992 016a 344B     	 ldr r3,.L249+12
+ 2993 016c 5BE0     	 b .L248
+ 2994              	.L245:
+ 2995 016e 1868     	 ldr r0,[r3]
+ 2996 0170 0021     	 mov r1,#0
+ 2997 0172 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 2998 0176 E368     	 ldr r3,[r4,#12]
+ 2999 0178 0021     	 mov r1,#0
+ 3000 017a 1868     	 ldr r0,[r3]
+ 3001 017c FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 3002 0180 2369     	 ldr r3,[r4,#16]
+ 3003 0182 0021     	 mov r1,#0
+ 3004 0184 1868     	 ldr r0,[r3]
+ 3005 0186 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 3006 018a 201C     	 mov r0,r4
+ 3007 018c FFF7FEFF 	 bl PWM_SVM_lEAPeriodValueConfig
+ 3008 0190 231C     	 mov r3,r4
+ 3009 0192 C433     	 add r3,r3,#196
+ 3010 0194 1A88     	 ldrh r2,[r3]
+ 3011 0196 0323     	 mov r3,#3
+ 3012 0198 5343     	 mul r3,r2
+ 3013 019a 8022     	 mov r2,#128
+ 3014 019c D201     	 lsl r2,r2,#7
+ 3015 019e D31A     	 sub r3,r2,r3
+ 3016 01a0 221C     	 mov r2,r4
+ 3017 01a2 C632     	 add r2,r2,#198
+ 3018 01a4 1380     	 strh r3,[r2]
+ 3019 01a6 0122     	 mov r2,#1
+ 3020 01a8 A368     	 ldr r3,[r4,#8]
+ 3021 01aa 1968     	 ldr r1,[r3]
+ 3022 01ac 8B6C     	 ldr r3,[r1,#72]
+ 3023 01ae 1343     	 orr r3,r2
+ 3024 01b0 8B64     	 str r3,[r1,#72]
+ 3025 01b2 E368     	 ldr r3,[r4,#12]
+ 3026 01b4 1968     	 ldr r1,[r3]
+ 3027 01b6 8B6C     	 ldr r3,[r1,#72]
+ 3028 01b8 1343     	 orr r3,r2
+ 3029 01ba 8B64     	 str r3,[r1,#72]
+ 3030 01bc 2369     	 ldr r3,[r4,#16]
+ 3031 01be 1968     	 ldr r1,[r3]
+ 3032 01c0 8B6C     	 ldr r3,[r1,#72]
+ 3033 01c2 1343     	 orr r3,r2
+ 3034 01c4 8B64     	 str r3,[r1,#72]
+ 3035 01c6 1E4B     	 ldr r3,.L249+16
+ 3036 01c8 2DE0     	 b .L248
+ 3037              	.L246:
+ 3038 01ca 1868     	 ldr r0,[r3]
+ 3039 01cc 0021     	 mov r1,#0
+ 3040 01ce FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 3041 01d2 E368     	 ldr r3,[r4,#12]
+ 3042 01d4 0021     	 mov r1,#0
+ 3043 01d6 1868     	 ldr r0,[r3]
+ 3044 01d8 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 3045 01dc 2369     	 ldr r3,[r4,#16]
+ 3046 01de 0021     	 mov r1,#0
+ 3047 01e0 1868     	 ldr r0,[r3]
+ 3048 01e2 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetTimerCountingMode
+ 3049 01e6 201C     	 mov r0,r4
+ 3050 01e8 FFF7FEFF 	 bl PWM_SVM_lEAPeriodValueConfig
+ 3051 01ec 231C     	 mov r3,r4
+ 3052 01ee C433     	 add r3,r3,#196
+ 3053 01f0 1A88     	 ldrh r2,[r3]
+ 3054 01f2 0423     	 mov r3,#4
+ 3055 01f4 5B42     	 neg r3,r3
+ 3056 01f6 5343     	 mul r3,r2
+ 3057 01f8 8022     	 mov r2,#128
+ 3058 01fa D201     	 lsl r2,r2,#7
+ 3059 01fc 9B18     	 add r3,r3,r2
+ 3060 01fe 221C     	 mov r2,r4
+ 3061 0200 C632     	 add r2,r2,#198
+ 3062 0202 1380     	 strh r3,[r2]
+ 3063 0204 0122     	 mov r2,#1
+ 3064 0206 A368     	 ldr r3,[r4,#8]
+ 3065 0208 1968     	 ldr r1,[r3]
+ 3066 020a 8B6C     	 ldr r3,[r1,#72]
+ 3067 020c 1343     	 orr r3,r2
+ 3068 020e 8B64     	 str r3,[r1,#72]
+ 3069 0210 E368     	 ldr r3,[r4,#12]
+ 3070 0212 1968     	 ldr r1,[r3]
+ 3071 0214 8B6C     	 ldr r3,[r1,#72]
+ 3072 0216 1343     	 orr r3,r2
+ 3073 0218 8B64     	 str r3,[r1,#72]
+ 3074 021a 2369     	 ldr r3,[r4,#16]
+ 3075 021c 1968     	 ldr r1,[r3]
+ 3076 021e 8B6C     	 ldr r3,[r1,#72]
+ 3077 0220 1343     	 orr r3,r2
+ 3078 0222 8B64     	 str r3,[r1,#72]
+ 3079 0224 074B     	 ldr r3,.L249+20
+ 3080              	.L248:
+ 3081 0226 2B60     	 str r3,[r5]
+ 3082              	.L239:
+ 3083 0228 9234     	 add r4,r4,#146
+ 3084 022a 2670     	 strb r6,[r4]
+ 3085              	.L237:
+ 3086              	 
+ 3087 022c F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 3088              	.L250:
+ 3089 022e C046     	 .align 2
+ 3090              	.L249:
+ 3091 0230 00000000 	 .word PWM_SVM_CalCmpValueSym7
+ 3092 0234 00000000 	 .word PWM_SVM_CalCmpValueAsym7
+ 3093 0238 00000000 	 .word PWM_SVM_CalCmpValueSym5
+ 3094 023c 00000000 	 .word PWM_SVM_CalCmpValueAsym5
+ 3095 0240 00000000 	 .word PWM_SVM_Calc3av5segmentCompVal
+ 3096 0244 00000000 	 .word PWM_SVM_Calc4av7segmentCompVal
+ 3098              	 .section .text.PWM_SVM_SetSVMScheme,"ax",%progbits
+ 3099              	 .align 1
+ 3100              	 .global PWM_SVM_SetSVMScheme
+ 3101              	 .code 16
+ 3102              	 .thumb_func
+ 3104              	PWM_SVM_SetSVMScheme:
+ 3105 0000 38B5     	 push {r3,r4,r5,lr}
+ 3106 0002 0224     	 mov r4,#2
+ 3107 0004 0D1C     	 mov r5,r1
+ 3108 0006 A543     	 bic r5,r4
+ 3109 0008 0ED1     	 bne .L252
+ 3110 000a 031C     	 mov r3,r0
+ 3111 000c 9033     	 add r3,r3,#144
+ 3112 000e 1B78     	 ldrb r3,[r3]
+ 3113 0010 A342     	 cmp r3,r4
+ 3114 0012 03D1     	 bne .L253
+ 3115 0014 FFF7FEFF 	 bl PWM_SVM_lDynamicSVMSchemeModification
+ 3116 0018 2C1C     	 mov r4,r5
+ 3117 001a 05E0     	 b .L252
+ 3118              	.L253:
+ 3119 001c A343     	 bic r3,r4
+ 3120 001e 2C1C     	 mov r4,r5
+ 3121 0020 012B     	 cmp r3,#1
+ 3122 0022 01D1     	 bne .L252
+ 3123 0024 FFF7FEFF 	 bl PWM_SVM_lStaticSVMSchemeModification
+ 3124              	.L252:
+ 3125 0028 201C     	 mov r0,r4
+ 3126              	 
+ 3127 002a 38BD     	 pop {r3,r4,r5,pc}
+ 3129              	 .section .text.PWM_SVM_GetSVMScheme,"ax",%progbits
+ 3130              	 .align 1
+ 3131              	 .global PWM_SVM_GetSVMScheme
+ 3132              	 .code 16
+ 3133              	 .thumb_func
+ 3135              	PWM_SVM_GetSVMScheme:
+ 3136 0000 9230     	 add r0,r0,#146
+ 3137 0002 0078     	 ldrb r0,[r0]
+ 3138              	 
+ 3139 0004 7047     	 bx lr
+ 3141              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm_svm.c
+    {standard input}:15     .ram_code:00000000 $t
+    {standard input}:19     .ram_code:00000000 PWM_SVM_lSymCompValUpdate
+    {standard input}:38     .ram_code:00000024 $d
+    {standard input}:106    .text.PWM_SVM_lAsymCompValUpdate:00000000 $t
+    {standard input}:110    .text.PWM_SVM_lAsymCompValUpdate:00000000 PWM_SVM_lAsymCompValUpdate
+    {standard input}:131    .text.PWM_SVM_lAsymCompValUpdate:00000028 $d
+    {standard input}:276    .ram_code:0000008a PWM_SVM_CalCmpValueSym7
+    {standard input}:324    .ram_code:000000d8 PWM_SVM_CalCmpValueSym5
+    {standard input}:363    .text.PWM_SVM_CalCmpValueAsym7:00000000 $t
+    {standard input}:368    .text.PWM_SVM_CalCmpValueAsym7:00000000 PWM_SVM_CalCmpValueAsym7
+    {standard input}:453    .text.PWM_SVM_CalCmpValueAsym5:00000000 $t
+    {standard input}:458    .text.PWM_SVM_CalCmpValueAsym5:00000000 PWM_SVM_CalCmpValueAsym5
+    {standard input}:519    .text.PWM_SVM_Calc3av5segmentCompVal:00000000 $t
+    {standard input}:524    .text.PWM_SVM_Calc3av5segmentCompVal:00000000 PWM_SVM_Calc3av5segmentCompVal
+    {standard input}:628    .text.PWM_SVM_Calc3av5segmentCompVal:000000ca $d
+    {standard input}:883    .text.PWM_SVM_Calc4av7segmentCompVal:00000000 $t
+    {standard input}:888    .text.PWM_SVM_Calc4av7segmentCompVal:00000000 PWM_SVM_Calc4av7segmentCompVal
+    {standard input}:968    .text.PWM_SVM_Calc4av7segmentCompVal:0000009e $d
+    {standard input}:1217   .text.PWM_SVM_lEnableEvent:00000000 $t
+    {standard input}:1222   .text.PWM_SVM_lEnableEvent:00000000 PWM_SVM_lEnableEvent
+    {standard input}:1254   .text.PWM_SVM_InverterDisable:00000000 $t
+    {standard input}:1259   .text.PWM_SVM_InverterDisable:00000000 PWM_SVM_InverterDisable
+    {standard input}:1285   .text.PWM_SVM_InverterEnable:00000000 $t
+    {standard input}:1290   .text.PWM_SVM_InverterEnable:00000000 PWM_SVM_InverterEnable
+    {standard input}:1316   .text.PWM_SVM_lCurrentTrigSliceInit:00000000 $t
+    {standard input}:1321   .text.PWM_SVM_lCurrentTrigSliceInit:00000000 PWM_SVM_lCurrentTrigSliceInit
+    {standard input}:1428   .ram_code:0000011c PWM_SVM_TimecalcUsingCORDIC
+    {standard input}:1570   .ram_code:00000224 $d
+    {standard input}:1576   .ram_code:00000238 $t
+    {standard input}:1581   .ram_code:00000238 PWM_SVM_TimecalcUsingLUT
+    {standard input}:1679   .ram_code:000002ec $d
+    {standard input}:1685   .text.PWM_SVM_GetAppVersion:00000000 $t
+    {standard input}:1690   .text.PWM_SVM_GetAppVersion:00000000 PWM_SVM_GetAppVersion
+    {standard input}:1699   .text.PWM_SVM_GetAppVersion:00000008 $d
+    {standard input}:1702   .text.PWM_SVM_Init:00000000 $t
+    {standard input}:1707   .text.PWM_SVM_Init:00000000 PWM_SVM_Init
+    {standard input}:1884   .text.PWM_SVM_Start:00000000 $t
+    {standard input}:1889   .text.PWM_SVM_Start:00000000 PWM_SVM_Start
+    {standard input}:2055   .text.PWM_SVM_Start:00000140 $d
+    {standard input}:2058   .text.PWM_SVM_Stop:00000000 $t
+    {standard input}:2063   .text.PWM_SVM_Stop:00000000 PWM_SVM_Stop
+    {standard input}:2140   .text.PWM_SVM_Stop:00000090 $d
+    {standard input}:2143   .ram_code:000002fc $t
+    {standard input}:2148   .ram_code:000002fc PWM_SVM_SVMUpdate
+    {standard input}:2171   .text.PWM_SVM_SetPWMFrequency:00000000 $t
+    {standard input}:2176   .text.PWM_SVM_SetPWMFrequency:00000000 PWM_SVM_SetPWMFrequency
+    {standard input}:2278   .text.PWM_SVM_GetPWMFrequency:00000000 $t
+    {standard input}:2283   .text.PWM_SVM_GetPWMFrequency:00000000 PWM_SVM_GetPWMFrequency
+    {standard input}:2301   .text.PWM_SVM_SetDeadTime:00000000 $t
+    {standard input}:2306   .text.PWM_SVM_SetDeadTime:00000000 PWM_SVM_SetDeadTime
+    {standard input}:2415   .text.PWM_SVM_SetDeadTime:000000d0 $d
+    {standard input}:2419   .text.PWM_SVM_GetRisingEdgeDeadTime:00000000 $t
+    {standard input}:2424   .text.PWM_SVM_GetRisingEdgeDeadTime:00000000 PWM_SVM_GetRisingEdgeDeadTime
+    {standard input}:2450   .text.PWM_SVM_GetRisingEdgeDeadTime:00000030 $d
+    {standard input}:2453   .text.PWM_SVM_GetFallingEdgeDeadTime:00000000 $t
+    {standard input}:2458   .text.PWM_SVM_GetFallingEdgeDeadTime:00000000 PWM_SVM_GetFallingEdgeDeadTime
+    {standard input}:2484   .text.PWM_SVM_GetFallingEdgeDeadTime:00000030 $d
+    {standard input}:2487   .text.PWM_SVM_SetTmin:00000000 $t
+    {standard input}:2492   .text.PWM_SVM_SetTmin:00000000 PWM_SVM_SetTmin
+    {standard input}:2520   .text.PWM_SVM_SetTmin:00000030 $d
+    {standard input}:2524   .text.PWM_SVM_GetTmin:00000000 $t
+    {standard input}:2529   .text.PWM_SVM_GetTmin:00000000 PWM_SVM_GetTmin
+    {standard input}:2551   .text.PWM_SVM_GetTmin:00000028 $d
+    {standard input}:2554   .text.PWM_SVM_lDynamicSVMSchemeModification:00000000 $t
+    {standard input}:2559   .text.PWM_SVM_lDynamicSVMSchemeModification:00000000 PWM_SVM_lDynamicSVMSchemeModification
+    {standard input}:2569   .text.PWM_SVM_lDynamicSVMSchemeModification:00000012 $d
+    {standard input}:2575   .text.PWM_SVM_lDynamicSVMSchemeModification:00000018 $t
+    {standard input}:2700   .text.PWM_SVM_lDynamicSVMSchemeModification:000000f8 $d
+    {standard input}:2707   .text.PWM_SVM_lCAPeriodValueConfig:00000000 $t
+    {standard input}:2712   .text.PWM_SVM_lCAPeriodValueConfig:00000000 PWM_SVM_lCAPeriodValueConfig
+    {standard input}:2762   .text.PWM_SVM_lEAPeriodValueConfig:00000000 $t
+    {standard input}:2767   .text.PWM_SVM_lEAPeriodValueConfig:00000000 PWM_SVM_lEAPeriodValueConfig
+    {standard input}:2811   .text.PWM_SVM_lStaticSVMSchemeModification:00000000 $t
+    {standard input}:2816   .text.PWM_SVM_lStaticSVMSchemeModification:00000000 PWM_SVM_lStaticSVMSchemeModification
+    {standard input}:2837   .text.PWM_SVM_lStaticSVMSchemeModification:00000024 $d
+    {standard input}:2843   .text.PWM_SVM_lStaticSVMSchemeModification:0000002a $t
+    {standard input}:3091   .text.PWM_SVM_lStaticSVMSchemeModification:00000230 $d
+    {standard input}:3099   .text.PWM_SVM_SetSVMScheme:00000000 $t
+    {standard input}:3104   .text.PWM_SVM_SetSVMScheme:00000000 PWM_SVM_SetSVMScheme
+    {standard input}:3130   .text.PWM_SVM_GetSVMScheme:00000000 $t
+    {standard input}:3135   .text.PWM_SVM_GetSVMScheme:00000000 PWM_SVM_GetSVMScheme
+    {standard input}:43     .ram_code:00000029 $d
+    {standard input}:43     .ram_code:0000002a $t
+    {standard input}:136    .text.PWM_SVM_lAsymCompValUpdate:0000002d $d
+    {standard input}:136    .text.PWM_SVM_lAsymCompValUpdate:0000002e $t
+    {standard input}:633    .text.PWM_SVM_Calc3av5segmentCompVal:000000cf $d
+    {standard input}:633    .text.PWM_SVM_Calc3av5segmentCompVal:000000d0 $t
+    {standard input}:973    .text.PWM_SVM_Calc4av7segmentCompVal:000000a3 $d
+    {standard input}:973    .text.PWM_SVM_Calc4av7segmentCompVal:000000a4 $t
+
+UNDEFINED SYMBOLS
+__gnu_thumb1_case_uqi
+XMC_CCU8_SLICE_SetTimerCompareMatch
+XMC_CCU8_SLICE_CompareInit
+XMC_CCU8_SLICE_SetTimerPeriodMatch
+XMC_CCU8_SLICE_ConfigureEvent
+Sinus60_tab
+GLOBAL_CCU8_Init
+XMC_GPIO_Init
+XMC_GPIO_SetHardwareControl
+XMC_CCU8_SLICE_DeadTimeInit
+XMC_CCU8_SLICE_TrapConfig
+XMC_CCU8_SLICE_ConfigureStatusBitOutput
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_CCU8_SLICE_StartConfig
+__aeabi_uidiv
+XMC_CCU8_SLICE_SetDeadTimeValue
+XMC_CCU8_SLICE_SetDeadTimePrescaler
+XMC_CCU8_SLICE_SetInterruptNode
+XMC_CCU8_SLICE_SetTimerCountingMode

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ApplicationModel:ApplicationData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ApplicationModel="www.infineon.com/dave/applicationmodel" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore">
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CLOCK_XMC1/v4_0_26/CLOCK_XMC1_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CPU_CTRL_XMC1/v4_0_12/CPU_CTRL_XMC1_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/UART/v4_1_14/UART_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port0/Port0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CPU/CPU_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:DevicePackageNode">
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/SCU/SCU_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/USIC0/USIC0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port1/Port1_1.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_CCU8/v4_1_14/GLOBAL_CCU8_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_ADC/v4_0_22/GLOBAL_ADC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/VADC/VADC_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU80/CCU80_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port2/Port2_2.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_CCU4/v4_1_14/GLOBAL_CCU4_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_POSIF/v4_0_18/GLOBAL_POSIF_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/POSIF0/POSIF0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU40/CCU40_0.dd#/"/>
+  </nodes>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.9" target="//@nodes.10"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.10" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.11" target="//@nodes.12"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.12" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.11"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.9"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.17" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.18" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.19" target="//@nodes.18"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.19" target="//@nodes.17"/>
+  <hwConnections href="APPS/CLOCK_XMC1/v4_0_26/CLOCK_XMC1_0.app#//@connections.0"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.0"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.1"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.7"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.8"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.9"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.11"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.12"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.13"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.14"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.0"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.1"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.2"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.3"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.4"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.5"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.6"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.9"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.10"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.11"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.14"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.15"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.16"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.17"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.18"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.19"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.20"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.21"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.22"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.23"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.24"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.25"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.26"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.27"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.28"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.29"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.30"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.31"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.32"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.33"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.34"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.35"/>
+  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.36"/>
+  <hwConnections href="APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@connections.2"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.0"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.1"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.2"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.3"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.4"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.5"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.7"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.10"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.11"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.12"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.14"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.38"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.39"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.40"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.41"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.45"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.57"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.58"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.59"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.60"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.61"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.62"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.63"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.64"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.65"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.66"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.67"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.68"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.69"/>
+  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.70"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.0"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.1"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.2"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.3"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.4"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.5"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.6"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.7"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.17"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.18"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.19"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.20"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.21"/>
+  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.22"/>
+</ApplicationModel:ApplicationData>

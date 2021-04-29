@@ -1,0 +1,97 @@
+package Model.APPS.PWM_SVM.v4_0_30;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class PWM_SVM_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_svmconfiguration;
+	 public GTab gtab_7_segsym;
+	 public GTab tab_interrupts;
+	 public GTab gtab_pinconfig;
+	 public GImage gimage_7segsym;
+	 public GImage gimage_dc7segsym;
+	 public GInteger gint_pwmfreq;
+	 public GInteger gint_periodreg;
+	 public GCombo gcombo_svm_schemeselect;
+	 public GCombo gcombo_externaltrigger;
+	 public GCombo gcombo_segmenttimecalculation;
+	 public GCombo gcombo_invlevelsel;
+	 public GCombo gcombo_highsideswitch;
+	 public GCombo gcombo_lowsideswitch;
+	 public GCombo gcombo_traplevelsel;
+	 public GCombo gcombo_trapexitcontrol;
+	 public GCombo gcombo_trapsyncenable;
+	 public GCombo gcombo_outchar;
+	 public GCombo gcombo_paddriver;
+	 public GCombo gcombo_inchar;
+	 public GCombo gcombo_inverteroutchar;
+	 public GCombo gcombo_inverterpaddriver;
+	 public GFloat gfloat_resolution;
+	 public GFloat gfloat_actresolution;
+	 public GFloat gfloat_offset;
+	 public GFloat gfloat_deadtime_rising_edge;
+	 public GFloat gfloat_deadtime_falling_edge;
+	 public GFloat gfloat_tmin;
+	 public GCheck gcheck_optimization;
+	 public GCheck gcheck_overmodulation;
+	 public GCheck gcheck_periodmatchintenable;
+	 public GCheck gcheck_trapintenable;
+	 public GLabel glabel_svm_schemeselect;
+	 public GLabel glabel_externaltrigger;
+	 public GLabel glabel_segmenttimecalculation;
+	 public GLabel glabel_paddriver;
+	 public GLabel glabel_inverterpaddriver;
+	 public GGroup ggroup_interruptconfig;
+	 public GGroup ggroup_phasepinconfig;
+	 public GGroup ggroup_trappinconfig;
+	 public GGroup ggroup_inverterpinconfig;
+
+	 public PWM_SVM_GUI(DaveEnv daveEnv){
+
+	 gtab_svmconfiguration = GTab(widgetName:"gtab_svmconfiguration", text:"General Settings", enabled:true, visible:true)
+	 gtab_7_segsym = GTab(widgetName:"gtab_7_segsym", text:"SVM Waveforms", enabled:true, visible:true)
+	 tab_interrupts = GTab(widgetName:"tab_interrupts", text:"Event Settings", enabled:true, visible:true)
+	 gtab_pinconfig = GTab(widgetName:"gtab_pinconfig", text:"Pin Settings", enabled:true, visible:true)
+	 gimage_7segsym = GImage(widgetName:"gimage_7segsym", path: "Uimodel/Drawings/7Seg_Sym_SVM.PNG", enabled:true, visible:true)
+	 gimage_dc7segsym = GImage(widgetName:"gimage_dc7segsym", path: "Uimodel/Drawings/DCLink_7SegSym_CM.png", enabled:true, visible:true)
+	 gint_pwmfreq = GInteger(widgetName:"gint_pwmfreq", value:20000, minValue:100, maxValue:250000, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_periodreg = GInteger(widgetName:"gint_periodreg", value:1, minValue:1, maxValue:65535, enabled:false, visible:true, isMandatoryValue:false)
+	 gcombo_svm_schemeselect = GCombo(widgetName:"gcombo_svm_schemeselect", options:["Standard SVM - 7 Segment Symmetric","Standard SVM - 7 Segment Asymmetric","Standard SVM - 5 Segment Symmetric","Standard SVM - 5 Segment Asymmetric","Pseudo null vector - 3 Active Vector(5 Segment)","Pseudo null vector - 4 Active Vector(7 Segment)"], value:"Standard SVM - 7 Segment Symmetric", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_externaltrigger = GCombo(widgetName:"gcombo_externaltrigger", options:["None","DC Link Current Measurement","2 Phase Current Measurement","3 Phase Current Measurement"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_segmenttimecalculation = GCombo(widgetName:"gcombo_segmenttimecalculation", options:["Use CORDIC","Use LookUpTable"], value:"Use LookUpTable", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_invlevelsel = GCombo(widgetName:"gcombo_invlevelsel", options:["Disabled","Active Low","Active High"], value:"Active High", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_highsideswitch = GCombo(widgetName:"gcombo_highsideswitch", options:["Active High","Active Low"], value:"Active Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_lowsideswitch = GCombo(widgetName:"gcombo_lowsideswitch", options:["Active High","Active Low"], value:"Active Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_traplevelsel = GCombo(widgetName:"gcombo_traplevelsel", options:["Disabled","Active Low","Active High"], value:"Active Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_trapexitcontrol = GCombo(widgetName:"gcombo_trapexitcontrol", options:["Auto Exit","SW Exit"], value:"Auto Exit", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_trapsyncenable = GCombo(widgetName:"gcombo_trapsyncenable", options:["Exit Trap without Synchronization","Exit Trap with Synchronization"], value:"Exit Trap without Synchronization", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_outchar = GCombo(widgetName:"gcombo_outchar", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_paddriver = GCombo(widgetName:"gcombo_paddriver", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Strong Driver Sharp Edge", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_inchar = GCombo(widgetName:"gcombo_inchar", options:["None","Pull Down","Pull Up"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_inverteroutchar = GCombo(widgetName:"gcombo_inverteroutchar", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_inverterpaddriver = GCombo(widgetName:"gcombo_inverterpaddriver", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Strong Driver Sharp Edge", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_resolution = GFloat(widgetName:"gfloat_resolution", value:9.0, minValue:9, maxValue:512000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_actresolution = GFloat(widgetName:"gfloat_actresolution", value:0.0, minValue:6, maxValue:512000, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_offset = GFloat(widgetName:"gfloat_offset", value:0.0, minValue:0, maxValue:2, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_deadtime_rising_edge = GFloat(widgetName:"gfloat_deadtime_rising_edge", value:500, minValue:0, maxValue:10000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_deadtime_falling_edge = GFloat(widgetName:"gfloat_deadtime_falling_edge", value:500, minValue:0, maxValue:10000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_tmin = GFloat(widgetName:"gfloat_tmin", value:0.0, minValue:0, maxValue:20000, enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_optimization = GCheck(widgetName:"gcheck_optimization", value:false, enabled:true, visible:true)
+	 gcheck_overmodulation = GCheck(widgetName:"gcheck_overmodulation", value:false, enabled:true, visible:true)
+	 gcheck_periodmatchintenable = GCheck(widgetName:"gcheck_periodmatchintenable", value:false, enabled:true, visible:true)
+	 gcheck_trapintenable = GCheck(widgetName:"gcheck_trapintenable", value:false, enabled:true, visible:true)
+	 glabel_svm_schemeselect = GLabel(widgetName:"glabel_svm_schemeselect", text:"SVM scheme:    ", enabled:true, visible:true)
+	 glabel_externaltrigger = GLabel(widgetName:"glabel_externaltrigger", text:"Trigger for current measurement:        ", enabled:true, visible:true)
+	 glabel_segmenttimecalculation = GLabel(widgetName:"glabel_segmenttimecalculation", text:"Segment time calculation:", enabled:true, visible:true)
+	 glabel_paddriver = GLabel(widgetName:"glabel_paddriver", text:"Driver strength:", enabled:true, visible:true)
+	 glabel_inverterpaddriver = GLabel(widgetName:"glabel_inverterpaddriver", text:"Driver strength:", enabled:true, visible:true)
+	 ggroup_interruptconfig = GGroup(widgetName:"ggroup_interruptconfig", text:"Enable at Initialization", enabled:true, visible:true)
+	 ggroup_phasepinconfig = GGroup(widgetName:"ggroup_phasepinconfig", text:"Phase Pin Configurations", enabled:true, visible:true)
+	 ggroup_trappinconfig = GGroup(widgetName:"ggroup_trappinconfig", text:"Trap Pin Configurations", enabled:true, visible:true)
+	 ggroup_inverterpinconfig = GGroup(widgetName:"ggroup_inverterpinconfig", text:"Inverter Pin Configurations", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

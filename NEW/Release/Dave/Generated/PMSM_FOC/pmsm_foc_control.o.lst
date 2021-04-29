@@ -1,0 +1,566 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "pmsm_foc_control.c"
+  14              	 .section .ram_code,"ax",%progbits
+  15              	 .align 1
+  16              	 .code 16
+  17              	 .thumb_func
+  19              	PMSM_FOC_SpeedLowLimit:
+  20 0000 0023     	 mov r3,#0
+  21 0002 C26B     	 ldr r2,[r0,#60]
+  22 0004 10B5     	 push {r4,lr}
+  23 0006 8363     	 str r3,[r0,#56]
+  24 0008 8A42     	 cmp r2,r1
+  25 000a 2EDA     	 bge .L1
+  26 000c 021C     	 mov r2,r0
+  27 000e 0D21     	 mov r1,#13
+  28 0010 041C     	 mov r4,r0
+  29 0012 3032     	 add r2,r2,#48
+  30 0014 1170     	 strb r1,[r2]
+  31 0016 4365     	 str r3,[r0,#84]
+  32 0018 C365     	 str r3,[r0,#92]
+  33 001a C363     	 str r3,[r0,#60]
+  34 001c 4068     	 ldr r0,[r0,#4]
+  35 001e FFF7FEFF 	 bl PWM_SVM_Stop
+  36 0022 6368     	 ldr r3,[r4,#4]
+  37 0024 114A     	 ldr r2,.L4
+  38 0026 196F     	 ldr r1,[r3,#112]
+  39 0028 0A60     	 str r2,[r1]
+  40 002a 596F     	 ldr r1,[r3,#116]
+  41 002c 0A60     	 str r2,[r1]
+  42 002e 996F     	 ldr r1,[r3,#120]
+  43 0030 9B68     	 ldr r3,[r3,#8]
+  44 0032 0A60     	 str r2,[r1]
+  45 0034 F021     	 mov r1,#240
+  46 0036 1868     	 ldr r0,[r3]
+  47 0038 4903     	 lsl r1,r1,#13
+  48 003a FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+  49 003e F021     	 mov r1,#240
+  50 0040 6368     	 ldr r3,[r4,#4]
+  51 0042 4903     	 lsl r1,r1,#13
+  52 0044 DB68     	 ldr r3,[r3,#12]
+  53 0046 1868     	 ldr r0,[r3]
+  54 0048 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+  55 004c F021     	 mov r1,#240
+  56 004e 6368     	 ldr r3,[r4,#4]
+  57 0050 4903     	 lsl r1,r1,#13
+  58 0052 1B69     	 ldr r3,[r3,#16]
+  59 0054 1868     	 ldr r0,[r3]
+  60 0056 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+  61 005a 6368     	 ldr r3,[r4,#4]
+  62 005c 201C     	 mov r0,r4
+  63 005e 5A68     	 ldr r2,[r3,#4]
+  64 0060 1B68     	 ldr r3,[r3]
+  65 0062 5B6A     	 ldr r3,[r3,#36]
+  66 0064 1361     	 str r3,[r2,#16]
+  67 0066 FFF7FEFF 	 bl PMSM_FOC_StartPWMTimer
+  68              	.L1:
+  69              	 
+  70 006a 10BD     	 pop {r4,pc}
+  71              	.L5:
+  72              	 .align 2
+  73              	.L4:
+  74 006c FFFF0000 	 .word 65535
+  76              	 .align 1
+  77              	 .global CCU80_1_IRQHandler
+  78              	 .code 16
+  79              	 .thumb_func
+  81              	CCU80_1_IRQHandler:
+  82 0070 0948     	 ldr r0,.L11
+  83 0072 08B5     	 push {r3,lr}
+  84 0074 4368     	 ldr r3,[r0,#4]
+  85 0076 9B68     	 ldr r3,[r3,#8]
+  86 0078 1B68     	 ldr r3,[r3]
+  87 007a A033     	 add r3,r3,#160
+  88 007c 1B68     	 ldr r3,[r3]
+  89 007e 5B05     	 lsl r3,r3,#21
+  90 0080 09D5     	 bpl .L6
+  91 0082 0223     	 mov r3,#2
+  92 0084 026C     	 ldr r2,[r0,#64]
+  93 0086 1343     	 orr r3,r2
+  94 0088 0364     	 str r3,[r0,#64]
+  95 008a 031C     	 mov r3,r0
+  96 008c 0F22     	 mov r2,#15
+  97 008e 3033     	 add r3,r3,#48
+  98 0090 1A70     	 strb r2,[r3]
+  99 0092 FFF7FEFF 	 bl PMSM_FOC_MotorStop
+ 100              	.L6:
+ 101              	 
+ 102 0096 08BD     	 pop {r3,pc}
+ 103              	.L12:
+ 104              	 .align 2
+ 105              	.L11:
+ 106 0098 00000000 	 .word PMSM_FOC_0
+ 108              	 .align 1
+ 109              	 .global PMSM_FOC_MSM
+ 110              	 .code 16
+ 111              	 .thumb_func
+ 113              	PMSM_FOC_MSM:
+ 114 009c F8B5     	 push {r3,r4,r5,r6,r7,lr}
+ 115 009e 051C     	 mov r5,r0
+ 116 00a0 3035     	 add r5,r5,#48
+ 117 00a2 2B78     	 ldrb r3,[r5]
+ 118 00a4 0D2B     	 cmp r3,#13
+ 119 00a6 00D9     	 bls .LCB115
+ 120 00a8 42E1     	 b .L13
+ 121              	.LCB115:
+ 122 00aa 041C     	 mov r4,r0
+ 123 00ac 181C     	 mov r0,r3
+ 124 00ae FFF7FEFF 	 bl __gnu_thumb1_case_uhi
+ 125              	.L16:
+ 126 00b2 3C01     	 .2byte (.L15-.L16)/2
+ 127 00b4 AF00     	 .2byte (.L17-.L16)/2
+ 128 00b6 E200     	 .2byte (.L18-.L16)/2
+ 129 00b8 3F01     	 .2byte (.L13-.L16)/2
+ 130 00ba A200     	 .2byte (.L19-.L16)/2
+ 131 00bc 0E00     	 .2byte (.L20-.L16)/2
+ 132 00be 3F01     	 .2byte (.L13-.L16)/2
+ 133 00c0 3F01     	 .2byte (.L13-.L16)/2
+ 134 00c2 3F01     	 .2byte (.L13-.L16)/2
+ 135 00c4 DB00     	 .2byte (.L21-.L16)/2
+ 136 00c6 9800     	 .2byte (.L22-.L16)/2
+ 137 00c8 8E00     	 .2byte (.L23-.L16)/2
+ 138 00ca 0501     	 .2byte (.L24-.L16)/2
+ 139 00cc 1D01     	 .2byte (.L25-.L16)/2
+ 140              	 .p2align 1
+ 141              	.L20:
+ 142 00ce E36A     	 ldr r3,[r4,#44]
+ 143 00d0 1B69     	 ldr r3,[r3,#16]
+ 144 00d2 6365     	 str r3,[r4,#84]
+ 145 00d4 6368     	 ldr r3,[r4,#4]
+ 146 00d6 AC33     	 add r3,r3,#172
+ 147 00d8 1988     	 ldrh r1,[r3]
+ 148 00da 231C     	 mov r3,r4
+ 149 00dc B033     	 add r3,r3,#176
+ 150 00de 1A88     	 ldrh r2,[r3]
+ 151 00e0 A36A     	 ldr r3,[r4,#40]
+ 152 00e2 7033     	 add r3,r3,#112
+ 153 00e4 9142     	 cmp r1,r2
+ 154 00e6 01D2     	 bcs .L26
+ 155 00e8 0122     	 mov r2,#1
+ 156 00ea 00E0     	 b .L51
+ 157              	.L26:
+ 158 00ec 0022     	 mov r2,#0
+ 159              	.L51:
+ 160 00ee 1A70     	 strb r2,[r3]
+ 161 00f0 E36B     	 ldr r3,[r4,#60]
+ 162 00f2 A06B     	 ldr r0,[r4,#56]
+ 163 00f4 8342     	 cmp r3,r0
+ 164 00f6 13D1     	 bne .L28
+ 165 00f8 0023     	 mov r3,#0
+ 166 00fa A367     	 str r3,[r4,#120]
+ 167 00fc 231C     	 mov r3,r4
+ 168 00fe 0122     	 mov r2,#1
+ 169 0100 2168     	 ldr r1,[r4]
+ 170 0102 B433     	 add r3,r3,#180
+ 171 0104 1A70     	 strb r2,[r3]
+ 172 0106 2C3B     	 sub r3,r3,#44
+ 173 0108 1B68     	 ldr r3,[r3]
+ 174 010a 4A6A     	 ldr r2,[r1,#36]
+ 175 010c 251D     	 add r5,r4,#4
+ 176 010e 9A40     	 lsl r2,r2,r3
+ 177 0110 EA67     	 str r2,[r5,#124]
+ 178 0112 8A6A     	 ldr r2,[r1,#40]
+ 179 0114 201C     	 mov r0,r4
+ 180 0116 013B     	 sub r3,r3,#1
+ 181 0118 9A40     	 lsl r2,r2,r3
+ 182 011a 0830     	 add r0,r0,#8
+ 183 011c C267     	 str r2,[r0,#124]
+ 184 011e 41E0     	 b .L29
+ 185              	.L28:
+ 186 0120 A16F     	 ldr r1,[r4,#120]
+ 187 0122 0131     	 add r1,r1,#1
+ 188 0124 A167     	 str r1,[r4,#120]
+ 189 0126 8342     	 cmp r3,r0
+ 190 0128 18DA     	 bge .L30
+ 191 012a 251D     	 add r5,r4,#4
+ 192 012c EA6F     	 ldr r2,[r5,#124]
+ 193 012e 9142     	 cmp r1,r2
+ 194 0130 38D9     	 bls .L29
+ 195 0132 2168     	 ldr r1,[r4]
+ 196 0134 C01A     	 sub r0,r0,r3
+ 197 0136 0E6B     	 ldr r6,[r1,#48]
+ 198 0138 496A     	 ldr r1,[r1,#36]
+ 199 013a F610     	 asr r6,r6,#3
+ 200 013c B042     	 cmp r0,r6
+ 201 013e 03DD     	 ble .L32
+ 202 0140 8A42     	 cmp r2,r1
+ 203 0142 09D9     	 bls .L33
+ 204 0144 013A     	 sub r2,r2,#1
+ 205 0146 06E0     	 b .L52
+ 206              	.L32:
+ 207 0148 201C     	 mov r0,r4
+ 208 014a 8830     	 add r0,r0,#136
+ 209 014c 0068     	 ldr r0,[r0]
+ 210 014e 8140     	 lsl r1,r1,r0
+ 211 0150 8A42     	 cmp r2,r1
+ 212 0152 01D2     	 bcs .L33
+ 213 0154 0132     	 add r2,r2,#1
+ 214              	.L52:
+ 215 0156 EA67     	 str r2,[r5,#124]
+ 216              	.L33:
+ 217 0158 0133     	 add r3,r3,#1
+ 218 015a 20E0     	 b .L54
+ 219              	.L30:
+ 220 015c 251C     	 mov r5,r4
+ 221 015e 0835     	 add r5,r5,#8
+ 222 0160 EA6F     	 ldr r2,[r5,#124]
+ 223 0162 9142     	 cmp r1,r2
+ 224 0164 1ED9     	 bls .L29
+ 225 0166 2168     	 ldr r1,[r4]
+ 226 0168 181A     	 sub r0,r3,r0
+ 227 016a 0E6B     	 ldr r6,[r1,#48]
+ 228 016c F710     	 asr r7,r6,#3
+ 229 016e 8E6A     	 ldr r6,[r1,#40]
+ 230 0170 B842     	 cmp r0,r7
+ 231 0172 03DD     	 ble .L35
+ 232 0174 B242     	 cmp r2,r6
+ 233 0176 0AD9     	 bls .L36
+ 234 0178 013A     	 sub r2,r2,#1
+ 235 017a 07E0     	 b .L53
+ 236              	.L35:
+ 237 017c 201C     	 mov r0,r4
+ 238 017e 8830     	 add r0,r0,#136
+ 239 0180 0068     	 ldr r0,[r0]
+ 240 0182 0138     	 sub r0,r0,#1
+ 241 0184 8640     	 lsl r6,r6,r0
+ 242 0186 B242     	 cmp r2,r6
+ 243 0188 01D2     	 bcs .L36
+ 244 018a 0132     	 add r2,r2,#1
+ 245              	.L53:
+ 246 018c EA67     	 str r2,[r5,#124]
+ 247              	.L36:
+ 248 018e 221C     	 mov r2,r4
+ 249 0190 0231     	 add r1,r1,#2
+ 250 0192 A832     	 add r2,r2,#168
+ 251 0194 1088     	 ldrh r0,[r2]
+ 252 0196 CA8F     	 ldrh r2,[r1,#62]
+ 253 0198 9042     	 cmp r0,r2
+ 254 019a 01D8     	 bhi .L37
+ 255 019c 013B     	 sub r3,r3,#1
+ 256              	.L54:
+ 257 019e E363     	 str r3,[r4,#60]
+ 258              	.L37:
+ 259 01a0 0023     	 mov r3,#0
+ 260 01a2 A367     	 str r3,[r4,#120]
+ 261              	.L29:
+ 262 01a4 A36A     	 ldr r3,[r4,#40]
+ 263 01a6 E26B     	 ldr r2,[r4,#60]
+ 264 01a8 201C     	 mov r0,r4
+ 265 01aa 9A63     	 str r2,[r3,#56]
+ 266 01ac FFF7FEFF 	 bl FOC_Controller_LIB
+ 267 01b0 6068     	 ldr r0,[r4,#4]
+ 268 01b2 031C     	 mov r3,r0
+ 269 01b4 A433     	 add r3,r3,#164
+ 270 01b6 1A68     	 ldr r2,[r3]
+ 271 01b8 A36A     	 ldr r3,[r4,#40]
+ 272 01ba 6E33     	 add r3,r3,#110
+ 273 01bc 1A80     	 strh r2,[r3]
+ 274 01be E36D     	 ldr r3,[r4,#92]
+ 275 01c0 A26D     	 ldr r2,[r4,#88]
+ 276 01c2 99B2     	 uxth r1,r3
+ 277 01c4 FFF7FEFF 	 bl PWM_SVM_SVMUpdate
+ 278 01c8 2368     	 ldr r3,[r4]
+ 279 01ca 196B     	 ldr r1,[r3,#48]
+ 280 01cc 87E0     	 b .L61
+ 281              	.L23:
+ 282 01ce 2368     	 ldr r3,[r4]
+ 283 01d0 201C     	 mov r0,r4
+ 284 01d2 196B     	 ldr r1,[r3,#48]
+ 285 01d4 A36B     	 ldr r3,[r4,#56]
+ 286 01d6 8B42     	 cmp r3,r1
+ 287 01d8 00DA     	 bge .LCB298
+ 288 01da 84E0     	 b .L57
+ 289              	.LCB298:
+ 290 01dc FFF7FEFF 	 bl PMSM_FOC_Vf_RampUp
+ 291 01e0 02E0     	 b .L58
+ 292              	.L22:
+ 293 01e2 201C     	 mov r0,r4
+ 294 01e4 FFF7FEFF 	 bl PMSM_FOC_Rotor_Pre_Positioning
+ 295              	.L58:
+ 296 01e8 E36D     	 ldr r3,[r4,#92]
+ 297 01ea 6068     	 ldr r0,[r4,#4]
+ 298 01ec 99B2     	 uxth r1,r3
+ 299 01ee A26D     	 ldr r2,[r4,#88]
+ 300 01f0 FFF7FEFF 	 bl PWM_SVM_SVMUpdate
+ 301 01f4 9CE0     	 b .L13
+ 302              	.L19:
+ 303 01f6 A36A     	 ldr r3,[r4,#40]
+ 304 01f8 626D     	 ldr r2,[r4,#84]
+ 305 01fa 201C     	 mov r0,r4
+ 306 01fc 9A63     	 str r2,[r3,#56]
+ 307 01fe FFF7FEFF 	 bl VF_Smooth_Transition_To_FOC
+ 308 0202 231C     	 mov r3,r4
+ 309 0204 B433     	 add r3,r3,#180
+ 310 0206 1870     	 strb r0,[r3]
+ 311 0208 201C     	 mov r0,r4
+ 312 020a FFF7FEFF 	 bl PMSM_FOC_METTransition
+ 313 020e EBE7     	 b .L58
+ 314              	.L17:
+ 315 0210 201C     	 mov r0,r4
+ 316 0212 FFF7FEFF 	 bl PMSM_FOC_MotorParamInit
+ 317 0216 201C     	 mov r0,r4
+ 318 0218 FFF7FEFF 	 bl PMSM_FOC_AmpBiasVoltCalibration
+ 319 021c 201C     	 mov r0,r4
+ 320 021e FFF7FEFF 	 bl PMSM_FOC_StopPWMTimer
+ 321 0222 201C     	 mov r0,r4
+ 322 0224 FFF7FEFF 	 bl PMSM_FOC_StartPWMTimer
+ 323 0228 6068     	 ldr r0,[r4,#4]
+ 324 022a FFF7FEFF 	 bl PWM_SVM_InverterEnable
+ 325 022e F021     	 mov r1,#240
+ 326 0230 6368     	 ldr r3,[r4,#4]
+ 327 0232 4903     	 lsl r1,r1,#13
+ 328 0234 9B68     	 ldr r3,[r3,#8]
+ 329 0236 1868     	 ldr r0,[r3]
+ 330 0238 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 331 023c F021     	 mov r1,#240
+ 332 023e 6368     	 ldr r3,[r4,#4]
+ 333 0240 4903     	 lsl r1,r1,#13
+ 334 0242 DB68     	 ldr r3,[r3,#12]
+ 335 0244 1868     	 ldr r0,[r3]
+ 336 0246 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 337 024a F021     	 mov r1,#240
+ 338 024c 6368     	 ldr r3,[r4,#4]
+ 339 024e 4903     	 lsl r1,r1,#13
+ 340 0250 1B69     	 ldr r3,[r3,#16]
+ 341 0252 1868     	 ldr r0,[r3]
+ 342 0254 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 343 0258 A36C     	 ldr r3,[r4,#72]
+ 344 025a 002B     	 cmp r3,#0
+ 345 025c 09D0     	 beq .L40
+ 346 025e 201C     	 mov r0,r4
+ 347 0260 FFF7FEFF 	 bl PMSM_FOC_BootstrapConfiguration
+ 348 0264 0923     	 mov r3,#9
+ 349 0266 5EE0     	 b .L59
+ 350              	.L21:
+ 351 0268 201C     	 mov r0,r4
+ 352 026a FFF7FEFF 	 bl PMSM_FOC_Bootstrap
+ 353 026e 0128     	 cmp r0,#1
+ 354 0270 5ED1     	 bne .L13
+ 355              	.L40:
+ 356 0272 0223     	 mov r3,#2
+ 357 0274 57E0     	 b .L59
+ 358              	.L18:
+ 359 0276 201C     	 mov r0,r4
+ 360 0278 FFF7FEFF 	 bl PMSM_FOC_StopPWMTimer
+ 361 027c 2268     	 ldr r2,[r4]
+ 362 027e 131C     	 mov r3,r2
+ 363 0280 4733     	 add r3,r3,#71
+ 364 0282 1B78     	 ldrb r3,[r3]
+ 365 0284 DB09     	 lsr r3,r3,#7
+ 366 0286 01D0     	 beq .L42
+ 367 0288 0A23     	 mov r3,#10
+ 368 028a 07E0     	 b .L55
+ 369              	.L42:
+ 370 028c 536A     	 ldr r3,[r2,#36]
+ 371 028e 221C     	 mov r2,r4
+ 372 0290 8832     	 add r2,r2,#136
+ 373 0292 1268     	 ldr r2,[r2]
+ 374 0294 211D     	 add r1,r4,#4
+ 375 0296 9340     	 lsl r3,r3,r2
+ 376 0298 CB67     	 str r3,[r1,#124]
+ 377 029a 0B23     	 mov r3,#11
+ 378              	.L55:
+ 379 029c 221C     	 mov r2,r4
+ 380 029e 2B70     	 strb r3,[r5]
+ 381 02a0 0023     	 mov r3,#0
+ 382 02a2 B432     	 add r2,r2,#180
+ 383 02a4 1370     	 strb r3,[r2]
+ 384 02a6 143A     	 sub r2,r2,#20
+ 385 02a8 1360     	 str r3,[r2]
+ 386 02aa A26A     	 ldr r2,[r4,#40]
+ 387 02ac A367     	 str r3,[r4,#120]
+ 388 02ae 6068     	 ldr r0,[r4,#4]
+ 389 02b0 D362     	 str r3,[r2,#44]
+ 390 02b2 1363     	 str r3,[r2,#48]
+ 391 02b4 5363     	 str r3,[r2,#52]
+ 392 02b6 FFF7FEFF 	 bl PWM_SVM_Start
+ 393 02ba 39E0     	 b .L13
+ 394              	.L24:
+ 395 02bc 2368     	 ldr r3,[r4]
+ 396 02be A26B     	 ldr r2,[r4,#56]
+ 397 02c0 5B6B     	 ldr r3,[r3,#52]
+ 398 02c2 9A42     	 cmp r2,r3
+ 399 02c4 00DD     	 ble .L44
+ 400 02c6 A363     	 str r3,[r4,#56]
+ 401              	.L44:
+ 402 02c8 201C     	 mov r0,r4
+ 403 02ca FFF7FEFF 	 bl PMSM_FOC_Vf_Open_Loop
+ 404 02ce E36D     	 ldr r3,[r4,#92]
+ 405 02d0 6068     	 ldr r0,[r4,#4]
+ 406 02d2 99B2     	 uxth r1,r3
+ 407 02d4 A26D     	 ldr r2,[r4,#88]
+ 408 02d6 FFF7FEFF 	 bl PWM_SVM_SVMUpdate
+ 409 02da 2368     	 ldr r3,[r4]
+ 410 02dc 996B     	 ldr r1,[r3,#56]
+ 411              	.L61:
+ 412 02de A36B     	 ldr r3,[r4,#56]
+ 413 02e0 8B42     	 cmp r3,r1
+ 414 02e2 25DA     	 bge .L13
+ 415 02e4 201C     	 mov r0,r4
+ 416              	.L57:
+ 417 02e6 FFF78BFE 	 bl PMSM_FOC_SpeedLowLimit
+ 418 02ea 21E0     	 b .L13
+ 419              	.L25:
+ 420 02ec 2368     	 ldr r3,[r4]
+ 421 02ee A26B     	 ldr r2,[r4,#56]
+ 422 02f0 1B6B     	 ldr r3,[r3,#48]
+ 423 02f2 9A42     	 cmp r2,r3
+ 424 02f4 1CDD     	 ble .L13
+ 425 02f6 0023     	 mov r3,#0
+ 426 02f8 F021     	 mov r1,#240
+ 427 02fa E363     	 str r3,[r4,#60]
+ 428 02fc 6368     	 ldr r3,[r4,#4]
+ 429 02fe 4903     	 lsl r1,r1,#13
+ 430 0300 9B68     	 ldr r3,[r3,#8]
+ 431 0302 1868     	 ldr r0,[r3]
+ 432 0304 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 433 0308 F021     	 mov r1,#240
+ 434 030a 6368     	 ldr r3,[r4,#4]
+ 435 030c 4903     	 lsl r1,r1,#13
+ 436 030e DB68     	 ldr r3,[r3,#12]
+ 437 0310 1868     	 ldr r0,[r3]
+ 438 0312 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 439 0316 F021     	 mov r1,#240
+ 440 0318 6368     	 ldr r3,[r4,#4]
+ 441 031a 4903     	 lsl r1,r1,#13
+ 442 031c 1B69     	 ldr r3,[r3,#16]
+ 443 031e 1868     	 ldr r0,[r3]
+ 444 0320 FFF7FEFF 	 bl XMC_CCU8_SLICE_SetOutPath
+ 445 0324 0123     	 mov r3,#1
+ 446              	.L59:
+ 447 0326 2B70     	 strb r3,[r5]
+ 448 0328 02E0     	 b .L13
+ 449              	.L15:
+ 450 032a 201C     	 mov r0,r4
+ 451 032c FFF7FEFF 	 bl PMSM_FOC_MotorStop
+ 452              	.L13:
+ 453              	 
+ 454 0330 F8BD     	 pop {r3,r4,r5,r6,r7,pc}
+ 456              	 .align 1
+ 457              	 .global CCU80_0_IRQHandler
+ 458              	 .code 16
+ 459              	 .thumb_func
+ 461              	CCU80_0_IRQHandler:
+ 462 0332 2348     	 ldr r0,.L63
+ 463 0334 38B5     	 push {r3,r4,r5,lr}
+ 464 0336 4369     	 ldr r3,[r0,#20]
+ 465 0338 846A     	 ldr r4,[r0,#40]
+ 466 033a 1A1C     	 mov r2,r3
+ 467 033c 9D32     	 add r2,r2,#157
+ 468 033e 1278     	 ldrb r2,[r2]
+ 469 0340 996F     	 ldr r1,[r3,#120]
+ 470 0342 C032     	 add r2,r2,#192
+ 471 0344 9200     	 lsl r2,r2,#2
+ 472 0346 5158     	 ldr r1,[r2,r1]
+ 473 0348 021C     	 mov r2,r0
+ 474 034a AC32     	 add r2,r2,#172
+ 475 034c 1288     	 ldrh r2,[r2]
+ 476 034e 89B2     	 uxth r1,r1
+ 477 0350 511A     	 sub r1,r2,r1
+ 478 0352 C900     	 lsl r1,r1,#3
+ 479 0354 E162     	 str r1,[r4,#44]
+ 480 0356 011C     	 mov r1,r0
+ 481 0358 B731     	 add r1,r1,#183
+ 482 035a 0978     	 ldrb r1,[r1]
+ 483              	 
+ 484 035c 0D1C     	 mov r5,r1
+ 485 035e 5918     	 add r1,r3,r1
+ 486 0360 9831     	 add r1,r1,#152
+ 487 0362 4979     	 ldrb r1,[r1,#5]
+ 488 0364 1E35     	 add r5,r5,#30
+ 489 0366 AD00     	 lsl r5,r5,#2
+ 490 0368 ED58     	 ldr r5,[r5,r3]
+ 491 036a C031     	 add r1,r1,#192
+ 492 036c 8900     	 lsl r1,r1,#2
+ 493 036e 4959     	 ldr r1,[r1,r5]
+ 494 0370 89B2     	 uxth r1,r1
+ 495 0372 511A     	 sub r1,r2,r1
+ 496 0374 C900     	 lsl r1,r1,#3
+ 497 0376 2163     	 str r1,[r4,#48]
+ 498 0378 011C     	 mov r1,r0
+ 499 037a B831     	 add r1,r1,#184
+ 500 037c 0978     	 ldrb r1,[r1]
+ 501 037e 0D1C     	 mov r5,r1
+ 502 0380 5918     	 add r1,r3,r1
+ 503 0382 9831     	 add r1,r1,#152
+ 504 0384 4979     	 ldrb r1,[r1,#5]
+ 505 0386 1E35     	 add r5,r5,#30
+ 506 0388 AD00     	 lsl r5,r5,#2
+ 507 038a ED58     	 ldr r5,[r5,r3]
+ 508 038c C031     	 add r1,r1,#192
+ 509 038e 8900     	 lsl r1,r1,#2
+ 510 0390 4959     	 ldr r1,[r1,r5]
+ 511 0392 89B2     	 uxth r1,r1
+ 512 0394 521A     	 sub r2,r2,r1
+ 513 0396 D200     	 lsl r2,r2,#3
+ 514 0398 6263     	 str r2,[r4,#52]
+ 515 039a 1A1C     	 mov r2,r3
+ 516 039c A133     	 add r3,r3,#161
+ 517 039e 1B78     	 ldrb r3,[r3]
+ 518 03a0 8832     	 add r2,r2,#136
+ 519 03a2 1268     	 ldr r2,[r2]
+ 520 03a4 C033     	 add r3,r3,#192
+ 521 03a6 9B00     	 lsl r3,r3,#2
+ 522 03a8 9B58     	 ldr r3,[r3,r2]
+ 523 03aa 0268     	 ldr r2,[r0]
+ 524 03ac 9BB2     	 uxth r3,r3
+ 525 03ae 1268     	 ldr r2,[r2]
+ 526 03b0 5343     	 mul r3,r2
+ 527 03b2 021C     	 mov r2,r0
+ 528 03b4 9B0A     	 lsr r3,r3,#10
+ 529 03b6 A832     	 add r2,r2,#168
+ 530 03b8 1380     	 strh r3,[r2]
+ 531 03ba FFF7FEFF 	 bl PMSM_FOC_MSM
+ 532 03be 38BD     	 pop {r3,r4,r5,pc}
+ 533              	.L64:
+ 534              	 .align 2
+ 535              	.L63:
+ 536 03c0 00000000 	 .word PMSM_FOC_0
+ 538              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pmsm_foc_control.c
+    {standard input}:15     .ram_code:00000000 $t
+    {standard input}:19     .ram_code:00000000 PMSM_FOC_SpeedLowLimit
+    {standard input}:74     .ram_code:0000006c $d
+    {standard input}:76     .ram_code:00000070 $t
+    {standard input}:81     .ram_code:00000070 CCU80_1_IRQHandler
+    {standard input}:106    .ram_code:00000098 $d
+    {standard input}:108    .ram_code:0000009c $t
+    {standard input}:113    .ram_code:0000009c PMSM_FOC_MSM
+    {standard input}:126    .ram_code:000000b2 $d
+    {standard input}:140    .ram_code:000000ce $t
+    {standard input}:461    .ram_code:00000332 CCU80_0_IRQHandler
+    {standard input}:536    .ram_code:000003c0 $d
+
+UNDEFINED SYMBOLS
+PWM_SVM_Stop
+XMC_CCU8_SLICE_SetOutPath
+PMSM_FOC_StartPWMTimer
+PMSM_FOC_MotorStop
+PMSM_FOC_0
+__gnu_thumb1_case_uhi
+FOC_Controller_LIB
+PWM_SVM_SVMUpdate
+PMSM_FOC_Vf_RampUp
+PMSM_FOC_Rotor_Pre_Positioning
+VF_Smooth_Transition_To_FOC
+PMSM_FOC_METTransition
+PMSM_FOC_MotorParamInit
+PMSM_FOC_AmpBiasVoltCalibration
+PMSM_FOC_StopPWMTimer
+PWM_SVM_InverterEnable
+PMSM_FOC_BootstrapConfiguration
+PMSM_FOC_Bootstrap
+PWM_SVM_Start
+PMSM_FOC_Vf_Open_Loop

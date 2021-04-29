@@ -1,0 +1,189 @@
+package Model.APPS.UART.v4_1_14.Templates;
+
+import Model.APPS.UART.v4_1_14.UART
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4
+ *
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+ 
+/**********************************************************************************************************************
+ * MACROS
+ **********************************************************************************************************************/
+#ifndef UART_CONF_H
+#define UART_CONF_H
+
+""");
+/*Macros for APP version*/
+out.print("""
+#define UART_MAJOR_VERSION (${(UART.version).findAll( /\d+/ )*.toInteger()[0]}U)
+#define UART_MINOR_VERSION (${(UART.version).findAll( /\d+/ )*.toInteger()[1]}U)
+#define UART_PATCH_VERSION (${(UART.version).findAll( /\d+/ )*.toInteger()[2]}U)
+
+""");
+List TxInterrupt_Uri = null
+List RxInterrupt_Uri = null
+List ErrInterrupt_Uri = null
+String Tx_node = null
+String Rx_node = null
+String Err_node = null
+boolean is_tx_interrupt_used = false
+boolean is_rx_interrupt_used = false
+boolean is_tx_dma_used = false
+boolean is_rx_dma_used = false
+boolean is_tx_direct_used = false
+boolean is_rx_direct_used = false
+boolean is_overall_any_event_enabled = false
+boolean is_irq_used = false
+for (UART uart_inst : appInstancesList ) {
+
+  /*Generate interrupt handler for protocol interrupt if any error event callback is enabled*/
+  boolean is_any_event_enabled = (((uart_inst.gcheck_collision.value == true) && (uart_inst.gcombo_oprmode.value == "Half Duplex")) ||
+    (uart_inst.gcheck_receiver_noise.value == true) ||
+    (uart_inst.gcheck_format_errorbit0.value == true) || (uart_inst.gcheck_format_errorbit1.value == true) ||
+    (uart_inst.gcheck_sync_brk.value == true));
+  
+  /*Get the NVIC node used for the instance of APP*/
+  if(uart_inst.gcombo_transmit_mode.value == "Interrupt")
+  {
+    is_tx_interrupt_used = true
+    is_irq_used = true
+    TxInterrupt_Uri = uart_inst.hwres_nvic_node_tx.getSolverUri();
+    Tx_node = TxInterrupt_Uri[-1]
+    /*IRQ handler redefinition with APP handle specific names*/
+    out.print("""
+#define ${uart_inst.getInstanceLabel()}_TX_HANDLER  IRQ_Hdlr_${Tx_node}""")
+  }
+  if(uart_inst.gcombo_receive_mode.value == "Interrupt")
+  {
+    is_rx_interrupt_used = true
+    is_irq_used = true
+    RxInterrupt_Uri = uart_inst.hwres_nvic_node_rx.getSolverUri();
+    Rx_node = RxInterrupt_Uri[-1]
+    /*IRQ handler redefinition with APP handle specific names*/
+    out.print("""
+#define ${uart_inst.getInstanceLabel()}_RX_HANDLER  IRQ_Hdlr_${Rx_node}""")
+  }
+  /*Read NVIC node id for protocol interrupt only if any event is selected.
+   * If no event callback is registered, the NVIC node will not be consumed.*/
+  if(is_any_event_enabled)
+  {
+    is_overall_any_event_enabled = true
+    is_irq_used = true
+    ErrInterrupt_Uri = uart_inst.hwres_nvic_node_error.getSolverUri();
+    Err_node = ErrInterrupt_Uri[-1]
+  }
+  
+  /*IRQ handler redefinition with APP handle specific names*/
+  if(is_any_event_enabled)
+  {
+    out.print("""
+#define ${uart_inst.getInstanceLabel()}_ERR_HANDLER  IRQ_Hdlr_${Err_node}""");
+  }
+  
+  /*Check if DMA mode is used*/
+  if(uart_inst.gcombo_transmit_mode.value == "DMA")
+  {
+    is_tx_dma_used = true
+  }
+  if(uart_inst.gcombo_receive_mode.value == "DMA")
+  {
+    is_rx_dma_used = true
+  }
+  /*Check if Direct mode is used*/
+  if(uart_inst.gcombo_transmit_mode.value == "Direct")
+  {
+    is_tx_direct_used = true
+  }
+  if(uart_inst.gcombo_receive_mode.value == "Direct")
+  {
+    is_rx_direct_used = true
+  }
+}
+/*Generate macros to enable DMA and Interrupt specific macros*/
+if(is_tx_dma_used)
+{
+  out.print("""
+#define UART_TX_DMA_USED""")
+}
+if(is_tx_interrupt_used)
+{
+  out.print("""
+#define UART_TX_INTERRUPT_USED""")
+}
+if(is_tx_direct_used)
+{
+  out.print("""
+#define UART_TX_DIRECT_USED""")
+}
+if(is_rx_dma_used)
+{
+  out.print("""
+#define UART_RX_DMA_USED""")
+}
+if(is_rx_interrupt_used)
+{
+  out.print("""
+#define UART_RX_INTERRUPT_USED""")
+}
+if(is_rx_direct_used)
+{
+  out.print("""
+#define UART_RX_DIRECT_USED""")
+}
+if(is_overall_any_event_enabled)
+{
+  out.print("""
+#define UART_PROTOCOL_EVENT_USED""")
+}
+if(is_irq_used)
+{
+  out.print("""
+#define UART_IRQ_USED""")
+}
+out.print("""
+
+#endif /* End of UART_CONF_H */
+/*CODE_BLOCK_END*/
+""");
+

@@ -1,0 +1,99 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 500, 600">
+		<p1:GTab text="General Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_general_configuration">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite5">
+					<p1:Tab.layout>
+						<GridLayout verticalSpacing="10"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Queue Settings" manifestObj="true" widgetName="gGroup_queue_config">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="470" grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" marginTop="5"/>
+						</p1:GGroup.layout>
+						<p1:GLabel manifestObj="true" text="Trigger edge selection:" toolTipText="Select Required Edge Signal" visible="true" widgetName="glabel_trigger_edge_sel"/>
+						<p1:GCombo description="Configures the Trigger edge of queue request source.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;No External Trigger: To ignore the Trigger signal. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;External Trigger Upon Rising Edge : To trigger the queue conversion on a rising edge.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;External Trigger Upon Falling Edge :  To trigger the queue conversion on a falling edge .&lt;/LI&gt;&#13;&#10;&lt;LI&gt;External Trigger Upon Both The Edge: To trigger the queue conversion on both rising and falling edges.&lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="No External Trigger&#13;&#10;External Trigger Upon Rising Edge&#13;&#10;External Trigger Upon Falling Edge&#13;&#10;External Trigger Upon Both The Edge" toolTipText="Select the trigger operating mode to start ADC conversions." value="No External Trigger" widgetName="gcombo_trigger_edge_sel">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel manifestObj="true" text="Gating selection:" toolTipText="Select the required gating mode" visible="true" widgetName="glabel_gating_sel"/>
+						<p1:GCombo description="Configures the Gating mode for the queue request source.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt; No Conversion Request is Issued: All conversion requests are blocked.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;All Conversion Requests are Issued: All conversion requests are issued if there are valid entries present in the queue.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Conversion Request Issued When Gate is High: Conversion requests are issued only when gate level is high.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Conversion Request Issued When Gate is Low: Conversion requests are issued only when gate level is low.&lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="No Conversion Request is Issued&#13;&#10;All Conversion Requests are Issued&#13;&#10;Conversion Request Issued When Gate is High&#13;&#10;Conversion Request Issued When Gate is Low" toolTipText="Select the gating mode on which conversion requests are issued." value="All Conversion Requests are Issued" widgetName="gcombo_gating_sel"/>
+						<p1:GLabel manifestObj="true" text="Priority of queue source:" toolTipText="Select the priority" visible="true" widgetName="glabel_priority"/>
+						<p1:GCombo description="This is Arbitration priority of queue request source.&#13;&#10;Priority-0 would be the lowest priority and Priority-3 would be the highest.&#13;&#10;This determines the request source which would be selected during the arbitration round. Range : 0x0 to 0x3 " mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Priority-0  (Lowest Priority)&#13;&#10;Priority-1&#13;&#10;Priority-2&#13;&#10;Priority-3 (Highest Priority)&#13;&#10;" toolTipText="Select the priority for the queue request source (Arbitration priority)." value="Priority-0  (Lowest Priority)" widgetName="gcombo_priority">
+							<p1:GCombo.layoutData>
+								<GridData verticalAlignment="FILL" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel manifestObj="true" text="Conversion start mode:" toolTipText="Select the required start mode" visible="true" widgetName="glabel_adc_startmode"/>
+						<p1:GCombo description="Selecting start mode starts the conversion.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Wait For Start Mode: In this mode the converter will finish the on-going conversion  and then take up any channel that is pending conversion.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Cancel Inject Repeat Mode: In this mode the converter will stall the on-going conversion, if a channel is pending in a higher priority request source. After the higher priority request source finishes the conversion the channel which was pre-empted will resume. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;Cancel Inject With Cancel Mode: In this mode the converter will cancel the on-going conversion, if a channel is pending in a higher priority request source.  This cancelled channel will not take part in the current arbitration round. &lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Wait For Start Mode&#13;&#10;Cancel Inject Repeat Mode&#13;&#10;Cancel Inject With Cancel Mode&#13;&#10;" toolTipText="Select the behaviour of queue with the other request sources." value="Wait For Start Mode" widgetName="gcombo_adc_startmode">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup text="Class Settings" manifestObj="true" widgetName="gGroup_class_config">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true" widthHint="466"/>
+						</p1:GGroup.layoutData>
+						<p1:GLabel manifestObj="true" text="Conversion mode:" visible="true" widgetName="glabel_conv_mode"/>
+						<p1:GCombo description="Selects a required result data width.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;12 Bit Conversion: The result of the conversion will have a resolution of 12 bits. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;10 Bit Conversion: The result of the conversion will have a resolution of 10 bits. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;8 Bit Conversion: The result of the conversion will have a resolution of 8 bits. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;10 Bit Fast Conversion: This mode will raise only one bit in the result register. After comparison with the actual signal, if the analog signal value is greater than the compare value, the result register&apos;s FCM bit will be set to high, else it will set low.&lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" options="12 Bit Conversion&#13;&#10;10 Bit Conversion&#13;&#10;8 Bit Conversion&#13;&#10;10 Bit Fast Conversion" toolTipText="Select result data width (12/10/8 bit ) or Fast Compare mode&#13;&#10;" value="12 Bit Conversion" widgetName="gcombo_conv_mode" manifestObj="true"/>
+						<p1:GLabel manifestObj="true" text="Desired sample time [nsec]:" visible="true" widgetName="glabel_des_sampleT"/>
+						<p1:GFloat description="Set the required sample time.&lt;BR&gt;&#13;&#10;This is the duration for which the ADC would sample the input signal." format="*,6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="8000" minValue="0" value="100" widgetName="gfloat_des_sampleT" x:Style="BORDER" toolTipText="Set the desired input signal sampling duration.">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel manifestObj="true" text="Actual sample time [nsec]:" visible="true" widgetName="glabel_actual_sampleT"/>
+						<p1:GFloat description="This is the closest possible sample time value (non-editable) " enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="10000" minValue="0" widgetName="gfloat_actual_sampleT" x:Style="BORDER">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel manifestObj="true" text="Total conversion time [nsec]:" visible="true" widgetName="glabel_coversion_time"/>
+						<p1:GFloat description="This is the total conversion time for a given sample time(non-editable). To vary the total conversion time, change the sample time.&#13;&#10;For XMC4x devices:&#13;&#10;If post calibration is disabled ( in GLOBAL_ADC APP),  the  total conversion time will be reduced by 2/fADC (GLOBAL_ADC APP)." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="POSITIVE_INFINITY" minValue="0" widgetName="gfloat_coversion_time" x:Style="BORDER">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+					</p1:GGroup>
+					<p1:GLabel text="Note: Total conversion time is always calculated with post calibration enabled." widgetName="glabel_conversion_limitation" manifestObj="true"/>
+					<p1:GLabel text="&quot;Note: An external trigger is selected. Ensure that at least one inserted channel is configured&#13;&#10; as &quot;Wait for trigger&quot;." visible="true" manifestObj="true" widgetName="glabel_trigger_warning">
+						<p1:GLabel.layoutData>
+							<GridData widthHint="485" heightHint="43"/>
+						</p1:GLabel.layoutData>
+					</p1:GLabel>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Interrupt Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_interrupt_configuration">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite4">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Enable Interrupt" widgetName="ggroup_interrupt_config">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" widthHint="468" grabExcessHorizontalSpace="true"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GCheck manifestObj="true" widgetName="gcheck_int_enable" text="Enable request source interrupt" description="Enable Request Source Interrupt.&#13;&#10;This would raise an interrupt after all the channels in the queue buffer have been converted once." toolTipText="Enables to generate an request source interrupt. (Consumes an NVIC node)"/>
+						<Label/>
+						<p1:GInterruptPrio text="Request Source Interrupt Config" x:Style="NONE" minPriority="0" maxPriority="64" minSubPriority="0" maxSubPriority="64" priorityValue="3" subPriorityValue="0" priorityMandatory="false" subPriorityMandatory="true" manifestObj="true" widgetName="ginterruptprio_request_src_intr" toolTipText="The Request source interrupt preemption priority." description="Configure the priority of the request source interrupt.">
+							<p1:GInterruptPrio.layoutData>
+								<GridData horizontalSpan="2" widthHint="453" grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GInterruptPrio.layoutData>
+						</p1:GInterruptPrio>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

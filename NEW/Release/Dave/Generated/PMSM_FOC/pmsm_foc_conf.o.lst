@@ -1,0 +1,501 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "pmsm_foc_conf.c"
+  14              	 .global PI_PLL
+  15              	 .global PI_Torque
+  16              	 .global PI_Flux
+  17              	 .global PI_Speed
+  18              	 .global FOCInput
+  19              	 .global FOCOutput
+  20              	 .global PMSM_FOC_0
+  21              	 .global PMSM_FOC_0_Config
+  22              	 .global PMSM_FOC_0_Input
+  23              	 .comm PMSM_FOC_0_Output,24,4
+  24              	 .global PMSM_FOC_0_PI_PLL
+  25              	 .global PMSM_FOC_0_PI_Flux
+  26              	 .global PMSM_FOC_0_PI_Torque
+  27              	 .global PMSM_FOC_0_PI_Speed
+  28              	 .global PMSM_FOC_0_Vf
+  29              	 .global PMSM_FOC_0_Trap_InterruptConfig
+  30              	 .global PMSM_FOC_0_FCL_InterruptConfig
+  31              	 .global PMSM_FOC_0_ADCConfig
+  32              	 .global PMSM_FOC_0_v_dc_linkRes_InitHandle
+  33              	 .global PMSM_FOC_0_v_dc_linkChan_InitHandle
+  34              	 .global PMSM_FOC_0_i_phase_wRes_InitHandle
+  35              	 .global PMSM_FOC_0_i_phase_wChan_InitHandle
+  36              	 .global PMSM_FOC_0_i_phase_vRes_InitHandle
+  37              	 .global PMSM_FOC_0_i_phase_vChan_InitHandle
+  38              	 .global PMSM_FOC_0_i_phase_uRes_InitHandle
+  39              	 .global PMSM_FOC_0_i_phase_uChan_InitHandle
+  40              	 .global ADC_QUEUE_0_QEntry_v_dc_link
+  41              	 .global ADC_QUEUE_0_QEntry_i_phase_w
+  42              	 .global ADC_QUEUE_0_QEntry_i_phase_v
+  43              	 .global ADC_QUEUE_0_QEntry_i_phase_u
+  44              	 .section .bss.PMSM_FOC_0_v_dc_linkRes_InitHandle,"aw",%nobits
+  45              	 .align 2
+  48              	PMSM_FOC_0_v_dc_linkRes_InitHandle:
+  49 0000 00000000 	 .space 4
+  50              	 .section .data.PMSM_FOC_0_PI_Flux,"aw",%progbits
+  51              	 .align 2
+  54              	PMSM_FOC_0_PI_Flux:
+  55 0000 00000000 	 .word 0
+  56 0004 00000000 	 .word 0
+  57 0008 00000000 	 .word 0
+  58 000c F673     	 .short 29686
+  59 000e 460A     	 .short 2630
+  60 0010 0C00     	 .short 12
+  61 0012 0000     	 .space 2
+  62 0014 001000F8 	 .word -134213632
+  63 0018 00F0FF07 	 .word 134213632
+  64 001c 0180FFFF 	 .word -32767
+  65 0020 FF7F0000 	 .word 32767
+  66 0024 0000     	 .short 0
+  67 0026 0000     	 .space 2
+  68              	 .section .data.PMSM_FOC_0_i_phase_uChan_InitHandle,"aw",%progbits
+  69              	 .align 2
+  72              	PMSM_FOC_0_i_phase_uChan_InitHandle:
+  73 0000 00       	 .byte 0
+  74 0001 00       	 .byte 0
+  75 0002 0C       	 .byte 12
+  76 0003 00       	 .space 1
+  77 0004 00000000 	 .space 8
+  77      00000000 
+  78 000c 01       	 .byte 1
+  79 000d FF       	 .byte -1
+  80 000e 0000     	 .space 2
+  81              	 .section .data.PMSM_FOC_0_PI_Torque,"aw",%progbits
+  82              	 .align 2
+  85              	PMSM_FOC_0_PI_Torque:
+  86 0000 00000000 	 .word 0
+  87 0004 00000000 	 .word 0
+  88 0008 00000000 	 .word 0
+  89 000c F673     	 .short 29686
+  90 000e 460A     	 .short 2630
+  91 0010 0C00     	 .short 12
+  92 0012 0000     	 .space 2
+  93 0014 001000F8 	 .word -134213632
+  94 0018 00F0FF07 	 .word 134213632
+  95 001c 0180FFFF 	 .word -32767
+  96 0020 FF7F0000 	 .word 32767
+  97 0024 0000     	 .short 0
+  98 0026 0000     	 .space 2
+  99              	 .section .bss.PMSM_FOC_0_i_phase_wRes_InitHandle,"aw",%nobits
+ 100              	 .align 2
+ 103              	PMSM_FOC_0_i_phase_wRes_InitHandle:
+ 104 0000 00000000 	 .space 4
+ 105              	 .section .rodata.PI_Torque,"a",%progbits
+ 106              	 .align 2
+ 109              	PI_Torque:
+ 110 0000 00000000 	 .word PMSM_FOC_0_PI_Torque
+ 111              	 .section .data.PMSM_FOC_0_i_phase_vChan_InitHandle,"aw",%progbits
+ 112              	 .align 2
+ 115              	PMSM_FOC_0_i_phase_vChan_InitHandle:
+ 116 0000 00       	 .byte 0
+ 117 0001 00       	 .byte 0
+ 118 0002 0E       	 .byte 14
+ 119 0003 00       	 .space 1
+ 120 0004 00000000 	 .space 8
+ 120      00000000 
+ 121 000c 01       	 .byte 1
+ 122 000d 06       	 .byte 6
+ 123 000e 0000     	 .space 2
+ 124              	 .section .rodata.PMSM_FOC_0_Config,"a",%progbits
+ 125              	 .align 2
+ 128              	PMSM_FOC_0_Config:
+ 129 0000 0B440000 	 .word 17419
+ 130 0004 E5EE0100 	 .word 126693
+ 131 0008 5FBF0100 	 .word 114527
+ 132 000c 9E240000 	 .word 9374
+ 133 0010 B9AF0200 	 .word 176057
+ 134 0014 D2170000 	 .word 6098
+ 135 0018 2E070000 	 .word 1838
+ 136 001c A7020000 	 .word 679
+ 137 0020 1C000000 	 .word 28
+ 138 0024 0B000000 	 .word 11
+ 139 0028 0B000000 	 .word 11
+ 140 002c 5A000000 	 .word 90
+ 141 0030 2F060000 	 .word 1583
+ 142 0034 5E0C0000 	 .word 3166
+ 143 0038 9E000000 	 .word 158
+ 144 003c FF1F     	 .short 8191
+ 145 003e 0000     	 .short 0
+ 146 0040 9899     	 .short -26216
+ 147 0042 6566     	 .short 26213
+ 148 0044 01       	 .byte 1
+ 149 0045 04       	 .byte 4
+ 150 0046 01       	 .byte 1
+ 151 0047 13       	 .byte 19
+ 152 0048 01       	 .byte 1
+ 153 0049 000000   	 .space 3
+ 154              	 .section .data.PMSM_FOC_0_FCL_InterruptConfig,"aw",%progbits
+ 157              	PMSM_FOC_0_FCL_InterruptConfig:
+ 158 0000 19       	 .byte 25
+ 159 0001 02       	 .byte 2
+ 160 0002 00       	 .byte 0
+ 161              	 .section .data.PMSM_FOC_0,"aw",%progbits
+ 162              	 .align 2
+ 165              	PMSM_FOC_0:
+ 166 0000 00000000 	 .word PMSM_FOC_0_Config
+ 167 0004 00000000 	 .word PWM_SVM_0
+ 168 0008 00000000 	 .word PMSM_FOC_0_FCL_InterruptConfig
+ 169 000c 00000000 	 .word PMSM_FOC_0_Vf
+ 170 0010 00000000 	 .space 4
+ 171 0014 00000000 	 .word PMSM_FOC_0_ADCConfig
+ 172 0018 00000000 	 .word PMSM_FOC_0_PI_Speed
+ 173 001c 00000000 	 .word PMSM_FOC_0_PI_Torque
+ 174 0020 00000000 	 .word PMSM_FOC_0_PI_Flux
+ 175 0024 00000000 	 .word PMSM_FOC_0_PI_PLL
+ 176 0028 00000000 	 .word PMSM_FOC_0_Input
+ 177 002c 00000000 	 .word PMSM_FOC_0_Output
+ 178 0030 00       	 .byte 0
+ 179 0031 000000   	 .space 3
+ 180 0034 38000000 	 .word PMSM_FOC_0+56
+ 181 0038 7A140000 	 .word 5242
+ 182 003c 00000000 	 .word 0
+ 183 0040 00000000 	 .space 4
+ 184 0044 00000000 	 .word 0
+ 185 0048 00000000 	 .word 0
+ 186 004c 00000000 	 .space 8
+ 186      00000000 
+ 187 0054 00000000 	 .word 0
+ 188 0058 00000000 	 .word 0
+ 189 005c 00000000 	 .word 0
+ 190 0060 3F060000 	 .word 1599
+ 191 0064 00000000 	 .word 0
+ 192 0068 E8030000 	 .word 1000
+ 193 006c 150B0000 	 .word 2837
+ 194 0070 04000000 	 .word 4
+ 195 0074 88130000 	 .word 5000
+ 196 0078 00000000 	 .word 0
+ 197 007c 1C000000 	 .word 28
+ 198 0080 0B000000 	 .word 11
+ 199 0084 0B000000 	 .word 11
+ 200 0088 04000000 	 .word 4
+ 201 008c 00000000 	 .space 16
+ 201      00000000 
+ 201      00000000 
+ 201      00000000 
+ 202 009c 00000000 	 .word 0
+ 203 00a0 00000000 	 .word 0
+ 204 00a4 00000000 	 .word PMSM_FOC_0_Trap_InterruptConfig
+ 205 00a8 1800     	 .short 24
+ 206 00aa FF3F     	 .short 16383
+ 207 00ac 0000     	 .space 2
+ 208 00ae 3200     	 .short 50
+ 209 00b0 8600     	 .short 134
+ 210 00b2 01       	 .byte 1
+ 211 00b3 01       	 .byte 1
+ 212 00b4 00       	 .byte 0
+ 213 00b5 01       	 .byte 1
+ 214 00b6 00       	 .byte 0
+ 215 00b7 01       	 .byte 1
+ 216 00b8 02       	 .byte 2
+ 217 00b9 000000   	 .space 3
+ 218              	 .section .bss.PMSM_FOC_0_i_phase_vRes_InitHandle,"aw",%nobits
+ 219              	 .align 2
+ 222              	PMSM_FOC_0_i_phase_vRes_InitHandle:
+ 223 0000 00000000 	 .space 4
+ 224              	 .section .data.PMSM_FOC_0_PI_Speed,"aw",%progbits
+ 225              	 .align 2
+ 228              	PMSM_FOC_0_PI_Speed:
+ 229 0000 00000000 	 .word 0
+ 230 0004 00000000 	 .word 0
+ 231 0008 00000000 	 .word 0
+ 232 000c 0080     	 .short -32768
+ 233 000e 0300     	 .short 3
+ 234 0010 0D00     	 .short 13
+ 235 0012 0000     	 .space 2
+ 236 0014 9AE9CCF8 	 .word -120788582
+ 237 0018 66163307 	 .word 120788582
+ 238 001c 10000000 	 .word 16
+ 239 0020 FF7F0000 	 .word 32767
+ 240 0024 0000     	 .short 0
+ 241 0026 0000     	 .space 2
+ 242              	 .section .data.ADC_QUEUE_0_QEntry_v_dc_link,"aw",%progbits
+ 243              	 .align 2
+ 246              	ADC_QUEUE_0_QEntry_v_dc_link:
+ 247 0000 00000000 	 .word 0
+ 248 0004 03       	 .byte 3
+ 249 0005 02       	 .byte 2
+ 250 0006 00       	 .byte 0
+ 251 0007 01       	 .byte 1
+ 252 0008 00       	 .byte 0
+ 253 0009 00       	 .byte 0
+ 254 000a 0000     	 .space 2
+ 255              	 .section .rodata.PI_Flux,"a",%progbits
+ 256              	 .align 2
+ 259              	PI_Flux:
+ 260 0000 00000000 	 .word PMSM_FOC_0_PI_Flux
+ 261              	 .section .bss.PMSM_FOC_0_i_phase_uRes_InitHandle,"aw",%nobits
+ 262              	 .align 2
+ 265              	PMSM_FOC_0_i_phase_uRes_InitHandle:
+ 266 0000 00000000 	 .space 4
+ 267              	 .section .data.PMSM_FOC_0_Input,"aw",%progbits
+ 268              	 .align 2
+ 271              	PMSM_FOC_0_Input:
+ 272 0000 2800     	 .short 40
+ 273 0002 8001     	 .short 384
+ 274 0004 0E00     	 .short 14
+ 275 0006 3F06     	 .short 1599
+ 276 0008 0400     	 .short 4
+ 277 000a 0200     	 .short 2
+ 278 000c 0200     	 .short 2
+ 279 000e 00000000 	 .space 6
+ 279      0000
+ 280 0014 1000     	 .short 16
+ 281 0016 4000     	 .short 64
+ 282 0018 00       	 .byte 0
+ 283 0019 000000   	 .space 3
+ 284 001c 00000000 	 .word 0
+ 285 0020 00000000 	 .word 0
+ 286 0024 00000000 	 .word 0
+ 287 0028 00000000 	 .word 0
+ 288 002c 00000000 	 .word 0
+ 289 0030 00000000 	 .word 0
+ 290 0034 00000000 	 .word 0
+ 291 0038 00000000 	 .word 0
+ 292 003c 00000000 	 .word 0
+ 293 0040 00000000 	 .word 0
+ 294 0044 00000000 	 .word 0
+ 295 0048 05000000 	 .word 5
+ 296 004c 00       	 .byte 0
+ 297 004d 000000   	 .space 3
+ 298 0050 00000000 	 .word 0
+ 299 0054 00000000 	 .word 0
+ 300 0058 00000000 	 .space 24
+ 300      00000000 
+ 300      00000000 
+ 300      00000000 
+ 300      00000000 
+ 301 0070 00       	 .byte 0
+ 302 0071 000000   	 .space 3
+ 303              	 .section .data.PMSM_FOC_0_v_dc_linkChan_InitHandle,"aw",%progbits
+ 304              	 .align 2
+ 307              	PMSM_FOC_0_v_dc_linkChan_InitHandle:
+ 308 0000 00       	 .byte 0
+ 309 0001 00       	 .byte 0
+ 310 0002 0D       	 .byte 13
+ 311 0003 00       	 .space 1
+ 312 0004 00000000 	 .space 8
+ 312      00000000 
+ 313 000c 01       	 .byte 1
+ 314 000d FF       	 .byte -1
+ 315 000e 0000     	 .space 2
+ 316              	 .section .data.PMSM_FOC_0_i_phase_wChan_InitHandle,"aw",%progbits
+ 317              	 .align 2
+ 320              	PMSM_FOC_0_i_phase_wChan_InitHandle:
+ 321 0000 00       	 .byte 0
+ 322 0001 00       	 .byte 0
+ 323 0002 09       	 .byte 9
+ 324 0003 00       	 .space 1
+ 325 0004 00000000 	 .space 8
+ 325      00000000 
+ 326 000c 01       	 .byte 1
+ 327 000d 07       	 .byte 7
+ 328 000e 0000     	 .space 2
+ 329              	 .section .rodata.FOCOutput,"a",%progbits
+ 330              	 .align 2
+ 333              	FOCOutput:
+ 334 0000 00000000 	 .word PMSM_FOC_0_Output
+ 335              	 .section .data.PMSM_FOC_0_Trap_InterruptConfig,"aw",%progbits
+ 338              	PMSM_FOC_0_Trap_InterruptConfig:
+ 339 0000 1A       	 .byte 26
+ 340 0001 01       	 .byte 1
+ 341 0002 00       	 .byte 0
+ 342              	 .section .rodata.FOCInput,"a",%progbits
+ 343              	 .align 2
+ 346              	FOCInput:
+ 347 0000 00000000 	 .word PMSM_FOC_0_Input
+ 348              	 .section .data.ADC_QUEUE_0_QEntry_i_phase_u,"aw",%progbits
+ 349              	 .align 2
+ 352              	ADC_QUEUE_0_QEntry_i_phase_u:
+ 353 0000 00000000 	 .word 0
+ 354 0004 00       	 .byte 0
+ 355 0005 05       	 .byte 5
+ 356 0006 01       	 .byte 1
+ 357 0007 01       	 .byte 1
+ 358 0008 00       	 .byte 0
+ 359 0009 00       	 .byte 0
+ 360 000a 0000     	 .space 2
+ 361              	 .section .data.ADC_QUEUE_0_QEntry_i_phase_v,"aw",%progbits
+ 362              	 .align 2
+ 365              	ADC_QUEUE_0_QEntry_i_phase_v:
+ 366 0000 00000000 	 .word 0
+ 367 0004 01       	 .byte 1
+ 368 0005 01       	 .byte 1
+ 369 0006 00       	 .byte 0
+ 370 0007 01       	 .byte 1
+ 371 0008 00       	 .byte 0
+ 372 0009 00       	 .byte 0
+ 373 000a 0000     	 .space 2
+ 374              	 .section .data.ADC_QUEUE_0_QEntry_i_phase_w,"aw",%progbits
+ 375              	 .align 2
+ 378              	ADC_QUEUE_0_QEntry_i_phase_w:
+ 379 0000 00000000 	 .word 0
+ 380 0004 02       	 .byte 2
+ 381 0005 00       	 .byte 0
+ 382 0006 00       	 .byte 0
+ 383 0007 01       	 .byte 1
+ 384 0008 00       	 .byte 0
+ 385 0009 00       	 .byte 0
+ 386 000a 0000     	 .space 2
+ 387              	 .section .data.PMSM_FOC_0_ADCConfig,"aw",%progbits
+ 388              	 .align 2
+ 391              	PMSM_FOC_0_ADCConfig:
+ 392 0000 00000000 	 .word ADC_QUEUE_0_QEntry_i_phase_u
+ 393 0004 00000000 	 .word 0
+ 394 0008 00000000 	 .word ADC_QUEUE_0_QEntry_i_phase_v
+ 395 000c 00000000 	 .word 0
+ 396 0010 00000000 	 .word ADC_QUEUE_0_QEntry_i_phase_w
+ 397 0014 00000000 	 .word 0
+ 398 0018 00000000 	 .word 0
+ 399 001c 00000000 	 .word 0
+ 400 0020 00000000 	 .word ADC_QUEUE_0_QEntry_v_dc_link
+ 401 0024 00000000 	 .word 0
+ 402 0028 00000000 	 .word 0
+ 403 002c 00000000 	 .word 0
+ 404 0030 00000000 	 .word 0
+ 405 0034 00000000 	 .word 0
+ 406 0038 00000000 	 .word ADC_QUEUE_0
+ 407 003c 00000000 	 .word 0
+ 408 0040 00000000 	 .word PMSM_FOC_0_i_phase_uRes_InitHandle
+ 409 0044 00000000 	 .word PMSM_FOC_0_i_phase_vRes_InitHandle
+ 410 0048 00000000 	 .word PMSM_FOC_0_i_phase_wRes_InitHandle
+ 411 004c 00000000 	 .word 0
+ 412 0050 00000000 	 .word PMSM_FOC_0_v_dc_linkRes_InitHandle
+ 413 0054 00000000 	 .word 0
+ 414 0058 00000000 	 .word 0
+ 415 005c 00000000 	 .word PMSM_FOC_0_i_phase_uChan_InitHandle
+ 416 0060 00000000 	 .word PMSM_FOC_0_i_phase_vChan_InitHandle
+ 417 0064 00000000 	 .word PMSM_FOC_0_i_phase_wChan_InitHandle
+ 418 0068 00000000 	 .word 0
+ 419 006c 00000000 	 .word PMSM_FOC_0_v_dc_linkChan_InitHandle
+ 420 0070 00000000 	 .word 0
+ 421 0074 00000000 	 .word 0
+ 422 0078 00040348 	 .word 1208157184
+ 423 007c 00040348 	 .word 1208157184
+ 424 0080 00040348 	 .word 1208157184
+ 425 0084 00000000 	 .word 0
+ 426 0088 00040348 	 .word 1208157184
+ 427 008c 00000000 	 .word 0
+ 428 0090 00000000 	 .word 0
+ 429 0094 00       	 .byte 0
+ 430 0095 01       	 .byte 1
+ 431 0096 05       	 .byte 5
+ 432 0097 01       	 .byte 1
+ 433 0098 00       	 .byte 0
+ 434 0099 FF       	 .byte -1
+ 435 009a 02       	 .byte 2
+ 436 009b FF       	 .byte -1
+ 437 009c FF       	 .byte -1
+ 438 009d 0C       	 .byte 12
+ 439 009e 0E       	 .byte 14
+ 440 009f 09       	 .byte 9
+ 441 00a0 FF       	 .byte -1
+ 442 00a1 0D       	 .byte 13
+ 443 00a2 FF       	 .byte -1
+ 444 00a3 FF       	 .byte -1
+ 445              	 .section .data.PMSM_FOC_0_PI_PLL,"aw",%progbits
+ 446              	 .align 2
+ 449              	PMSM_FOC_0_PI_PLL:
+ 450 0000 00000000 	 .word 0
+ 451 0004 00000000 	 .word 0
+ 452 0008 00000000 	 .word 0
+ 453 000c 0001     	 .short 256
+ 454 000e 4000     	 .short 64
+ 455 0010 0F00     	 .short 15
+ 456 0012 0000     	 .space 2
+ 457 0014 00800080 	 .word -2147450880
+ 458 0018 0080FF7F 	 .word 2147450880
+ 459 001c 0C020000 	 .word 524
+ 460 0020 F1410000 	 .word 16881
+ 461 0024 00000000 	 .space 4
+ 462              	 .section .data.PMSM_FOC_0_Vf,"aw",%progbits
+ 463              	 .align 2
+ 466              	PMSM_FOC_0_Vf:
+ 467 0000 29000000 	 .word 41
+ 468 0004 150B0000 	 .word 2837
+ 469 0008 31080000 	 .word 2097
+ 470 000c E8030000 	 .word 1000
+ 471              	 .section .rodata.PI_Speed,"a",%progbits
+ 472              	 .align 2
+ 475              	PI_Speed:
+ 476 0000 00000000 	 .word PMSM_FOC_0_PI_Speed
+ 477              	 .section .rodata.PI_PLL,"a",%progbits
+ 478              	 .align 2
+ 481              	PI_PLL:
+ 482 0000 00000000 	 .word PMSM_FOC_0_PI_PLL
+ 483              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pmsm_foc_conf.c
+    {standard input}:481    .rodata.PI_PLL:00000000 PI_PLL
+    {standard input}:109    .rodata.PI_Torque:00000000 PI_Torque
+    {standard input}:259    .rodata.PI_Flux:00000000 PI_Flux
+    {standard input}:475    .rodata.PI_Speed:00000000 PI_Speed
+    {standard input}:346    .rodata.FOCInput:00000000 FOCInput
+    {standard input}:333    .rodata.FOCOutput:00000000 FOCOutput
+    {standard input}:165    .data.PMSM_FOC_0:00000000 PMSM_FOC_0
+    {standard input}:128    .rodata.PMSM_FOC_0_Config:00000000 PMSM_FOC_0_Config
+    {standard input}:271    .data.PMSM_FOC_0_Input:00000000 PMSM_FOC_0_Input
+                            *COM*:00000018 PMSM_FOC_0_Output
+    {standard input}:449    .data.PMSM_FOC_0_PI_PLL:00000000 PMSM_FOC_0_PI_PLL
+    {standard input}:54     .data.PMSM_FOC_0_PI_Flux:00000000 PMSM_FOC_0_PI_Flux
+    {standard input}:85     .data.PMSM_FOC_0_PI_Torque:00000000 PMSM_FOC_0_PI_Torque
+    {standard input}:228    .data.PMSM_FOC_0_PI_Speed:00000000 PMSM_FOC_0_PI_Speed
+    {standard input}:466    .data.PMSM_FOC_0_Vf:00000000 PMSM_FOC_0_Vf
+    {standard input}:338    .data.PMSM_FOC_0_Trap_InterruptConfig:00000000 PMSM_FOC_0_Trap_InterruptConfig
+    {standard input}:157    .data.PMSM_FOC_0_FCL_InterruptConfig:00000000 PMSM_FOC_0_FCL_InterruptConfig
+    {standard input}:391    .data.PMSM_FOC_0_ADCConfig:00000000 PMSM_FOC_0_ADCConfig
+    {standard input}:48     .bss.PMSM_FOC_0_v_dc_linkRes_InitHandle:00000000 PMSM_FOC_0_v_dc_linkRes_InitHandle
+    {standard input}:307    .data.PMSM_FOC_0_v_dc_linkChan_InitHandle:00000000 PMSM_FOC_0_v_dc_linkChan_InitHandle
+    {standard input}:103    .bss.PMSM_FOC_0_i_phase_wRes_InitHandle:00000000 PMSM_FOC_0_i_phase_wRes_InitHandle
+    {standard input}:320    .data.PMSM_FOC_0_i_phase_wChan_InitHandle:00000000 PMSM_FOC_0_i_phase_wChan_InitHandle
+    {standard input}:222    .bss.PMSM_FOC_0_i_phase_vRes_InitHandle:00000000 PMSM_FOC_0_i_phase_vRes_InitHandle
+    {standard input}:115    .data.PMSM_FOC_0_i_phase_vChan_InitHandle:00000000 PMSM_FOC_0_i_phase_vChan_InitHandle
+    {standard input}:265    .bss.PMSM_FOC_0_i_phase_uRes_InitHandle:00000000 PMSM_FOC_0_i_phase_uRes_InitHandle
+    {standard input}:72     .data.PMSM_FOC_0_i_phase_uChan_InitHandle:00000000 PMSM_FOC_0_i_phase_uChan_InitHandle
+    {standard input}:246    .data.ADC_QUEUE_0_QEntry_v_dc_link:00000000 ADC_QUEUE_0_QEntry_v_dc_link
+    {standard input}:378    .data.ADC_QUEUE_0_QEntry_i_phase_w:00000000 ADC_QUEUE_0_QEntry_i_phase_w
+    {standard input}:365    .data.ADC_QUEUE_0_QEntry_i_phase_v:00000000 ADC_QUEUE_0_QEntry_i_phase_v
+    {standard input}:352    .data.ADC_QUEUE_0_QEntry_i_phase_u:00000000 ADC_QUEUE_0_QEntry_i_phase_u
+    {standard input}:45     .bss.PMSM_FOC_0_v_dc_linkRes_InitHandle:00000000 $d
+    {standard input}:51     .data.PMSM_FOC_0_PI_Flux:00000000 $d
+    {standard input}:69     .data.PMSM_FOC_0_i_phase_uChan_InitHandle:00000000 $d
+    {standard input}:82     .data.PMSM_FOC_0_PI_Torque:00000000 $d
+    {standard input}:100    .bss.PMSM_FOC_0_i_phase_wRes_InitHandle:00000000 $d
+    {standard input}:106    .rodata.PI_Torque:00000000 $d
+    {standard input}:112    .data.PMSM_FOC_0_i_phase_vChan_InitHandle:00000000 $d
+    {standard input}:125    .rodata.PMSM_FOC_0_Config:00000000 $d
+    {standard input}:162    .data.PMSM_FOC_0:00000000 $d
+    {standard input}:219    .bss.PMSM_FOC_0_i_phase_vRes_InitHandle:00000000 $d
+    {standard input}:225    .data.PMSM_FOC_0_PI_Speed:00000000 $d
+    {standard input}:243    .data.ADC_QUEUE_0_QEntry_v_dc_link:00000000 $d
+    {standard input}:256    .rodata.PI_Flux:00000000 $d
+    {standard input}:262    .bss.PMSM_FOC_0_i_phase_uRes_InitHandle:00000000 $d
+    {standard input}:268    .data.PMSM_FOC_0_Input:00000000 $d
+    {standard input}:304    .data.PMSM_FOC_0_v_dc_linkChan_InitHandle:00000000 $d
+    {standard input}:317    .data.PMSM_FOC_0_i_phase_wChan_InitHandle:00000000 $d
+    {standard input}:330    .rodata.FOCOutput:00000000 $d
+    {standard input}:343    .rodata.FOCInput:00000000 $d
+    {standard input}:349    .data.ADC_QUEUE_0_QEntry_i_phase_u:00000000 $d
+    {standard input}:362    .data.ADC_QUEUE_0_QEntry_i_phase_v:00000000 $d
+    {standard input}:375    .data.ADC_QUEUE_0_QEntry_i_phase_w:00000000 $d
+    {standard input}:388    .data.PMSM_FOC_0_ADCConfig:00000000 $d
+    {standard input}:446    .data.PMSM_FOC_0_PI_PLL:00000000 $d
+    {standard input}:463    .data.PMSM_FOC_0_Vf:00000000 $d
+    {standard input}:472    .rodata.PI_Speed:00000000 $d
+    {standard input}:478    .rodata.PI_PLL:00000000 $d
+
+UNDEFINED SYMBOLS
+PWM_SVM_0
+ADC_QUEUE_0

@@ -1,0 +1,31 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "global_ccu8_conf.c"
+  14              	 .global GLOBAL_CCU8_0
+  15              	 .section .data.GLOBAL_CCU8_0,"aw",%progbits
+  16              	 .align 2
+  19              	GLOBAL_CCU8_0:
+  20 0000 0090D003 	 .word 64000000
+  21 0004 0001     	 .short 256
+  22 0006 0000     	 .space 2
+  23 0008 00000050 	 .word 1342177280
+  24 000c 00       	 .byte 0
+  25 000d 00       	 .byte 0
+  26 000e 0000     	 .space 2
+  27              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 global_ccu8_conf.c
+    {standard input}:19     .data.GLOBAL_CCU8_0:00000000 GLOBAL_CCU8_0
+    {standard input}:16     .data.GLOBAL_CCU8_0:00000000 $d
+
+NO UNDEFINED SYMBOLS

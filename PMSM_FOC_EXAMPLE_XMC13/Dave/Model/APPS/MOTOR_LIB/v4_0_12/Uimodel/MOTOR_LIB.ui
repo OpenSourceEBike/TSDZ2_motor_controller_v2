@@ -1,9 +1,0 @@
-<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
-	<p1:TabFolder bounds="5, 5, 296, 219">
-		<p1:GTab text="MOTOR_LIB" visible="true" enabled="true" manifestObj="true" widgetName="gtab_7">
-			<p1:GTab.control>
-				<p1:GLabel text="This app does not provide any UI configurations." visible="true" manifestObj="true" widgetName="glabel_7"/>
-			</p1:GTab.control>
-		</p1:GTab>
-	</p1:TabFolder>
-</p1:Tab>

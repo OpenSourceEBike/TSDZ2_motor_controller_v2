@@ -1,0 +1,335 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,4
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "xmc1_flash.c"
+  14              	 .section .text.XMC_FLASH_ClearStatus,"ax",%progbits
+  15              	 .align 1
+  16              	 .global XMC_FLASH_ClearStatus
+  17              	 .code 16
+  18              	 .thumb_func
+  20              	XMC_FLASH_ClearStatus:
+  21 0000 C021     	 mov r1,#192
+  22 0002 034A     	 ldr r2,.L2
+  23 0004 8901     	 lsl r1,r1,#6
+  24 0006 9388     	 ldrh r3,[r2,#4]
+  25              	 
+  26 0008 0B43     	 orr r3,r1
+  27 000a 9380     	 strh r3,[r2,#4]
+  28 000c 7047     	 bx lr
+  29              	.L3:
+  30 000e C046     	 .align 2
+  31              	.L2:
+  32 0010 00000540 	 .word 1074069504
+  34              	 .section .text.XMC_FLASH_GetStatus,"ax",%progbits
+  35              	 .align 1
+  36              	 .global XMC_FLASH_GetStatus
+  37              	 .code 16
+  38              	 .thumb_func
+  40              	XMC_FLASH_GetStatus:
+  41 0000 014B     	 ldr r3,.L5
+  42              	 
+  43 0002 1888     	 ldrh r0,[r3]
+  44 0004 80B2     	 uxth r0,r0
+  45 0006 7047     	 bx lr
+  46              	.L6:
+  47              	 .align 2
+  48              	.L5:
+  49 0008 00000540 	 .word 1074069504
+  51              	 .section .text.XMC_FLASH_EnableEvent,"ax",%progbits
+  52              	 .align 1
+  53              	 .global XMC_FLASH_EnableEvent
+  54              	 .code 16
+  55              	 .thumb_func
+  57              	XMC_FLASH_EnableEvent:
+  58 0000 024B     	 ldr r3,.L8
+  59              	 
+  60 0002 1A89     	 ldrh r2,[r3,#8]
+  61 0004 1043     	 orr r0,r2
+  62 0006 80B2     	 uxth r0,r0
+  63 0008 1881     	 strh r0,[r3,#8]
+  64 000a 7047     	 bx lr
+  65              	.L9:
+  66              	 .align 2
+  67              	.L8:
+  68 000c 00000540 	 .word 1074069504
+  70              	 .section .text.XMC_FLASH_DisableEvent,"ax",%progbits
+  71              	 .align 1
+  72              	 .global XMC_FLASH_DisableEvent
+  73              	 .code 16
+  74              	 .thumb_func
+  76              	XMC_FLASH_DisableEvent:
+  77 0000 024A     	 ldr r2,.L11
+  78              	 
+  79 0002 1389     	 ldrh r3,[r2,#8]
+  80 0004 8343     	 bic r3,r0
+  81 0006 1381     	 strh r3,[r2,#8]
+  82 0008 7047     	 bx lr
+  83              	.L12:
+  84 000a C046     	 .align 2
+  85              	.L11:
+  86 000c 00000540 	 .word 1074069504
+  88              	 .section .text.XMC_FLASH_ErasePage,"ax",%progbits
+  89              	 .align 1
+  90              	 .global XMC_FLASH_ErasePage
+  91              	 .code 16
+  92              	 .thumb_func
+  94              	XMC_FLASH_ErasePage:
+  95 0000 08B5     	 push {r3,lr}
+  96 0002 8023     	 mov r3,#128
+  97 0004 5B00     	 lsl r3,r3,#1
+  98 0006 1B68     	 ldr r3,[r3]
+  99 0008 9847     	 blx r3
+ 100              	 
+ 101 000a 08BD     	 pop {r3,pc}
+ 103              	 .section .text.XMC_FLASH_ProgramVerifyPage,"ax",%progbits
+ 104              	 .align 1
+ 105              	 .global XMC_FLASH_ProgramVerifyPage
+ 106              	 .code 16
+ 107              	 .thumb_func
+ 109              	XMC_FLASH_ProgramVerifyPage:
+ 110 0000 08B5     	 push {r3,lr}
+ 111 0002 8223     	 mov r3,#130
+ 112 0004 021C     	 mov r2,r0
+ 113 0006 5B00     	 lsl r3,r3,#1
+ 114 0008 081C     	 mov r0,r1
+ 115 000a 1B68     	 ldr r3,[r3]
+ 116 000c 111C     	 mov r1,r2
+ 117 000e 9847     	 blx r3
+ 118              	 
+ 119 0010 08BD     	 pop {r3,pc}
+ 121              	 .section .text.XMC_FLASH_WriteBlocks,"ax",%progbits
+ 122              	 .align 1
+ 123              	 .global XMC_FLASH_WriteBlocks
+ 124              	 .code 16
+ 125              	 .thumb_func
+ 127              	XMC_FLASH_WriteBlocks:
+ 128 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 129 0002 FF26     	 mov r6,#255
+ 130 0004 144C     	 ldr r4,.L25
+ 131 0006 9446     	 mov ip,r2
+ 132 0008 A588     	 ldrh r5,[r4,#4]
+ 133 000a B543     	 bic r5,r6
+ 134 000c C026     	 mov r6,#192
+ 135 000e A580     	 strh r5,[r4,#4]
+ 136 0010 A588     	 ldrh r5,[r4,#4]
+ 137 0012 B601     	 lsl r6,r6,#6
+ 138 0014 3543     	 orr r5,r6
+ 139 0016 A580     	 strh r5,[r4,#4]
+ 140 0018 002B     	 cmp r3,#0
+ 141 001a 02D0     	 beq .L16
+ 142 001c A388     	 ldrh r3,[r4,#4]
+ 143 001e 6125     	 mov r5,#97
+ 144 0020 01E0     	 b .L22
+ 145              	.L16:
+ 146 0022 A125     	 mov r5,#161
+ 147 0024 A388     	 ldrh r3,[r4,#4]
+ 148              	.L22:
+ 149 0026 2B43     	 orr r3,r5
+ 150 0028 0025     	 mov r5,#0
+ 151 002a A380     	 strh r3,[r4,#4]
+ 152              	.L18:
+ 153 002c 2B01     	 lsl r3,r5,#4
+ 154 002e C718     	 add r7,r0,r3
+ 155 0030 CE18     	 add r6,r1,r3
+ 156 0032 6545     	 cmp r5,ip
+ 157 0034 0AD0     	 beq .L24
+ 158 0036 0023     	 mov r3,#0
+ 159              	.L19:
+ 160 0038 F258     	 ldr r2,[r6,r3]
+ 161 003a FA50     	 str r2,[r7,r3]
+ 162 003c 0433     	 add r3,r3,#4
+ 163 003e 102B     	 cmp r3,#16
+ 164 0040 FAD1     	 bne .L19
+ 165              	.L20:
+ 166 0042 2388     	 ldrh r3,[r4]
+ 167 0044 DB07     	 lsl r3,r3,#31
+ 168 0046 FCD4     	 bmi .L20
+ 169 0048 0135     	 add r5,r5,#1
+ 170 004a EFE7     	 b .L18
+ 171              	.L24:
+ 172 004c FF22     	 mov r2,#255
+ 173 004e A388     	 ldrh r3,[r4,#4]
+ 174              	 
+ 175 0050 9343     	 bic r3,r2
+ 176 0052 A380     	 strh r3,[r4,#4]
+ 177 0054 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 178              	.L26:
+ 179 0056 C046     	 .align 2
+ 180              	.L25:
+ 181 0058 00000540 	 .word 1074069504
+ 183              	 .section .text.XMC_FLASH_ErasePages,"ax",%progbits
+ 184              	 .align 1
+ 185              	 .global XMC_FLASH_ErasePages
+ 186              	 .code 16
+ 187              	 .thumb_func
+ 189              	XMC_FLASH_ErasePages:
+ 190 0000 70B5     	 push {r4,r5,r6,lr}
+ 191 0002 0D1C     	 mov r5,r1
+ 192 0004 0024     	 mov r4,#0
+ 193 0006 061C     	 mov r6,r0
+ 194 0008 0848     	 ldr r0,.L31
+ 195              	.L28:
+ 196 000a 2302     	 lsl r3,r4,#8
+ 197 000c F318     	 add r3,r6,r3
+ 198 000e AC42     	 cmp r4,r5
+ 199 0010 0AD0     	 beq .L29
+ 200 0012 8022     	 mov r2,#128
+ 201 0014 5200     	 lsl r2,r2,#1
+ 202 0016 181C     	 mov r0,r3
+ 203 0018 1268     	 ldr r2,[r2]
+ 204 001a 9047     	 blx r2
+ 205 001c 8023     	 mov r3,#128
+ 206 001e 5B02     	 lsl r3,r3,#9
+ 207 0020 9842     	 cmp r0,r3
+ 208 0022 01D1     	 bne .L29
+ 209 0024 0134     	 add r4,r4,#1
+ 210 0026 F0E7     	 b .L28
+ 211              	.L29:
+ 212              	 
+ 213 0028 70BD     	 pop {r4,r5,r6,pc}
+ 214              	.L32:
+ 215 002a C046     	 .align 2
+ 216              	.L31:
+ 217 002c 01000180 	 .word -2147418111
+ 219              	 .section .text.XMC_FLASH_VerifyBlocks,"ax",%progbits
+ 220              	 .align 1
+ 221              	 .global XMC_FLASH_VerifyBlocks
+ 222              	 .code 16
+ 223              	 .thumb_func
+ 225              	XMC_FLASH_VerifyBlocks:
+ 226 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 227 0002 FF25     	 mov r5,#255
+ 228 0004 0F4B     	 ldr r3,.L39
+ 229 0006 9446     	 mov ip,r2
+ 230 0008 9C88     	 ldrh r4,[r3,#4]
+ 231 000a AC43     	 bic r4,r5
+ 232 000c 9C80     	 strh r4,[r3,#4]
+ 233 000e 9C88     	 ldrh r4,[r3,#4]
+ 234 0010 0D4D     	 ldr r5,.L39+4
+ 235 0012 2C43     	 orr r4,r5
+ 236 0014 9C80     	 strh r4,[r3,#4]
+ 237 0016 0025     	 mov r5,#0
+ 238 0018 1C1C     	 mov r4,r3
+ 239              	.L34:
+ 240 001a 2B01     	 lsl r3,r5,#4
+ 241 001c C718     	 add r7,r0,r3
+ 242 001e CE18     	 add r6,r1,r3
+ 243 0020 6545     	 cmp r5,ip
+ 244 0022 0AD0     	 beq .L38
+ 245 0024 0023     	 mov r3,#0
+ 246              	.L35:
+ 247 0026 F258     	 ldr r2,[r6,r3]
+ 248 0028 FA50     	 str r2,[r7,r3]
+ 249 002a 0433     	 add r3,r3,#4
+ 250 002c 102B     	 cmp r3,#16
+ 251 002e FAD1     	 bne .L35
+ 252              	.L36:
+ 253 0030 2388     	 ldrh r3,[r4]
+ 254 0032 DB07     	 lsl r3,r3,#31
+ 255 0034 FCD4     	 bmi .L36
+ 256 0036 0135     	 add r5,r5,#1
+ 257 0038 EFE7     	 b .L34
+ 258              	.L38:
+ 259 003a FF22     	 mov r2,#255
+ 260 003c A388     	 ldrh r3,[r4,#4]
+ 261              	 
+ 262 003e 9343     	 bic r3,r2
+ 263 0040 A380     	 strh r3,[r4,#4]
+ 264 0042 F0BD     	 pop {r4,r5,r6,r7,pc}
+ 265              	.L40:
+ 266              	 .align 2
+ 267              	.L39:
+ 268 0044 00000540 	 .word 1074069504
+ 269 0048 E0300000 	 .word 12512
+ 271              	 .section .text.XMC_FLASH_ReadBlocks,"ax",%progbits
+ 272              	 .align 1
+ 273              	 .global XMC_FLASH_ReadBlocks
+ 274              	 .code 16
+ 275              	 .thumb_func
+ 277              	XMC_FLASH_ReadBlocks:
+ 278 0000 F0B5     	 push {r4,r5,r6,r7,lr}
+ 279 0002 0024     	 mov r4,#0
+ 280              	.L42:
+ 281 0004 2301     	 lsl r3,r4,#4
+ 282 0006 CE18     	 add r6,r1,r3
+ 283 0008 C518     	 add r5,r0,r3
+ 284 000a 9442     	 cmp r4,r2
+ 285 000c 07D0     	 beq .L45
+ 286 000e 0023     	 mov r3,#0
+ 287              	.L43:
+ 288 0010 EF58     	 ldr r7,[r5,r3]
+ 289 0012 F750     	 str r7,[r6,r3]
+ 290 0014 0433     	 add r3,r3,#4
+ 291 0016 102B     	 cmp r3,#16
+ 292 0018 FAD1     	 bne .L43
+ 293 001a 0134     	 add r4,r4,#1
+ 294 001c F2E7     	 b .L42
+ 295              	.L45:
+ 296              	 
+ 297 001e F0BD     	 pop {r4,r5,r6,r7,pc}
+ 299              	 .section .text.XMC_FLASH_EraseSector,"ax",%progbits
+ 300              	 .align 1
+ 301              	 .global XMC_FLASH_EraseSector
+ 302              	 .code 16
+ 303              	 .thumb_func
+ 305              	XMC_FLASH_EraseSector:
+ 306 0000 08B5     	 push {r3,lr}
+ 307 0002 1021     	 mov r1,#16
+ 308 0004 FFF7FEFF 	 bl XMC_FLASH_ErasePages
+ 309              	 
+ 310 0008 08BD     	 pop {r3,pc}
+ 312              	 .section .text.XMC_FLASH_ProgramPage,"ax",%progbits
+ 313              	 .align 1
+ 314              	 .global XMC_FLASH_ProgramPage
+ 315              	 .code 16
+ 316              	 .thumb_func
+ 318              	XMC_FLASH_ProgramPage:
+ 319 0000 08B5     	 push {r3,lr}
+ 320 0002 FFF7FEFF 	 bl XMC_FLASH_ProgramVerifyPage
+ 321              	 
+ 322 0006 08BD     	 pop {r3,pc}
+ 324              	 .ident "GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20141119 (release) [ARM/embedded-4_9-branch revision 218278]"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc1_flash.c
+    {standard input}:15     .text.XMC_FLASH_ClearStatus:00000000 $t
+    {standard input}:20     .text.XMC_FLASH_ClearStatus:00000000 XMC_FLASH_ClearStatus
+    {standard input}:32     .text.XMC_FLASH_ClearStatus:00000010 $d
+    {standard input}:35     .text.XMC_FLASH_GetStatus:00000000 $t
+    {standard input}:40     .text.XMC_FLASH_GetStatus:00000000 XMC_FLASH_GetStatus
+    {standard input}:49     .text.XMC_FLASH_GetStatus:00000008 $d
+    {standard input}:52     .text.XMC_FLASH_EnableEvent:00000000 $t
+    {standard input}:57     .text.XMC_FLASH_EnableEvent:00000000 XMC_FLASH_EnableEvent
+    {standard input}:68     .text.XMC_FLASH_EnableEvent:0000000c $d
+    {standard input}:71     .text.XMC_FLASH_DisableEvent:00000000 $t
+    {standard input}:76     .text.XMC_FLASH_DisableEvent:00000000 XMC_FLASH_DisableEvent
+    {standard input}:86     .text.XMC_FLASH_DisableEvent:0000000c $d
+    {standard input}:89     .text.XMC_FLASH_ErasePage:00000000 $t
+    {standard input}:94     .text.XMC_FLASH_ErasePage:00000000 XMC_FLASH_ErasePage
+    {standard input}:104    .text.XMC_FLASH_ProgramVerifyPage:00000000 $t
+    {standard input}:109    .text.XMC_FLASH_ProgramVerifyPage:00000000 XMC_FLASH_ProgramVerifyPage
+    {standard input}:122    .text.XMC_FLASH_WriteBlocks:00000000 $t
+    {standard input}:127    .text.XMC_FLASH_WriteBlocks:00000000 XMC_FLASH_WriteBlocks
+    {standard input}:181    .text.XMC_FLASH_WriteBlocks:00000058 $d
+    {standard input}:184    .text.XMC_FLASH_ErasePages:00000000 $t
+    {standard input}:189    .text.XMC_FLASH_ErasePages:00000000 XMC_FLASH_ErasePages
+    {standard input}:217    .text.XMC_FLASH_ErasePages:0000002c $d
+    {standard input}:220    .text.XMC_FLASH_VerifyBlocks:00000000 $t
+    {standard input}:225    .text.XMC_FLASH_VerifyBlocks:00000000 XMC_FLASH_VerifyBlocks
+    {standard input}:268    .text.XMC_FLASH_VerifyBlocks:00000044 $d
+    {standard input}:272    .text.XMC_FLASH_ReadBlocks:00000000 $t
+    {standard input}:277    .text.XMC_FLASH_ReadBlocks:00000000 XMC_FLASH_ReadBlocks
+    {standard input}:300    .text.XMC_FLASH_EraseSector:00000000 $t
+    {standard input}:305    .text.XMC_FLASH_EraseSector:00000000 XMC_FLASH_EraseSector
+    {standard input}:313    .text.XMC_FLASH_ProgramPage:00000000 $t
+    {standard input}:318    .text.XMC_FLASH_ProgramPage:00000000 XMC_FLASH_ProgramPage
+
+NO UNDEFINED SYMBOLS

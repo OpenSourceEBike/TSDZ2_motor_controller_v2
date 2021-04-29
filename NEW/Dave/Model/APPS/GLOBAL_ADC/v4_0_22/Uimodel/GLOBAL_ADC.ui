@@ -1,0 +1,163 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 500, 600">
+		<p1:GTab text="General Settings" widgetName="gtab_global_configuration" visible="true" enabled="true" manifestObj="true">
+			<p1:GTab.control>
+				<p1:Tab>
+					<p1:Tab.layout>
+						<GridLayout numColumns="2"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Clock Settings" manifestObj="true" widgetName="ggroup_clock">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData horizontalSpan="2" widthHint="463" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GLabel text="Peripheral bus clock [MHz]:" visible="true" manifestObj="true" widgetName="glabel_peripherial_clk_freq"/>
+						<p1:GFloat x:Style="BORDER" minValue="0" maxValue="200" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,3" manifestObj="true" widgetName="gfloat_peripherial_clk_freq" value="120" enabled="false" description="This is peripheral clock value . Not Editable. Peripheral Clock can be configured in Clock App." toolTipText="Clock available to the ADC">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="76"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="Desired analog clock [MHz]:" visible="true" manifestObj="true" widgetName="glabel_des_analog_clk"/>
+						<p1:GFloat x:Style="BORDER" minValue="2" maxValue="30" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,0" manifestObj="true" widgetName="gfloat_des_analog_clk" value="30" description="This allows a user to input required analog clock value. &#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;This decides the clock divider GLOBCFG.DIVA &lt;/LI&gt;&#13;&#10;&lt;LI&gt;The Value of fADCI determines the performance of the converter. Select this using the data sheet for the device&lt;/LI&gt;&#13;&#10;" toolTipText="Set the desired frequency with which the converter should work.">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="76"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="Actual analog clock [MHz]:" visible="true" manifestObj="true" widgetName="glabel_act_analog_clk"/>
+						<p1:GFloat x:Style="BORDER" minValue="0" maxValue="60" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_act_analog_clk" enabled="false" description="This is the closest possible Analog clock value. &#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;This field is calculated using the Desired analog clock. &lt;/LI&gt;&#13;&#10;&lt;LI&gt;This is the closest possible value of the Analog converter clock , calculated using the selected divider value.&lt;/LI&gt;">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="76"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="Digital clock:" visible="true" manifestObj="true" widgetName="glabel_digital_clk"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_digital_clk" value="fADC" options="fADC&#13;&#10;fADC/2&#13;&#10;fADC/3&#13;&#10;fADC/4&#13;&#10;" description="This allows user to select the required digital clock. Selects the frequency with which the Arbiter will run.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;fADC: The digital divider value selected is 0. The frequency is  equal to the Analog module clock.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;fADC/2: The digital divider value selected is 1. The frequency is  equal to the Analog module clock divided by factor of 2.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;fADC/3: The digital divider value selected is 2. The frequency is  equal to the Analog module clock divided by factor of 3.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;fADC/4: The digital divider value selected is 3. The frequency is  equal to the Analog module clock divided by factor of 4.&lt;/LI&gt;" toolTipText="Select the frequency of the arbitration round.">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="76"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Actual digital clock [MHz]:" visible="true" manifestObj="true" widgetName="glabel_act_digi_clk"/>
+						<p1:GFloat x:Style="BORDER" minValue="0" maxValue="200" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_act_digi_clk" value="120" description="This is the actual Digital Clock value. Effective arbiter clock frequency after clock divider has been selected." enabled="false">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="76"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+					</p1:GGroup>
+					<p1:GCheck text="Enable start up calibration" manifestObj="true" widgetName="gcheck_startup_calibration" description="This option would enable the start up calibration for the ADC.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Deviation in the converted results due to physical quantities can be overcome by using option&lt;/LI&gt;&#13;&#10;&lt;LI&gt;The GLOBAL_ADC_Init() will only exit after the startup calibrations are done on all the groups of the ADC, if calibration is selected. &lt;/LI&gt;" value="true" toolTipText="This enables the converters to compensate for the deviations after reset.">
+						<p1:GCheck.layoutData>
+							<GridData horizontalSpan="2"/>
+						</p1:GCheck.layoutData>
+					</p1:GCheck>
+					<p1:GLabel manifestObj="true" text="Analog reference voltage:" widgetName="glabel_aref"/>
+					<p1:GCombo description="Selection of the reference voltage that is required for conversions (VREF)." mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="External reference if VDD &gt;= 3.0V (upper supply range)&#13;&#10;Internal reference if VDD &gt;= 3.0V (upper supply range)&#13;&#10;Internal reference if VDD &lt; 3.0V  (lower supply range)" toolTipText="Selection of the reference voltage that is required for conversions (VREF)." value="External reference if VDD &gt;= 3.0V (upper supply range)" widgetName="gcombo_aref">
+						<p1:GCombo.layoutData>
+							<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+						</p1:GCombo.layoutData>
+					</p1:GCombo>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Advanced Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_group_configurations">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite4">
+					<p1:Tab.layout>
+						<GridLayout numColumns="2"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Group 0 Settings" manifestObj="true" widgetName="ggroup_group0_configuration">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" verticalAlignment="FILL" widthHint="470" heightHint="73" horizontalSpan="2"/>
+						</p1:GGroup.layoutData>
+						<p1:GCheck text="Enable calibration after each conversion" manifestObj="true" widgetName="gcheck_post_cal_group0" value="true" description="This allow user to enable or disable Post calibration for Group 0.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;After each conversion a calibration of the group might be needed . Enabling this option will ensure that the converted results are always calibrated.&lt;/LI&gt;&#13;&#10;">
+							<p1:GCheck.layoutData>
+								<GridData verticalAlignment="BOTTOM" horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel text="Arbitration mode:" visible="true" manifestObj="true" widgetName="glabel_arb_mode_group0">
+							<p1:GLabel.layoutData>
+								<GridData verticalIndent="10" widthHint="150"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_arb_mode_group0" options="Runs Permanently&#13;&#10;Starts With Conversion Request" value="Runs Permanently" description="Behaviour of the arbiter for Group 0 :&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Runs Permanently: The Arbiter runs permanently.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Starts With Conversion Request: Arbiter stops after an arbitration round when no conversion request have been found. Started again if there is a pending conversion request by any request source.&lt;/LI&gt;" toolTipText="Select how the arbitter would run.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup manifestObj="true" text="Group 1 Settings" widgetName="ggroup_group1_configuration">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" verticalAlignment="FILL" horizontalSpan="2"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck manifestObj="true" text="Enable calibration after each conversion" value="true" widgetName="gcheck_post_cal_group1" description="This allow user to enable or disable Post calibration for Group 1.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;After each conversion a calibration of the group might be needed . Enabling this option will ensure that the converted results are always calibrated.&lt;/LI&gt;&#13;&#10;">
+							<p1:GCheck.layoutData>
+								<GridData verticalAlignment="BOTTOM" horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel manifestObj="true" text="Arbitration mode:" visible="true" widgetName="glabel_arb_mode_group1">
+							<p1:GLabel.layoutData>
+								<GridData verticalIndent="10" widthHint="150"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Runs Permanently&#13;&#10;Starts With Conversion Request" value="Runs Permanently" widgetName="gcombo_arb_mode_group1" description="Behaviour of the arbiter for Group 1 :&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Runs Permanently: The Arbiter runs permanently.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Starts With Conversion Request: Arbiter stops after an arbitration round when no conversion request have been found. Started again if there is a pending conversion request by any request source.&lt;/LI&gt;" toolTipText="Select how the arbitter would run.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup manifestObj="true" text="Group 2 Settings" widgetName="ggroup_group2_configuration">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" horizontalSpan="2"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck manifestObj="true" text="Enable calibration after each conversion" value="true" widgetName="gcheck_post_cal_group2" description="This allow user to enable or disable Post calibration for Group 2.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;After each conversion a calibration of the group might be needed . Enabling this option will ensure that the converted results are always calibrated.&lt;/LI&gt;&#13;&#10;">
+							<p1:GCheck.layoutData>
+								<GridData verticalAlignment="BOTTOM" horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel manifestObj="true" text="Arbitration mode:" visible="true" widgetName="glabel_arb_mode_group2">
+							<p1:GLabel.layoutData>
+								<GridData verticalIndent="10" widthHint="150"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Runs Permanently&#13;&#10;Starts With Conversion Request" value="Runs Permanently" widgetName="gcombo_arb_mode_group2" description="Behaviour of the arbiter for Group 2:&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Runs Permanently: The Arbiter runs permanently.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Starts With Conversion Request: Arbiter stops after an arbitration round when no conversion request have been found. Started again if there is a pending conversion request by any request source.&lt;/LI&gt;" toolTipText="Select how the arbitter would run.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup manifestObj="true" text="Group 3 Settings" widgetName="ggroup_group3_configuration">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" horizontalSpan="2"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck manifestObj="true" text="Enable calibration after each conversion" value="true" widgetName="gcheck_post_cal_group3" description="This allow user to enable or disable Post calibration for Group 3.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;After each conversion a calibration of the group might be needed . Enabling this option will ensure that the converted results are always calibrated.&lt;/LI&gt;&#13;&#10;">
+							<p1:GCheck.layoutData>
+								<GridData verticalAlignment="BOTTOM" horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel manifestObj="true" text="Arbitration mode:" visible="true" widgetName="glabel_arb_mode_group3">
+							<p1:GLabel.layoutData>
+								<GridData verticalIndent="10" widthHint="150"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Runs Permanently&#13;&#10;Starts With Conversion Request" value="Runs Permanently" widgetName="gcombo_arb_mode_group3" description="Behaviour of the arbiter for Group 3 :&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Runs Permanently: The Arbiter runs permanently.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Starts With Conversion Request: Arbiter stops after an arbitration round when no conversion request have been found. Started again if there is a pending conversion request by any request source.&lt;/LI&gt;" toolTipText="Select how the arbitter would run.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

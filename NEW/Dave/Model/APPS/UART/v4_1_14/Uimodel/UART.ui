@@ -1,0 +1,322 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" widgetName="composite1">
+	<p1:Tab.layout>
+		<GridLayout/>
+	</p1:Tab.layout>
+	<p1:TabFolder>
+		<p1:TabFolder.layoutData>
+			<GridData verticalAlignment="TOP" widthHint="500" heightHint="700"/>
+		</p1:TabFolder.layoutData>
+		<p1:GTab text="General Settings" enabled="true" visible="true" widgetName="gtab_BasicConfig">
+			<p1:GTab.control>
+				<p1:Tab widgetName="tab1_composite1" layout="{x:Null}" >
+					<p1:GLabel text="Operation mode:" visible="true" widgetName="glabel_oprmode" bounds="5, 17, 90, 15"/>
+					<p1:GCombo widgetName="gcombo_oprmode" options="Full Duplex&#13;&#10;Half Duplex&#13;&#10;Loop Back" text="Full duplex" toolTipText="" foreground="COLOR_INFO_FOREGROUND" manifestObj="true" value="Full Duplex" description="Desired operation mode for the data transmission &amp; reception.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt; Full Duplex-&gt; Two separate pins are used for transmission and reception.&lt;/li&gt;&#13;&#10;&lt;li&gt; Half Duplex-&gt; One common pin is used for transmission and reception.&lt;/li&gt;&#13;&#10;&lt;li&gt; Loop Back-&gt; No pins are used. When data is transmitted, the same data will be received.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" bounds="133, 14, 104, 21"/>
+					<p1:GLabel text="Actual speed [baud]:" widgetName="glabel_actualbuadrate" bounds="5, 73, 112, 15" />
+					<p1:GLabel text="Desired speed [baud]:  " widgetName="glabel_desiredbaudrate" bounds="5, 45, 120, 15" />
+					<p1:GInteger minValue="200" maxValue="7492675" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="gint_desiredbaudrate" toolTipText="" value="19200" description="Allows to configure the desired baud rate for UART communication. The value should be specified in baud. &#13;&#10;Maximum value of baudrate should be calculated based on peripheral clock and oversampling(Advanced Settings). &#13;&#10;Max baud = (fPERIPH * 1023)/(1024 * oversampling). &#13;&#10;Oversampling has a default value of 16." bounds="133, 41, 104, 23"/>
+					<p1:GInteger minValue="200" maxValue="7492675" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="gint_actualbuadrate" toolTipText="" value="" enabled="false" description="Indicates the actual baud that can be achieved with the device. This value is calculated based on the entered value of desired baud rate." bounds="133, 69, 104, 23"/>
+					<p1:GLabel text="Data bits:" visible="true" widgetName="glabel_databits" bounds="5, 101, 49, 15"/>
+					<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_databits" toolTipText="" options="5&#13;&#10;6&#13;&#10;7&#13;&#10;8" value="8" description="Configure the number of data bits for a UART frame. This value is configured as USIC channel word length and frame length.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;5-&gt; Each data transmission and reception happens with 5 bits of data.&lt;/li&gt;&#13;&#10;&lt;li&gt;6-&gt; Each data transmission and reception happens with 6 bits of data.&lt;/li&gt;&#13;&#10;&lt;li&gt;7-&gt; Each data transmission and reception happens with 7 bits of data.&lt;/li&gt;&#13;&#10;&lt;li&gt;8-&gt; Each data transmission and reception happens with 8 bits of data.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" bounds="133, 98, 104, 21"/>
+					<p1:GLabel text="Stop bit:" visible="true" widgetName="glabel_stopbits" bounds="5, 129, 44, 15"/>
+					<p1:GCombo widgetName="gcombo_stopbits" options="1 Stop Bit&#13;&#10;2 Stop Bits&#13;&#10;" text="One stop bit" toolTipText="" manifestObj="true" value="1 Stop Bit" description="Number of stop bits for the UART protocol can be configured among 1 and 2 stop bits.  Ensure that the communication counterpart also configures the same number of stop bits.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;1 Stop Bit-&gt; UART frame will be followed by one bit time of logic level 1.&lt;/li&gt;&#13;&#10;&lt;li&gt;2 Stop Bits-&gt; UART frame will be followed by two bits&apos; time of logic level 1.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" bounds="133, 126, 104, 21"/>
+					<p1:GLabel text="Parity selection:" visible="true" widgetName="glabel_parity" manifestObj="true" bounds="4, 157, 83, 15"/>
+					<p1:GCombo widgetName="gcombo_parity" options="No Parity&#13;&#10;Even Parity&#13;&#10;Odd Parity&#13;&#10;" text="No parity" toolTipText="" manifestObj="true" value="No Parity" description="Parity mode selection for UART communication. Ensure that the communication counterpart also uses the same parity mode.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;No Parity-&gt; No extra bit to indicate the data parity.&lt;/li&gt;&#13;&#10;&lt;li&gt;Even Parity-&gt; One extra bit will be added after the last data bit. This bit will be logic 1 if there are even number of logic 1 bits in the data.&lt;/li&gt;&#13;&#10;&lt;li&gt;Odd Parity-&gt; One extra bit will be added after the last data bit. This bit will be logic 1 if there are odd number of logic 1 bits in the data.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" bounds="132, 154, 104, 21"/>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+
+		<p1:GTab text="Advanced Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_advance_config">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite_2">
+					<p1:Tab.layout>
+						<GridLayout horizontalSpacing="10" verticalSpacing="10" makeColumnsEqualWidth="true"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Protocol Handling" manifestObj="true" widgetName="ggroup_protocol_handling">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData widthHint="489"/>
+						</p1:GGroup.layoutData>
+						<p1:GLabel text="Transmit mode:" visible="true" widgetName="glabel_transmit_mode"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_transmit_mode" options="Interrupt&#13;&#10;DMA&#13;&#10;Direct" value="Interrupt" description="Configure the mode of data transmission.&lt;br&gt;&#13;&#10;&lt;b&gt;Interrupt&lt;/b&gt;- Data provided by the user is transmitted using interrupts. FIFO can be configured to optimize the CPU utilization. Data is loaded to the transmit buffer in interrupt service handler. A callback function can be registered in &quot;Interrupt Settings&quot; tab to be executed after the transmission is complete.&#13;&#10;Following APIs can be used when the &apos;Interrupt&apos; mode is selected,&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Transmit&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_StartTransmitIRQ&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_AbortTransmit&lt;/li&gt;&#13;&#10;&lt;/ul&gt;&#13;&#10;&#13;&#10;&lt;b&gt;DMA&lt;/b&gt;- Data provided by the user is transmitted by configuring DMA memory to peripheral block transfer. FIFO cannot be used in DMA mode. A callback function can be registered in &quot;Interrupt Settings&quot; tab to be executed after the transmission is complete. &#13;&#10;Note: DMA option uses DMA capable service requests for establishing DMA handshake.  Only 2 such service requests are available for each USIC module. So the user may not be able to select this option if the DMA capable service requests of the USIC module are already used. &#13;&#10;Following APIs can be used when &apos;DMA&apos; mode is selected,&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Transmit&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_StartTransmitDMA&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_AbortTransmit&lt;/li&gt;&#13;&#10;&lt;/ul&gt;&#13;&#10;&#13;&#10;&lt;b&gt;Direct&lt;/b&gt;- On selecting this option, interrupt signals will be available for external connection. User can choose a way for implementing data transfer. In this mode, the APP APIs implemented using &apos;Interrupt&apos; or &apos;DMA&apos; mode cannot be used. Following APIs can be used with &apos;Direct&apos; mode:&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Transmit&lt;/li&gt; &lt;i&gt;Note: Transmit event signals should not be connected to external APPs if this API is used in Direct mode.&lt;/i&gt;&#13;&#10;&lt;li&gt;UART_TransmitWord&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_EnableEvent&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_DisableEvent&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_SetTXFIFOTriggerLimit&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" toolTipText="Mechanism used for data transmission">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="71"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Receive mode:" visible="true" widgetName="glabel_receive_mode"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_receive_mode" options="Interrupt&#13;&#10;DMA&#13;&#10;Direct" value="Interrupt" description="Configure the handling mode for data reception.&lt;br&gt;&#13;&#10;&lt;b&gt;Interrupt&lt;/b&gt;- Data is received using interrupts. FIFO can be configured to optimize the CPU utilization. Data is read from the buffer in interrupt service handler. A callback function can be registered in &quot;Interrupt Settings&quot; tab to be executed after the data reception is complete.&#13;&#10;Following APIs should be used when the &apos;Interrupt&apos; mode is selected,&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Receive&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_StartReceiveIRQ&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_AbortReceive&lt;/li&gt;&#13;&#10;&lt;/ul&gt;&#13;&#10;&#13;&#10;&lt;b&gt;DMA&lt;/b&gt;- Data is received by configuring DMA peripheral to memory single block transfer. FIFO cannot be used in DMA mode. A callback function can be registered in &quot;Interrupt Settings&quot; tab to be executed after the reception is complete. &#13;&#10;Note: DMA option uses DMA capable service requests for establishing DMA handshake.  Only 2 such service requests are available for each USIC module. So the user may not be able to select this option if the DMA capable service requests of the USIC module are already used. &#13;&#10;Following APIs should be used when &apos;DMA&apos; mode is selected,&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Receive&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_StartReceiveDMA&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_AbortReceive&lt;/li&gt;&#13;&#10;&lt;/ul&gt;&#13;&#10;&#13;&#10;&lt;b&gt;Direct&lt;/b&gt;- On selecting this option, interrupt signals will be available for external connection. User can choose a way for implementing data reception. In this mode, the APP APIs implemented using &apos;Interrupt&apos; or &apos;DMA&apos; mode cannot be used. Following APIs can be used with &apos;Direct&apos; mode:&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;UART_Receive&lt;/li&gt; &lt;i&gt;Note: Receive event signals should not be connected to external APPs if this API is used in Direct mode.&lt;/i&gt;&#13;&#10;&lt;li&gt;UART_GetReceivedWord&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_EnableEvent&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_DisableEvent&lt;/li&gt;&#13;&#10;&lt;li&gt;UART_SetRXFIFOTriggerLimit&lt;/li&gt;&#13;&#10;&lt;/ul&gt;" toolTipText="Mechanism used for data reception">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup text="Timing Settings" manifestObj="true" widgetName="ggroup_6">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="598" grabExcessHorizontalSpace="true"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Oversampling:" visible="true" widgetName="glabel_oversampling"/>
+						<p1:GInteger minValue="4" maxValue="32" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="ginteger_oversampling" value="16" toolTipText="Enter the oversampling value(DCTQ)." description="Number of samples to be taken for deciding the value of each UART symbol.">
+							<p1:GInteger.layoutData>
+								<GridData widthHint="30" horizontalAlignment="CENTER"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+					</p1:GGroup>
+					<p1:GGroup text="FIFO Settings" widgetName="groupFIFO">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="3" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData widthHint="307" horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+						</p1:GGroup.layoutData>
+						<p1:GCheck text="Enable transmit FIFO" manifestObj="true" widgetName="gcheck_enabletxfifo" description="On selecting this option, FIFO will be configured for transmit functionality.&#13;&#10;FIFO helps in pooling the transmit data and sending them without the use of CPU.&#13;&#10;FIFO is shared between two channels of the same USIC module. In each channel, it can be used for transmit and receive functionality." value="true">
+							<p1:GCheck.layoutData>
+								<GridData horizontalAlignment="FILL" grabExcessVerticalSpace="true"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel text="     Size:" visible="true" widgetName="glabel_txfifosize" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo manifestObj="true" options="2&#13;&#10;4&#13;&#10;8&#13;&#10;16&#13;&#10;32&#13;&#10;64" toolTipText="" value="16" widgetName="gcombo_txfifosize" description="Configure the desired transmit FIFO buffer size. &#13;&#10;A FIFO with a size of 64 words is shared between two channels of a USIC module.&#13;&#10;UART APP uses one such channel for communication. This share of the FIFO buffer can be &#13;&#10;shared between transmit and receive functionalities. &#13;&#10;Size configured in this box will be reserved for transmit FIFO.&lt;br&gt;&#13;&#10;Note: DAVE IDE might display error message if the desired FIFO size could not be granted.&#13;&#10;This could be because of another channel or receive functionality using a higher FIFO size.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;2-&gt; 2 words of FIFO will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;li&gt;4-&gt; 4 words of FIFO will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;li&gt;8-&gt; 8 words of FIFO will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;li&gt;16-&gt; 16 words of FIFO will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;li&gt;32-&gt; 32 words of FIFO will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;li&gt;64-&gt; Entire FIFO of the USIC module will be reserved for the UART APP transmit function.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" widthHint="40"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCheck text="Enable receive FIFO" manifestObj="true" widgetName="gcheck_enablerxfifo" description="On selecting this option, FIFO will be configured for receive functionality.&#13;&#10;FIFO helps in pooling the received data.&#13;&#10;FIFO is shared between two channels of the same USIC module. In each channel, it can be used for transmit and receive functionality." value="true">
+							<p1:GCheck.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<p1:GLabel text="     Size:" visible="true" widgetName="glabel_rxfifosize" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo manifestObj="true" options="2&#13;&#10;4&#13;&#10;8&#13;&#10;16&#13;&#10;32&#13;&#10;64" toolTipText="" value="16" widgetName="gcombo_rxfifosize" description="Configure the desired receive FIFO buffer size. &#13;&#10;A FIFO with a size of 64 words is shared between two channels of a USIC module.&#13;&#10;UART APP uses one such channel for communication. This share of the FIFO buffer can be &#13;&#10;shared between transmit and receive functionalities. &#13;&#10;Size configured in this box will be reserved for receive FIFO.&lt;br&gt;&#13;&#10;Note: DAVE IDE might display error message if the desired FIFO size could not be granted.&#13;&#10;This could be because of another channel or transmit functionality using a higher FIFO size.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;2-&gt; 2 words of FIFO will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;li&gt;4-&gt; 4 words of FIFO will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;li&gt;8-&gt; 8 words of FIFO will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;li&gt;16-&gt; 16 words of FIFO will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;li&gt;32-&gt; 32 words of FIFO will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;li&gt;64-&gt; Entire FIFO of the USIC module will be reserved for the UART APP receive functionality.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessVerticalSpace="true" widthHint="40"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="A total of 64 FIFO entries are available to be configured as transmit and receive buffers. &#13;&#10;These 64 entries are additionally shared between the two channels of a USIC module" widgetName="glabel_fifo_note" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalSpan="3"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+					</p1:GGroup>
+					<p1:GGroup text="Shift Settings" widgetName="ggroup_shift_settings">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GCheck text="MSB first" manifestObj="true" widgetName="gcheck_msb_first" description="MSB to LSB bit ordering" toolTipText="MSB to LSB bit ordering"/>
+						<Label/>
+						<p1:GCheck text="Enable data input inversion" manifestObj="true" widgetName="gcheck_invert_data_input" toolTipText="Invert data input" description="Invert data input"/>
+						<Label/>
+						<p1:GCheck text="Enable data output inversion" manifestObj="true" widgetName="gcheck_invert_data_output" toolTipText="Invert data output" description="Invert data output">
+							<p1:GCheck.layoutData>
+								<GridData horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+
+		<p1:GTab text="Interrupt Settings" enabled="true" visible="true" widgetName="gtab_InterruptConfig">
+			<p1:GTab.control>
+				<p1:Tab widgetName="tab2_composite1" layout="{x:Null}" >
+					<p1:GGroup text="Transmit" manifestObj="true" widgetName="ggroup_transmit_interrupt" bounds="4, 3, 489, 139">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GInterruptPrio text="Interrupt Priority" x:Style="NONE" minPriority="0" maxPriority="63" minSubPriority="0" maxSubPriority="0" priorityValue="0" subPriorityValue="0" manifestObj="true" widgetName="ginterruptprio_tx" description="Define the priority for standard transmit interrupt or FIFO transmit buffer interrupt based on whether the transmit FIFO is configured or not. This interrupt is used internally by the APP to transmit all the data provided in each transmit request. The interrupt priority can be changed by the user to provide explicit preference for time critical events.&#13;&#10;Maximum value of pre-emption priority and subpriority depend on the number of bits configured for priority group in the CPU_CTRL_XMC4 app in XMC4X device family. &lt;br&gt;&lt;br&gt;&#13;&#10;&#13;&#10;&lt;b&gt;Note:&lt;/b&gt; The maximum value for preemption priority and sub-priority, indicated in the range&#13;&#10;field will be dynamically assigned based on the number of bits configured in the CPU_CTRL_XMC4 APP for XMC4000 family of devices.&lt;br&gt;&#13;&#10;Priority group is not available with XMC1X device family.  Subpriority field will not be available when XMC1X family device is selected. &#13;&#10;">
+							<p1:GInterruptPrio.layoutData>
+								<GridData widthHint="473" horizontalSpan="2" grabExcessHorizontalSpace="true"/>
+							</p1:GInterruptPrio.layoutData>
+						</p1:GInterruptPrio>
+						<p1:GCheck manifestObj="true" text="End of transmit callback:" widgetName="gcheck_tx_callback" toolTipText="Enable a callback function execution after&#13;&#10;putting all the data provided in the transmit&#13;&#10;request to transmit buffer." description="If the checkbox is enabled, the function name provided in the text box provided next to this checkbox, will be executed on completion of transmit request.&#13;&#10;"/>
+						<p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_tx_callback" enabled="false" value="" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be called on completion of data transfer. This function will be executed when all the data in the user&apos;s buffer is transmitted.&#13;&#10;Function type: void function(void)">
+							<p1:GString.layoutData>
+								<GridData widthHint="150" horizontalAlignment="FILL"/>
+							</p1:GString.layoutData>
+						</p1:GString>
+						<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for &quot;End of transmit callback&quot;" widgetName="gmessage_tx_callback_empty">
+							<p1:GMessage.layoutData>
+								<GridData horizontalSpan="2"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+						<Label/>
+					</p1:GGroup>
+					<p1:GGroup manifestObj="true" text="Receive" widgetName="ggroup_receive_interrupt" bounds="5, 147, 487, 140">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GInterruptPrio text="Interrupt Priority" x:Style="NONE" minPriority="0" maxPriority="63" minSubPriority="0" maxSubPriority="0" priorityValue="0" subPriorityValue="0" manifestObj="true" widgetName="ginterruptprio_rx" description="Define the priority for the data reception events. Configures priority of standard receive interrupt and alternative receive interrupt if receive FIFO is not configured. If receive FIFO is configured, the priority is configured for receive FIFO standard receive interrupt and receive FIFO alternative receive interrupt. This interrupt is used internally by the APP to receive all the data requested by the user. The interrupt priority can be changed by the user to provide explicit preference for time critical events.&#13;&#10;Maximum value of pre-emption priority and subpriority depend on the number of bits configured for priority group in the CPU_CTRL_XMC4 app in XMC4X device family. &#13;&#10;&lt;br&gt; &lt;br&gt;&#13;&#10;&lt;b&gt;Note:&lt;/b&gt; The maximum value for preemption priority and sub-priority, indicated in the range&#13;&#10;field will be dynamically assigned based on the number of bits configured in the CPU_CTRL_XMC4 APP for XMC4000 family of devices.&lt;br&gt;&#13;&#10;Priority group is not available with XMC1X device family.  Subpriority field will not be available when XMC1X family device is selected.">
+							<p1:GInterruptPrio.layoutData>
+								<GridData horizontalSpan="2" widthHint="471"/>
+							</p1:GInterruptPrio.layoutData>
+						</p1:GInterruptPrio>
+						<p1:GCheck text="End of receive callback:" manifestObj="true" widgetName="gcheck_rx_callback" toolTipText="Enable a callback function execution after&#13;&#10;receiving all the data requested in the receive&#13;&#10;request." description="If the checkbox is enabled, the function name provided in the text box provided next to this checkbox, will be executed on completion of receive request.&#13;&#10;When the callback is executed, the user can be sure that all the requested number of data bytes are received."/>
+						<p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_rx_callback" enabled="false" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be called on completion of data reception. This function will be executed when all the data requested by the user are received.&#13;&#10;Function type: void function(void)">
+							<p1:GString.layoutData>
+								<GridData widthHint="150" horizontalAlignment="FILL"/>
+							</p1:GString.layoutData>
+						</p1:GString>
+						<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for &quot;End of receive callback&quot;" widgetName="gmessage_rx_callback_empty">
+							<p1:GMessage.layoutData>
+								<GridData horizontalSpan="2"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+						<Label/>
+					</p1:GGroup>
+					<p1:GGroup text="Error Handling" widgetName="ggroup_error_handling" bounds="4, 293, 488, 398" >
+						<p1:GGroup.layout>
+							<GridLayout verticalSpacing="10" horizontalSpacing="10" numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GInterruptPrio text="Interrupt Priority" x:Style="NONE" minPriority="0" maxPriority="63" minSubPriority="0" maxSubPriority="0" priorityValue="0" subPriorityValue="0" manifestObj="true" widgetName="ginterruptprio_error" description="Define the priority for the interrupt generated by  common protocol events. This interrupt could be generated due to any of the protocol errors like receiver noise, format error, synchronization break or data collision.&#13;&#10;Maximum value of pre-emption priority and subpriority depend on the number of bits configured for priority group in the CPU_CTRL_XMC4 app in XMC4X device family. &#13;&#10;&lt;br&gt;&lt;br&gt;&#13;&#10;&lt;b&gt;Note:&lt;/b&gt; The maximum value for preemption priority and sub-priority, indicated in the range&#13;&#10;field will be dynamically assigned based on the number of bits configured in the CPU_CTRL_XMC4 APP for XMC4000 family of devices.&lt;br&gt;&#13;&#10;Priority group is not available with XMC1X device family.  Subpriority field will not be available when XMC1X family device is selected.&lt;br&gt;&#13;&#10;&lt;i&gt;Protocol interrupt signal will  be available for external connection when no protocol event callbacks are selected.&lt;/i&gt;">
+							<p1:GInterruptPrio.layoutData>
+								<GridData horizontalSpan="2" widthHint="472" grabExcessHorizontalSpace="true"/>
+							</p1:GInterruptPrio.layoutData>
+						</p1:GInterruptPrio>
+						<p1:GGroup text="Error Handling Callback Functions" manifestObj="true" widgetName="ggroup_err_callback">
+							<p1:GGroup.layout>
+								<GridLayout numColumns="2"/>
+							</p1:GGroup.layout>
+							<p1:GGroup.layoutData>
+								<GridData horizontalSpan="2" widthHint="468" grabExcessHorizontalSpace="true" verticalAlignment="TOP"/>
+							</p1:GGroup.layoutData>
+							<p1:GCheck text="Receiver noise detection:" widgetName="gcheck_receiver_noise" toolTipText="Enable callback function execution &#13;&#10;on receiver noise detection." manifestObj="true" description="Receiver noise is detected if the 3 samples taken at the sample point for a received symbol do not have the same level. By enabling this checkbox a callback function can be executed on detection of receiver noise."/>
+							<p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_receiver_noise" enabled="false" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be executed on receiver noise detection.&#13;&#10;Function type: void function(void)">
+								<p1:GString.layoutData>
+									<GridData widthHint="150" horizontalAlignment="FILL"/>
+								</p1:GString.layoutData>
+							</p1:GString>
+							<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for-&quot;Receiver noise detection callback&quot;" widgetName="gmessage_rn_empty">
+							<p1:GMessage.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalSpan="2" widthHint="336"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+							<p1:GCheck text="Format error in stop bit 0:" widgetName="gcheck_format_errorbit0" toolTipText="Enable callback function execution on &#13;&#10;detection of format error in stop bit0." manifestObj="true" description="A format error is detected when the UART frame does not end properly. By enabling this checkbox a callback function can be executed on detection of format error in stop bit 0."/>
+							<p1:GString mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_format_errorbit0" x:Style="BORDER" enabled="false" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be executed on detection of format error in stop bit 0.&#13;&#10;Function type: void function(void)">
+								<p1:GString.layoutData>
+									<GridData widthHint="150" horizontalAlignment="FILL"/>
+								</p1:GString.layoutData>
+							</p1:GString>
+							<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for-&quot;Format error in stop bit 0 callback&quot;" widgetName="gmessage_frmt_0_empty">
+							<p1:GMessage.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalSpan="2"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+							<p1:GCheck text="Format error in stop bit 1:" manifestObj="true" widgetName="gcheck_format_errorbit1" toolTipText="Enable callback function execution on &#13;&#10;detection of format error in stop bit1." description="A format error is detected when the UART frame does not end properly. By enabling this checkbox a callback function can be executed on detection of format error in stop bit 1."/>
+							<p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_format_errorbit1" enabled="false" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be executed on detection of format error in stop bit 1.&#13;&#10;Function type: void function(void)">
+								<p1:GString.layoutData>
+									<GridData widthHint="150" horizontalAlignment="FILL"/>
+								</p1:GString.layoutData>
+							</p1:GString>
+							<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for-&quot;Format error in stop bit 1 callback&quot;" widgetName="gmessage_frmt_1_empty">
+							<p1:GMessage.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalSpan="2" widthHint="347"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+							<p1:GCheck text="Synchronization break detected:" manifestObj="true" widgetName="gcheck_sync_brk" toolTipText="Enable callback function execution on &#13;&#10;detection of synchronization break." description="When a programmed number of consecutive 0s are received, a callback function can be executed. This is useful in LIN bus system. &#13;&#10;Enable this checkbox and define a callback function in the textbox gstring_sync_brk for the execution of callback function on detecting synchronization break."/>
+							<p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_sync_brk" enabled="false" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be executed on detection of synchronization break.&#13;&#10;Function type: void function(void)">
+								<p1:GString.layoutData>
+									<GridData widthHint="150" horizontalAlignment="FILL"/>
+								</p1:GString.layoutData>
+							</p1:GString>
+							<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for-&quot;Synchronization break detected callback&quot;" widgetName="gmessage_sync_empty">
+							<p1:GMessage.layoutData>
+								<GridData widthHint="375" horizontalSpan="2"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+							<p1:GCheck manifestObj="true" text="Collision detection:" toolTipText="Enable callback function execution on &#13;&#10;detection of data collision in half duplex mode." widgetName="gcheck_collision" description="In half duplex mode since a single wire is used for transmission and reception, probability of data collision is high. This can be detected by enabling this callback function. This checkbox enables execution of a callback function defined in the textbox next to this checkbox."/>
+							<p1:GString enabled="false" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_collision" x:Style="BORDER" toolTipText="Enter a function name of type &#13;&#10;void function(void)&#13;&#10;Function must be defined by the user&#13;&#10;in the application code." description="This field takes the name of function, which should be executed on detection of data collision in half duplex mode. In half duplex mode since a single wire is used for transmission and reception, probability of data collision is high. This can be detected by enabling this callback function.&#13;&#10;Function type: void function(void)">
+								<p1:GString.layoutData>
+									<GridData widthHint="150" horizontalAlignment="FILL"/>
+								</p1:GString.layoutData>
+							</p1:GString>
+							<p1:GMessage isError="false" manifestObj="true" text="Invalid function name for-&quot;Collision detection callback&quot;" widgetName="gmessage_collision_callback_empty">
+							<p1:GMessage.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalSpan="2"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+						</p1:GGroup>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Pin Settings" visible="true" enabled="true" widgetName="gtab_PinConfig" description="By selecting this option, you can enable the transmit &amp; receive pin advanced configurations. " manifestObj="true">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite14">
+					<p1:Tab.layout>
+						<GridLayout verticalSpacing="10" horizontalSpacing="10"/>
+					</p1:Tab.layout>
+					<p1:GCheck text="Enable advanced pin characteristics" manifestObj="true" widgetName="gcheck_enablepinconfig" description="When selected, the characteristics of transmit and receive pin are configured based on the UI settings.&#13;&#10;If the checkbox is unselected, default configurations are set for transmit and receive pins.&#13;&#10;In full duplex mode by default, transmit pin is configured to push pull mode. Receive pin is configured to tristate input with standard hysteresis(only XMC1000 devices).&#13;&#10;In half duplex mode, by default the pin is configured to open drain mode." toolTipText="Displays and allows configuration of&#13;&#10;advance pin characteristics">
+						<p1:GCheck.layoutData>
+							<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+						</p1:GCheck.layoutData>
+					</p1:GCheck>
+					<p1:GGroup text="Transmit" widgetName="ggroup_txpinconfig" manifestObj="true">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Mode:" visible="true" widgetName="glabel_txpincharactristics" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_txpincharactristics" options="Push Pull&#13;&#10;Open Drain" toolTipText="Transmit pin output driver mode:&#13;&#10;(Push pull/ Open drain)" value="Push Pull" description="Push pull / open drain functionality can be selected for transmit ( output ) pin.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;Push Pull:  Can drive both low and high voltage levels. No external pull up needed.&lt;/li&gt;&#13;&#10;&lt;li&gt;Open Drain: Can drive the pin only to low voltage level. Needs an external pull up resistor to set high voltage level.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true" widthHint="174"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Driver strength:" visible="true" widgetName="glabel_txpinpadconfig" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_txpinpadconfig" options="Don&apos;t Care&#13;&#10;Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge" value="Don&apos;t Care" description="This configuration offers the possibility to select the output driver strength and the slew rate for transmit pin.&#13;&#10;Based on the driver strength selected, the pins available for manual pin selection will change. For choosing a pin with particular strength, driver strength should be configured before manually selecting the pins.&lt;br&gt;&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;li&gt;Selecting the appropriate driver strength allows to optimize the outputs for the needed interface performance.&lt;/li&gt;&#13;&#10;&lt;li&gt;Can help to reduce power consumption, and limits noise, cross talk and electromagnetic emissions.&lt;/li&gt;&#13;&#10;&lt;li&gt;Selecting &quot;Don&apos;t Care&quot; allows the user to allocate any pin in the &quot;Manual Pin Allocator&quot; or &quot;Pin Mapping Perspective&quot; window.&lt;/li&gt;&#13;&#10;&lt;/ul&gt;&#13;&#10;" toolTipText="Select the output drive strength and the slew rate for transmit pin.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessVerticalSpace="true" widthHint="174"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup text="Receive" widgetName="ggroup_rxpinconfig" manifestObj="true">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" widthHint="268" grabExcessHorizontalSpace="true"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Mode:" visible="true" widgetName="glabel_rxpincharacteristics" manifestObj="true">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_rxpincharacteristics" options="Tristate&#13;&#10;Pull Down&#13;&#10;Pull Up&#13;&#10;Continuous Sampling Mode&#13;&#10;Inverted Tristate&#13;&#10;Inverted Pull Down&#13;&#10;Inverted Pull Up&#13;&#10;Inverted Continuous Sampling Mode&#13;&#10;" value="Tristate" description="Pull up / pull down characteristics can be selected for receive ( input ) pin. " toolTipText="Select the input pull characteristics">
+							<p1:GCombo.layoutData>
+								<GridData widthHint="205" grabExcessHorizontalSpace="true" grabExcessVerticalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Hysteresis:" visible="true" widgetName="glabel_hysteresis" manifestObj="true"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_hysteresis" options="Standard&#13;&#10;Large" value="Standard" visible="true" toolTipText="Receive pin input hysteresis (Standard/Large)" description="XMC1X family devices allow selection of input port pin hysteresis. User can change the receive pin hysteresis to large hysteresis from the default standard hysteresis.">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" widthHint="205"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>		
+	</p1:TabFolder>
+</p1:Tab>

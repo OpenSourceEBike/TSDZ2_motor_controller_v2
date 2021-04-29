@@ -1,0 +1,602 @@
+package Model.APPS.PMSM_FOC.v4_2_14.Templates;
+
+import Model.APPS.PMSM_FOC.v4_2_14.PMSM_FOC
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-15:
+ *     - Initial version<br>
+ *
+ * 2015-11-19:
+ *     - FOC library code integrated
+ *
+ * 2018-02-14:
+ *     - PMSM_FOC_SpeedAdjustment() enlarge high acceleration time of S-curve
+ * 
+ * 2018-05-25:
+ *     - Output path definition changed from number to define PMSM_FOC_OUTPUTPATH_SET_OUT_x
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES                                                                                                      
+ **********************************************************************************************************************/
+#include "pmsm_foc.h"
+
+/***********************************************************************************************************************
+ * LOCAL ROUTINES
+ **********************************************************************************************************************/
+
+/*
+ * @brief This handles the speed ramp in steady state operation.
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_SpeedAdjustment (PMSM_FOC_t* const HandlePtr);
+
+/*
+ * @brief It compensates for the DC link voltage error.
+ * To use voltage compensation enable voltage compensation feature in the ADC Measurements tab(GUI).
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_VoltageCompensation(PMSM_FOC_t*const HandlePtr);
+
+/*
+ * @brief This function reads the potentiometer value and speed end value is updated accordingly.
+ * To use potentiometer configure pot in the ADC Measurements tap(GUI) and connect the correct pin.
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_PotMeasurement(PMSM_FOC_t*const HandlePtr);
+
+
+/*
+* @brief This function reads the phase current values from ADC
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle.
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_ReadPhaseCurrent(PMSM_FOC_t* const HandlePtr);
+
+/*
+ * @brief Over/Under voltage protection.
+ * To use voltage protection, enable voltage protection feature in the Power Board tab(GUI).
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_VoltageProtection(PMSM_FOC_t* const HandlePtr);
+
+/*
+ * @brief Speed low limit check.
+ * If motor speed is less than 10%, motor state is changed to IDLE state.
+ * @param HandlePtr Constant pointer to PMSM_FOC APP Handle
+ * @return void
+ * <BR>
+ */
+__attribute__ ((section (".ram_code"))) static void PMSM_FOC_SpeedLowLimit(PMSM_FOC_t* const HandlePtr, int32_t speed);
+""");
+
+String appInst  = null;
+for (Object appIns : appInstancesList ) {
+  appInst = appIns.getInstanceLabel()
+  
+  out.print("""
+  /**********************************************************************************************************************
+   * API IMPLEMENTATION
+   **********************************************************************************************************************/
+""");
+/* --------------------- Begin : Trap Functionality   ------------------------------ */
+
+  out.print("""
+/* Trap interrupt */
+__attribute__ ((section (".ram_code")))void ${appInst}_Trap_OneMatch_ISR()
+{
+""");
+if (appIns.gcombo_etrap.options.indexOf(appIns.gcombo_etrap.value) > 0)
+{
+	  out.print("""
+  /* Check if trap is detected */
+  if(XMC_CCU8_SLICE_GetEvent(${appInst}.pwm_svm_ptr->phase_ptr[0]->slice_ptr,XMC_CCU8_SLICE_IRQ_ID_EVENT2) == true)
+  {
+    ${appInst}.operational_error |= ((uint32_t)1 << (uint32_t) PMSM_FOC_EID_TRAP_ERROR);  
+    ${appInst}.msm_state = PMSM_FOC_MSM_ERROR;
+    PMSM_FOC_MotorStop(&${appInst});  
+  }
+""");
+}
+/* Don't generate this condition if FCL divider value is 1 */
+if(appIns.gint_fcldiv.value != 1)
+{
+out.print("""
+  else
+  {
+    if (${appInst}.fcl_div_value >= ${appInst}.foc_config_ptr->fcl_divider)
+    {
+      ${appInst}.fcl_div_value = 1U;
+      XMC_CCU8_SLICE_ClearEvent(${appInst}.pwm_svm_ptr->phase_ptr[0]->slice_ptr,XMC_CCU8_SLICE_IRQ_ID_PERIOD_MATCH);
+      XMC_CCU8_SLICE_EnableEvent(${appInst}.pwm_svm_ptr->phase_ptr[0]->slice_ptr,XMC_CCU8_SLICE_IRQ_ID_PERIOD_MATCH);
+    }
+    else
+    {
+      ${appInst}.fcl_div_value++;
+    }
+  }
+""");
+}
+out.print("""
+}
+""");
+  
+/* --------------------- End : Trap Functionality   -------------------------------- */
+  
+  
+/* ------------------- Begin : Fast control loop ISR ------------------------------- */
+out.print("""
+/* Fast control loop interrupt */
+__attribute__ ((section (".ram_code")))void ${appInst}_FastControlLoop_ISR()
+{
+""");
+
+/* ---------------------- Begin : FCL Functionality -------------------------------- */
+/* Don't generate this condition if FCL divider value is 1 */ 
+if(appIns.gint_fcldiv.value != 1)
+{
+
+out.print("""
+  XMC_CCU8_SLICE_DisableEvent(${appInst}.pwm_svm_ptr->phase_ptr[0]->slice_ptr,XMC_CCU8_SLICE_IRQ_ID_PERIOD_MATCH);
+""");  
+}
+
+out.print("""
+  /* current measurement reading from ADC*/
+  PMSM_FOC_ReadPhaseCurrent(&${appInst});
+
+  /*Read the dc link voltage*/
+  ${appInst}.dclink_voltage = (uint16_t)(
+       (uint32_t)(XMC_VADC_GROUP_GetResult(${appInst}.adc_config_ptr->vadc_group_pointerarray[PMSM_FOC_DCLINK_VOLTAGE],
+       (uint32_t)${appInst}.adc_config_ptr->result_num_array[PMSM_FOC_DCLINK_VOLTAGE])*${appInst}.foc_config_ptr->voltage_adc_scale) >> 10U);
+""");
+if((appIns.gcheck_epotmeasurement.value == true) && (appIns.gcheck_epotmeasurement.enabled == true))
+{
+    
+  out.print("""
+  /* Read reference value from potentiometer*/
+  PMSM_FOC_PotMeasurement(&${appInst});
+    """);
+}
+if(appIns.gcheck_voltage_protect.value == true)
+{
+
+  out.print("""
+  /* over/under voltage protection*/
+  PMSM_FOC_VoltageProtection(&${appInst});
+  """);
+}
+out.print("""
+  /* Motor control state machine */
+  PMSM_FOC_MSM(&${appInst});
+""");
+
+out.print("""
+}
+""");
+/* ---------------------- End : Fast control loop ISR ------------------------------ */
+
+out.print("""
+/* Motor control state machine*/
+__INLINE void PMSM_FOC_MSM(PMSM_FOC_t* const HandlePtr)
+{
+  switch (HandlePtr->msm_state)
+  {
+    case PMSM_FOC_MSM_NORMAL_OPERATION:   /* Closed loop operation */
+      HandlePtr->motor_speed = HandlePtr->FOCOutput->Speed_by_Estimator;
+
+      if(HandlePtr->pwm_svm_ptr->t0 < HandlePtr->threshold_adc_2shunt)
+      {
+        /* Switch current sensing to 2 shunt current measurement */
+        HandlePtr->FOCInput->Flag_3or2_ADC = 1U;
+      }
+      else
+      {
+        HandlePtr->FOCInput->Flag_3or2_ADC = 0U;
+      }
+
+      PMSM_FOC_SpeedAdjustment(HandlePtr);
+      HandlePtr->FOCInput->Ref_Speed = HandlePtr->speed_set;
+      FOC_Controller_LIB (HandlePtr);
+      HandlePtr->FOCInput->Previous_SVM_SectorNo = HandlePtr->pwm_svm_ptr->sector;
+""");
+      if(appIns.gcheck_evoltcomp.value == true)
+      {
+out.print("""
+      /* Voltage compensation*/
+      PMSM_FOC_VoltageCompensation(HandlePtr);
+""");
+      }
+out.print("""
+      PWM_SVM_SVMUpdate(HandlePtr->pwm_svm_ptr,HandlePtr->amplitude,HandlePtr->angle);
+
+      /* Read reference value from potentiometer*/
+      if((HandlePtr->user_speed_set < HandlePtr->foc_config_ptr->speed_low_limit))
+      {
+        PMSM_FOC_SpeedLowLimit(HandlePtr, HandlePtr->foc_config_ptr->speed_low_limit);
+      }
+
+      break;
+
+    case PMSM_FOC_MSM_VF_RAMP_UP:
+        /* V/F Ramp up,MET,and V/F Open loop only */
+        /* Read reference value from potentiometer*/
+        if((HandlePtr->user_speed_set < HandlePtr->foc_config_ptr->speed_low_limit))
+        {
+          PMSM_FOC_SpeedLowLimit(HandlePtr, HandlePtr->foc_config_ptr->speed_low_limit);
+        }
+        else
+        {
+          PMSM_FOC_Vf_RampUp(HandlePtr);
+          PWM_SVM_SVMUpdate(HandlePtr->pwm_svm_ptr,HandlePtr->amplitude,HandlePtr->angle);
+        }
+       break;
+
+    case PMSM_FOC_MSM_PRE_POSITIONING:
+      PMSM_FOC_Rotor_Pre_Positioning (HandlePtr);
+      PWM_SVM_SVMUpdate(HandlePtr->pwm_svm_ptr,HandlePtr->amplitude,HandlePtr->angle);
+      break;
+
+    case PMSM_FOC_MSM_TRANSITION:   /* V/f to MET to FOC*/
+      HandlePtr->FOCInput->Ref_Speed = HandlePtr->motor_speed;
+      /*From V/f to FOC closed-loop controller (smooth Transition). */
+      HandlePtr->mode_flag = VF_Smooth_Transition_To_FOC (HandlePtr);  
+      PMSM_FOC_METTransition (HandlePtr);
+      PWM_SVM_SVMUpdate(HandlePtr->pwm_svm_ptr,HandlePtr->amplitude,HandlePtr->angle);
+      break;
+
+    case PMSM_FOC_MSM_INIT_INVERTER:
+      /*Initialize all run time parameters*/
+      PMSM_FOC_MotorParamInit(HandlePtr);
+
+      /*Current amplifier bias voltage calibration*/
+      PMSM_FOC_AmpBiasVoltCalibration(HandlePtr);
+      PMSM_FOC_StopPWMTimer(HandlePtr);
+
+      /*Start PWM Timer to run the Motor State Machine*/
+      PMSM_FOC_StartPWMTimer(HandlePtr);
+
+      /*Enable inverter*/
+      PWM_SVM_InverterEnable(HandlePtr->pwm_svm_ptr);
+      XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[0U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+      XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[1U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+      XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[2U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+      if (HandlePtr->bootstrap_count != 0U)
+      {
+        /*Boot strap Configuration */
+        PMSM_FOC_BootstrapConfiguration(HandlePtr);
+        /*Change Motor Control State Machine to Boot Strap*/
+        HandlePtr->msm_state = PMSM_FOC_MSM_BOOTSTRAP;
+      }
+      else
+      {
+        HandlePtr->msm_state = PMSM_FOC_MSM_START_UP;
+      }
+      break;
+
+    case PMSM_FOC_MSM_BOOTSTRAP:
+      if (PMSM_FOC_BOOTSTRAP_COMPLETED == PMSM_FOC_Bootstrap(HandlePtr))
+      {
+        HandlePtr->msm_state = PMSM_FOC_MSM_START_UP;
+      }
+      break;
+
+    case PMSM_FOC_MSM_START_UP:
+      /*Stop the PWM timer*/
+      PMSM_FOC_StopPWMTimer(HandlePtr);
+      /* Direct FOC startup. Motor startup to FOC closed-loop directly, no V/f or MET. */
+      if (HandlePtr->foc_config_ptr->enable_direct_foc_startup == 1U)          
+      {          
+        HandlePtr->msm_state = PMSM_FOC_MSM_PRE_POSITIONING;  
+      }
+      else
+      {
+        /* In V/f, much slower initial ramp up */
+        HandlePtr->ramp_up_rate = HandlePtr->foc_config_ptr->config_ramp_up_rate << HandlePtr->ramp_s_ratio;      
+        HandlePtr->msm_state = PMSM_FOC_MSM_VF_RAMP_UP;
+      }
+      /*Motor in transition mode. */
+      HandlePtr->mode_flag = (uint8_t)PMSM_FOC_FLAG_TRANSITION;        
+      /*Clear counters.*/    
+      HandlePtr->counter = 0U;                    
+      HandlePtr->ramp_counter = 0U;
+      HandlePtr->FOCInput->I_U = 0;
+      HandlePtr->FOCInput->I_V = 0;
+      HandlePtr->FOCInput->I_W = 0;
+      /*Start SVM*/
+      PWM_SVM_Start(HandlePtr->pwm_svm_ptr);
+      break;
+
+    case PMSM_FOC_MSM_VF_OPEN_LOOP:
+      if (HandlePtr->user_speed_set > HandlePtr->foc_config_ptr->speed_openloop_max_limit)
+      {
+        HandlePtr->user_speed_set = HandlePtr->foc_config_ptr->speed_openloop_max_limit;
+      }
+      PMSM_FOC_Vf_Open_Loop (HandlePtr);
+      PWM_SVM_SVMUpdate(HandlePtr->pwm_svm_ptr,HandlePtr->amplitude,HandlePtr->angle);
+
+      /* Read reference value from potentiometer*/
+      if((HandlePtr->user_speed_set < HandlePtr->foc_config_ptr->speed_openloop_min_limit))
+      {
+        PMSM_FOC_SpeedLowLimit(HandlePtr, HandlePtr->foc_config_ptr->speed_openloop_min_limit);
+      }
+
+      break;
+
+    case PMSM_FOC_MSM_IDLE:
+      if ((HandlePtr->user_speed_set > HandlePtr->foc_config_ptr->speed_low_limit))
+      {
+        HandlePtr->speed_set = 0;
+        XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[0U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+        XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[1U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+        XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[2U]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD );
+        HandlePtr->msm_state = PMSM_FOC_MSM_INIT_INVERTER;
+      }
+      break;
+    
+    case PMSM_FOC_MSM_LOW_SPEED:
+      break;
+   
+    case PMSM_FOC_MSM_ERROR:
+      break;
+
+    case PMSM_FOC_MSM_STOP:
+      PMSM_FOC_MotorStop(HandlePtr);
+      break;
+
+    default:
+      break;
+  }
+}
+""");
+}  /* for loop APP instances*/
+
+out.print("""
+static void PMSM_FOC_SpeedLowLimit(PMSM_FOC_t* const HandlePtr, int32_t speed)
+{
+  HandlePtr->user_speed_set = 0;
+  if(HandlePtr->speed_set < speed)
+  {
+    HandlePtr->msm_state = PMSM_FOC_MSM_IDLE;
+    HandlePtr->motor_speed = 0;
+    HandlePtr->amplitude = 0U;
+    HandlePtr->speed_set= 0;
+    PWM_SVM_Stop(HandlePtr->pwm_svm_ptr);
+
+    *HandlePtr->pwm_svm_ptr->phaseu_crs = (uint16_t) 0xFFFFU;
+    *HandlePtr->pwm_svm_ptr->phasev_crs = (uint16_t) 0xFFFFU;
+    *HandlePtr->pwm_svm_ptr->phasew_crs = (uint16_t) 0xFFFFU;
+
+    /*Disable PWM Asymmetrical, if this is enabled*/
+    XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[0]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD);
+    XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[1]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD);
+    XMC_CCU8_SLICE_SetOutPath(HandlePtr->pwm_svm_ptr->phase_ptr[2]->slice_ptr, PMSM_FOC_OUTPUTPATH_SET_OUT_STD);
+
+    /*Enable the shadow transfer for all three consumed slice*/
+    XMC_CCU8_EnableShadowTransfer(HandlePtr->pwm_svm_ptr->global_ptr,
+        HandlePtr->pwm_svm_ptr->confighandle_ptr->shadow_transfer_mask);
+    PMSM_FOC_StartPWMTimer(HandlePtr);
+  }
+}
+
+__INLINE static void PMSM_FOC_SpeedAdjustment (PMSM_FOC_t* const HandlePtr)
+{
+  if (HandlePtr->speed_set == HandlePtr->user_speed_set)
+  {
+    HandlePtr->ramp_counter = 0U;
+    HandlePtr->mode_flag = (uint8_t)PMSM_FOC_FLAG_STABLE;
+    /* Reset to slower ramp up and ramp down for S-curve profile. */
+    HandlePtr->ramp_up_rate = HandlePtr->foc_config_ptr->config_ramp_up_rate << HandlePtr->ramp_s_ratio;
+    HandlePtr->ramp_down_rate = HandlePtr->foc_config_ptr->config_ramp_down_rate << (HandlePtr->ramp_s_ratio - (uint32_t)1);
+  }
+  else
+  {
+    if (HandlePtr->speed_set < HandlePtr->user_speed_set)
+    {
+      /* Motor ref speed lower than user speed set. */
+      HandlePtr->ramp_counter ++;
+      if (HandlePtr->ramp_counter > HandlePtr->ramp_up_rate)
+      {
+        if ((HandlePtr->user_speed_set - HandlePtr->speed_set) > (HandlePtr->foc_config_ptr->speed_low_limit>>3))
+        {
+          /* First S-curve of ramp up, and constant acceleration. */
+          if (HandlePtr->ramp_up_rate > HandlePtr->foc_config_ptr->config_ramp_up_rate)
+          {
+            /* Increase acceleration step by step. */
+            HandlePtr->ramp_up_rate --;
+          }
+        }
+        else
+        {
+          /* Second S-curve of ramp up. */
+          if (HandlePtr->ramp_up_rate < (HandlePtr->foc_config_ptr->config_ramp_up_rate << HandlePtr->ramp_s_ratio))
+          {
+            HandlePtr->ramp_up_rate ++;
+          }
+        }
+
+        HandlePtr->speed_set ++;
+        HandlePtr->ramp_counter = 0U;
+      }
+    }
+    else
+    {
+      /* Motor ref speed higher than speed set by user. */
+      HandlePtr->ramp_counter ++;
+      if (HandlePtr->ramp_counter > HandlePtr->ramp_down_rate)
+      {
+        if ((HandlePtr->speed_set - HandlePtr->user_speed_set) > (HandlePtr->foc_config_ptr->speed_low_limit>>3))
+        {
+          /* First S-curve of ramp down, and constant deceleration. */
+          if (HandlePtr->ramp_down_rate > HandlePtr->foc_config_ptr->config_ramp_down_rate)
+          {
+            /*  Increase deceleration step by step.*/
+            HandlePtr->ramp_down_rate --;
+          }
+        }
+        else
+        {
+          /* Second S-curve of ramp down. */
+          if (HandlePtr->ramp_down_rate < (HandlePtr->foc_config_ptr->config_ramp_down_rate << (HandlePtr->ramp_s_ratio - 1U)))
+          {
+            HandlePtr->ramp_down_rate ++;
+          }
+        }
+
+        if (HandlePtr->dclink_voltage <= HandlePtr->foc_config_ptr->max_dclink_voltage)
+        {
+          /*  If DC link voltage Vdc is too high, stop ramp-down motor.*/
+          HandlePtr->speed_set --;
+        }
+        HandlePtr->ramp_counter = 0U;
+      }
+    }
+  }
+}
+
+/* This function will read the phase current values */
+__INLINE static void PMSM_FOC_ReadPhaseCurrent(PMSM_FOC_t* const HandlePtr)
+{
+  int32_t temp_ia;
+  int32_t temp_ib;
+  int32_t temp_ic;
+
+  /*Reading Phase-U current*/
+  temp_ia = (int32_t)
+    (XMC_VADC_GROUP_GetResult(HandlePtr->adc_config_ptr->vadc_group_pointerarray[PMSM_FOC_PHASE_U_CURRENT],
+      (uint32_t) HandlePtr->adc_config_ptr->result_num_array[PMSM_FOC_PHASE_U_CURRENT]));
+
+  HandlePtr->FOCInput->I_U = (int32_t)(PMSM_FOC_ADCSCALE * ((int32_t) HandlePtr->amplifier_offset -temp_ia));
+
+  /*Reading Phase-V current*/
+  temp_ib = (int32_t)
+    (XMC_VADC_GROUP_GetResult(HandlePtr->adc_config_ptr->vadc_group_pointerarray[HandlePtr->ph_v_group],
+      (uint32_t) HandlePtr->adc_config_ptr->result_num_array[HandlePtr->ph_v_group]));
+
+  HandlePtr->FOCInput->I_V = (int32_t)(PMSM_FOC_ADCSCALE * ((int32_t) HandlePtr->amplifier_offset - temp_ib) );
+
+  /*Reading Phase-W current*/
+  temp_ic = (int32_t)
+    (XMC_VADC_GROUP_GetResult(HandlePtr->adc_config_ptr->vadc_group_pointerarray[HandlePtr->ph_w_group],
+      (uint32_t) HandlePtr->adc_config_ptr->result_num_array[HandlePtr->ph_w_group]));
+  HandlePtr->FOCInput->I_W = (int32_t)(PMSM_FOC_ADCSCALE * ((int32_t) HandlePtr->amplifier_offset- temp_ic) );
+}
+
+
+/*
+ * This function will read the dc link value and do the voltage compensation.
+ */
+__INLINE static void PMSM_FOC_VoltageCompensation(PMSM_FOC_t*const HandlePtr)
+{
+  int32_t temp_buff;
+  PMSM_FOC_PT1Handle_t* vc_ptr = HandlePtr->voltcomp_filter_ptr;
+
+  /* Filter */
+  /* yn+1=yn + z1*(x - yn) */
+  temp_buff = vc_ptr->pt1_buf + (vc_ptr->z1 * ((HandlePtr->dclink_voltage >> 1U) - (vc_ptr->pt1_buf >> 16U)));
+  /* Checking the buffer limits in the range of Ymin to Ymax */
+  vc_ptr->pt1_buf = PMSM_FOC_MIN_MAX_LIMIT(temp_buff,vc_ptr->y_max,vc_ptr->y_min);
+  vc_ptr->pt1_out_val = (vc_ptr->pt1_buf >> 16U);
+
+  if(vc_ptr->pt1_out_val != 0)
+  {
+    /*Do the voltage compensation based on dc link value*/
+    HandlePtr->amplitude = (uint32_t)(((uint32_t)HandlePtr->amplitude * 
+               HandlePtr->specified_volt)/((uint16_t)HandlePtr->voltcomp_filter_ptr->pt1_out_val));
+  }
+
+}
+
+/* Over/under voltage protection */
+__INLINE static void PMSM_FOC_VoltageProtection(PMSM_FOC_t*const HandlePtr)
+{
+  PMSM_FOC_Config_t const* config_ptr = HandlePtr->foc_config_ptr;
+
+  if ((HandlePtr->dclink_voltage > config_ptr->max_dclink_voltage) ||
+      (HandlePtr->dclink_voltage < config_ptr->min_dclink_voltage))
+  {
+    HandlePtr->volt_protect_counter++;
+    if (HandlePtr->volt_protect_counter > config_ptr->threshold_time_vp)
+    {
+      HandlePtr->volt_protect_counter = 0U;
+      if (HandlePtr->dclink_voltage > config_ptr->max_dclink_voltage)
+      {
+        HandlePtr->operational_error |= ((uint32_t) 1 << (uint32_t) PMSM_FOC_EID_OVER_VOLT);
+      }
+      else
+      {
+        HandlePtr->operational_error |= ((uint32_t) 1 << (uint32_t) PMSM_FOC_EID_UNDER_VOLT);
+      }
+      HandlePtr->msm_state = PMSM_FOC_MSM_ERROR;
+      PMSM_FOC_MotorStop(HandlePtr);
+    }
+  }
+  else
+  {
+    HandlePtr->volt_protect_counter = 0U;
+  }
+}
+
+/* This function will measure the analog input value based on which motor speed
+ * will be controlled
+ */
+__INLINE static void PMSM_FOC_PotMeasurement(PMSM_FOC_t*const HandlePtr)
+{
+  uint32_t pot_value;
+  pot_value = (XMC_VADC_GROUP_GetResult(HandlePtr->adc_config_ptr->vadc_group_pointerarray[PMSM_FOC_ANALOG_INPUT],
+          (uint32_t)HandlePtr->adc_config_ptr->result_num_array[PMSM_FOC_ANALOG_INPUT]));
+
+  /* Calculate speed */
+  pot_value = ((pot_value * HandlePtr->foc_config_ptr->pot_scale) >> PMSM_FOC_Q15);
+  HandlePtr->user_speed_set = (int32_t)pot_value;
+}
+
+
+""");
+
+
+
+
