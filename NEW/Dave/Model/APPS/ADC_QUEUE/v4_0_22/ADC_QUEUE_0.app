@@ -24,10 +24,10 @@
   </requiredApps>
   <requiredApps URI="http://resources/4.0.22/app/ADC_QUEUE/0/appres_cpu" requiredAppName="CPU_CTRL_XMC1" required="false" requiringMode="SHARABLE"/>
   <hwResources name="Queue" URI="http://resources/4.0.22/app/ADC_QUEUE/0/hwres_vadc_queue" resourceGroupUri="peripheral/vadc/*/group/*/queue" mResGrpUri="peripheral/vadc/*/group/*/queue">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.38"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.56"/>
   </hwResources>
   <hwResources name="Queue Class" URI="http://resources/4.0.22/app/ADC_QUEUE/0/hwres_vadc_qgrpclass" resourceGroupUri="peripheral/vadc/*/group/*/class/*" mResGrpUri="peripheral/vadc/*/group/*/class/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.3"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.65"/>
   </hwResources>
   <hwResources name="Source Event Interrupt" URI="http://resources/4.0.22/app/ADC_QUEUE/0/hwres_nvicnode_srcevt" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <connections URI="http://resources/4.0.22/app/ADC_QUEUE/0/http://resources/4.0.22/app/ADC_QUEUE/0/vs_adc_queue_sourceevent/http://resources/4.0.22/app/ADC_QUEUE/0/vs_signal_src" systemDefined="true" sourceSignal="event_queue_source" targetSignal="sr_interrupt_signal" required="false" srcVirtualSignal="//@virtualSignals.5" targetVirtualSignal="//@virtualSignals.9"/>

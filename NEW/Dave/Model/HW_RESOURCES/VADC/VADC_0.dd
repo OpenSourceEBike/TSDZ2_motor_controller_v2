@@ -33,14 +33,12 @@
     <resourcesList name="global_signal" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/gl_global_signal"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/class/0">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@hwResources.1"/>
     <resourcesList name="giclass" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0iclass0"/>
     <resourcesList name="scan_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0_scan_class_sel0"/>
     <resourcesList name="queue_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0_queue_class_sel0"/>
     <resourcesList name="ch_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0_ch_class_sel0"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="13" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/result/13">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.15"/>
     <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0rcr13"/>
     <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0res13"/>
     <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0resd13"/>
@@ -117,7 +115,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="14" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/result/14">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.18"/>
     <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0rcr14"/>
     <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0res14"/>
     <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0resd14"/>
@@ -136,7 +133,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="2" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/ch/2">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.1"/>
     <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chass/assch2"/>
     <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chctr2"/>
     <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0cefclr/cev2"/>
@@ -288,7 +284,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="12" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/result/12">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.14"/>
     <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0rcr12"/>
     <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0res12"/>
     <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0resd12"/>
@@ -400,7 +395,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/ch/0">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.5"/>
     <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chass/assch0"/>
     <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chctr0"/>
     <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0cefclr/cev0"/>
@@ -500,7 +494,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="1" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/ch/1">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.4"/>
     <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chass/assch1"/>
     <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chctr1"/>
     <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0cefclr/cev1"/>
@@ -615,7 +608,6 @@
     <resourcesList name="shs_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_shs_sel"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="9" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/result/9">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.19"/>
     <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0rcr9"/>
     <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0res9"/>
     <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0resd9"/>
@@ -634,7 +626,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="queue" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/queue">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@hwResources.0"/>
     <resourcesList name="garbpr_prio" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0arbpr/prio0"/>
     <resourcesList name="garbpr_csm" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0arbpr/csm0"/>
     <resourcesList name="garbpr_asen" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0arbpr/asen0"/>
@@ -716,7 +707,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="3" URI="http://resources/1.38.2/peripheral/vadc/0/group/0/ch/3">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.0"/>
     <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chass/assch3"/>
     <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0chctr3"/>
     <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g0cefclr/cev3"/>
@@ -808,6 +798,721 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="10" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/result/10">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.19"/>
+    <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rcr10"/>
+    <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1res10"/>
+    <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1resd10"/>
+    <resourcesList name="gvfr_vf" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1vfr/vf10"/>
+    <resourcesList name="greflag_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reflag/rev10"/>
+    <resourcesList name="grefclr_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1refclr/rev10"/>
+    <resourcesList name="grevnp_revnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev10np"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_res10_ressel"/>
+    <resourcesList name="rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rev10"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="REVNP1" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1" value="00000000" toolTipHelpDescription="Result Event Node Pointer Register 1, Group 0" defaultValue="00000000" accessPermission="rw" addressOffset="0x01B4" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="REV8NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev8np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV9NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev9np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="4" stopPos="7" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV10NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev10np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV11NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev11np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV12NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev12np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV13NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev13np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="20" stopPos="23" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV14NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev14np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="24" stopPos="27" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV15NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev15np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="28" stopPos="31" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="REV10NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev10np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="11" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/result/11">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.18"/>
+    <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rcr11"/>
+    <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1res11"/>
+    <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1resd11"/>
+    <resourcesList name="gvfr_vf" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1vfr/vf11"/>
+    <resourcesList name="greflag_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reflag/rev11"/>
+    <resourcesList name="grefclr_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1refclr/rev11"/>
+    <resourcesList name="grevnp_revnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev11np"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_res11_ressel"/>
+    <resourcesList name="rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rev11"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="REV11NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev11np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="12" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/result/12">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.14"/>
+    <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rcr12"/>
+    <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1res12"/>
+    <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1resd12"/>
+    <resourcesList name="gvfr_vf" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1vfr/vf12"/>
+    <resourcesList name="greflag_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reflag/rev12"/>
+    <resourcesList name="grefclr_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1refclr/rev12"/>
+    <resourcesList name="grevnp_revnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev12np"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_res12_ressel"/>
+    <resourcesList name="rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rev12"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="REV12NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp1/rev12np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="queue" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/queue">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@hwResources.0"/>
+    <resourcesList name="garbpr_prio" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1arbpr/prio0"/>
+    <resourcesList name="garbpr_csm" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1arbpr/csm0"/>
+    <resourcesList name="garbpr_asen" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1arbpr/asen0"/>
+    <resourcesList name="gqmr0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qmr0"/>
+    <resourcesList name="gqctrl0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0"/>
+    <resourcesList name="gqsr0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qsr0"/>
+    <resourcesList name="gqinr0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qinr0"/>
+    <resourcesList name="gq0r0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1q0r0"/>
+    <resourcesList name="gqbur0" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qbur0"/>
+    <resourcesList name="gseflag_sev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1seflag/sev0"/>
+    <resourcesList name="gsefclr_sev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1sefclr/sev0"/>
+    <resourcesList name="gqctrl0_xtsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtsel"/>
+    <resourcesList name="gqctrl0_gtsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/gtsel"/>
+    <resourcesList name="gsevnp_sev0np" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1sevnp/sev0np"/>
+    <resourcesList name="greqtr0sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reqtr0sel"/>
+    <resourcesList name="greqgt0sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reqgt0sel"/>
+    <resourcesList name="global_signal" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_queue_global_signal"/>
+    <resourcesList name="select" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1queueselect"/>
+    <resourcesList name="sev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1sev0"/>
+    <resourcesList name="class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1class_sel0"/>
+    <resourcesList name="req" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1req0"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="QCTRL0" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0" value="00000000" toolTipHelpDescription="Queue 0 Source Control Register, Group 0" defaultValue="00000000" accessPermission="w" addressOffset="0x0100" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="SRCRESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/srcresreg" value="0" toolTipHelpDescription="Source-specific Result Register" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Use GxCHCTRy.RESREG to select a group result register"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0001" description="Store result in group result register GxRES1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+    </bitFields>
+    <bitFields name="XTSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtsel" value="0" toolTipHelpDescription="External Trigger Input Selection" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0"/>
+    <bitFields name="XTLVL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtlvl" value="0" toolTipHelpDescription="External Trigger Level" defaultValue="0" startPos="12" stopPos="12" maxValue="1" minValue="0"/>
+    <bitFields name="XTMODE" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtmode" value="0" toolTipHelpDescription="Trigger Operating Mode" defaultValue="0" startPos="13" stopPos="14" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="No external trigger"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Trigger event upon a falling edge"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Trigger event upon a rising edge"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Trigger event upon any edge"/>
+    </bitFields>
+    <bitFields name="XTWC" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtwc" value="0" toolTipHelpDescription="Write Control for Trigger Configuration" defaultValue="0" startPos="15" stopPos="15" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No write access to trigger configuration"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Bitfields XTMODE and XTSEL can be written"/>
+    </bitFields>
+    <bitFields name="GTSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/gtsel" value="0" toolTipHelpDescription="Gate Input Selection" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0"/>
+    <bitFields name="GTLVL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/gtlvl" value="0" toolTipHelpDescription="Gate Input Level" defaultValue="0" startPos="20" stopPos="20" maxValue="1" minValue="0"/>
+    <bitFields name="GTWC" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/gtwc" value="0" toolTipHelpDescription="Write Control for Gate Configuration" defaultValue="0" startPos="23" stopPos="23" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No write access to gate configuration"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Bitfield GTSEL can be written"/>
+    </bitFields>
+    <bitFields name="TMEN" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/tmen" value="0" toolTipHelpDescription="Timer Mode Enable" defaultValue="0" startPos="28" stopPos="28" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No timer mode: standard gating mechanism can be used"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Timer mode for equidistant sampling enabled: standard gating mechanism must be disabled"/>
+    </bitFields>
+    <bitFields name="TMWC" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/tmwc" value="0" toolTipHelpDescription="Write Control for Timer Mode" defaultValue="0" startPos="31" stopPos="31" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No write access to timer mode"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Bitfield TMEN can be written"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="XTSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/xtsel" value="0" toolTipHelpDescription="External Trigger Input Selection" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0"/>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="SEVNP" URI="http://resources/1.38.2/peripheral/vadc/0/g1sevnp" value="00000000" toolTipHelpDescription="Source Event Node Pointer Register, Group 0" defaultValue="00000000" accessPermission="rw" addressOffset="0x01C0" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="SEV0NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1sevnp/sev0np" value="0" toolTipHelpDescription="Service Request Node Pointer Source Event i" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="SEV1NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1sevnp/sev1np" value="0" toolTipHelpDescription="Service Request Node Pointer Source Event i" defaultValue="0" startPos="4" stopPos="7" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SEV0NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1sevnp/sev0np" value="0" toolTipHelpDescription="Service Request Node Pointer Source Event i" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="GTSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1qctrl0/gtsel" value="0" toolTipHelpDescription="Gate Input Selection" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0"/>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="4" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/result/4">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.15"/>
+    <resourcesList name="grcr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rcr4"/>
+    <resourcesList name="gres" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1res4"/>
+    <resourcesList name="gresd" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1resd4"/>
+    <resourcesList name="gvfr_vf" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1vfr/vf4"/>
+    <resourcesList name="greflag_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1reflag/rev4"/>
+    <resourcesList name="grefclr_rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1refclr/rev4"/>
+    <resourcesList name="grevnp_revnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev4np"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_res4_ressel"/>
+    <resourcesList name="rev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1rev4"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="REVNP0" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0" value="00000000" toolTipHelpDescription="Result Event Node Pointer Register 0, Group 0" defaultValue="00000000" accessPermission="rw" addressOffset="0x01B0" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="REV0NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev0np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV1NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev1np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="4" stopPos="7" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV2NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev2np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV3NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev3np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV4NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev4np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV5NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev5np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="20" stopPos="23" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV6NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev6np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="24" stopPos="27" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="REV7NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev7np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="28" stopPos="31" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="REV4NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1revnp0/rev4np" value="0" toolTipHelpDescription="Service Request Node Pointer Result Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/class/0">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@hwResources.1"/>
+    <resourcesList name="giclass" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1iclass0"/>
+    <resourcesList name="scan_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_scan_class_sel0"/>
+    <resourcesList name="queue_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_queue_class_sel0"/>
+    <resourcesList name="ch_class_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1_ch_class_sel0"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="2" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/ch/2">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.4"/>
+    <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chass/assch2"/>
+    <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr2"/>
+    <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cefclr/cev2"/>
+    <resourcesList name="gceflag_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ceflag/cev2"/>
+    <resourcesList name="gchctr_iclsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/iclsel"/>
+    <resourcesList name="gcevnp0_cevnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev2np"/>
+    <resourcesList name="gchctr_resreg" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/resreg"/>
+    <resourcesList name="gch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch2"/>
+    <resourcesList name="select" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch2select"/>
+    <resourcesList name="iclass_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch2iclasssel"/>
+    <resourcesList name="cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cev2"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch2ressel"/>
+    <resourcesList name="gain_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch2gainsel"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CHCTR2" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2" value="00000000" toolTipHelpDescription="Group 0, Channel 2 Ctrl. Reg." defaultValue="00000000" accessPermission="rw" addressOffset="0x0208" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+    </bitFields>
+    <bitFields name="BNDSELL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/bndsell" value="0" toolTipHelpDescription="Lower Boundary Select" defaultValue="0" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="BNDSELU" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/bndselu" value="0" toolTipHelpDescription="Upper Boundary Select" defaultValue="0" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="CHEVMODE" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/chevmode" value="0" toolTipHelpDescription="Channel Event Mode" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Never"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="NCM: If result is inside the boundary band FCM: If result becomes high (above cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="NCM: If result is outside the boundary band FCM: If result becomes low (below cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="NCM: Always (ignore band) FCM: If result switches to either level"/>
+    </bitFields>
+    <bitFields name="SYNC" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/sync" value="0" toolTipHelpDescription="Synchronization Request" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No synchroniz. request, standalone operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Request a synchronized conversion of this channel (only taken into account for a master)"/>
+    </bitFields>
+    <bitFields name="REFSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/refsel" value="0" toolTipHelpDescription="Reference Input Selection" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Standard reference Ground VSSC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate reference Ground from CH0"/>
+    </bitFields>
+    <bitFields name="BNDSELX" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/bndselx" value="0" toolTipHelpDescription="BoundaryExtension" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Standard mode: select boundaries via BNDSELU/BNDSELL"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0001" description="Use result reg. GxRES1 as upper boundary"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Use result reg. GxRES15 as upper boundary"/>
+    </bitFields>
+    <bitFields name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+    </bitFields>
+    <bitFields name="RESTBS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/restbs" value="0" toolTipHelpDescription="Result Target for Background Source" defaultValue="0" startPos="20" stopPos="20" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results in the selected group result register"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results in the global result register"/>
+    </bitFields>
+    <bitFields name="RESPOS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/respos" value="0" toolTipHelpDescription="Result Position" defaultValue="0" startPos="21" stopPos="21" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results left-aligned"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results right-aligned"/>
+    </bitFields>
+    <bitFields name="BWDCH" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/bwdch" value="0" toolTipHelpDescription="Broken Wire Detection Channel" defaultValue="0" startPos="28" stopPos="29" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Select VAGND"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Select VAREF"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Reserved"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved"/>
+    </bitFields>
+    <bitFields name="BWDEN" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/bwden" value="0" toolTipHelpDescription="Broken Wire Detection Enable" defaultValue="0" startPos="30" stopPos="30" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Normal operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Additional preparation phase is enabled"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CEVNP0" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0" value="00000000" toolTipHelpDescription="Channel Event Node Pointer Register 0, Group 0" defaultValue="00000000" accessPermission="rw" addressOffset="0x01A0" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="CEV0NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev0np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="0" stopPos="3" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV1NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev1np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="4" stopPos="7" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV2NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev2np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV3NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev3np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV4NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev4np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV5NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev5np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="20" stopPos="23" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV6NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev6np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="24" stopPos="27" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+    <bitFields name="CEV7NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev7np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="28" stopPos="31" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CEV2NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev2np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="8" stopPos="11" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr2/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="3" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/ch/3">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.5"/>
+    <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chass/assch3"/>
+    <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr3"/>
+    <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cefclr/cev3"/>
+    <resourcesList name="gceflag_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ceflag/cev3"/>
+    <resourcesList name="gchctr_iclsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/iclsel"/>
+    <resourcesList name="gcevnp0_cevnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev3np"/>
+    <resourcesList name="gchctr_resreg" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/resreg"/>
+    <resourcesList name="gch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch3"/>
+    <resourcesList name="select" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch3select"/>
+    <resourcesList name="iclass_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch3iclasssel"/>
+    <resourcesList name="cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cev3"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch3ressel"/>
+    <resourcesList name="gain_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch3gainsel"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CEV3NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev3np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CHCTR3" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3" value="00000000" toolTipHelpDescription="Group 0, Channel 3 Ctrl. Reg." defaultValue="00000000" accessPermission="rw" addressOffset="0x020C" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+    </bitFields>
+    <bitFields name="BNDSELL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/bndsell" value="0" toolTipHelpDescription="Lower Boundary Select" defaultValue="0" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="BNDSELU" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/bndselu" value="0" toolTipHelpDescription="Upper Boundary Select" defaultValue="0" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="CHEVMODE" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/chevmode" value="0" toolTipHelpDescription="Channel Event Mode" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Never"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="NCM: If result is inside the boundary band FCM: If result becomes high (above cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="NCM: If result is outside the boundary band FCM: If result becomes low (below cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="NCM: Always (ignore band) FCM: If result switches to either level"/>
+    </bitFields>
+    <bitFields name="SYNC" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/sync" value="0" toolTipHelpDescription="Synchronization Request" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No synchroniz. request, standalone operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Request a synchronized conversion of this channel (only taken into account for a master)"/>
+    </bitFields>
+    <bitFields name="REFSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/refsel" value="0" toolTipHelpDescription="Reference Input Selection" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Standard reference Ground VSSC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate reference Ground from CH0"/>
+    </bitFields>
+    <bitFields name="BNDSELX" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/bndselx" value="0" toolTipHelpDescription="BoundaryExtension" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Standard mode: select boundaries via BNDSELU/BNDSELL"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0001" description="Use result reg. GxRES1 as upper boundary"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Use result reg. GxRES15 as upper boundary"/>
+    </bitFields>
+    <bitFields name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+    </bitFields>
+    <bitFields name="RESTBS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/restbs" value="0" toolTipHelpDescription="Result Target for Background Source" defaultValue="0" startPos="20" stopPos="20" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results in the selected group result register"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results in the global result register"/>
+    </bitFields>
+    <bitFields name="RESPOS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/respos" value="0" toolTipHelpDescription="Result Position" defaultValue="0" startPos="21" stopPos="21" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results left-aligned"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results right-aligned"/>
+    </bitFields>
+    <bitFields name="BWDCH" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/bwdch" value="0" toolTipHelpDescription="Broken Wire Detection Channel" defaultValue="0" startPos="28" stopPos="29" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Select VAGND"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Select VAREF"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Reserved"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved"/>
+    </bitFields>
+    <bitFields name="BWDEN" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/bwden" value="0" toolTipHelpDescription="Broken Wire Detection Enable" defaultValue="0" startPos="30" stopPos="30" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Normal operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Additional preparation phase is enabled"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr3/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="4" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/ch/4">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.0"/>
+    <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chass/assch4"/>
+    <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr4"/>
+    <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cefclr/cev4"/>
+    <resourcesList name="gceflag_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ceflag/cev4"/>
+    <resourcesList name="gchctr_iclsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/iclsel"/>
+    <resourcesList name="gcevnp0_cevnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev4np"/>
+    <resourcesList name="gchctr_resreg" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/resreg"/>
+    <resourcesList name="gch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch4"/>
+    <resourcesList name="select" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch4select"/>
+    <resourcesList name="iclass_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch4iclasssel"/>
+    <resourcesList name="cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cev4"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch4ressel"/>
+    <resourcesList name="gain_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch4gainsel"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CHCTR4" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4" value="00000000" toolTipHelpDescription="Group 0, Channel 4 Ctrl. Reg." defaultValue="00000000" accessPermission="rw" addressOffset="0x0210" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+    </bitFields>
+    <bitFields name="BNDSELL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/bndsell" value="0" toolTipHelpDescription="Lower Boundary Select" defaultValue="0" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="BNDSELU" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/bndselu" value="0" toolTipHelpDescription="Upper Boundary Select" defaultValue="0" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="CHEVMODE" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/chevmode" value="0" toolTipHelpDescription="Channel Event Mode" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Never"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="NCM: If result is inside the boundary band FCM: If result becomes high (above cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="NCM: If result is outside the boundary band FCM: If result becomes low (below cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="NCM: Always (ignore band) FCM: If result switches to either level"/>
+    </bitFields>
+    <bitFields name="SYNC" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/sync" value="0" toolTipHelpDescription="Synchronization Request" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No synchroniz. request, standalone operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Request a synchronized conversion of this channel (only taken into account for a master)"/>
+    </bitFields>
+    <bitFields name="REFSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/refsel" value="0" toolTipHelpDescription="Reference Input Selection" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Standard reference Ground VSSC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate reference Ground from CH0"/>
+    </bitFields>
+    <bitFields name="BNDSELX" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/bndselx" value="0" toolTipHelpDescription="BoundaryExtension" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Standard mode: select boundaries via BNDSELU/BNDSELL"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0001" description="Use result reg. GxRES1 as upper boundary"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Use result reg. GxRES15 as upper boundary"/>
+    </bitFields>
+    <bitFields name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+    </bitFields>
+    <bitFields name="RESTBS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/restbs" value="0" toolTipHelpDescription="Result Target for Background Source" defaultValue="0" startPos="20" stopPos="20" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results in the selected group result register"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results in the global result register"/>
+    </bitFields>
+    <bitFields name="RESPOS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/respos" value="0" toolTipHelpDescription="Result Position" defaultValue="0" startPos="21" stopPos="21" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results left-aligned"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results right-aligned"/>
+    </bitFields>
+    <bitFields name="BWDCH" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/bwdch" value="0" toolTipHelpDescription="Broken Wire Detection Channel" defaultValue="0" startPos="28" stopPos="29" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Select VAGND"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Select VAREF"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Reserved"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved"/>
+    </bitFields>
+    <bitFields name="BWDEN" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/bwden" value="0" toolTipHelpDescription="Broken Wire Detection Enable" defaultValue="0" startPos="30" stopPos="30" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Normal operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Additional preparation phase is enabled"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CEV4NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev4np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr4/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="6" URI="http://resources/1.38.2/peripheral/vadc/0/group/1/ch/6">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.1"/>
+    <resourcesList name="gchass_assch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chass/assch6"/>
+    <resourcesList name="gchctr" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr6"/>
+    <resourcesList name="gcefclr_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cefclr/cev6"/>
+    <resourcesList name="gceflag_cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ceflag/cev6"/>
+    <resourcesList name="gchctr_iclsel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/iclsel"/>
+    <resourcesList name="gcevnp0_cevnp" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev6np"/>
+    <resourcesList name="gchctr_resreg" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/resreg"/>
+    <resourcesList name="gch" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch6"/>
+    <resourcesList name="select" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch6select"/>
+    <resourcesList name="iclass_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch6iclasssel"/>
+    <resourcesList name="cev" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1cev6"/>
+    <resourcesList name="res_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch6ressel"/>
+    <resourcesList name="gain_sel" requiredResourceUri="http://resources/1.38.2/peripheral/vadc/0/g1ch6gainsel"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CHCTR6" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6" value="00000000" toolTipHelpDescription="Group 0, Channel 6 Ctrl. Reg." defaultValue="00000000" accessPermission="rw" addressOffset="0x0218" resetValue="00000000" resetMask="0xFFFFFFFF">
+    <bitFields name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+    </bitFields>
+    <bitFields name="BNDSELL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/bndsell" value="0" toolTipHelpDescription="Lower Boundary Select" defaultValue="0" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="BNDSELU" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/bndselu" value="0" toolTipHelpDescription="Upper Boundary Select" defaultValue="0" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific boundary 1"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global boundary 0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global boundary 1"/>
+    </bitFields>
+    <bitFields name="CHEVMODE" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/chevmode" value="0" toolTipHelpDescription="Channel Event Mode" defaultValue="0" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Never"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="NCM: If result is inside the boundary band FCM: If result becomes high (above cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="NCM: If result is outside the boundary band FCM: If result becomes low (below cmp. val.)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="NCM: Always (ignore band) FCM: If result switches to either level"/>
+    </bitFields>
+    <bitFields name="SYNC" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/sync" value="0" toolTipHelpDescription="Synchronization Request" defaultValue="0" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No synchroniz. request, standalone operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Request a synchronized conversion of this channel (only taken into account for a master)"/>
+    </bitFields>
+    <bitFields name="REFSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/refsel" value="0" toolTipHelpDescription="Reference Input Selection" defaultValue="0" startPos="11" stopPos="11" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Standard reference Ground VSSC"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate reference Ground from CH0"/>
+    </bitFields>
+    <bitFields name="BNDSELX" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/bndselx" value="0" toolTipHelpDescription="BoundaryExtension" defaultValue="0" startPos="12" stopPos="15" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Standard mode: select boundaries via BNDSELU/BNDSELL"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0001" description="Use result reg. GxRES1 as upper boundary"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Use result reg. GxRES15 as upper boundary"/>
+    </bitFields>
+    <bitFields name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+    </bitFields>
+    <bitFields name="RESTBS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/restbs" value="0" toolTipHelpDescription="Result Target for Background Source" defaultValue="0" startPos="20" stopPos="20" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results in the selected group result register"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results in the global result register"/>
+    </bitFields>
+    <bitFields name="RESPOS" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/respos" value="0" toolTipHelpDescription="Result Position" defaultValue="0" startPos="21" stopPos="21" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Store results left-aligned"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Store results right-aligned"/>
+    </bitFields>
+    <bitFields name="BWDCH" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/bwdch" value="0" toolTipHelpDescription="Broken Wire Detection Channel" defaultValue="0" startPos="28" stopPos="29" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Select VAGND"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Select VAREF"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Reserved"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved"/>
+    </bitFields>
+    <bitFields name="BWDEN" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/bwden" value="0" toolTipHelpDescription="Broken Wire Detection Enable" defaultValue="0" startPos="30" stopPos="30" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Normal operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Additional preparation phase is enabled"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ICLSEL" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/iclsel" value="0" toolTipHelpDescription="Input Class Select" defaultValue="0" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b00" description="Use group-specific class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b01" description="Use group-specific class 1"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Use global class 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Use global class 1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="RESREG" URI="http://resources/1.38.2/peripheral/vadc/0/g1chctr6/resreg" value="0" toolTipHelpDescription="Result Register" defaultValue="0" startPos="16" stopPos="19" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Store result in group result register GxRES0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Store result in group result register GxRES15"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="CEV6NP" URI="http://resources/1.38.2/peripheral/vadc/0/g1cevnp0/cev6np" value="0" toolTipHelpDescription="Service Request Node Pointer Channel Event i" defaultValue="0" startPos="24" stopPos="27" accessPermission="rw" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0000" description="Select service request line 0 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0011" description="Select service request line 3 of group x"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0100" description="Select shared service request line 0"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0111" description="Select shared service request line 3"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1xxx" description="Reserved"/>
   </provided>
   <addressBlock offset="0x0" size="0x0C00" usage="registers"/>
 </ResourceModel:Peripheral>

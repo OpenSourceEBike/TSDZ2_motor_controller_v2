@@ -61,48 +61,48 @@
     <downwardMapList xsi:type="ResourceModel:App" href="../../CPU_CTRL_XMC1/v4_0_12/CPU_CTRL_XMC1_0.app#/"/>
   </requiredApps>
   <hwResources name="i_phase_u" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan1" resourceGroupUri="peripheral/vadc/0/group/*/ch/*" mResGrpUri="peripheral/vadc/0/group/*/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.44"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.77"/>
   </hwResources>
   <hwResources name="v_dc_link" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan2" resourceGroupUri="peripheral/vadc/0/group/*/ch/*" mResGrpUri="peripheral/vadc/0/group/*/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.9"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.82"/>
   </hwResources>
   <hwResources name="analog_speed_input" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan3" resourceGroupUri="" required="false" mResGrpUri="peripheral/vadc/0/group/*/ch/*"/>
   <hwResources name="user_defined" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan4" resourceGroupUri="" required="false" mResGrpUri="peripheral/vadc/0/group/*/ch/*"/>
   <hwResources name="i_phase_v" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan5" resourceGroupUri="peripheral/vadc/0/group/*/ch/*" mResGrpUri="peripheral/vadc/0/group/*/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.29"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.66"/>
   </hwResources>
   <hwResources name="i_phase_w" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan6" resourceGroupUri="peripheral/vadc/0/group/*/ch/*" mResGrpUri="peripheral/vadc/0/group/*/ch/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.22"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.72"/>
   </hwResources>
   <hwResources name="i_dc_link" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_adcchan7" resourceGroupUri="" required="false" mResGrpUri="peripheral/vadc/0/group/*/ch/*"/>
   <hwResources name="i_phase_u Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_a_pin" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.0"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.29"/>
   </hwResources>
   <hwResources name="v_dc_link Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_b_pin" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.29"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.34"/>
   </hwResources>
   <hwResources name="analog_speed_input pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_c_pin" resourceGroupUri="" required="false" mResGrpUri="port/p/*/pad/*"/>
   <hwResources name="user_defined pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_d_pin" resourceGroupUri="" required="false" mResGrpUri="port/p/*/pad/*"/>
   <hwResources name="i_phase_v Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_e_pin" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.19"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.0"/>
   </hwResources>
   <hwResources name="i_phase_w Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_f_pin" resourceGroupUri="port/p/*/pad/*" mResGrpUri="port/p/*/pad/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.24"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/Port2/Port2_2.dd#//@provided.8"/>
   </hwResources>
   <hwResources name="i_dc_link pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_chan_g_pin" resourceGroupUri="" required="false" mResGrpUri="port/p/*/pad/*"/>
   <hwResources name="i_phase_u Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result1" resourceGroupUri="peripheral/vadc/0/group/*/result/*" mResGrpUri="peripheral/vadc/0/group/*/result/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.15"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.54"/>
   </hwResources>
   <hwResources name="v_dc_link Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result2" resourceGroupUri="peripheral/vadc/0/group/*/result/*" mResGrpUri="peripheral/vadc/0/group/*/result/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.4"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.62"/>
   </hwResources>
   <hwResources name="analog_speed_input Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result3" resourceGroupUri="" required="false" mResGrpUri="peripheral/vadc/0/group/*/result/*"/>
   <hwResources name="user_defined Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result4" resourceGroupUri="" required="false" mResGrpUri="peripheral/vadc/0/group/*/result/*"/>
   <hwResources name="i_phase_v Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result5" resourceGroupUri="peripheral/vadc/0/group/*/result/*" mResGrpUri="peripheral/vadc/0/group/*/result/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.7"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.52"/>
   </hwResources>
   <hwResources name="i_phase_w Result" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result6" resourceGroupUri="peripheral/vadc/0/group/*/result/*" mResGrpUri="peripheral/vadc/0/group/*/result/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.36"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/VADC/VADC_0.dd#//@provided.49"/>
   </hwResources>
   <hwResources name="i_dc_link Result0" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_result7" resourceGroupUri="" required="false" solverVariable="true" mResGrpUri="peripheral/vadc/0/group/sv0/sv1/sv2">
     <solverVarMap index="4">
@@ -190,18 +190,18 @@
   <hwResources name="Trap/Phase V one match nvic node" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_trap_nvicnode" resourceGroupUri="peripheral/cpu/0/nvic/interrupt/*" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CPU/CPU_0.dd#//@provided.6"/>
   </hwResources>
-  <hwResources name="i_phase_u Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_a_pin" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
+  <hwResources name="i_phase_u Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_a_pin" resourceGroupUri="devicepackage/0/6" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.11"/>
+  </hwResources>
+  <hwResources name="i_phase_v Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_e_pin" resourceGroupUri="devicepackage/0/7" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.10"/>
   </hwResources>
-  <hwResources name="i_phase_v Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_e_pin" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.7"/>
-  </hwResources>
-  <hwResources name="i_phase_w Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_f_pin" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.12"/>
+  <hwResources name="i_phase_w Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_f_pin" resourceGroupUri="devicepackage/0/8" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.9"/>
   </hwResources>
   <hwResources name="i_dc_link pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_g_pin" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>
-  <hwResources name="v_dc_link Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_b_pin" resourceGroupUri="devicepackage/0/*" mResGrpUri="devicepackage/0/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.11"/>
+  <hwResources name="v_dc_link Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_b_pin" resourceGroupUri="devicepackage/0/1" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.22"/>
   </hwResources>
   <hwResources name="analog_speed_input pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_c_pin" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>
   <hwResources name="user_defined pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_d_pin" resourceGroupUri="" required="false" mResGrpUri="devicepackage/0/*"/>

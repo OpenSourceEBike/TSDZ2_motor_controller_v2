@@ -66,7 +66,7 @@ ADC_QUEUE_ENTRY_t ADC_QUEUE_0_QEntry_i_phase_u =
 {
   .adc_event_callback    = NULL,
   .queue_position        = (uint8_t)0,
-  .channel_number        = (uint8_t)3,
+  .channel_number        = (uint8_t)4,
   .trigger_needed        = (bool)true,
   .refill_needed         = (bool)true,
   .ch_event_notification = (bool)false,
@@ -77,7 +77,7 @@ ADC_QUEUE_ENTRY_t ADC_QUEUE_0_QEntry_i_phase_v =
 {
   .adc_event_callback    = NULL,
   .queue_position        = (uint8_t)1,
-  .channel_number        = (uint8_t)1,
+  .channel_number        = (uint8_t)2,
   .trigger_needed        = (bool)false,
   .refill_needed         = (bool)true,
   .ch_event_notification = (bool)false,
@@ -88,7 +88,7 @@ ADC_QUEUE_ENTRY_t ADC_QUEUE_0_QEntry_i_phase_w =
 {
   .adc_event_callback    = NULL,
   .queue_position        = (uint8_t)2,
-  .channel_number        = (uint8_t)0,
+  .channel_number        = (uint8_t)3,
   .trigger_needed        = (bool)false,
   .refill_needed         = (bool)true,
   .ch_event_notification = (bool)false,
@@ -99,7 +99,7 @@ ADC_QUEUE_ENTRY_t ADC_QUEUE_0_QEntry_v_dc_link =
 {
   .adc_event_callback    = NULL,
   .queue_position        = (uint8_t)3,
-  .channel_number        = (uint8_t)2,
+  .channel_number        = (uint8_t)6,
   .trigger_needed        = (bool)false,
   .refill_needed         = (bool)true,
   .ch_event_notification = (bool)false,
@@ -128,8 +128,8 @@ XMC_VADC_CHANNEL_CONFIG_t PMSM_FOC_0_i_phase_vChan_InitHandle =
   .input_class         = (uint32_t)XMC_VADC_CHANNEL_CONV_GROUP_CLASS0,
   .channel_priority    = (uint32_t)1,
   .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
-  .result_reg_number   = (uint32_t)14,
-  .alias_channel       = 7
+  .result_reg_number   = (uint32_t)11,
+  .alias_channel       = -1
 };
 
 XMC_VADC_RESULT_CONFIG_t PMSM_FOC_0_i_phase_vRes_InitHandle = 
@@ -144,8 +144,8 @@ XMC_VADC_CHANNEL_CONFIG_t PMSM_FOC_0_i_phase_wChan_InitHandle =
   .input_class         = (uint32_t)XMC_VADC_CHANNEL_CONV_GROUP_CLASS0,
   .channel_priority    = (uint32_t)1,
   .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
-  .result_reg_number   = (uint32_t)9,
-  .alias_channel       = 5
+  .result_reg_number   = (uint32_t)10,
+  .alias_channel       = -1
 };
 
 XMC_VADC_RESULT_CONFIG_t PMSM_FOC_0_i_phase_wRes_InitHandle = 
@@ -160,7 +160,7 @@ XMC_VADC_CHANNEL_CONFIG_t PMSM_FOC_0_v_dc_linkChan_InitHandle =
   .input_class         = (uint32_t)XMC_VADC_CHANNEL_CONV_GROUP_CLASS0,
   .channel_priority    = (uint32_t)1,
   .alternate_reference = (uint32_t)XMC_VADC_CHANNEL_REF_INTREF,
-  .result_reg_number   = (uint32_t)13,
+  .result_reg_number   = (uint32_t)4,
   .alias_channel       = -1
 };
 
@@ -208,29 +208,29 @@ PMSM_FOC_ADCConfig_t PMSM_FOC_0_ADCConfig =
                               NULL
                             },
   .channel_num_array      = {
-                              (uint8_t)3,
-                              (uint8_t)1,
-                              (uint8_t)0,
-                              (uint8_t)0xFF,
+                              (uint8_t)4,
                               (uint8_t)2,
+                              (uint8_t)3,
+                              (uint8_t)0xFF,
+                              (uint8_t)6,
                               (uint8_t)0xFF,
                               (uint8_t)0xFF
                             },
   .result_num_array      = {
                               (uint8_t)12,
-                              (uint8_t)14,
-                              (uint8_t)9,
+                              (uint8_t)11,
+                              (uint8_t)10,
                               (uint8_t)0xFF,
-                              (uint8_t)13,
+                              (uint8_t)4,
                               (uint8_t)0xFF,
                               (uint8_t)0xFF
                             },
   .vadc_group_pointerarray= {
-                              (XMC_VADC_GROUP_t*)(void*)VADC_G0,
-                              (XMC_VADC_GROUP_t*)(void*)VADC_G0,
-                              (XMC_VADC_GROUP_t*)(void*)VADC_G0,
+                              (XMC_VADC_GROUP_t*)(void*)VADC_G1,
+                              (XMC_VADC_GROUP_t*)(void*)VADC_G1,
+                              (XMC_VADC_GROUP_t*)(void*)VADC_G1,
                               NULL,
-                              (XMC_VADC_GROUP_t*)(void*)VADC_G0,
+                              (XMC_VADC_GROUP_t*)(void*)VADC_G1,
                               NULL,
                               NULL
                             }

@@ -128,7 +128,7 @@ ADC_QUEUE_t ADC_QUEUE_0 =
                            .sample_time_std_conv= (uint32_t) 2, /*The required STCS value.*/
                            .conversion_mode_standard        = (uint32_t) XMC_VADC_CONVMODE_12BIT, /* Conversion mode for ADC_QUEUE_0*/
                           },
-  .group_handle         = (XMC_VADC_GROUP_t*)(void*)VADC_G0, /* Group pointer for ADC_QUEUE_0*/
+  .group_handle         = (XMC_VADC_GROUP_t*)(void*)VADC_G1, /* Group pointer for ADC_QUEUE_0*/
   .queue_config_handle  = (XMC_VADC_QUEUE_CONFIG_t*) &ADC_QUEUE_0_init_config_0, /* Queue configuration structure for ADC_QUEUE_0*/
   .global_handle        = (GLOBAL_ADC_t *) &GLOBAL_ADC_0, /*The GLOBAL_ADC App handle*/ 
   .rs_intr_handle       = (ADC_QUEUE_ISR_t*) &ADC_QUEUE_0_reqsrc_config_0, /* The request source interrupt config handler*/
@@ -137,7 +137,7 @@ ADC_QUEUE_t ADC_QUEUE_0 =
   .init_status			= ADC_QUEUE_UNINITIALIZED, /* ADC_QUEUE_0 INIT status*/
   .instance_number      = (uint8_t) 0,   /* APP Instance number for ADC_QUEUE_0*/
   .iclass_num           = (uint8_t) 0,   /* The selected ICLASS configuration for ADC_QUEUE_0*/
-  .group_index          = (uint8_t) 0    /* The Group index for ADC_QUEUE_0*/
+  .group_index          = (uint8_t) 1    /* The Group index for ADC_QUEUE_0*/
 };
 
 ADC_QUEUE_ENTRY_t adc_queue_list_ch_index_0[ADC_QUEUE_NUM_CHANNELS];
