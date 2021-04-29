@@ -68,10 +68,10 @@
 								<option id="com.ifx.xmc4000.appLinker.option.fpsupport.printf.865424908" name="Add floating point support for printf" superClass="com.ifx.xmc4000.appLinker.option.fpsupport.printf" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.ifx.xmc4000.appLinker.option.fpsupport.scanf.2058994482" name="Add floating point support for scanf" superClass="com.ifx.xmc4000.appLinker.option.fpsupport.scanf" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.ifx.xmc4000.appLinker.option.nosys.specs.181089722" name="Provide default newlib system calls (-specs=nosys.specs)" superClass="com.ifx.xmc4000.appLinker.option.nosys.specs" useByScannerDiscovery="false" value="true" valueType="boolean"/>
-								<option id="com.ifx.xmc4000.appLinker.option.paths.1351113201" superClass="com.ifx.xmc4000.appLinker.option.paths" useByScannerDiscovery="false" valueType="libPaths">
+								<option id="com.ifx.xmc4000.appLinker.option.paths.1351113201" name="Library search path (-L)" superClass="com.ifx.xmc4000.appLinker.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Dave/Generated/PMSM_FOC}&quot;"/>
 								</option>
-								<option id="com.ifx.xmc4000.appLinker.option.libs.1709150962" superClass="com.ifx.xmc4000.appLinker.option.libs" useByScannerDiscovery="false" valueType="libs">
+								<option id="com.ifx.xmc4000.appLinker.option.libs.1709150962" name="Libraries (-l)" superClass="com.ifx.xmc4000.appLinker.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
 									<listOptionValue builtIn="false" value="PMSM_FOC_LIB"/>
 								</option>
@@ -98,6 +98,7 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="ilg.gnuarmeclipse.managedbuild.packs"/>
 		</cconfiguration>
 		<cconfiguration id="com.ifx.xmc4000.appDebug.290441771">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.ifx.xmc4000.appDebug.290441771" moduleId="org.eclipse.cdt.core.settings" name="Debug">
@@ -221,4 +222,5 @@
 		<project-mappings/>
 	</storageModule>
 	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
