@@ -1586,12 +1586,12 @@
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="analog_speed_input"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="140"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="140"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="analog_speed_input_channel_select"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_sel"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="155"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="155"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="user_defined"/>
@@ -1636,7 +1636,7 @@
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="analog_speed_input_result"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_res"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="310"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="310"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="user_defined_result"/>
@@ -1666,7 +1666,7 @@
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="analog_speed_input_result_select"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_ressel"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="80"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="80"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="user_defined_result_select"/>
@@ -1696,7 +1696,7 @@
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="analog_speed_input_pad"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_io"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="170"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="170"/>
     </anchors>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="user_defined_pad"/>
@@ -1783,14 +1783,14 @@
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch2_sel"/>
       <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="120" style="//@styles.0/@styles.2" value="v_dc_link_channel_select"/>
     </children>
-    <children visible="true" active="true">
+    <children active="true">
       <properties key="SignalName" value="analog_speed_input"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="120"/>
     </children>
     <children>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="135" value="analog_speed_input"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="135" style="//@styles.0/@styles.2" value="analog_speed_input"/>
     </children>
     <children visible="true" active="true">
       <properties key="SignalName" value="analog_speed_input_channel_select"/>
@@ -1799,7 +1799,7 @@
     </children>
     <children>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_sel"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="150" value="analog_speed_input_channel_select"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="150" style="//@styles.0/@styles.2" value="analog_speed_input_channel_select"/>
     </children>
     <children visible="true" active="true">
       <properties key="SignalName" value="user_defined"/>
@@ -1873,14 +1873,14 @@
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch2_res"/>
       <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="285" style="//@styles.0/@styles.2" value="v_dc_link_result"/>
     </children>
-    <children visible="true" active="true">
+    <children active="true">
       <properties key="SignalName" value="analog_speed_input_result"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_res"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="290"/>
     </children>
     <children>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_res"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="305" value="analog_speed_input_result"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="305" style="//@styles.0/@styles.2" value="analog_speed_input_result"/>
     </children>
     <children visible="true" active="true">
       <properties key="SignalName" value="user_defined_result"/>
@@ -1927,14 +1927,14 @@
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch2_ressel"/>
       <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="60" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="v_dc_link_result_select"/>
     </children>
-    <children visible="true" active="true">
+    <children active="true">
       <properties key="SignalName" value="analog_speed_input_result_select"/>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_ressel"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="60"/>
     </children>
     <children>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_ressel"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="75" horizontalAlignment="ALIGNMENT_RIGHT" value="analog_speed_input_result_select"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="75" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="analog_speed_input_result_select"/>
     </children>
     <children visible="true" active="true">
       <properties key="SignalName" value="user_defined_result_select"/>
@@ -1988,7 +1988,7 @@
     </children>
     <children>
       <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch3_io"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="165" horizontalAlignment="ALIGNMENT_RIGHT" value="analog_speed_input_pad"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="165" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="analog_speed_input_pad"/>
     </children>
     <children active="true">
       <properties key="SignalName" value="user_defined_pad"/>
@@ -2968,6 +2968,42 @@
               </start>
               <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
                 <color red="255" green="102"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+        </adaptedGradientColoredAreas>
+      </renderingStyle>
+    </styles>
+    <styles lineStyle="UNSPECIFIED" filled="true" id="HWConnectedApps" horizontalAlignment="UNSPECIFIED" verticalAlignment="UNSPECIFIED">
+      <renderingStyle>
+        <adaptedGradientColoredAreas definedStyleId="light-yellow" gradientType="0">
+          <adaptedGradientColoredAreas styleAdaption="0">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="254" green="254" blue="244"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="254" green="254" blue="244"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="1">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="229" green="229" blue="194"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="229" green="229" blue="194"/>
+              </end>
+            </gradientColor>
+          </adaptedGradientColoredAreas>
+          <adaptedGradientColoredAreas styleAdaption="2">
+            <gradientColor>
+              <start locationType="LOCATION_TYPE_ABSOLUTE_START" locationValue="0">
+                <color red="250" green="250" blue="217"/>
+              </start>
+              <end locationType="LOCATION_TYPE_ABSOLUTE_END" locationValue="0">
+                <color red="250" green="250" blue="217"/>
               </end>
             </gradientColor>
           </adaptedGradientColoredAreas>

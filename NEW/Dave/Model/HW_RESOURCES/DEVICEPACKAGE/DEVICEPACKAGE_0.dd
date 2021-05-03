@@ -86,4 +86,7 @@
     <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@hwResources.30"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin1"/>
   </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="38" URI="http://resources/tssop38.0.0/devicepackage/0/38">
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin38"/>
+  </provided>
 </ResourceModel:DevicePackage>

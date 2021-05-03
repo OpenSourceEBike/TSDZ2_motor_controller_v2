@@ -179,7 +179,7 @@ const XMC_GPIO_CONFIG_t PWM_SVM_0_PhWLoOutPinConf =
   {
   .mapped_input  = XMC_CCU8_SLICE_INPUT_A,
   .edge          = XMC_CCU8_SLICE_EVENT_EDGE_SENSITIVITY_NONE,
-  .level         = XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW,
+  .level         = XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,
   .duration      = XMC_CCU8_SLICE_EVENT_FILTER_DISABLED
   };
 
@@ -388,15 +388,15 @@ PWM_SVM_t PWM_SVM_0 =
   .startconfig_ptr        = (XMC_CCU8_SLICE_EVENT_CONFIG_t*)(void*)&PWM_SVM_0_StartConfig,
   .globalccu8_handle_ptr  = (GLOBAL_CCU8_t*)(void*)&GLOBAL_CCU8_0,
   .deadtimeconfig_ptr     = (XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t*)(void*)&PWM_SVM_0_DeadTimeConfig,
-  .svm_schemesel_ptr      = (PWM_SVM_SVMSCHEME_PTR_t)PWM_SVM_CalCmpValueSym7,
+  .svm_schemesel_ptr      = (PWM_SVM_SVMSCHEME_PTR_t)PWM_SVM_CalCmpValueSym5,
   .seg_time_calc_ptr      = (PWM_SVM_SEGCALC_PTR_t)PWM_SVM_TimecalcUsingLUT,
   .period                 = 1599U,
   .state                  = PWM_SVM_UNINITIALIZED,
-  .svm_config             = (PWM_SVM_SVMCONFIG_t)PWM_SVM_7SEG_SYMM, 
+  .svm_config             = (PWM_SVM_SVMCONFIG_t)PWM_SVM_5SEG_SYMM, 
   .tmin                   = 0U,
   .tmin_14                = 0U,
-  .max_amplitude          = 18841U,
-  .over_modulation_enable = 1U,
+  .max_amplitude          = 16384U,
+  .over_modulation_enable = 0U,
   .over_modulation_scale  = 67823U,
   .max_amplitude_overmod  = 18841U, 
   .t0                     = 1599U
