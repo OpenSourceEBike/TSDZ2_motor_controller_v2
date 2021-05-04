@@ -122,14 +122,6 @@ __attribute__ ((section (".ram_code"))) static void PMSM_FOC_SpeedLowLimit(PMSM_
 __attribute__ ((section (".ram_code")))void PMSM_FOC_0_Trap_OneMatch_ISR()
 {
 
-  /* Check if trap is detected */
-  if(XMC_CCU8_SLICE_GetEvent(PMSM_FOC_0.pwm_svm_ptr->phase_ptr[0]->slice_ptr,XMC_CCU8_SLICE_IRQ_ID_EVENT2) == true)
-  {
-    PMSM_FOC_0.operational_error |= ((uint32_t)1 << (uint32_t) PMSM_FOC_EID_TRAP_ERROR);  
-    PMSM_FOC_0.msm_state = PMSM_FOC_MSM_ERROR;
-    PMSM_FOC_MotorStop(&PMSM_FOC_0);  
-  }
-
 }
 
 /* Fast control loop interrupt */

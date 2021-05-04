@@ -63,7 +63,7 @@
 #define PWM_SVM_PATCH_VERSION (30U)
 
 /*Macro to specify if over modulation feature is enabled */
-#define PWM_SVM_IS_OVERMODULATION_ENABLE (0U)
+#define PWM_SVM_IS_OVERMODULATION_ENABLE (1U)
 /*Macro tells whether current trigger option is selected or not*/
 #define PWM_SVM_IS_CURRENTTRIGGER_ENABLE (1U)
 /*Macro tells whether phase current trigger option is selected or not*/

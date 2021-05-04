@@ -99,9 +99,6 @@
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.9"/>
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.10"/>
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.11"/>
-  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.14"/>
-  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.15"/>
-  <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.16"/>
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.17"/>
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.18"/>
   <hwConnections href="APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@connections.19"/>
@@ -125,7 +122,6 @@
   <hwConnections href="APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@connections.1"/>
   <hwConnections href="APPS/ADC_QUEUE/v4_0_22/ADC_QUEUE_0.app#//@connections.2"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.0"/>
-  <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.1"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.2"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.3"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.4"/>

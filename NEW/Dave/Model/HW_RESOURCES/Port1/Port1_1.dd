@@ -152,7 +152,6 @@
   </provided>
   <provided xsi:type="ResourceModel:BitField" name="PC2_2_0" URI="http://resources/1.38.1/port/p/1/iocr0/pc2_2_0" value="0" toolTipHelpDescription="Port Control for Port n Pin 0 to 3" defaultValue="0" startPos="19" stopPos="21" accessPermission="rw" maxValue="7" minValue="0"/>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P1.4 / #12" URI="http://resources/1.38.1/port/p/1/pad/4">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.11"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/1.38.1/port/p/1/out/p4"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/1.38.1/port/p/1/omr/ps4"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/1.38.1/port/p/1/omr/pr4"/>

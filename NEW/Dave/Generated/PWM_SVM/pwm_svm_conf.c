@@ -144,45 +144,6 @@ const XMC_GPIO_CONFIG_t PWM_SVM_0_PhWLoOutPinConf =
  .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW
 };
 
-  /*inverter port & pin init structure*/
-  const PWM_SVM_GPIO_t PWM_SVM_0_InverterPin =
-  {
-    .port = (XMC_GPIO_PORT_t *)PORT1_BASE, 
-    .pin = 4U
-  };
-
-  /* GPIO config Init handle for inverter Pin */
-  const XMC_GPIO_CONFIG_t PWM_SVM_0_InvPinConf = 
-  {
-    .mode            = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
-    .input_hysteresis= XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
-    .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW
-  };
-
-  /*trap port & pin init structure*/
-  const PWM_SVM_GPIO_t PWM_SVM_0_TrapPin =
-  {
-    .port = (XMC_GPIO_PORT_t *)PORT0_BASE, 
-    .pin = 12U
-  };
-
-  /* GPIO config Init handle for trap Pin */
-  const XMC_GPIO_CONFIG_t PWM_SVM_0_TrapPinConf = 
-  {
-    .mode            = XMC_GPIO_MODE_INPUT_TRISTATE,
-    .input_hysteresis= XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
-    .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW
-  };
-
-  /* External Trap event for all slices */
-  const XMC_CCU8_SLICE_EVENT_CONFIG_t PWM_SVM_0_TrapConfig =
-  {
-  .mapped_input  = XMC_CCU8_SLICE_INPUT_A,
-  .edge          = XMC_CCU8_SLICE_EVENT_EDGE_SENSITIVITY_NONE,
-  .level         = XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,
-  .duration      = XMC_CCU8_SLICE_EVENT_FILTER_DISABLED
-  };
-
 /*Slice U configuration*/
 const PWM_CCU8_CC8_t PWM_SVM_0_PhU = 
 {
@@ -217,10 +178,10 @@ XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t PWM_SVM_0_DeadTimeConfig =
  .channel2_st_path                  = 1U,
  .channel2_inv_st_path              = 1U,  
  .div                               = 0U,
- .channel1_st_rising_edge_counter   = 0x30U,
- .channel1_st_falling_edge_counter  = 0x30U,
- .channel2_st_rising_edge_counter   = 0x30U,
- .channel2_st_falling_edge_counter  = 0x30U   
+ .channel1_st_rising_edge_counter   = 0x20U,
+ .channel1_st_falling_edge_counter  = 0x20U,
+ .channel2_st_rising_edge_counter   = 0x20U,
+ .channel2_st_falling_edge_counter  = 0x20U   
 };
 
 /* External Start event for all slices */
@@ -243,10 +204,10 @@ const XMC_CCU8_SLICE_COMPARE_CONFIG_t PWM_SVM_0_TimerInitHandle =
   .mcm_ch1_enable       = 0U,
   .mcm_ch2_enable       = 0U,
   .slice_status         = (uint8_t)XMC_CCU8_SLICE_STATUS_CHANNEL_1,
-  .passive_level_out0   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH,   
-  .passive_level_out1   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH,
-  .passive_level_out2   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH,
-  .passive_level_out3   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH,
+  .passive_level_out0   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,   
+  .passive_level_out1   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
+  .passive_level_out2   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
+  .passive_level_out3   = XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
   .asymmetric_pwm       = (uint8_t)false,
 #if !defined(CCU8V3) 
   .invert_out0          = 0U,
@@ -307,7 +268,7 @@ const PWM_SVM_Config_t PWM_SVM_0_AppConfig =
   .sync_start_mask       = 0x100U,
   .shadow_transfer_mask  = 0x1111U,
   .event_sr_selector     = {
-                              0x1000U, 0x1U, 
+                              0x1U, 0x0U, 
                               0x0U, 0x2U,
                            },
   .period_max            = (uint32_t)32000000,
@@ -328,17 +289,17 @@ const PWM_SVM_Config_t PWM_SVM_0_AppConfig =
   .trap_exit_mode        = XMC_CCU8_SLICE_TRAP_EXIT_MODE_AUTOMATIC,
 
   .trap_hwsel            = XMC_GPIO_HWCTRL_DISABLED,
-  .enable_trap           = (uint8_t)true,
+  .enable_trap           = (uint8_t)false,
 
 
-  .inverter_pin          = PWM_SVM_IPIN_HIGH,
+  .inverter_pin          = PWM_SVM_IPIN_NOTREQUIRED,
   .phase_u_out0          = XMC_CCU8_SLICE_OUTPUT_0,
   .phase_v_out0          = XMC_CCU8_SLICE_OUTPUT_0,
   .phase_w_out0          = XMC_CCU8_SLICE_OUTPUT_0,
   .current_offset        = (uint16_t)0,
   .amplitude_scale       = (uint16_t)99,
   .enable_periodmatch    = (uint8_t)true,
-  .enable_trapevent      = (uint8_t)true,
+  .enable_trapevent      = (uint8_t)false,
   .enable_optimized_slice= (uint8_t)false,
   .trap_sync_pwm         = (uint8_t)0
 };
@@ -378,25 +339,25 @@ PWM_SVM_t PWM_SVM_0 =
   .phasew_crs            = (uint32_t *)&CCU80_CC82->CR1S,
 
 
-  .trappin_ptr            = (PWM_SVM_GPIO_t*)(void*)&PWM_SVM_0_TrapPin,
-  .trapinconfig_ptr       = (XMC_GPIO_CONFIG_t*)(void*)&PWM_SVM_0_TrapPinConf,
-  .trapconfig_ptr         = (XMC_CCU8_SLICE_EVENT_CONFIG_t*)(void*)&PWM_SVM_0_TrapConfig,
+  .trappin_ptr            = NULL,
+  .trapinconfig_ptr       = NULL,
+  .trapconfig_ptr         = NULL,
 
-  .inverterpin_ptr        = (PWM_SVM_GPIO_t*)(void*)&PWM_SVM_0_InverterPin,
-  .inverterpinconfig_ptr  = (XMC_GPIO_CONFIG_t*)(void*)&PWM_SVM_0_InvPinConf,
+  .inverterpin_ptr        = NULL,
+  .inverterpinconfig_ptr  = NULL,
 
   .startconfig_ptr        = (XMC_CCU8_SLICE_EVENT_CONFIG_t*)(void*)&PWM_SVM_0_StartConfig,
   .globalccu8_handle_ptr  = (GLOBAL_CCU8_t*)(void*)&GLOBAL_CCU8_0,
   .deadtimeconfig_ptr     = (XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t*)(void*)&PWM_SVM_0_DeadTimeConfig,
-  .svm_schemesel_ptr      = (PWM_SVM_SVMSCHEME_PTR_t)PWM_SVM_CalCmpValueSym5,
+  .svm_schemesel_ptr      = (PWM_SVM_SVMSCHEME_PTR_t)PWM_SVM_CalCmpValueSym7,
   .seg_time_calc_ptr      = (PWM_SVM_SEGCALC_PTR_t)PWM_SVM_TimecalcUsingLUT,
   .period                 = 1599U,
   .state                  = PWM_SVM_UNINITIALIZED,
-  .svm_config             = (PWM_SVM_SVMCONFIG_t)PWM_SVM_5SEG_SYMM, 
+  .svm_config             = (PWM_SVM_SVMCONFIG_t)PWM_SVM_7SEG_SYMM, 
   .tmin                   = 0U,
   .tmin_14                = 0U,
-  .max_amplitude          = 16384U,
-  .over_modulation_enable = 0U,
+  .max_amplitude          = 18841U,
+  .over_modulation_enable = 1U,
   .over_modulation_scale  = 67823U,
   .max_amplitude_overmod  = 18841U, 
   .t0                     = 1599U

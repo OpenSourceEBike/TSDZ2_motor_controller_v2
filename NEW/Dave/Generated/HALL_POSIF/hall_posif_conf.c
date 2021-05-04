@@ -190,7 +190,7 @@ HALL_POSIF_Config_t HALL_POSIF_0_Config =
                             0U,
                             0U
                           },
-  .interrupt_enable     = 0x0U,
+  .interrupt_enable     = 0xfU,
   .hall3pin             = 0x00U
 };
 HALL_POSIF_t HALL_POSIF_0 =

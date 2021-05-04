@@ -185,10 +185,10 @@
     </solverVarMap>
   </hwResources>
   <hwResources name="FCL nvic node" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_fcl_nvicnode" resourceGroupUri="peripheral/cpu/0/nvic/interrupt/*" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CPU/CPU_0.dd#//@provided.8"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CPU/CPU_0.dd#//@provided.6"/>
   </hwResources>
   <hwResources name="Trap/Phase V one match nvic node" URI="http://resources/4.2.14/app/PMSM_FOC/0/hwres_trap_nvicnode" resourceGroupUri="peripheral/cpu/0/nvic/interrupt/*" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*">
-    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CPU/CPU_0.dd#//@provided.6"/>
+    <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/CPU/CPU_0.dd#//@provided.8"/>
   </hwResources>
   <hwResources name="i_phase_u Pin" URI="http://resources/4.2.14/app/PMSM_FOC/0/__pin_hwres_chan_a_pin" resourceGroupUri="devicepackage/0/6" constraintType="GLOBAL_RESOURCE" mResGrpUri="devicepackage/0/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#//@provided.11"/>
@@ -209,7 +209,7 @@
     <downwardMapList xsi:type="ResourceModel:VirtualSignal" href="../../PWM_SVM/v4_0_30/PWM_SVM_0.app#//@virtualSignals.12"/>
     <srcVirtualSignal href="../../PWM_SVM/v4_0_30/PWM_SVM_0.app#//@virtualSignals.12"/>
   </connections>
-  <connections URI="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_svm_phu_trap/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_trap_nvicsignal_in" systemDefined="true" sourceSignal="event_ph_u_trap" targetSignal="sr_trap_one_match" targetVirtualSignal="//@virtualSignals.39" proxySrcVirtualSignalUri="http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_e2as_phu" containingProxySignal="true">
+  <connections URI="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_svm_phu_trap/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_trap_nvicsignal_in" systemDefined="true" sourceSignal="event_ph_u_trap" targetSignal="sr_trap_one_match" required="false" targetVirtualSignal="//@virtualSignals.39" proxySrcVirtualSignalUri="http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_e2as_phu" containingProxySignal="true">
     <downwardMapList xsi:type="ResourceModel:VirtualSignal" href="../../PWM_SVM/v4_0_30/PWM_SVM_0.app#//@virtualSignals.26"/>
     <srcVirtualSignal href="../../PWM_SVM/v4_0_30/PWM_SVM_0.app#//@virtualSignals.26"/>
   </connections>

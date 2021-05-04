@@ -5,7 +5,6 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin14"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="12" URI="http://resources/tssop38.0.0/devicepackage/0/12">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.19"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin12"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="15" URI="http://resources/tssop38.0.0/devicepackage/0/15">
@@ -48,7 +47,6 @@
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin35"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="31" URI="http://resources/tssop38.0.0/devicepackage/0/31">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_SVM/v4_0_30/PWM_SVM_0.app#//@hwResources.18"/>
     <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP38.0.0/devicepackage/0/pin31"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="17" URI="http://resources/tssop38.0.0/devicepackage/0/17">

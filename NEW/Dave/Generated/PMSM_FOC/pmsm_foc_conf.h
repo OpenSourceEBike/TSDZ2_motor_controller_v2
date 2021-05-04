@@ -58,11 +58,11 @@
  **********************************************************************************************************************/
 
 /* Fast Control Loop ISR mapped to IRQ Handler*/
-#define  PMSM_FOC_0_FastControlLoop_ISR  IRQ_Hdlr_25
+#define  PMSM_FOC_0_FastControlLoop_ISR  IRQ_Hdlr_26
 
 
 /* Trap ISR mapped to IRQ Handler*/
-#define  PMSM_FOC_0_Trap_OneMatch_ISR             IRQ_Hdlr_26
+#define  PMSM_FOC_0_Trap_OneMatch_ISR             IRQ_Hdlr_25
 
 #define PMSM_FOC_MAJOR_VERSION 4U
 #define PMSM_FOC_MINOR_VERSION 2U
