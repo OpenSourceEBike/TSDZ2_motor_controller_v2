@@ -15,5 +15,12 @@ Microcontroller XMC1300:
 * [XMC1300 math coprocessor](Documentation/Infineon-IP_MATH_XMC1000-TR-v01_02-EN.pdf)
 * [XMC1300 FOC paper from Infineon](Documentation/Infineon-AP32370_PMSM_FOC_for_XMC1000-AN-v01_00-EN.pdf) 
 * [XMC1300FOC DAVE sample code](Documentation/PMSM_FOC_EXAMPLE_XMC13.zip) 
-* [Visual Studio Code Linux installation](https://github.com/OpenSourceEBike/TSDZ2_wireless/blob/master/EBike_wireless_TSDZ2/documentation/development-flash_and_debug_firmware.md) 
+* [Visual Studio Code Linux installation](https://github.com/OpenSourceEBike/TSDZ2_wireless/blob/master/EBike_wireless_TSDZ2/documentation/development-flash_and_debug_firmware.md)
 
+Technical characteristics of TSDZ2 electric motor:
+- there are 2 different motors, one that is 36V and other 48V
+- motor voltage: 36V or 48V
+- no load speed: 4000 RPM for both motors
+- motor resistance: 36V motor has 0.094 ohm, 48V motor has 0.125 ohm
+- motor inductance: 36V motor has 76uH, 48V motor has 135uH
+- pole pair: 8 for both motors
