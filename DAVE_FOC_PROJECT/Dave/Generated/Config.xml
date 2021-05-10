@@ -77,26 +77,6 @@
                 <Type>C File</Type>
             </Source_File>
             <Source_File>
-                <File_Name>global_posif.c</File_Name>
-                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif.c</Path>
-                <Type>C File</Type>
-            </Source_File>
-            <Source_File>
-                <File_Name>global_posif_conf.c</File_Name>
-                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_conf.c</Path>
-                <Type>C File</Type>
-            </Source_File>
-            <Source_File>
-                <File_Name>hall_posif.c</File_Name>
-                <Path>\Dave\Generated\HALL_POSIF\hall_posif.c</Path>
-                <Type>C File</Type>
-            </Source_File>
-            <Source_File>
-                <File_Name>hall_posif_conf.c</File_Name>
-                <Path>\Dave\Generated\HALL_POSIF\hall_posif_conf.c</Path>
-                <Type>C File</Type>
-            </Source_File>
-            <Source_File>
                 <File_Name>pmsm_foc.c</File_Name>
                 <Path>\Dave\Generated\PMSM_FOC\pmsm_foc.c</Path>
                 <Type>C File</Type>
@@ -109,6 +89,16 @@
             <Source_File>
                 <File_Name>pmsm_foc_control.c</File_Name>
                 <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_control.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm.c</File_Name>
+                <Path>\Dave\Generated\PWM\pwm.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm_conf.c</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_conf.c</Path>
                 <Type>C File</Type>
             </Source_File>
             <Source_File>
@@ -239,36 +229,6 @@
                 <Type>H File</Type>
             </Header_File>
             <Header_File>
-                <File_Name>global_posif.h</File_Name>
-                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
-                <File_Name>global_posif_conf.h</File_Name>
-                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_conf.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
-                <File_Name>global_posif_extern.h</File_Name>
-                <Path>\Dave\Generated\GLOBAL_POSIF\global_posif_extern.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
-                <File_Name>hall_posif.h</File_Name>
-                <Path>\Dave\Generated\HALL_POSIF\hall_posif.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
-                <File_Name>hall_posif_conf.h</File_Name>
-                <Path>\Dave\Generated\HALL_POSIF\hall_posif_conf.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
-                <File_Name>hall_posif_extern.h</File_Name>
-                <Path>\Dave\Generated\HALL_POSIF\hall_posif_extern.h</Path>
-                <Type>H File</Type>
-            </Header_File>
-            <Header_File>
                 <File_Name>pmsm_foc.h</File_Name>
                 <Path>\Dave\Generated\PMSM_FOC\pmsm_foc.h</Path>
                 <Type>H File</Type>
@@ -281,6 +241,21 @@
             <Header_File>
                 <File_Name>pmsm_foc_extern.h</File_Name>
                 <Path>\Dave\Generated\PMSM_FOC\pmsm_foc_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_conf.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_extern.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_extern.h</Path>
                 <Type>H File</Type>
             </Header_File>
             <Header_File>

@@ -54,17 +54,14 @@
   <nodes xsi:type="ApplicationModel:AppNode">
     <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_CCU4/v4_1_14/GLOBAL_CCU4_0.app#/"/>
   </nodes>
-  <nodes xsi:type="ApplicationModel:AppNode">
-    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_POSIF/v4_0_18/GLOBAL_POSIF_0.app#/"/>
-  </nodes>
-  <nodes xsi:type="ApplicationModel:AppNode">
-    <resource xsi:type="ResourceModel:App" href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#/"/>
-  </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/POSIF0/POSIF0_0.dd#/"/>
   </nodes>
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU40/CCU40_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/PWM/v4_1_12/PWM_0.app#/"/>
   </nodes>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.0"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.1"/>
@@ -76,9 +73,7 @@
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.9"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.1"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.17" target="//@nodes.0"/>
-  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.18" target="//@nodes.0"/>
-  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.19" target="//@nodes.18"/>
-  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.19" target="//@nodes.17"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.20" target="//@nodes.17"/>
   <hwConnections href="APPS/CLOCK_XMC1/v4_0_26/CLOCK_XMC1_0.app#//@connections.0"/>
   <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.0"/>
   <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.1"/>
@@ -150,18 +145,8 @@
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.68"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.69"/>
   <hwConnections href="APPS/PMSM_FOC/v4_2_14/PMSM_FOC_0.app#//@connections.70"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.0"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.1"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.2"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.3"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.4"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.5"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.6"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.7"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.17"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.18"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.19"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.20"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.21"/>
-  <hwConnections href="APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@connections.22"/>
+  <hwConnections href="APPS/PWM/v4_1_12/PWM_0.app#//@connections.1"/>
+  <hwConnections href="APPS/PWM/v4_1_12/PWM_0.app#//@connections.2"/>
+  <hwConnections href="APPS/PWM/v4_1_12/PWM_0.app#//@connections.4"/>
+  <hwConnections href="APPS/PWM/v4_1_12/PWM_0.app#//@connections.5"/>
 </ApplicationModel:ApplicationData>

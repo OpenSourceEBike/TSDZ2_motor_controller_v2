@@ -1,0 +1,471 @@
+package Model.APPS.PWM.v4_1_12.Templates;
+
+import Model.APPS.PWM.v4_1_12.PWM
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.<BR>
+ *
+ * 2015-04-06:
+ *     - Configuration structure modified of PWM_t.<BR>
+ *     - Removed PWM_Dynamic_t,PWM_ConfigType_t.<BR>
+ *     - Added New macros for Mixed usage.<BR>
+ *     - Added New API PWM_SetPeriodMatchValue().<BR>
+ *     - Modified enumeration PWM_InterruptType_t to PWM_INTERRUPT_t.<BR>
+ *     - Modified enumeration PWM_OutputPassiveLevelType_t to PWM_OUTPUT_PASSIVE_LEVEL_t.<BR>
+ *     - Modified enumeration PWM_TIMER_TYPE_t to PWM_TIMER_SLICE_t .<BR>
+ *     - PWM_ClearEvent(), PWM_GetInterruptStatus() and PWM_SetPassiveLevel() API prototype modified for the
+ *       new enum.<BR>
+ *     - API name change PWM_AcknowledgeInterrupt to PWM_ClearEvent.<BR>
+ *
+ * 2015-07-09:
+ *     - Documentation updated.<BR>
+ *
+ * 2015-09-01:
+ *     - XMC14 device support added.<BR>
+ *
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *
+ * 2015-12-16:
+ *     - Added support for XMC4300 devices.<BR>
+ *
+ * 2016-07-28:
+ *     - All event signals are made mandatory.<BR>
+ *
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "pwm.h"
+
+/**********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+""");
+
+List	MappedUri = null;
+String	appInst = null;
+String	KernelNo = null;
+String	SliceNo_A = null;
+String	SliceNo_B = null;
+String	Global_Handle = null;
+//def	Slice_Handle = null;
+String	KernRegs_Handle = null;
+String	Slice_handle = null;
+String	SliceA_Handle = null;
+String	SliceB_Handle = null;
+String	Dynamic_Handle = null;
+			
+String	TimerConcat_Handle = null;
+Boolean	StartControl_Handle;
+Integer	period = null;
+Integer	count = 0;
+Integer	period_calc = null;
+Integer	comp1 = null;
+Integer	passive_level = null;
+Integer	passive_state = null;
+
+Integer sr_per_reg_index = null;
+Integer sr_comp_reg_index = null;
+
+Boolean	periodmatch = null;
+Boolean	compmatch = null;
+			
+String	sr_period_match = null;
+String	sr_compare_match = null;
+			
+String	portNo = null;
+String	pinNo = null;
+String	pinOutputType = null;
+			
+String	port_iocr_pcr = null;
+String	port_iocr_oe = null;
+String	port_hwsel_hw = null;
+String	port_pdisc_pdis = null;
+
+List passivelvlArray_8 =   [
+	'XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_LOW',
+	'XMC_CCU8_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH',
+];
+
+List SrIdArray_8 = 		  [
+	'XMC_CCU8_SLICE_SR_ID_0',
+	'XMC_CCU8_SLICE_SR_ID_1',
+	'XMC_CCU8_SLICE_SR_ID_2',
+	'XMC_CCU8_SLICE_SR_ID_3'
+];
+
+List SrIdArray_4 = [
+	'XMC_CCU4_SLICE_SR_ID_0',
+	'XMC_CCU4_SLICE_SR_ID_1',
+	'XMC_CCU4_SLICE_SR_ID_2',
+	'XMC_CCU4_SLICE_SR_ID_3'
+];
+
+List passivelvlArray_4 = [
+	'XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW',
+	'XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH'
+];
+
+/*********************************************************************************************/
+/************************dummy reads*****************************/
+
+
+/*********************************************************************************************/
+int CCU4_Timer=0;
+int CCU8_Timer=0;
+
+for (Object appIns : appInstancesList ) {
+  
+	if(appIns.gcombo_TimerSelect.value == "CCU4")
+	{
+		CCU4_Timer = 1;
+	}
+	if(appIns.gcombo_TimerSelect.value == "CCU8")
+	{
+		CCU8_Timer = 1;
+	}
+	
+  }
+/*********************************************************************************************/
+for (Object appIns : appInstancesList ) {
+	
+
+	
+  appInst = appIns.getInstanceLabel()
+  if(appIns.gcombo_TimerSelect.value == "CCU8"){
+	  
+	  MappedUri = appIns.hwres_ccu8_cc8_slice.getSolverUri()
+	  KernelNo 	 = MappedUri[4]
+	  SliceNo_A  = MappedUri[6]	  
+  }
+  
+  if(appIns.gcombo_TimerSelect.value == "CCU4"){
+	  
+	  MappedUri = appIns.hwres_ccu4_cc4_slice.getSolverUri()
+	  KernelNo 	 = MappedUri[4]
+	  SliceNo_A  = MappedUri[6]
+  }
+  
+  if (MappedUri != null) {
+	
+  period = appIns.gint_Period_Register.value
+  period_calc = period + 1;
+  
+  comp1 =  (Integer)  ((((float)1 - (float)appIns.gfloat_Duty_Cycle_Sym.value/100) * (float) (period_calc) )) ;
+  Comp1_Calc =comp1;
+  
+  if((period_calc) > 65535)
+  {
+	  count=0;
+	while(period_calc >= 65535)
+	{
+	  period_calc = period_calc >> 1;
+	  count++;
+	}
+	count = (1 << count) -1;
+	period = (count << 16) | (period_calc - 1);
+  }
+  
+  if((Comp1_Calc) > 65535)
+  {
+	  Comp1_Calc =  comp1 % period_calc;
+	  comp1      =  comp1 / period_calc;
+	  comp1 = (comp1 << 16) + Comp1_Calc;
+  }
+  
+/**************************************************************************************/
+
+  if(appIns.gcombo_Direct_Output_Passive_Level.value == "Low")
+  {
+	  passive_level = 0;
+  }
+  
+  if(appIns.gcombo_Direct_Output_Passive_Level.value == "High")
+  {
+	  passive_level = 1;
+  }
+  
+/**************************************************************************************/
+
+  periodmatch = 	appIns.gcheck_Period_Match_Interrupt_Initilize.value;
+  compmatch = 		appIns.gcheck_Compare_Match_Interrupt_Initilize.value;
+  
+/**************************************************************************************/
+
+  StartControl_Handle 	= appIns.gcheck_Start_During_Initilization.value;
+
+/**************************************************************************************/
+  
+  if(appIns.gcombo_TimerSelect.value == "CCU8" )
+  {
+	  Global_Handle   		= "(GLOBAL_CCU8_t*)&"  + appIns.pwm_app_global_ccu8_cc8.getInstanceLabel();
+	  KernRegs_Handle 		= "(XMC_CCU8_MODULE_t*) CCU8" + KernelNo  +"_BASE";
+	  SliceA_Handle 		= " CCU8" + KernelNo + "_CC8" + appIns.hwres_ccu8_cc8_slice.getSolverUri().getAt(6);
+	  sr_per_reg_index      = (appIns.hwres_ccu8_cc8_slice.getRegValue("srs","srs_posr"));
+      sr_period_match       = SrIdArray_8[sr_per_reg_index];
+	  sr_comp_reg_index     = (appIns.hwres_ccu8_cc8_slice.getRegValue("srs","srs_cm1sr"));
+	  
+	  sr_compare_match      = SrIdArray_8[sr_comp_reg_index];	  
+  }
+  else if(appIns.gcombo_TimerSelect.value == "CCU4")
+  {
+	  Global_Handle   		= "(GLOBAL_CCU4_t*)&" + appIns.pwm_app_global_ccu4_cc4.getInstanceLabel();
+	  KernRegs_Handle 		= "(XMC_CCU4_MODULE_t*) CCU4" + KernelNo  +"_BASE";
+	  SliceA_Handle 		= " CCU4" + KernelNo + "_CC4" + appIns.hwres_ccu4_cc4_slice.getSolverUri().getAt(6);
+	  sr_per_reg_index      = (appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_posr"));
+	  sr_period_match       = SrIdArray_4[sr_per_reg_index];
+	  sr_comp_reg_index     = (appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_cmsr"));
+	  sr_compare_match      = SrIdArray_4[sr_comp_reg_index];
+  }
+  
+/**************************************************************************************/
+  if(appIns.hwres_port_pad_pwm_out.getSolverUri() != null)
+  {
+	  portNo = appIns.hwres_port_pad_pwm_out.getSolverUri().getAt(4);
+      pinNo  = appIns.hwres_port_pad_pwm_out.getSolverUri().getAt(6);
+      port_iocr_pcr = appIns.hwres_port_pad_pwm_out.getRegValue("","iocr_pcr");
+      port_iocr_oe = appIns.hwres_port_pad_pwm_out.getRegValue("","iocr_oe");
+      port_hwsel_hw = appIns.hwres_port_pad_pwm_out.getRegValue("","hwsel_hw");
+  
+      appIns.hwres_port_pad_pwm_out.getRegValue("","pdisc_pdis");
+  }
+  
+  String output_strength;
+  if (appIns.gcombo_driver_strength.value == "Weak Driver") {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_WEAK"
+  }
+  else if (appIns.gcombo_driver_strength.value == "Medium Driver") {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_MEDIUM"
+  }
+  else if (appIns.gcombo_driver_strength.value == "Strong Driver Slow Edge") {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SLOW_EDGE"
+  }
+  else if (appIns.gcombo_driver_strength.value == "Strong Driver Soft Edge") {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE"
+  }
+  else if (appIns.gcombo_driver_strength.value == "Strong Driver Medium Edge") {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_STRONG_MEDIUM_EDGE"
+  }
+  else if(appIns.gcombo_driver_strength.value == "Strong Driver Sharp Edge"){
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE"
+  }
+  else // dont care condition
+  {
+	  output_strength = "XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE"
+  }
+  
+		  if (appIns.gcombo_Output_Characteristics.value == "Push Pull"){
+			  
+				pinOutputType = "XMC_GPIO_MODE_OUTPUT_PUSH_PULL";
+			}
+		 else{
+				pinOutputType ="XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN";
+			}
+		 if(port_iocr_pcr.toInteger() != 0)
+		 {
+			 pinOutputType += "_ALT"+port_iocr_pcr
+		 }
+		 if("XMC4" ==  daveEnv.project.selectedDevice.deviceId.family)
+		 {
+			 pinOutputType = """.mode                = ${pinOutputType},
+  .output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+  .output_strength     = ${output_strength}"""
+		 }
+		 else
+		 {
+			 pinOutputType = """.mode                = ${pinOutputType},
+  .input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
+  .output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,"""
+		 }
+
+/**************************************************************************************/
+  if (appIns.gcombo_TimerSelect.value == "CCU8")
+  {
+   
+	
+	out.print("""
+/*
+ * CCU8 Compare mode configuration
+ */
+const XMC_CCU8_SLICE_COMPARE_CONFIG_t  ${appInst}_compare_config =
+{
+  .timer_mode          = (uint32_t) XMC_CCU8_SLICE_TIMER_COUNT_MODE_EA,
+  .monoshot            = (uint32_t) ${if(appIns.gcheck_Single_Shot_Mode.value) {1} else {0}},
+  .shadow_xfer_clear   = (uint32_t) 0,
+  .dither_timer_period = (uint32_t) 0,
+  .dither_duty_cycle   = (uint32_t) 0,
+  .prescaler_mode      = (uint32_t) XMC_CCU8_SLICE_PRESCALER_MODE_NORMAL,
+  .mcm_ch1_enable      = (uint32_t) 0,
+  .mcm_ch2_enable      = (uint32_t) 0,
+  .slice_status        = (uint32_t) XMC_CCU8_SLICE_STATUS_CHANNEL_1,
+  .passive_level_out0  = (uint32_t) ${passivelvlArray_8[passive_level]},
+  .passive_level_out1  = (uint32_t) ${passivelvlArray_8[passive_level]},
+  .passive_level_out2  = (uint32_t) ${passivelvlArray_8[passive_level]},
+  .passive_level_out3  = (uint32_t) ${passivelvlArray_8[passive_level]},
+  .chc                 = (uint32_t) 0,
+  .prescaler_initval   = (uint32_t) ${appIns.gint_prescaler.value},
+  .float_limit         = (uint32_t) 0,
+  .dither_limit        = (uint32_t) 0,
+  .timer_concatenation = (uint32_t) 0
+};
+
+/*
+ * GPIO Related configuration for PWM output 
+ */
+const XMC_GPIO_CONFIG_t  ${appInst}_gpio_out_config	= 
+{
+  ${pinOutputType}
+};     
+
+/*
+ * APP Handle for the PWM
+ */
+PWM_t ${appInst} =
+{
+  .global_ccu8_handle             = ${Global_Handle},
+  .ccu8_kernel_ptr                = ${KernRegs_Handle},
+  .ccu8_slice_ptr                 = (XMC_CCU8_SLICE_t*) ${SliceA_Handle},
+  .ccu8_slice_config_ptr          = &${appInst}_compare_config,
+  .gpio_out_port                  = XMC_GPIO_PORT${portNo},
+  .gpio_out_config                = &${appInst}_gpio_out_config,
+  .compare_value                  = ${comp1}U,
+  .period_value                   = ${period}U,
+  .duty_cycle                     = ${(appIns.gfloat_Duty_Cycle_Sym.value * 100).toInteger()}U,
+  .shadow_mask                    = (uint32_t)((uint32_t)XMC_CCU8_SHADOW_TRANSFER_SLICE_${SliceNo_A} | 
+                                               (uint32_t)XMC_CCU8_SHADOW_TRANSFER_PRESCALER_SLICE_${SliceNo_A}),
+  .timer_type                     = PWM_TIMER_SLICE_CCU8,
+  .state                          = PWM_STATUS_UNINITIALIZED,
+  .ccu8_slice_period_match_node   = ${sr_period_match},
+  .ccu8_slice_compare_match_node  = ${sr_compare_match},
+  .gpio_out_pin                   = (uint8_t) ${pinNo},
+  .kernel_number		          = (uint8_t) ${KernelNo},
+  .slice_number                   = (uint8_t) ${SliceNo_A},
+  .start_control                  = ${StartControl_Handle},
+  .period_match_enable            = ${periodmatch},
+  .compare_match_enable           = ${compmatch},
+};
+
+/********************************************************************************************************/
+
+""");
+
+  }
+  
+  if (appIns.gcombo_TimerSelect.value == "CCU4")
+  {
+	  
+	
+	out.print("""
+/*
+ * CCU4 Compare mode configuration
+ */
+const XMC_CCU4_SLICE_COMPARE_CONFIG_t ${appInst}_compare_config =
+{
+  .timer_mode 		   = (uint32_t) XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA,
+  .monoshot   		   = (uint32_t) ${appIns.gcheck_Single_Shot_Mode.value},
+  .shadow_xfer_clear   = (uint32_t) 0,
+  .dither_timer_period = (uint32_t) 0,	
+  .dither_duty_cycle   = (uint32_t) 0,
+  .prescaler_mode	   = (uint32_t) XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
+  .mcm_enable		   = (uint32_t) 0,
+  .prescaler_initval   = (uint32_t) ${appIns.gint_prescaler.value},
+  .float_limit		   = (uint32_t) 0,
+  .dither_limit		   = (uint32_t) 0,
+  .passive_level 	   = (uint32_t) ${passivelvlArray_4[passive_level]},
+  .timer_concatenation = (uint32_t) 0
+};
+
+/*
+ * GPIO Related configuration for PWM output 
+ */
+const XMC_GPIO_CONFIG_t  ${appInst}_gpio_out_config	= 
+{
+  ${pinOutputType}
+};
+
+/*
+ * APP Handle for the PWM
+ */
+PWM_t ${appInst} =
+{
+  .global_ccu4_handle             = ${Global_Handle},
+  .ccu4_kernel_ptr                = ${KernRegs_Handle},
+  .ccu4_slice_ptr                 = (XMC_CCU4_SLICE_t*) ${SliceA_Handle},
+  .ccu4_slice_config_ptr          = &${appInst}_compare_config,
+  .gpio_out_port                  = XMC_GPIO_PORT${portNo},
+  .gpio_out_config                = &${appInst}_gpio_out_config,
+  .compare_value                  = ${comp1}U,
+  .period_value                   = ${period}U,
+  .duty_cycle                     = ${(appIns.gfloat_Duty_Cycle_Sym.value * 100).toInteger()}U,
+  .shadow_mask                    = (uint32_t)((uint32_t)XMC_CCU4_SHADOW_TRANSFER_SLICE_${SliceNo_A} | 
+                                               (uint32_t)XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_${SliceNo_A}),
+  .timer_type                     = PWM_TIMER_SLICE_CCU4,
+  .state                          = PWM_STATUS_UNINITIALIZED,
+  .ccu4_slice_period_match_node   = ${sr_period_match},
+  .ccu4_slice_compare_match_node  = ${sr_compare_match},
+  .gpio_out_pin                   = (uint8_t) ${pinNo},
+  .kernel_number		          = (uint8_t) ${KernelNo}U,
+  .slice_number                   = (uint8_t) ${SliceNo_A}U,
+  .start_control                  = ${StartControl_Handle},
+  .period_match_enable            = ${periodmatch},
+  .compare_match_enable           = ${compmatch},
+};
+
+/********************************************************************************************************/
+
+""");
+
+  }
+
+} else {
+out.print("""
+  /*CCU8/CCU4 resource is not mapped for PWM app instant: ${appInst} */
+""");
+  }
+}
+
+
+/**
+ * @}
+ */
+ 
+/*CODE_BLOCK_END*/

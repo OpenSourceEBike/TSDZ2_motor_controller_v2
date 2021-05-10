@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/1.0.0/peripheral/posif/0" description="Position Interface Unit 0" baseAddress="0x50010000">
   <provided xsi:type="ResourceModel:ResourceGroup" name="hsc_qd" URI="http://resources/1.0.0/peripheral/posif/0/posif/hsc_qd">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/HALL_POSIF/v4_0_10/HALL_POSIF_0.app#//@hwResources.0"/>
     <resourcesList name="halp" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/halp"/>
     <resourcesList name="halps" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/halps"/>
     <resourcesList name="qdc" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/qdc"/>
@@ -304,7 +303,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Direction change event interrupt enabled"/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="global" URI="http://resources/1.0.0/peripheral/posif/0/posif/global">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/GLOBAL_POSIF/v4_0_18/GLOBAL_POSIF_0.app#//@hwResources.0"/>
     <resourcesList name="pconf_fsel" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/pconf/fsel"/>
     <resourcesList name="clk" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/clk"/>
     <resourcesList name="global_signal" requiredResourceUri="http://resources/1.0.0/peripheral/posif/0/g_global_signal"/>

@@ -1,0 +1,61 @@
+package Model.APPS.PWM.v4_1_12;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class PWM_GUI extends AppManifest {
+/* Begin : UI variable section */
+	 public GTab gtab_General;
+	 public GTab gtab_Pin_Configurations;
+	 public GInteger gint_PWM_Frequency;
+	 public GCombo gcombo_TimerSelect;
+	 public GCombo gcombo_Direct_Output_Passive_Level;
+	 public GCombo gcombo_Output_Characteristics;
+	 public GCombo gcombo_driver_strength;
+	 public GFloat gfloat_Duty_Cycle_Sym;
+	 public GFloat gfloat_Ac_Res;
+	 public GCheck gcheck_Start_During_Initilization;
+	 public GCheck gcheck_Single_Shot_Mode;
+	 public GCheck gcheck_Compare_Match_Interrupt_Initilize;
+	 public GCheck gcheck_Period_Match_Interrupt_Initilize;
+	 public GLabel glabel_TimerSelect;
+	 public GLabel glabel_PWM_Frequency;
+	 public GLabel glabel_Duty_Cycle_Sym;
+	 public GLabel glabel_Ac_Res;
+	 public GLabel glabel_Direct_Output_Passive_Level;
+	 public GLabel glabel_Output_Characteristics;
+	 public GLabel glabel_driver_strength;
+	 public GGroup ggroup_PWM_Configuraitons;
+	 public GGroup ggroup_Enable_Interrupts;
+	 public GGroup ggroup_output_settings;
+
+	 public PWM_GUI(DaveEnv daveEnv){
+
+	 gtab_General = GTab(widgetName:"gtab_General", text:"General Settings", enabled:true, visible:true)
+	 gtab_Pin_Configurations = GTab(widgetName:"gtab_Pin_Configurations", text:"Event Settings", enabled:true, visible:true)
+	 gint_PWM_Frequency = GInteger(widgetName:"gint_PWM_Frequency", value:1500, minValue:1, maxValue:Long.MAX_VALUE, enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_TimerSelect = GCombo(widgetName:"gcombo_TimerSelect", options:["CCU4","CCU8"], value:"CCU4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_Direct_Output_Passive_Level = GCombo(widgetName:"gcombo_Direct_Output_Passive_Level", options:["Low","High"], value:"Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_Output_Characteristics = GCombo(widgetName:"gcombo_Output_Characteristics", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_driver_strength = GCombo(widgetName:"gcombo_driver_strength", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Medium Driver", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_Duty_Cycle_Sym = GFloat(widgetName:"gfloat_Duty_Cycle_Sym", value:50, minValue:0, maxValue:100.0, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_Ac_Res = GFloat(widgetName:"gfloat_Ac_Res", value:32, minValue:8.33, maxValue:273066.6, enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_Start_During_Initilization = GCheck(widgetName:"gcheck_Start_During_Initilization", value:false, enabled:true, visible:true)
+	 gcheck_Single_Shot_Mode = GCheck(widgetName:"gcheck_Single_Shot_Mode", value:false, enabled:true, visible:true)
+	 gcheck_Compare_Match_Interrupt_Initilize = GCheck(widgetName:"gcheck_Compare_Match_Interrupt_Initilize", value:false, enabled:true, visible:true)
+	 gcheck_Period_Match_Interrupt_Initilize = GCheck(widgetName:"gcheck_Period_Match_Interrupt_Initilize", value:false, enabled:true, visible:true)
+	 glabel_TimerSelect = GLabel(widgetName:"glabel_TimerSelect", text:"   Select timer module:", enabled:true, visible:true)
+	 glabel_PWM_Frequency = GLabel(widgetName:"glabel_PWM_Frequency", text:"Frequency [Hz]:", enabled:true, visible:true)
+	 glabel_Duty_Cycle_Sym = GLabel(widgetName:"glabel_Duty_Cycle_Sym", text:"Duty cycle [%]:", enabled:true, visible:true)
+	 glabel_Ac_Res = GLabel(widgetName:"glabel_Ac_Res", text:"Resolution [nsec]:", enabled:true, visible:true)
+	 glabel_Direct_Output_Passive_Level = GLabel(widgetName:"glabel_Direct_Output_Passive_Level", text:"Passive level:", enabled:true, visible:true)
+	 glabel_Output_Characteristics = GLabel(widgetName:"glabel_Output_Characteristics", text:"Mode:", enabled:true, visible:true)
+	 glabel_driver_strength = GLabel(widgetName:"glabel_driver_strength", text:"Driver strength:", enabled:true, visible:true)
+	 ggroup_PWM_Configuraitons = GGroup(widgetName:"ggroup_PWM_Configuraitons", text:"PWM Settings ", enabled:true, visible:true)
+	 ggroup_Enable_Interrupts = GGroup(widgetName:"ggroup_Enable_Interrupts", text:"Enable Event", enabled:true, visible:true)
+	 ggroup_output_settings = GGroup(widgetName:"ggroup_output_settings", text:"Output Settings", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

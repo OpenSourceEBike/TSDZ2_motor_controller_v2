@@ -7,7 +7,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.0.26/app/CLOCK_XMC1/0"/>
     <properties key="APP_NAME_ID" value="CLOCK_XMC1/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="81" x="44" y="927">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="81" x="40" y="762">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="221" height="81" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <children visible="true">
@@ -34,7 +34,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.1.14/app/UART/0"/>
     <properties key="APP_NAME_ID" value="UART/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="171" height="221" x="89" y="555">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="171" height="221" x="85" y="501">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="131" height="221" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.1/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -187,7 +187,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0"/>
     <properties key="APP_NAME_ID" value="PWM_SVM/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="281" height="701" x="349" y="501">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="281" height="701" x="360" y="281">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="241" height="701" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.0" referencedGraphicsAlgorithm="//@children.2/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -1194,7 +1194,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.1.14/app/GLOBAL_CCU8/0"/>
     <properties key="APP_NAME_ID" value="GLOBAL_CCU8/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="91" x="29" y="1048">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="91" x="20" y="883">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="221" height="91" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.0 //@connections.1 //@connections.2 //@connections.3" referencedGraphicsAlgorithm="//@children.3/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -1263,7 +1263,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.0.22/app/ADC_QUEUE/0"/>
     <properties key="APP_NAME_ID" value="ADC_QUEUE/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="131" x="709" y="737">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="131" x="720" y="627">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="231" height="131" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.4/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -1402,7 +1402,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.0.22/app/GLOBAL_ADC/0"/>
     <properties key="APP_NAME_ID" value="GLOBAL_ADC/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="301" x="369" y="1242">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="301" x="380" y="1022">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="221" height="301" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.8" referencedGraphicsAlgorithm="//@children.5/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -1555,7 +1555,7 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0"/>
     <properties key="APP_NAME_ID" value="PMSM_FOC/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="391" x="1059" y="586">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="391" x="1070" y="476">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="231" height="391" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
     <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.9" referencedGraphicsAlgorithm="//@children.6/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
@@ -2030,10 +2030,10 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="uri" value="http://resources/4.1.14/app/GLOBAL_CCU4/0"/>
     <properties key="APP_NAME_ID" value="GLOBAL_CCU4/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="91" x="29" y="424">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="261" height="91" x="20" y="370">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="221" height="91" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.16 //@connections.17" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.16" referencedGraphicsAlgorithm="//@children.7/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
       <properties key="SignalName" value="ccu4_global"/>
       <properties key="uri" value="http://resources/4.1.14/app/GLOBAL_CCU4/0/vs_global_ccu4_globalsignal"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="220" y="50"/>
@@ -2097,270 +2097,60 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0"/>
-    <properties key="APP_NAME_ID" value="GLOBAL_POSIF/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="71" x="20" y="816">
-      <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="231" height="71" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
+    <properties key="uri" value="http://resources/4.1.12/app/PWM/0"/>
+    <properties key="APP_NAME_ID" value="PWM/0"/>
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="221" x="360" y="20">
+      <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="231" height="221" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
     </graphicsAlgorithm>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="posif_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="46"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="global_signal"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="55"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="posif_clock_signal"/>
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_clk"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="46"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.16" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="global_signal"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="75"/>
     </anchors>
-    <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Polyline" lineStyle="UNSPECIFIED" style="//@styles.0">
-        <points x="20" y="40"/>
-        <points x="251" y="40"/>
-      </graphicsAlgorithm>
-    </children>
-    <children xsi:type="pi:ContainerShape" visible="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="231" height="20" x="20"/>
-      <children visible="true">
-        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.0" horizontalAlignment="ALIGNMENT_CENTER" value="GLOBAL_POSIF"/>
-      </children>
-    </children>
-    <children xsi:type="pi:ContainerShape" visible="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="231" height="20" x="20" y="20"/>
-      <children visible="true">
-        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.1" horizontalAlignment="ALIGNMENT_CENTER" value="GLOBAL_POSIF_0">
-          <properties key="AppInstanceLabel" value="GLOBAL_POSIF_0"/>
-        </graphicsAlgorithm>
-      </children>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="posif_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="26"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="41" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="posif_global_signal"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="posif_clock_signal"/>
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_clk"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="26"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.18/app/GLOBAL_POSIF/0/vs_global_posif_clk"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="41" style="//@styles.0/@styles.2" value="posif_clock_signal"/>
-    </children>
-  </children>
-  <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0"/>
-    <properties key="APP_NAME_ID" value="HALL_POSIF/0"/>
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="271" height="441" x="349" y="20">
-      <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.0" width="231" height="441" x="20" style="//@styles.0/@styles.3" cornerHeight="5" cornerWidth="5"/>
-    </graphicsAlgorithm>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_input_edge_detection_trigger"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="50"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="event_period_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="75"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="corret_hall_output"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="65"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="wrong_hall_output"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="80"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="stop"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out3"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="timer_status"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_st"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="95"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="multichannel_pattern_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out4"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="110"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="pwm_output"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_out"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="115"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="syncstart"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out5"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="125"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="event_period_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="160"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_wrong_hall"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_whee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="140"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="timer_status"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_st"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="180"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_hall_input_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_hiee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="155"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_correct_hall"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_chee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="170"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_phase_delay_slice_period_match"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_periodmatch"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="185"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_pattern_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_compmatch"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="pwm_output"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_out"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="200"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="event_speed_capture"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_capture"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="215"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="event_compare_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_compare_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="55"/>
     </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="230"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="245"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="260"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="275"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="290"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="305"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="phase_delay_slice_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_st0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="320"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="multichannel_pattern_update_trigger"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_ps"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="335"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="65"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="80"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="95"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_pattern_sample_delay"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifhsd"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="110"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="wrong_hall_event_emulation"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifewhe"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="125"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="140"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="155"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="170"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="185"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="200"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="215"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.16" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="phase_delay_slice_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="230"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" incomingConnections="//@connections.17" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="capture_slice_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="245"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="phase_delay_slice_external_start_input_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="260"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="external_capture_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="-20" y="275"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_1_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="350"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_2_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="365"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="hall_3_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="380"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="Hall 1_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="395"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="Hall 2_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="410"/>
-    </anchors>
-    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.9/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
-      <properties key="SignalName" value="Hall 3_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.4" lineStyle="UNSPECIFIED" width="20" height="10" x="229" y="425"/>
+    <anchors xsi:type="pi:BoxRelativeAnchor" active="true" referencedGraphicsAlgorithm="//@children.8/@graphicsAlgorithm/@graphicsAlgorithmChildren.0">
+      <properties key="SignalName" value="event_compare_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_compare_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" lineStyle="UNSPECIFIED" width="20" height="10" x="230" y="140"/>
     </anchors>
     <children visible="true">
       <graphicsAlgorithm xsi:type="al:Polyline" lineStyle="UNSPECIFIED" style="//@styles.0">
@@ -2371,444 +2161,159 @@
     <children xsi:type="pi:ContainerShape" visible="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="231" height="20" x="20"/>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.0" horizontalAlignment="ALIGNMENT_CENTER" value="HALL_POSIF"/>
+        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.0" horizontalAlignment="ALIGNMENT_CENTER" value="PWM"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="231" height="20" x="20" y="20"/>
       <children visible="true">
-        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.1" horizontalAlignment="ALIGNMENT_CENTER" value="HALL_POSIF_0">
-          <properties key="AppInstanceLabel" value="HALL_POSIF_0"/>
+        <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="229" height="20" x="2" style="//@styles.0/@styles.1" horizontalAlignment="ALIGNMENT_CENTER" value="PWM_0">
+          <properties key="AppInstanceLabel" value="PWM_0"/>
         </graphicsAlgorithm>
       </children>
     </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_input_edge_detection_trigger"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="30"/>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="global_signal"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="35"/>
     </children>
     <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out0"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="45" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_input_edge_detection_trigger"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="50" value="global_signal"/>
     </children>
-    <children active="true">
-      <properties key="SignalName" value="corret_hall_output"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="45"/>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="global_signal"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="55"/>
+    </children>
+    <children visible="true">
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_global"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="96" height="20" x="25" y="70" style="//@styles.0/@styles.2" value="global_signal"/>
+    </children>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="event_period_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="55"/>
     </children>
     <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out1"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="60" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="corret_hall_output"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="115" height="20" x="130" y="70" horizontalAlignment="ALIGNMENT_RIGHT" value="event_period_match"/>
     </children>
     <children visible="true" active="true">
-      <properties key="SignalName" value="wrong_hall_output"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="60"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out2"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="75" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="wrong_hall_output"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="stop"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="75"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out3"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="90" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="stop"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="multichannel_pattern_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out4"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="90"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out4"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="105" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="multichannel_pattern_update"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="syncstart"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out5"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="105"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_out5"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="120" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="syncstart"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_wrong_hall"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_whee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="120"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_whee"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="135" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_wrong_hall"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_hall_input_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_hiee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="135"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_hiee"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="150" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_hall_input_update"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_correct_hall"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_chee"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="150"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_chee"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="165" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_correct_hall"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_phase_delay_slice_period_match"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_periodmatch"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="165"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_periodmatch"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="180" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_phase_delay_slice_period_match"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_pattern_update"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_compmatch"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="180"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_compmatch"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="195" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_pattern_update"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="event_speed_capture"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_capture"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="195"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_capture"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="210" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="event_speed_capture"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_1_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="210"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="225" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_1_event_generation_flag_status"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_2_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="225"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="240" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_2_event_generation_flag_status"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_3_event_generation_flag_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="240"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_flagstatus_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="255" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_3_event_generation_flag_status"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_1_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="255"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="270" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_1_event_detection_out"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_2_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="270"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="285" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_2_event_detection_out"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_3_event_detection_out"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="285"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdout_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="300" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_3_event_detection_out"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="phase_delay_slice_status"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_st0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="300"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_st0"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="315" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="phase_delay_slice_status"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="multichannel_pattern_update_trigger"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_ps"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="315"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_ps"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="330" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="multichannel_pattern_update_trigger"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_1"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input0"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="45"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input0"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="60" style="//@styles.0/@styles.2" value="hall_1"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_2"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="60"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input1"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="75" style="//@styles.0/@styles.2" value="hall_2"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_3"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input2"/>
+      <properties key="SignalName" value="timer_status"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_st"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="75"/>
     </children>
     <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_input2"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="90" style="//@styles.0/@styles.2" value="hall_3"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_st"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="90" horizontalAlignment="ALIGNMENT_RIGHT" value="timer_status"/>
     </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_pattern_sample_delay"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifhsd"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="90"/>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="pwm_output"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_out"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="95"/>
     </children>
     <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifhsd"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="105" style="//@styles.0/@styles.2" value="hall_pattern_sample_delay"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_out"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="110" horizontalAlignment="ALIGNMENT_RIGHT" value="pwm_output"/>
     </children>
     <children visible="true" active="true">
-      <properties key="SignalName" value="wrong_hall_event_emulation"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifewhe"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="105"/>
+      <properties key="SignalName" value="event_period_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="140"/>
+    </children>
+    <children>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_period_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="115" height="20" x="130" y="155" horizontalAlignment="ALIGNMENT_RIGHT" value="event_period_match"/>
+    </children>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="timer_status"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_st"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="160"/>
     </children>
     <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pifewhe"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="120" style="//@styles.0/@styles.2" value="wrong_hall_event_emulation"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_st"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="175" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="timer_status"/>
     </children>
     <children visible="true" active="true">
-      <properties key="SignalName" value="hall_1_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall1"/>
+      <properties key="SignalName" value="pwm_output"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_out"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="180"/>
+    </children>
+    <children visible="true">
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_out"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.2" lineStyle="UNSPECIFIED" width="95" height="20" x="150" y="195" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="pwm_output"/>
+    </children>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="event_compare_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_compare_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="35"/>
+    </children>
+    <children>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu8_cc8_slice_compare_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="125" height="20" x="120" y="50" horizontalAlignment="ALIGNMENT_RIGHT" value="event_compare_match"/>
+    </children>
+    <children visible="true" active="true">
+      <properties key="SignalName" value="event_compare_match"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_compare_match_interrupt"/>
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="120"/>
     </children>
     <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="135" value="hall_1_event_generation_signal_a"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_2_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="135"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="150" value="hall_2_event_generation_signal_a"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_3_event_generation_signal_a"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="150"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventgen_input_a_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="165" value="hall_3_event_generation_signal_a"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_1_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="165"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="180" value="hall_1_event_detection_in"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_2_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="180"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="195" value="hall_2_event_detection_in"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="hall_3_event_detection_in"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="195"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_eventdet_pdin_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="210" value="hall_3_event_detection_in"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="phase_delay_slice_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="210"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="225" style="//@styles.0/@styles.2" value="phase_delay_slice_global_signal"/>
-    </children>
-    <children visible="true" active="true">
-      <properties key="SignalName" value="capture_slice_global_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="225"/>
-    </children>
-    <children visible="true">
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_globalsignal"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="240" style="//@styles.0/@styles.2" value="capture_slice_global_signal"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="phase_delay_slice_external_start_input_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="240"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="255" style="//@styles.0/@styles.2" value="phase_delay_slice_external_start_input_signal"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="external_capture_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="255"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_gp0unsync"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="106" height="20" x="25" y="270" style="//@styles.0/@styles.2" value="external_capture_signal"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_1_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="330"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="345" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_1_pad"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_2_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="345"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="360" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_2_pad"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="hall_3_pad"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="360"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="375" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="hall_3_pad"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="Hall 1_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="375"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall1"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="390" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="Hall 1_signal"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="Hall 2_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="390"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall2"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="405" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="Hall 2_signal"/>
-    </children>
-    <children active="true">
-      <properties key="SignalName" value="Hall 3_signal"/>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="20" height="10" x="-20" y="405"/>
-    </children>
-    <children>
-      <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/__pin_vs_hall_posif_pad_hall3"/>
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.3" lineStyle="UNSPECIFIED" width="94" height="20" x="150" y="420" style="//@styles.0/@styles.2" horizontalAlignment="ALIGNMENT_RIGHT" value="Hall 3_signal"/>
+      <properties key="uri" value="http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_compare_match_interrupt"/>
+      <graphicsAlgorithm xsi:type="al:Text" lineStyle="UNSPECIFIED" width="165" height="20" x="80" y="135" horizontalAlignment="ALIGNMENT_RIGHT" value="event_compare_match"/>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="306" y="568">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="317" y="348">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="306" y="583">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="317" y="363">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="306" y="598">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="317" y="378">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="326" y="628">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="337" y="408">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="326" y="643">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="337" y="423">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="326" y="658">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="337" y="438">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1036" y="803">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1047" y="693">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1036" y="838">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1047" y="728">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1036" y="713">
-      <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
-    </graphicsAlgorithm>
-  </children>
-  <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <properties key="junctionPoint"/>
-    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="306" y="267">
+    <graphicsAlgorithm xsi:type="al:Ellipse" lineStyle="UNSPECIFIED" width="6" height="6" x="1047" y="603">
       <graphicsAlgorithmChildren xsi:type="al:Ellipse" background="//@colors.5" foreground="//@colors.5" lineWidth="1" transparency="0.0" width="5" height="5"/>
     </graphicsAlgorithm>
   </children>
@@ -3015,8 +2520,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="309" y="1103"/>
-    <bendpoints x="309" y="556"/>
+    <bendpoints x="320" y="938"/>
+    <bendpoints x="320" y="336"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.2/@anchors.1">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_global/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_globalsignal_phv"/>
@@ -3028,8 +2533,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="309" y="1103"/>
-    <bendpoints x="309" y="571"/>
+    <bendpoints x="320" y="938"/>
+    <bendpoints x="320" y="351"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.2/@anchors.2">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_global/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_globalsignal_phw"/>
@@ -3041,8 +2546,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="309" y="1103"/>
-    <bendpoints x="309" y="586"/>
+    <bendpoints x="320" y="938"/>
+    <bendpoints x="320" y="366"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.0" end="//@children.2/@anchors.17">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_global/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_globalsignal_currenttrig"/>
@@ -3054,8 +2559,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="309" y="1103"/>
-    <bendpoints x="309" y="601"/>
+    <bendpoints x="320" y="938"/>
+    <bendpoints x="320" y="381"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.1" end="//@children.2/@anchors.3">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_gsc_enable/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_gp0_unsync_phu"/>
@@ -3067,8 +2572,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="329" y="1121"/>
-    <bendpoints x="329" y="616"/>
+    <bendpoints x="340" y="956"/>
+    <bendpoints x="340" y="396"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.1" end="//@children.2/@anchors.4">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_gsc_enable/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_gp0_unsync_phv"/>
@@ -3080,8 +2585,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="329" y="1121"/>
-    <bendpoints x="329" y="631"/>
+    <bendpoints x="340" y="956"/>
+    <bendpoints x="340" y="411"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.1" end="//@children.2/@anchors.5">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_gsc_enable/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_gp0_unsync_phw"/>
@@ -3093,8 +2598,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="329" y="1121"/>
-    <bendpoints x="329" y="646"/>
+    <bendpoints x="340" y="956"/>
+    <bendpoints x="340" y="426"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.3/@anchors.1" end="//@children.2/@anchors.6">
     <properties key="uri" value="http://resources/4.0.30/app/PWM_SVM/0/http://resources/4.0.30/app/PWM_SVM/0/vs_global_ccu8_gsc_enable/http://resources/4.0.30/app/PWM_SVM/0/vs_pwm_svm_gp0_unsync_currenttrig"/>
@@ -3106,8 +2611,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="329" y="1121"/>
-    <bendpoints x="329" y="661"/>
+    <bendpoints x="340" y="956"/>
+    <bendpoints x="340" y="441"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.5/@anchors.0" end="//@children.4/@anchors.1">
     <properties key="uri" value="http://resources/4.0.22/app/ADC_QUEUE/0/http://resources/4.0.22/app/ADC_QUEUE/0/vs_adc_queue_to_global_signal/http://resources/4.0.22/app/ADC_QUEUE/0/vs_adc_queue_queueglobal"/>
@@ -3119,8 +2624,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="669" y="1302"/>
-    <bendpoints x="669" y="811"/>
+    <bendpoints x="680" y="1082"/>
+    <bendpoints x="680" y="701"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.27" end="//@children.6/@anchors.0">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_svm_phu_periodmatch/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_fcl_nvicsignal_in"/>
@@ -3132,10 +2637,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="689" y="556"/>
-    <bendpoints x="689" y="695"/>
-    <bendpoints x="999" y="695"/>
-    <bendpoints x="999" y="641"/>
+    <bendpoints x="700" y="336"/>
+    <bendpoints x="700" y="585"/>
+    <bendpoints x="1010" y="585"/>
+    <bendpoints x="1010" y="531"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.28" end="//@children.6/@anchors.31">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_svm_phv_periodmatch/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_trap_nvicsignal_in"/>
@@ -3147,10 +2652,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="669" y="571"/>
-    <bendpoints x="669" y="716"/>
-    <bendpoints x="1019" y="716"/>
-    <bendpoints x="1019" y="656"/>
+    <bendpoints x="680" y="351"/>
+    <bendpoints x="680" y="606"/>
+    <bendpoints x="1030" y="606"/>
+    <bendpoints x="1030" y="546"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.6" end="//@children.6/@anchors.2">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_adc_queue_queue12channel/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch1_sel"/>
@@ -3162,8 +2667,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1039" y="848"/>
-    <bendpoints x="1039" y="686"/>
+    <bendpoints x="1050" y="738"/>
+    <bendpoints x="1050" y="576"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.6" end="//@children.6/@anchors.10">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_adc_queue_queue12channel/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch5_sel"/>
@@ -3175,8 +2680,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1039" y="848"/>
-    <bendpoints x="1039" y="806"/>
+    <bendpoints x="1050" y="738"/>
+    <bendpoints x="1050" y="696"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.6" end="//@children.6/@anchors.12">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_adc_queue_queue12channel/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch6_sel"/>
@@ -3188,8 +2693,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1039" y="848"/>
-    <bendpoints x="1039" y="841"/>
+    <bendpoints x="1050" y="738"/>
+    <bendpoints x="1050" y="731"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.4/@anchors.6" end="//@children.6/@anchors.4">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_adc_queue_queue12channel/http://resources/4.2.14/app/PMSM_FOC/0/vs_pmsm_foc_adcch2_sel"/>
@@ -3201,8 +2706,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1039" y="848"/>
-    <bendpoints x="1039" y="716"/>
+    <bendpoints x="1050" y="738"/>
+    <bendpoints x="1050" y="606"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.2/@anchors.30" end="//@children.4/@anchors.2">
     <properties key="uri" value="http://resources/4.2.14/app/PMSM_FOC/0/http://resources/4.2.14/app/PMSM_FOC/0/vs_svm_phasecurrent_trigger/http://resources/4.2.14/app/PMSM_FOC/0/vs_adc_queue_trigsel_a"/>
@@ -3214,11 +2719,11 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="649" y="601"/>
-    <bendpoints x="649" y="828"/>
+    <bendpoints x="660" y="381"/>
+    <bendpoints x="660" y="718"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.9/@anchors.31">
-    <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_global_ccu4_globalsignal/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice0_globalsignal"/>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.8/@anchors.1">
+    <properties key="uri" value="http://resources/4.1.12/app/PWM/0/http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_global/http://resources/4.1.12/app/PWM/0/vs_pwm_ccu4_cc4_slice_global"/>
     <graphicsAlgorithm xsi:type="al:Polyline" background="//@colors.5" foreground="//@colors.5" lineStyle="UNSPECIFIED" style="//@styles.0/@styles.3"/>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" background="//@colors.5" foreground="//@colors.5" lineStyle="UNSPECIFIED" style="//@styles.0/@styles.3">
@@ -3227,21 +2732,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="309" y="479"/>
-    <bendpoints x="309" y="255"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.7/@anchors.0" end="//@children.9/@anchors.32">
-    <properties key="uri" value="http://resources/4.0.10/app/HALL_POSIF/0/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_global_ccu4_globalsignal/http://resources/4.0.10/app/HALL_POSIF/0/vs_hall_posif_slice1_globalsignal"/>
-    <graphicsAlgorithm xsi:type="al:Polyline" background="//@colors.5" foreground="//@colors.5" lineStyle="UNSPECIFIED" style="//@styles.0/@styles.3"/>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" background="//@colors.5" foreground="//@colors.5" lineStyle="UNSPECIFIED" style="//@styles.0/@styles.3">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="309" y="479"/>
-    <bendpoints x="309" y="270"/>
+    <bendpoints x="300" y="425"/>
+    <bendpoints x="300" y="100"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>
@@ -3249,6 +2741,7 @@
   <colors red="128" green="128" blue="128"/>
   <colors red="192" green="192" blue="192"/>
   <colors green="127"/>
+  <colors blue="127"/>
   <fonts name="Arial" size="8"/>
   <fonts name="Arial" size="8" bold="true"/>
 </pi:Diagram>

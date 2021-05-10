@@ -84,8 +84,8 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
    } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-	 /**  Initialization of HALL_POSIF APP instance HALL_POSIF_0 */
-	 init_status = (DAVE_STATUS_t)HALL_POSIF_Init(&HALL_POSIF_0); 
+	 /**  Initialization of PWM APP instance PWM_0 */
+	 init_status = (DAVE_STATUS_t)PWM_Init(&PWM_0); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */

@@ -1,4 +1,8 @@
+package Model.APPS.PWM.v4_1_12.Templates;
 
+import Model.APPS.PWM.v4_1_12.PWM
+
+out.print("""
 /**
  * @cond
  ***********************************************************************************************************************
@@ -33,74 +37,75 @@
  * Change History
  * --------------
  *
- * 2014-06-16:
- *     - Initial version<br>
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.<BR>
+ *
+ * 2015-04-06:
+ *     - Configuration structure modified of PWM_t.<BR>
+ *     - Removed PWM_Dynamic_t,PWM_ConfigType_t.<BR>
+ *     - Added New macros for Mixed usage.<BR>
+ *     - Added New API PWM_SetPeriodMatchValue().<BR>
+ *     - Modified enumeration PWM_InterruptType_t to PWM_INTERRUPT_t.<BR>
+ *     - Modified enumeration PWM_OutputPassiveLevelType_t to PWM_OUTPUT_PASSIVE_LEVEL_t.<BR>
+ *     - Modified enumeration PWM_TIMER_TYPE_t to PWM_TIMER_SLICE_t .<BR>
+ *     - PWM_ClearEvent(), PWM_GetInterruptStatus() and PWM_SetPassiveLevel() API prototype modified for the
+ *       new enum.<BR>
+ *     - API name change PWM_AcknowledgeInterrupt to PWM_ClearEvent.<BR>
+ *
+ * 2015-07-09:
+ *     - Documentation updated.<BR>
+ *
+ * 2015-09-01:
+ *     - XMC14 device support added.<BR>
+ *
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *
+ * 2015-12-16:
+ *     - Added support for XMC4300 devices.<BR>
+ *
+ * 2016-07-28:
+ *     - All event signals are made mandatory.<BR>
+ *
  * @endcond
  *
  */
 
-#ifndef _DAVE_H_
-#define _DAVE_H_
+#ifndef PWMEXTERN_H
+#define PWMEXTERN_H
 
 /***********************************************************************************************************************
  * HEADER FILES
  **********************************************************************************************************************/
 
-/** #include DAVE APP Header files. */
-#include "xmc_common.h"  
-
-#include "CLOCK_XMC1/clock_xmc1.h"
-  
-
-#include "CPU_CTRL_XMC1/cpu_ctrl_xmc1.h"
-  
-
-#include "UART/uart.h"
-  
-
-#include "GLOBAL_ADC/global_adc.h"
-  
-
-#include "ADC_QUEUE/adc_queue.h"
-  
-
-#include "GLOBAL_CCU8/global_ccu8.h"
-  
-
-#include "PWM_SVM/pwm_svm.h"
-  
-
-#include "PMSM_FOC/pmsm_foc.h"
-  
-
-#include "GLOBAL_CCU4/global_ccu4.h"
-  
-
-#include "PWM/pwm.h"
-  
-	
-
 /**********************************************************************************************************************
- * ENUMS
+ * MACROS
  **********************************************************************************************************************/
-typedef enum DAVE_STATUS
-{
-  DAVE_STATUS_SUCCESS = 0,
-  DAVE_STATUS_FAILURE
-} DAVE_STATUS_t;
 
 /***********************************************************************************************************************
-* API PROTOTYPES
+ * EXTERN DECLARATIONS
 ***********************************************************************************************************************/
-#ifdef __cplusplus
-extern "C" {
-#endif
+""");
 
-DAVE_STATUS_t DAVE_Init(void);
+def appInst  = null;
+def InstancesNum = 0;
 
-#ifdef __cplusplus
+for (Object appIns : appInstancesList ) {
+  appInst = appIns.getInstanceLabel()
+  InstancesNum++;
+  
+
+out.print("""
+
+extern PWM_t ${appInst};
+
+
+""");
 }
-#endif
 
-#endif  /** ifndef _DAVE_H_ */
+
+out.print("""
+  
+#endif
+""");
 

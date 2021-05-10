@@ -1,0 +1,434 @@
+package Model.APPS.PWM.v4_1_12;
+
+/*
+ Copyright (c) 2015-2020, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+Version        Date          Description 
+
+  4.0.0       16-Feb-2015   Initial version for DAVEv4
+  4.1.2       06-Apr-2015   1.Configuration structure modified of PWM_t.<BR>
+                            2.Removed PWM_Dynamic_t,PWM_ConfigType_t.<BR>
+                            3.Added New macros for Mixed usage.<BR>
+                            4.Added New API PWM_SetPeriodMatchValue().<BR>
+                            5.Modified enumeration PWM_InterruptType_t to PWM_INTERRUPT_t.<BR>
+                            6.Modified enumeration PWM_OutputPassiveLevelType_t to PWM_OUTPUT_PASSIVE_LEVEL_t.<BR>
+                            7.Modified enumeration PWM_TIMER_TYPE_t to PWM_TIMER_SLICE_t .<BR>
+                            8.PWM_ClearEvent(), PWM_GetInterruptStatus() and PWM_SetPassiveLevel()
+                              API prototype modified for the new enum.<BR>
+                            9.API name change PWM_AcknowledgeInterrupt to
+                              PWM_ClearEvent.<BR>
+ 4.1.4       09-Jul-2015   Documentation updated.<BR>         
+ 4.1.5       01-Sep-2015   XMC14 device support added.<BR> 
+ 4.1.6       08-Oct-2015   Added support for XMC4700/XMC4800 devices.<BR>
+ 4.1.8       16-Dec-2015   Added support for XMC4300 devices.<BR>
+ 4.1.10      28-Jul-2016   All event signals are made mandatory.<BR>
+ 4.1.12      09-Jan-2021   Modified check for minimum XMCLib version. <BR>
+*******************************************************************************/
+
+import ifx.davex.app.manifest.*
+
+class  PWM extends PWM_GUI {
+
+		private static final int MAX_PRECALER_PLUS_ONE = 16
+
+		private static final int SCALE_NSEC = 1000
+	/*-----------------------------------Begin : APP property section---------------------------------------------------------*/
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.12'
+	
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ['General Purpose/Timed Signals'] ;
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.3.2' 
+	
+	/**
+	 * Keywords used by search feature in APPS selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = [ 'Duty Cycle', 'PWM', 'period','frequency', 'CCU8', 'CCU4', 'all']
+	
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+		
+	def softwareIDs       = ["XMC1.[1,2,3,4].*.*.*":"1.0.0", "XMC4.[1,2,3,4,5,7,8].*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+	
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+	
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+	
+	/**
+	 * Shareable property.
+	 * It shall be true to allows multiple APPS to require the same instance of this APP.
+	 */
+	def sharable      = false
+	
+	/**
+	 *  APP function description.
+	 */
+	def description = "Generates a PWM using one timer slice of CCU4 or CCU8"
+
+	/*-----------------------------------End : APP property section----------------------------------------------------------------*/
+	
+	/*-----------------------------------Begin : APP User variable section---------------------------------------------------------*/
+
+	MVirtualResourceGroup hwres_ccu8_cc8_slice
+
+	
+	MRequiredApp   pwm_app_global_ccu8_cc8     
+
+	MVirtualSignal vs_pwm_ccu8_cc8_slice_global
+	
+	MVirtualSignal vs_pwm_ccu8_cc8_slice_compare_match_interrupt
+	MVirtualSignal vs_pwm_ccu8_cc8_slice_period_match_interrupt
+	MVirtualSignal vs_pwm_ccu8_cc8_slice_st
+	MVirtualSignal vs_pwm_ccu8_cc8_slice_out
+	
+	MVirtualSignalRA vs_pwm_ccu8_cc8_global
+	
+	MVirtualResourceGroup hwres_ccu4_cc4_slice
+	
+	MRequiredApp   pwm_app_global_ccu4_cc4
+	MVirtualSignal vs_pwm_ccu4_cc4_slice_global
+	
+	MVirtualSignal vs_pwm_ccu4_cc4_slice_compare_match_interrupt
+	MVirtualSignal vs_pwm_ccu4_cc4_slice_period_match_interrupt
+	MVirtualSignal vs_pwm_ccu4_cc4_slice_st
+	MVirtualSignal vs_pwm_ccu4_cc4_slice_out 
+	
+	MVirtualSignalRA vs_pwm_ccu4_cc4_global
+
+	MVirtualResourceGroup hwres_port_pad_pwm_out
+	MVirtualSignal vs_pwm_out_pin
+	
+	// Begin : User variable section
+    GFloat   gint_clock_mhz =              GFloat(widgetName: "gint_clock_mhz");
+	GInteger gint_prescaler =              GInteger(widgetName: "gint_prescaler");
+	GInteger gint_Period_Register =   GInteger(widgetName: "gint_Period_Register");
+	GFloat   gfloat_actual_resolution_nsec = GFloat(widgetName: "gfloat_actual_resolution_nsec");
+
+	// End   : User variable section
+	/*-----------------------------------End : APP User variable section---------------------------------------------------------*/
+	// PWM Constructor
+	public PWM(DaveEnv daveEnv) {
+		
+		String Family = daveEnv.project.selectedDevice.deviceId.family;
+		String Series = daveEnv.project.selectedDevice.deviceId.series;
+		String device = Family+Series;
+		String device_type = device+daveEnv.project.selectedDevice.deviceId.device;
+
+    
+		final String HZ = "Hz";
+	 
+		final String KHZ = "kHz";
+	
+		final String MHZ = "MHz";
+		
+		final String NSEC = "nsec";
+	
+		final String MSEC = "msec";
+	
+		final String USEC = "usec";
+	
+		final Integer PERIOD_16BIT_COUNTER_maxValue = (2.power(16)-1);
+		final Integer PERIOD_32BIT_COUNTER_maxValue = (2.power(32)-1);
+		final int PRESCALER_maxValue = 15
+/*****************************************Solver Constraints *************************************************************************/
+
+		MF PWM_MF_CCU4_selected;
+		MF PWM_MF_CCU8_selected;
+		PWM_MF_CCU4_selected = MF({gcombo_TimerSelect.value == "CCU4" }, Boolean)
+		PWM_MF_CCU8_selected = MF({gcombo_TimerSelect.value == "CCU8" }, Boolean)
+		
+		MF mf_speed_class;
+		mf_speed_class = MF({
+			if (gcombo_driver_strength.value == "Weak Driver" || gcombo_driver_strength.value == "Medium Driver")
+			{
+				 ['A1', 'A1+', 'A2']
+			}
+			else if (gcombo_driver_strength.value == "Strong Driver Slow Edge")
+			{
+				 ['A1+']
+			}
+			else if (gcombo_driver_strength.value == "Strong Driver Soft Edge")
+			{
+				 ['A1+', 'A2']
+			}
+			else if(gcombo_driver_strength.value == "Strong Driver Medium Edge" || gcombo_driver_strength.value == "Strong Driver Sharp Edge")
+			{
+				 ['A2']
+			}
+			else
+			{
+				['A1','A1+' ,'A2']
+			}
+		}, List)
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block --------- */
+		/* ---------------------------------------------------------- */
+		
+		hwres_ccu8_cc8_slice   = MVirtualResourceGroup("CC8 Slice", ["peripheral", "ccu8", "*", "cc8", "*"],PWM_MF_CCU8_selected);
+	
+		hwres_ccu4_cc4_slice   = MVirtualResourceGroup("CC4 Slice",["peripheral", "ccu4", "*", "cc4", "*"],PWM_MF_CCU4_selected);
+		
+		hwres_port_pad_pwm_out = MVirtualResourceGroup("PWM Output Pin",["port", "p", "*", "pad", "*"],true);
+		
+		
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+					
+		pwm_app_global_ccu8_cc8 = MRequiredApp("GLOBAL_CCU8","GLOBAL_CCU8", RSHARABLE, "4.0.2", PWM_MF_CCU8_selected);
+		pwm_app_global_ccu4_cc4 = MRequiredApp("GLOBAL_CCU4","GLOBAL_CCU4", RSHARABLE, "4.0.2", PWM_MF_CCU4_selected);
+		
+		/* ---------------------------------------------------------- */
+		/* -------------- APP IO Signals ---------------------------- */
+		/* ---------------------------------------------------------- */
+
+		vs_pwm_ccu8_cc8_global = MVirtualSignalRA(pwm_app_global_ccu8_cc8,"vs_global_ccu8_globalsignal");
+		
+		vs_pwm_ccu8_cc8_slice_global = MVirtualSignal(hwres_ccu8_cc8_slice,  "global_signal",    "global_signal", 
+			                                              PWM_MF_CCU8_selected, false);
+
+		
+		vs_pwm_ccu8_cc8_slice_compare_match_interrupt = MVirtualSignal(hwres_ccu8_cc8_slice,  "event_compare_match", "cmd1s_cmu1s", 
+																		PWM_MF_CCU8_selected, MF({gcheck_Compare_Match_Interrupt_Initilize.value},Boolean),
+																		"event_compare_match is not connected to any target signal. Use HW signal connections dialog to establish connection");
+																	
+		vs_pwm_ccu8_cc8_slice_period_match_interrupt  = MVirtualSignal(hwres_ccu8_cc8_slice,  "event_period_match", "pmus_omds",     
+																		 PWM_MF_CCU8_selected, MF({gcheck_Period_Match_Interrupt_Initilize.value},Boolean),
+																		 "event_period_match is not connected to any target signal. Use HW signal connections dialog to establish connection");
+																	 
+		vs_pwm_ccu8_cc8_slice_st  = MVirtualSignal(hwres_ccu8_cc8_slice,  "timer_status","st",
+													PWM_MF_CCU8_selected, true);
+												
+		vs_pwm_ccu8_cc8_slice_out = MVirtualSignal(hwres_ccu8_cc8_slice,  "pwm_output","out0",
+													 PWM_MF_CCU8_selected, true);
+		
+		vs_pwm_ccu4_cc4_global =  MVirtualSignalRA(pwm_app_global_ccu4_cc4, "vs_global_ccu4_globalsignal")
+		
+		vs_pwm_ccu4_cc4_slice_global =MVirtualSignal(hwres_ccu4_cc4_slice,  "global_signal","global_signal",
+													  PWM_MF_CCU4_selected, false);
+		
+		vs_pwm_ccu4_cc4_slice_compare_match_interrupt = MVirtualSignal(hwres_ccu4_cc4_slice,  "event_compare_match","cmds_cmus", 
+				  														PWM_MF_CCU4_selected, MF({gcheck_Compare_Match_Interrupt_Initilize.value},Boolean),
+																		  "event_compare_match is not connected to any target signal. Use HW signal connections dialog to establish connection");
+																	  
+		vs_pwm_ccu4_cc4_slice_period_match_interrupt  = MVirtualSignal(hwres_ccu4_cc4_slice,  "event_period_match","pmus_omds",  
+				  														PWM_MF_CCU4_selected, MF({gcheck_Period_Match_Interrupt_Initilize.value},Boolean),
+																		  "event_period_match is not connected to any target signal. Use HW signal connections dialog to establish connection");
+																	  
+		vs_pwm_ccu4_cc4_slice_st  = MVirtualSignal(hwres_ccu4_cc4_slice,  "timer_status","st",   
+					  								PWM_MF_CCU4_selected, true);
+												  
+		vs_pwm_ccu4_cc4_slice_out = MVirtualSignal(hwres_ccu4_cc4_slice,  "pwm_output","out",  
+				      								PWM_MF_CCU4_selected, true);
+
+
+        /*@AddPin simplifies the connection between signal and pin. Refer DAVE reference manual.*/  											  
+		@AddPin
+		vs_pwm_out_pin =  MVirtualSignal( hwres_port_pad_pwm_out,"pwm_pad", "pad",true,false);
+
+		/* ---------------------------------------------------------- */
+		/* ---------------- APP IO Connections ---------------------- */
+		/* ---------------------------------------------------------- */
+		
+		if(Family == "XMC4")
+		{
+			addResourcePropertyConstraint(hwres_port_pad_pwm_out, "speed_class of rg_property", mf_speed_class, true)
+		}
+		
+		addConnectionConstraint(vs_pwm_ccu8_cc8_global, vs_pwm_ccu8_cc8_slice_global, PWM_MF_CCU8_selected );
+				
+		addConnectionConstraint(vs_pwm_ccu4_cc4_global,  vs_pwm_ccu4_cc4_slice_global, PWM_MF_CCU4_selected );
+
+		addConnectionConstraint(vs_pwm_ccu4_cc4_slice_out, vs_pwm_out_pin, PWM_MF_CCU4_selected);
+
+		addConnectionConstraint(vs_pwm_ccu8_cc8_slice_out, vs_pwm_out_pin, PWM_MF_CCU8_selected);
+
+
+		/* -------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------- */
+		/* -------------------------------------------------------- */
+		//     Test variables assigning.
+		
+		if(Family == "XMC1" )
+		{
+			gcombo_driver_strength.visible = false
+			glabel_driver_strength.visible = false
+		}
+		if((device == "XMC12" ) || (device == "XMC11") || (device_type == "XMC1403"))
+		{
+			gcombo_TimerSelect.value = MF({"CCU4"},String)
+			gcombo_TimerSelect.enabled = false
+		}
+		
+		
+		gint_clock_mhz.value  = MF({if(gcombo_TimerSelect.value == "CCU4"){pwm_app_global_ccu4_cc4.getVal(["gfloat_clkFreq", "value"])}
+								else if (gcombo_TimerSelect.value == "CCU8"){pwm_app_global_ccu8_cc8.getVal(["gfloat_clkFreq", "value"])}
+								else (Double)120.0}, Float) // get clock form global app.
+	
+/************************************************************************************************************************************/
+			gint_prescaler.value = MF({
+									Double FWM_Freq_MHz = 1;
+									int prescaler_value = 0;
+									FWM_Freq_MHz = unit2MHz (gint_PWM_Frequency.value, HZ);
+																	
+									while(prescaler_value < MAX_PRECALER_PLUS_ONE)
+									{
+										if((gint_clock_mhz.value / (2.power(prescaler_value) * FWM_Freq_MHz)) <PERIOD_16BIT_COUNTER_maxValue)
+											break;
+										else
+											prescaler_value++;
+									}
+									if(prescaler_value > PRESCALER_maxValue) {
+									  prescaler_value = PRESCALER_maxValue;
+									}
+									prescaler_value;}, Integer);
+//		println "gint_prescaler.value :" + gint_prescaler.value ;
+		
+/************************************************************************************************************************************/
+		    //calculate the actual resolution using the gint_prescaler.value for display to user.
+			gfloat_Ac_Res.value = MF({
+										Double Clock_Period = (SCALE_NSEC /gint_clock_mhz.value);  // convert to nsec
+										Double Actual_Resolution = Clock_Period *  2.power(gint_prescaler.value); //(1 << gint_prescaler.value);//
+										Actual_Resolution = Actual_Resolution.round(5);
+										(Double) Actual_Resolution;}, Float);
+			gfloat_Ac_Res.minValue = MF({Math.ceil(((Double) SCALE_NSEC / gint_clock_mhz.value)) -1 },Double) ; // convert to nsec
+			gfloat_Ac_Res.maxValue = MF({Math.ceil(((Double) (2.power(PRESCALER_maxValue) * ((Double)SCALE_NSEC / gint_clock_mhz.value)))) + 1},Double) ; // convert to nsec
+//		println "gfloat_Ac_Res.value   :" + gfloat_Ac_Res.value;
+		
+/************************************************************************************************************************************/
+		
+			gint_Period_Register.minValue = MF({1},Integer);
+			gint_Period_Register.maxValue = MF({ PERIOD_16BIT_COUNTER_maxValue }, Integer);  
+			gint_Period_Register.value    = MF({
+												Double FWM_Freq_MHz = 1;
+												int Count = 0;
+												FWM_Freq_MHz = unit2MHz (gint_PWM_Frequency.value, HZ);
+												
+												Count = (Integer)(gint_clock_mhz.value / (2.power(gint_prescaler.value) * FWM_Freq_MHz));
+												
+												if (!(Count >= gint_Period_Register.minValue && Count <= gint_Period_Register.maxValue))  // check if count not with in limit.
+												{Count =1; }
+												
+												  Count-1;}, Integer);
+											  
+//		println "gint_Period_Register.minValue   :" + gint_Period_Register.minValue;
+//		println "gint_Period_Register.maxValue   :" + gint_Period_Register.maxValue;
+//		println "gint_Period_Register.value      :" + gint_Period_Register.value;
+		
+								  
+/************************************************************************************************************************************/
+            gint_PWM_Frequency.maxValue = MF({(Integer)MHz2unit( (Double)(gint_clock_mhz.value / 2),"Hz")}, Integer);
+//			println "gint_PWM_Frequency.minValue :" + gint_PWM_Frequency.minValue;
+//			println "gint_PWM_Frequency.maxValue :" + gint_PWM_Frequency.maxValue;
+													
+/************************************************************************************************************************************/
+		gfloat_Duty_Cycle_Sym.enabled 	= MF({true}, Boolean);
+
+	}
+	
+/************************************************************************************************************************************/
+	Double nsec2unit(Double value , String unit){
+	  int NSEC_1 = 1;
+	  int MICRO_SEC_1000 = 1000;
+	  int MILLI_SEC_1000000 = 1000000;
+	  if (unit == "nsec" ){ return ( value / NSEC_1 ); }
+	  else if (unit == "usec"){ return (value / MICRO_SEC_1000); }
+	  else if (unit == "msec"){ return (value / MILLI_SEC_1000000); }
+	}
+/************************************************************************************************************************************/
+	Double unit2nsec(Double value , String unit){
+	  int NSEC_1 = 1;
+	  int MICRO_SEC_1000 = 1000;
+	  int MILLI_SEC_1000000 = 1000000;
+	  if (unit == "nsec" ){ return ( value * NSEC_1); }
+	  else if (unit == "usec"){ return (value * MICRO_SEC_1000); }
+	  else if (unit == "msec"){ return (value * MILLI_SEC_1000000); }
+	}
+/************************************************************************************************************************************/
+	Double unit2MHz(Double value , String unit){
+	  int HZ_1000000 = 1000000;
+	  int KHZ_1000 = 1000;
+	  int MHZ_1 = 1;
+	  if (unit == "MHz" ){ return ( value / MHZ_1); }
+	  else if (unit == "kHz"){ return (value / KHZ_1000); }
+	  else if (unit == "Hz"){ return (value / HZ_1000000); }
+	}
+/************************************************************************************************************************************/
+	Double MHz2unit(Double value , String unit){
+	  int HZ_1000000 = 1000000;
+	  int KHZ_1000 = 1000;
+	  int MHZ_1 = 1;
+	  if (unit == "MHz" ){ return ( value * MHZ_1); }
+	  else if (unit == "kHz"){ return (value * KHZ_1000); }
+	  else if (unit == "Hz"){ return (value * HZ_1000000); }
+	}
+/************************************************************************************************************************************/
+	// File Generation
+	def generateFiles(){
+		copy("pwm.c", "pwm.c")
+		copy("pwm.h", "pwm.h")
+		generate("pwm_confc.tmpl", "pwm_conf.c")
+		generate("pwm_confh.tmpl", "pwm_conf.h")
+		generate("pwm_externh.tmpl", "pwm_extern.h")
+	}
+		
+}

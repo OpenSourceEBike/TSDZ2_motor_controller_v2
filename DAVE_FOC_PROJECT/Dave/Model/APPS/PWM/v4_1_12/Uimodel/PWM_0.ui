@@ -1,0 +1,97 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 500, 600">
+		<p1:GTab text="General Settings" widgetName="gtab_General" visible="true" enabled="true" manifestObj="true">
+			<p1:GTab.control>
+				<p1:Tab layout="{x:Null}">
+					<p1:GLabel text="   Select timer module:" visible="true" manifestObj="true" widgetName="glabel_TimerSelect" bounds="5, 8, 122, 15"/>
+					<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).TRUE" manifestObj="true" widgetName="gcombo_TimerSelect" value="CCU4" toolTipText=" Select timer to generate PWM signal." options="CCU4&#13;&#10;CCU8" description="Select a valid CCU timer module to generate a PWM:&lt;BR&gt;&#13;&#10;&lt;ul&gt;&#13;&#10; &lt;li&gt;CCU4 : One slice from CCU4 module is used.&lt;/li&gt;&#13;&#10;&lt;li&gt;CCU8 : One slice from CCU8 module is used.&lt;/li&gt;&#13;&#10;" bounds="132, 6, 81, 21"/>
+					<p1:GGroup text="PWM Settings " manifestObj="true" widgetName="ggroup_PWM_Configuraitons" bounds="5, 36, 482, 163">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="4"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Frequency [Hz]:" visible="true" manifestObj="true" widgetName="glabel_PWM_Frequency"/>
+						<p1:GInteger x:Style="NONE" minValue="1" maxValue="MAX_VALUE" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="gint_PWM_Frequency" toolTipText="Set frequency to decide the PWM period." value="1500" description="Set desired frequency of PWM signal.&#13;&#10;&lt;UL&gt;&#13;&#10; &lt;LI&gt;It decides the period register value of selected CCU timer. &lt;/LI&gt;&#13;&#10; &lt;LI&gt;Calculates the timer prescaler value to achieve best resolution. &lt;/LI&gt;&#13;&#10; &lt;LI&gt;Sets the parameter &quot;period_value&quot; of PWM_Dynamic_t configuration handle. &lt;/LI&gt;&#13;&#10; &lt;LI&gt;Configures the timer period, by writing CCU4 /CCU8 PRS register. &lt;/LI&gt;">
+							<p1:GInteger.layoutData>
+								<GridData horizontalAlignment="FILL" horizontalSpan="3" widthHint="122"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+						<p1:GLabel text="Duty cycle [%]:" visible="true" manifestObj="true" widgetName="glabel_Duty_Cycle_Sym"/>
+						<p1:GFloat x:Style="BORDER" minValue="0" maxValue="100.0" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_Duty_Cycle_Sym" toolTipText="Set proportion of &apos;on&apos; time to total &apos;period&apos;." value="50" description="Set desired duty cycle of PWM signal:&lt;BR&gt;&#13;&#10;         &lt;ul&gt;&#13;&#10;         &lt;li&gt;It decides the compare register value of selected CCU timer.&lt;/li&gt;&#13;&#10;         &lt;li&gt;Decides the proportion of ON time with the period value.&lt;/li&gt;&#13;&#10;         &lt;li&gt;Sets the parameter &quot;duty_cycle&quot; of PWM_Dynamic_t configuration handle.&lt;/li&gt;&#13;&#10;         &lt;li&gt;Calculates and updates the parameter &quot;compare_value&quot; of PWM_Dynamic_t configuration handle.&lt;/li&gt;&#13;&#10;         &lt;li&gt;Configures the timer compare value, by writing CCU4 /CCU8 CRS register.&lt;/li&gt;&#13;&#10;         &lt;/ul&gt;">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" horizontalSpan="3"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="Resolution [nsec]:" visible="true" manifestObj="true" widgetName="glabel_Ac_Res"/>
+						<p1:GFloat x:Style="BORDER" minValue="8.33" maxValue="273066.6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_Ac_Res" toolTipText="This is the closest possible step size that can be achieved." value="32" description="This represents the resolution for timer operation. This is the actual minimum step for the timer.&#13;&#10;">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" horizontalSpan="3"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GCheck text="Start after initialization" manifestObj="true" widgetName="gcheck_Start_During_Initilization" toolTipText="Start PWM immediately after initialization. " description="Enables the timer after initialization. This causes the PWM to be generated."/>
+						<Label/>
+						<Label/>
+						<Label/>
+						<p1:GCheck text="Enable single shot mode" manifestObj="true" widgetName="gcheck_Single_Shot_Mode" toolTipText="Generate only one pulse." description="Set the timer mode of operation. When enabled, timer operates in single shot mode and timer will stop after one cycle of the PWM."/>
+						<Label/>
+						<Label/>
+						<Label/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Event Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_Pin_Configurations">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite7">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Enable Event" manifestObj="true" widgetName="ggroup_Enable_Interrupts">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="466" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout/>
+						</p1:GGroup.layout>
+						<p1:GCheck text="Compare match" manifestObj="true" widgetName="gcheck_Compare_Match_Interrupt_Initilize" toolTipText="Generates an event after each compare match." description="Configures the compare match event. When selected, this connects the event to a Service Request line and enables the generation of an interrupt pulse each time a compare match (while counting up). &lt;BR&gt;&#13;&#10;&lt;b&gt;Note:&lt;/b&gt; To enable generation of interrupt,  user needs to  connect this event to an INTERRUPT APP.&#13;&#10;"/>
+						<p1:GCheck text="Period match" manifestObj="true" widgetName="gcheck_Period_Match_Interrupt_Initilize" toolTipText="Generates an event after every cycle (&apos;ON&apos; time + &apos;OFF&apos; time)" description="Configures the period match event. When selected, this connects the event to a Service Request line and enables the generation of an interrupt pulse each time a period match (while counting up).  &lt;BR&gt;&#13;&#10;&lt;b&gt;Note: &lt;/b&gt;To enable generation of interrupt,  user needs to  connect this event to an INTERRUPT APP.&#13;&#10;"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Pin Settings" visible="true" enabled="true" widgetName="gtab_11">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite_10">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Output Settings" manifestObj="true" widgetName="ggroup_output_settings">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="466"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GLabel manifestObj="true" text="Passive level:" widgetName="glabel_Direct_Output_Passive_Level"/>
+						<p1:GCombo description="Select the polarity of the PWM signal.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Low: Select this option to make the PWM have a low output untill compare value is reached. After the compare value the signal will be High.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;High: Select this option to make the PWM have a high output untill compare value is reached. After the compare value the signal will be low.&lt;/LI&gt;&#13;&#10;&lt;b&gt;Note:&lt;/b&gt;&#13;&#10;This option is useful when the user wants to generate a inverted PWM output." mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Low&#13;&#10;High" toolTipText="Set PWM level before compare match." value="Low" widgetName="gcombo_Direct_Output_Passive_Level">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel manifestObj="true" text="Mode:" widgetName="glabel_Output_Characteristics"/>
+						<p1:GCombo description="Selects the Output pin characteristics.&#13;&#10;&lt;UL&gt;&#13;&#10;&lt;LI&gt;Push Pull: Can drive both low and high voltages. No external pull up needed.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Open Drain:  Can drive only low voltage. Needs an external pull up resistor.&lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Push Pull&#13;&#10;Open Drain" toolTipText="Select output pad characteristics." value="Push Pull" widgetName="gcombo_Output_Characteristics">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel manifestObj="true" text="Driver strength:" widgetName="glabel_driver_strength"/>
+						<p1:GCombo description="Select output pad driver strength.&#13;&#10;&lt;ul&gt;&#13;&#10;&lt;LI&gt;Selecting the appropriate driver strength allows to optimize the outputs for the needed interface performance.&lt;/LI&gt;&#13;&#10;&lt;LI&gt;Can help to reduce power consumption, and limits noise, crosstalk and electromagnetic emissions. &lt;/LI&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge&#13;&#10;" toolTipText="Select output pad driver strength." value="Medium Driver" widgetName="gcombo_driver_strength">
+							<p1:GCombo.layoutData>
+								<GridData widthHint="180"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

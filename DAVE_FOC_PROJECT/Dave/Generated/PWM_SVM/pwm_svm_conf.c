@@ -301,7 +301,7 @@ const PWM_SVM_Config_t PWM_SVM_0_AppConfig =
   .enable_periodmatch    = (uint8_t)true,
   .enable_trapevent      = (uint8_t)false,
   .enable_optimized_slice= (uint8_t)false,
-  .trap_sync_pwm         = (uint8_t)0
+  .trap_sync_pwm         = (uint8_t)1
 };
 /*App handle structure initialization*/
 PWM_SVM_t PWM_SVM_0 =

@@ -1,0 +1,176 @@
+package Model.APPS.PWM.v4_1_12.Templates;
+
+import Model.APPS.PWM.v4_1_12.PWM
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version for DAVEv4.<BR>
+ *
+ * 2015-04-06:
+ *     - Configuration structure modified of PWM_t.<BR>
+ *     - Removed PWM_Dynamic_t,PWM_ConfigType_t.<BR>
+ *     - Added New macros for Mixed usage.<BR>
+ *     - Added New API PWM_SetPeriodMatchValue().<BR>
+ *     - Modified enumeration PWM_InterruptType_t to PWM_INTERRUPT_t.<BR>
+ *     - Modified enumeration PWM_OutputPassiveLevelType_t to PWM_OUTPUT_PASSIVE_LEVEL_t.<BR>
+ *     - Modified enumeration PWM_TIMER_TYPE_t to PWM_TIMER_SLICE_t .<BR>
+ *     - PWM_ClearEvent(), PWM_GetInterruptStatus() and PWM_SetPassiveLevel() API prototype modified for the
+ *       new enum.<BR>
+ *     - API name change PWM_AcknowledgeInterrupt to PWM_ClearEvent.<BR>
+ *
+ * 2015-07-09:
+ *     - Documentation updated.<BR>
+ *
+ * 2015-09-01:
+ *     - XMC14 device support added.<BR>
+ *
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *
+ * 2015-12-16:
+ *     - Added support for XMC4300 devices.<BR>
+ *
+ * 2016-07-28:
+ *     - All event signals are made mandatory.<BR>
+ *
+ * @endcond
+ *
+ */
+
+#ifndef PWMCONF_H
+#define PWMCONF_H
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+
+""");
+
+boolean CCU4_Timer = false;
+boolean CCU8_Timer = false;
+
+for (Object appIns : appInstancesList ) {
+	if(appIns.gcombo_TimerSelect.value == "CCU4")
+	{
+		CCU4_Timer = true;
+	}
+	if(appIns.gcombo_TimerSelect.value == "CCU8")
+	{
+		CCU8_Timer = true;
+	}
+}
+if(CCU4_Timer == true) {
+	out.print("""
+#include "GLOBAL_CCU4/global_ccu4.h"
+		""");
+}
+
+if(CCU8_Timer == true) {
+	out.print("""
+#include "GLOBAL_CCU8/global_ccu8.h"
+		""");
+}
+
+out.print("""
+/**********************************************************************************************************************
+ * MACROS
+ **********************************************************************************************************************/
+"""); 
+
+for (Object appIns : appInstancesList ) {
+	appInst = appIns.getInstanceLabel()
+
+  if(appIns.gcombo_TimerSelect.value == "CCU4")
+  {
+  	CCU4_Timer = true;
+	  MappedUri = appIns.hwres_ccu4_cc4_slice.getSolverUri()
+	  KernelNo 	 = MappedUri[4]
+	  SliceNo_A  = MappedUri[6]
+	  
+	  out.println("""\n""");
+	  out.println("""#define ${appInst}_KERNEL_PTR (XMC_CCU4_MODULE_t*)(void *)${"CCU4" + KernelNo +"_BASE" }""");
+	  out.println("""#define ${appInst}_SLICE_PTR  (XMC_CCU4_SLICE_t*)(void *)${"CCU4" + KernelNo +"_CC4" + SliceNo_A}""");
+	  out.println("""/* PWM shadow transfer masks */""");
+	  out.println("""#define ${appInst}_SLICE_SH_MSK  XMC_CCU4_SHADOW_TRANSFER_SLICE_${SliceNo_A}""");
+	  out.println("""#define ${appInst}_PRESCALER_SH_MSK  XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_${SliceNo_A}""");
+	  
+  }
+  if(appIns.gcombo_TimerSelect.value == "CCU8")
+  {
+	  CCU8_Timer = true;
+	  
+	  MappedUri = appIns.hwres_ccu8_cc8_slice.getSolverUri()
+	  KernelNo 	 = MappedUri[4]
+	  SliceNo_A  = MappedUri[6]
+	  
+	  out.println("""\n""");
+	  out.println("""#define ${appInst}_KERNEL_PTR (XMC_CCU8_MODULE_t*)(void *)${"CCU8" + KernelNo +"_BASE" }""");
+	  out.println("""#define ${appInst}_SLICE_PTR  (XMC_CCU8_SLICE_t*)(void *)${"CCU8" + KernelNo +"_CC8" + SliceNo_A}""");
+	  out.println("""/* PWM shadow transfer masks */""");
+	  out.println("""#define ${appInst}_SLICE_SH_MSK  XMC_CCU8_SHADOW_TRANSFER_SLICE_${SliceNo_A}""");
+	  out.println("""#define ${appInst}_PRESCALER_SH_MSK  XMC_CCU8_SHADOW_TRANSFER_PRESCALER_SLICE_${SliceNo_A}""");
+  }
+  
+ 
+  
+}
+
+if(CCU4_Timer == true) {
+	out.print("""   
+#define PWM_SLICE_USED_CCU4  1
+		""");
+}
+
+if(CCU8_Timer == true) {
+	out.print("""
+#define PWM_SLICE_USED_CCU8  1
+		""");
+}
+
+out.print("""
+#define PWM_MAJOR_VERSION (${PWM.version.split("\\.")[0]}) /**< Major version number of PWM APP*/
+#define PWM_MINOR_VERSION (${PWM.version.split("\\.")[1]}) /**< Minor version number of PWM APP*/
+#define PWM_PATCH_VERSION (${PWM.version.split("\\.")[2]}) /**< Patch version number of PWM APP*/
+""");
+
+out.print("""
+
+#endif
+""");
+
+ 
+/*CODE_BLOCK_END*/
