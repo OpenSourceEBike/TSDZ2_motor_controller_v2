@@ -1,9 +1,9 @@
 # Prepare and connect J-Link to the TSDZ2 motor controller V2
 
-You can buy on Ebay, Aliexpress, etc, the J-Link for about 4€:<br>
+You will need the J-Link and you can buy on Ebay, Aliexpress, etc, for about 4€:<br>
 ![](jlink.jpg)
 
-You need to connect J-Link to TSDZ2 motor controller speed sensor connector and for that you can buy Ebay, etc, a TSDZ2 speed sensor extension cable, to use the male connector.
+You need to connect J-Link to TSDZ2 motor controller speed sensor connector and for that you can buy on Ebay, etc, a TSDZ2 speed sensor extension cable and use the male connector.
 
 Connect the J-Link wires to the following pins / wires of TSDZ2 motor controller speed sensor connector (note that you will not need to power up the motor controller using the battery as the J-Link (3V3) VCC will power it up enough for programming):<br> 
 * Black --> GND
