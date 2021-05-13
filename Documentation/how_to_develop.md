@@ -1,8 +1,25 @@
+# Prepare and connect J-Link to the TSDZ2 motor controller V2
+
+You can buy on Ebay, Aliexpress, etc, the J-Link for about 4€:<br>
+![](jlink.jpg)
+
+You need to connect J-Link to TSDZ2 motor controller speed sensor connector and for that you can buy Ebay, etc, a TSDZ2 speed sensor extension cable, to use the male connector.
+
+Connect the J-Link wires to the following pins / wires of TSDZ2 motor controller speed sensor connector (note that you will not need to power up the motor controller using the battery as the J-Link (3V3) VCC will power it up enough for programming):<br> 
+* Black --> GND
+* Red --> (3V3) VCC
+* Green --> SWCLK
+* Blue --> SWDIO
+
+![](TSDZ2_display_connector.png)
+
+
+# Configure Code Studio IDE for firmware development, flash and debug
+
 Screenshot of a debug session of XMC1300 on Linux Ubuntu, using Visual Code Studio, OpenOCD and GDB:
 ![](flash_debug.png)
 <br>
 <br>
-# Configure Code Studio IDE for firmware development, flash and debug
 
 For the firmware development, flash and debug, you can use the OpenSource and free IDE [Visual Studio Code](https://code.visualstudio.com/). For sure that others will work like the Eclipse.
 
