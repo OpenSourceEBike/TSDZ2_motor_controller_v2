@@ -1,4 +1,4 @@
-* XMC1302: the microcontroller is the XMC1302-Q024X0064 of 38 pins.
+* XMC1302: the microcontroller is the XMC1302-T038X0064 of 38 pins.
   * [XMC1300 datasheet](Documentation/XMC1300_datasheet.pdf)
   * [XMC1300 reference manual](Documentation/XMC1300_reference_manual.pdf)
   * [XMC1300 math coprocessor](Documentation/Infineon-IP_MATH_XMC1000-TR-v01_02-EN.pdf)
