@@ -1,5 +1,4 @@
 **/*~
-*.asm
 *.bin
 *.elf
 *.ihx
@@ -11,6 +10,5 @@
 *.rel
 *.rst
 *.sym
-
-Debug
-Release
+*.d
+*.o

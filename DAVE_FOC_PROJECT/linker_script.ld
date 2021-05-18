@@ -233,6 +233,7 @@ SECTIONS
         Heap_Bank1_Start = .;
     } > SRAM
     __bss_size = __bss_end - __bss_start;
+/*    end = . ; */
     
     /* .no_init section contains SystemCoreClock. See system.c file */
     .no_init ORIGIN(SRAM) + LENGTH(SRAM) - no_init_size (NOLOAD) : 

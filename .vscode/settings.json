@@ -10,6 +10,8 @@
       "functional": "c",
       "tuple": "c",
       "type_traits": "c",
-      "utility": "c"
+      "utility": "c",
+      "system_xmc1300.h": "c",
+      "xmc1300.h": "c"
     }
 }

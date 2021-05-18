@@ -813,7 +813,7 @@ void PWM_SetPassiveLevel(PWM_t *const handle_ptr, PWM_OUTPUT_PASSIVE_LEVEL_t pwm
  */
 PWM_STATUS_t PWM_SetPeriodMatchValue(PWM_t *const handle_ptr, uint32_t period_match_value);
 
-#include "PWM_Extern.h"
+#include "pwm_extern.h"
 
 /**
  * @}
