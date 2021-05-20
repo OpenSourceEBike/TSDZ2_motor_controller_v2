@@ -1,5 +1,9 @@
-CCFLAGS=-DXMC1302_T038x0064 -mthumb -mcpu=cortex-m0 -MD --specs=nano.specs -lc -g -Werror -I..
-LDFLAGS=-DXMC1302_T038x0064 -T DAVE_FOC_PROJECT/linker_script.ld -Xlinker --gc-sections -specs=nano.specs -specs=nosys.specs -mcpu=cortex-m0 -mthumb
+CCFLAGS=-DXMC1302_T038x0064 -O3 -g3 -mthumb -mcpu=cortex-m0 -MD --specs=nano.specs -lc -g -Werror -I..
+
+LDFLAGS=-DXMC1302_T038x0064 -O3 -g3 -T DAVE_FOC_PROJECT/linker_script.ld -mcpu=cortex-m0 -mthumb
+LDFLAGS += -nostartfiles -Xlinker --gc-sections -specs=nano.specs -specs=nosys.specs
+# LDFLAGS += -u _printf_float -u _scanf_float
+
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
 LD=arm-none-eabi-ld
@@ -32,11 +36,12 @@ all: $(ELF)
 main.elf: \
 	DAVE_FOC_PROJECT/Startup/startup_XMC1300.o \
 	DAVE_FOC_PROJECT/Startup/system_XMC1300.o \
-	syscalls.o \
+	DAVE_FOC_PROJECT/Libraries/Newlib/syscalls.o \
 	DAVE_FOC_PROJECT/main.o \
 	adc.o \
 	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc_vadc.o \
 	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc1_scu.o \
+	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc_posif.o \
 	DAVE_FOC_PROJECT/Dave/Generated/DAVE.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PWM/pwm_conf.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PWM/pwm.o \
@@ -69,7 +74,7 @@ main.elf: \
 	DAVE_FOC_PROJECT/Dave/Generated/PWM_SVM/pwm_svm_table.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PMSM_FOC/pmsm_foc_conf.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PMSM_FOC/pmsm_foc.o \
-	# DAVE_FOC_PROJECT/Dave/Generated/PMSM_FOC/pmsm_foc_control.o \
+	DAVE_FOC_PROJECT/Dave/Generated/PMSM_FOC/pmsm_foc_control.o \
 		
 	$(CC) $(LDFLAGS) $(LIBSDIR) $^ $(LIBS) -o $@
 	arm-none-eabi-objcopy -O binary $@ TSDZ2_motor_controller_v2_firmware.bin
@@ -89,6 +94,7 @@ clean:
 	syscalls.o \
 	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc_vadc.o \
 	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc1_scu.o \
+	DAVE_FOC_PROJECT/Libraries/XMCLib/src/xmc_posif.o \
 	DAVE_FOC_PROJECT/Dave/Generated/DAVE.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PWM/pwm_conf.o \
 	DAVE_FOC_PROJECT/Dave/Generated/PWM/pwm.o \

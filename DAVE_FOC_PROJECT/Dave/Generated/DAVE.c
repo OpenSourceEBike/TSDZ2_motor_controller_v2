@@ -69,6 +69,7 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
   DAVE_STATUS_t init_status;
   
   init_status = DAVE_STATUS_SUCCESS;
+  
   /** @Initialization of APPs Init Functions */
   init_status = (DAVE_STATUS_t)CLOCK_XMC1_Init(&CLOCK_XMC1_0);
 
@@ -78,16 +79,18 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
 	  init_status = (DAVE_STATUS_t)UART_Init(&UART_0); 
   } 
 
-// if (init_status == DAVE_STATUS_SUCCESS)
-// {
-//   /**  Initialization of PMSM_FOC APP instance PMSM_FOC_0 */
-//   init_status = (DAVE_STATUS_t)PMSM_FOC_Init(&PMSM_FOC_0); 
-//   } 
-// if (init_status == DAVE_STATUS_SUCCESS)
-// {
-//   /**  Initialization of PWM APP instance PWM_0 */
-//   init_status = (DAVE_STATUS_t)PWM_Init(&PWM_0); 
-//   }  
-//   return init_status;
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+    /**  Initialization of PMSM_FOC APP instance PMSM_FOC_0 */
+    init_status = (DAVE_STATUS_t)PMSM_FOC_Init(&PMSM_FOC_0); 
+  } 
+
+  // if (init_status == DAVE_STATUS_SUCCESS)
+  // {
+  //   /**  Initialization of PWM APP instance PWM_0 */
+  //   init_status = (DAVE_STATUS_t)PWM_Init(&PWM_0); 
+  // }
+
+  return init_status;
 } /**  End of function DAVE_Init */
 

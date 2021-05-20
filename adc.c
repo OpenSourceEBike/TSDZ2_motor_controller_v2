@@ -6,7 +6,7 @@
  * Released under the GPL License, Version 3
  */
 
-#include "DAVE.h"                 //Declarations from DAVE Code Generation (includes SFR declaration)
+#include "DAVE.h"              //Declarations from DAVE Code Generation (includes SFR declaration)
 #include <stdio.h>
 
 uint32_t adc_throttle = 0;

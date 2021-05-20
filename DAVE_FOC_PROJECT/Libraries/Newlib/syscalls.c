@@ -82,31 +82,31 @@ void *__dso_handle __attribute__ ((weak));
 // defined in linker script
 extern caddr_t Heap_Bank1_Start;
 extern caddr_t Heap_Bank1_End;
-caddr_t _sbrk(int nbytes)
-{
-  static caddr_t heap_ptr = NULL;
-  caddr_t base;
-
-  if (heap_ptr == NULL) {
-    heap_ptr = (caddr_t)&Heap_Bank1_Start;
-  }
-
-  base = heap_ptr;
-
-  /* heap word alignment */
-  nbytes = (nbytes + 3) & ~0x3U;
-  if ((caddr_t)&Heap_Bank1_End > (heap_ptr + nbytes))
-  {
-    heap_ptr += nbytes;
-    return (base);
-  }
-  else
-  {
-    /* Heap overflow */
-    errno = ENOMEM;
-    return ((caddr_t)-1);
-  }
-}
+//caddr_t _sbrk(int nbytes)
+//{
+//  static caddr_t heap_ptr = NULL;
+//  caddr_t base;
+//
+//  if (heap_ptr == NULL) {
+//    heap_ptr = (caddr_t)&Heap_Bank1_Start;
+//  }
+//
+//  base = heap_ptr;
+//
+//  /* heap word alignment */
+//  nbytes = (nbytes + 3) & ~0x3U;
+//  if ((caddr_t)&Heap_Bank1_End > (heap_ptr + nbytes))
+//  {
+//    heap_ptr += nbytes;
+//    return (base);
+//  }
+//  else
+//  {
+//    /* Heap overflow */
+//    errno = ENOMEM;
+//    return ((caddr_t)-1);
+//  }
+//}
 
 /* Init */
 void _init(void)
