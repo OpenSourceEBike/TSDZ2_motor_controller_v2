@@ -78,13 +78,13 @@ main.elf: \
 		
 	$(CC) $(LDFLAGS) $(LIBSDIR) $^ $(LIBS) -o $@
 	arm-none-eabi-objcopy -O binary $@ TSDZ2_motor_controller_v2_firmware.bin
-	objcopy -O ihex $@  TSDZ2_motor_controller_v2_firmware.hex
+	arm-none-eabi-objcopy -O ihex $@  TSDZ2_motor_controller_v2_firmware.hex
 
 .c.o:	
 	$(CC) -c $(CCFLAGS) $< -o $@
 
 .S.o:
-	$(CC) -c $(CCFLAGS) $< -o $@
+	$(CC) -x assembler-with-cpp -c $(CCFLAGS) $< -o $@
 
 clean: 
 	rm -f \
