@@ -1,6 +1,8 @@
    
 This repository has technical documentation about TSDZ2 motor controller V2 as also our OpenSource firmware for it.
 
+You can buy the [TSDZ2 motor controller V2 on Enerprof](https://enerprof.de/).
+
 Forum messages:
 * [Discussion at Endless Sphere](https://endless-sphere.com/forums/viewtopic.php?f=30&t=111287)  
 * [Discussion at Pedelecforum](https://www.pedelecforum.de/forum/index.php?threads/neue-tsdz2-controller-open-source.86546)
