@@ -124,7 +124,6 @@ void SysTick_Handler(void)
     else
     {
       PMSM_FOC_SetIqRef( &PMSM_FOC_0, 0 );
-      PMSM_FOC_MotorStop(&PMSM_FOC_0);
       MotorStarted=0;
     }
 

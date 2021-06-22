@@ -5,7 +5,7 @@
 * [XL7005A](XL7005A.pdf): there is one XL7005A dc-dc, at back side.
 * [IRS2005](IRS2005.pdf): there are three of these power mosfet drivers, on front side. These are for driving the 6 power mosfets.
 * [LM258](LM258.pdf): there is one LM258, dual opamp, at back side.
-* [MCP6021](MCP6021.pdf): there are two MCP6021 opamps, at back side. After careful examination, although they are labeled as MCP6021 (one opamp per chip), they are almost for sure the MCP6022 (two opamps per chip).
+* [MCP602](MCP602.pdf): there are two MCP602 opamps, at back side.
 * there is one big resistor of R003 (0.003 ohms) at back side to measure the battery current
 * there are three big resistors of R003 (0.003 ohms) at front side to measure each motor phase current
 
