@@ -65,4 +65,19 @@ void Motor0_BLDC_SCALAR_Volt_Potentiometer_Init(void)
   XMC_VADC_GROUP_QueueInsertChannel(MOTOR0_BLDC_SCALAR_VADC_ANALOG_INPUT_GRP,
       Motor0_BLDC_SCALAR_VADC_AnalogInput_queue_entry);
 }
+
+void Motor0_BLDC_SCALAR_GetPotentiometerVal(int32_t *pot_value)
+{
+  int32_t pot_value_adc;
+  pot_value_adc = (int32_t)VADC_GetResult(MOTOR0_BLDC_SCALAR_VADC_ANALOG_INPUT_GRP,MOTOR0_BLDC_SCALAR_VADC_ANALOG_INPUT_RES_REG_NUM);
+  pot_value_adc = (int32_t)(pot_value_adc * (int32_t)MOTOR0_BLDC_SCALAR_POT_ADC_SCALE);
+
+  #if(MOTOR0_BLDC_SCALAR_POTENTIOMETER_PT1_FILTER_ENABLE == 1U)
+  /* PT1 filter  */
+  Motor0_BLDC_SCALAR_PT1_Filter(&Motor0_BLDC_SCALAR_PT1_Potentiometer,(int32_t)pot_value_adc);
+ *pot_value = Motor0_BLDC_SCALAR_PT1_Potentiometer.pt1_out_val;
+  #else
+ *pot_value = pot_value_adc;
+  #endif
+}
 #endif

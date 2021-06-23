@@ -1,6 +1,6 @@
 CCFLAGS=-DXMC1302_T038x0064 -MMD -MT -MP -DXMC_MATH_DISABLE_DIV_ABI -ffunction-sections -fdata-sections -Wall -std=gnu99 -pipe -c -fmessage-length=0 -O3 -g3 -mthumb -mcpu=cortex-m0 -MD --specs=nano.specs -lc -g -Werror -I..
 
-LDFLAGS=-DXMC1302_T038x0064 -O3 -g3 -T linker_script.ld -mcpu=cortex-m0 -mthumb
+LDFLAGS=-DXMC1302_T038x0064 -O0 -g3 -T linker_script.ld -mcpu=cortex-m0 -mthumb
 LDFLAGS += -nostartfiles -Xlinker --gc-sections -specs=nano.specs -specs=nosys.specs
 
 CC=arm-none-eabi-gcc
@@ -27,6 +27,7 @@ main.elf: \
 	Startup/startup_XMC1300.o \
 	Startup/system_XMC1300.o \
 	main.o \
+	../brake.o \
 	bldc_scalar_user_interface.o \
 	bldc_scalar_variables_config.o \
 	ControlModule/bldc_scalar_control_hall.o \
@@ -74,9 +75,10 @@ main.elf: \
 clean: 
 	rm -f \
 	*.o *.elf *.map *.bin *.hex \
-		Startup/startup_XMC1300.o \
+	Startup/startup_XMC1300.o \
 	Startup/system_XMC1300.o \
 	main.o \
+	../brake.o \
 	bldc_scalar_user_interface.o \
 	bldc_scalar_variables_config.o \
 	ControlModule/bldc_scalar_control_hall.o \

@@ -50,14 +50,14 @@
 
 #include "xmc_common.h"
 #include "bldc_scalar_user_interface.h"
+#include "../brake.h"
 
 
 #if(MOTOR0_BLDC_SCALAR_CTRL_UCPROBE_ENABLE==1)
 #include "../uCProbe/uCProbe.h"
 #endif
 
-
-
+static int32_t pot_val = 0;
 
 /**
 @brief
@@ -91,8 +91,9 @@ A list of APIs is provided to control the motor and change the configurations
 
 int main(void)
 {
-  while(1) {
-    asm("nop");
+  brake_init();
+  while (brake_is_set()) {
+    ; // hold here while brake is pressed -- this is a protection for development
   }
 
   /* Initialization */
@@ -109,8 +110,13 @@ int main(void)
   Motor0_BLDC_SCALAR_MotorStart();
 
   /* Placeholder for user application code. The while loop below can be replaced with user application code. */
+
   while (1U)
   {
+
+    Motor0_BLDC_SCALAR_GetPotentiometerVal(&pot_val);
+
+    pot_val += 1;
 
   }
 

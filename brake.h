@@ -6,9 +6,9 @@
  * Released under the GPL License, Version 3
  */
 
-pragma(once)
+#pragma once
 
-#include "main.h"
+#include "pins.h"
 
 void brake_init(void);
 uint8_t brake_is_set(void);

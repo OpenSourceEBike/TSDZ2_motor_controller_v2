@@ -162,7 +162,7 @@
 #define MOTOR0_BLDC_SCALAR_CONTROL_LOOP_EXECUTION_RATE       (1U)
 
 /*********************  Control Parameters based upon control scheme  ******************/
-#define     MOTOR0_BLDC_SCALAR_ENABLE_RAMP                        (1U)      /*!< Enable (1)/disable(0) linear ramp */
+#define     MOTOR0_BLDC_SCALAR_ENABLE_RAMP                        (0U)      /*!< Enable (1)/disable(0) linear ramp */
 
 /* Speed control */
 #if ((MOTOR0_BLDC_SCALAR_CTRL_SCHEME == BLDC_SCALAR_SPEED_CTRL) || (MOTOR0_BLDC_SCALAR_CTRL_SCHEME == BLDC_SCALAR_SPEEDCURRENT_CTRL))
@@ -220,7 +220,7 @@
 
 /* Voltage control */
 #if (MOTOR0_BLDC_SCALAR_CTRL_SCHEME == BLDC_SCALAR_VOLTAGE_CTRL)
-#define   MOTOR0_BLDC_SCALAR_VOLTAGE_SET           (12.0F)  /*!< Voltage is in volts, sign represents the direction +ve or -ve
+#define   MOTOR0_BLDC_SCALAR_VOLTAGE_SET           (0.0F)  /*!< Voltage is in volts, sign represents the direction +ve or -ve
                                                       Motor runs with this set value. This configuration gets overwritten if VADC potentiometer measurement is enabled.*/
 #define   MOTOR0_BLDC_SCALAR_RAMP_INITIAL_VALUE    (2.0F)  /*!< Voltage is in volts, sign represents the direction +ve or -ve
                                                       Motor starts with this value when ramp is enabled and ramps up to set value. */
@@ -244,7 +244,7 @@
                                                                              is calculated in SW from the measured DC link current */
 #endif
 #define MOTOR0_BLDC_SCALAR_VADC_ENABLE_VDC_LINK_MEASUREMENT            (1U) /*!< Enable (1)/disable (0) VDC link current measurement.*/
-#define MOTOR0_BLDC_SCALAR_VADC_ENABLE_POTENTIOMETER_MEASUREMENT       (0U) /*!< Enable (1)/disable (0) pot measurement.*/
+#define MOTOR0_BLDC_SCALAR_VADC_ENABLE_POTENTIOMETER_MEASUREMENT       (1U) /*!< Enable (1)/disable (0) pot measurement.*/
 #define MOTOR0_BLDC_SCALAR_VADC_ENABLE_USER_DEF1_MEASUREMENT           (0U) /*!< Enable (1)/disable (0)user defined measurement
                                                                           Configure ADC channel number and group number in the bldc_scalar_mcuhw_config.h file*/
 #define MOTOR0_BLDC_SCALAR_VADC_ENABLE_USER_DEF2_MEASUREMENT           (0U) /*!< Enable (1)/disable (0)user defined measurement
@@ -266,10 +266,10 @@
  * Options - BLDC_SCALAR_IDC_DIRECT_CURRENT, BLDC_SCALAR_IDC_AVG_CURRENT
  */
 #define   MOTOR0_BLDC_SCALAR_OVER_CURRENT_SOURCE           (BLDC_SCALAR_IDC_DIRECT_CURRENT)
-#define   MOTOR0_BLDC_SCALAR_OVER_CURRENT                  (2.7F)       /*!< Current is in Amps Max Range: MOTOR0_BLDC_SCALAR_MAX_CURRENT*/
+#define   MOTOR0_BLDC_SCALAR_OVER_CURRENT                  (3.0F)       /*!< Current is in Amps Max Range: MOTOR0_BLDC_SCALAR_MAX_CURRENT*/
 #define   MOTOR0_BLDC_SCALAR_CURRENT_PROTECTION_TIME       (50.0F)       /*!< Detection time for over current protection in mSec*/
 
-#define   MOTOR0_BLDC_SCALAR_SHORTCIRCUIT_CURRENT          (2.75F)    /*!< Current is in Amps. Motor is stopped immediately when current is above this limit
+#define   MOTOR0_BLDC_SCALAR_SHORTCIRCUIT_CURRENT          (4.0F)    /*!< Current is in Amps. Motor is stopped immediately when current is above this limit
                                                                  Max range: MOTOR0_BLDC_SCALAR_MAX_CURRENT*/
 #endif
 
@@ -280,7 +280,7 @@
 #define   MOTOR0_BLDC_SCALAR_VOLTAGE_PROTECTION_TIME       (50.0F)     /*!< Detection time for voltage protection in mSec*/
 #endif
 
-#define   MOTOR0_BLDC_SCALAR_ENABLE_STALL_DETECTION        (1U)      /*!< Enable/disable stall protection */
+#define   MOTOR0_BLDC_SCALAR_ENABLE_STALL_DETECTION        (0U)      /*!< Enable/disable stall protection */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_STALL_DETECTION == 1U)
 #define   MOTOR0_BLDC_SCALAR_STALL_DETECTION_TIME       (1000.0F)  /*!< Detection time for stall protection in mSec*/
 #define   MOTOR0_BLDC_SCALAR_MIN_AMPLITUDE_FOR_STALL       (10U)      /*!< in %. When amplitude is below this value, stall detection is disabled */
@@ -289,7 +289,7 @@
 #endif
 
 /* Ctrap protection */
-#define   MOTOR0_BLDC_SCALAR_ENABLE_CTRAP                   (1U)     /*!< Enable (1)/disable (0) ctrap protection */
+#define   MOTOR0_BLDC_SCALAR_ENABLE_CTRAP                   (0U)     /*!< Enable (1)/disable (0) ctrap protection */
 
 
 /*********************************************************************************************************************
@@ -343,14 +343,14 @@
 
 #define   MOTOR0_BLDC_SCALAR_HS_SWITCH_ACTIVE_LEVEL        (BLDC_SCALAR_ACTIVE_HIGH)       /*!< Active level of the high side switch. Options: BLDC_SCALAR_ACTIVE_HIGH, BLDC_SCALAR_ACTIVE_LOW */
 #define   MOTOR0_BLDC_SCALAR_LS_SWITCH_ACTIVE_LEVEL        (BLDC_SCALAR_ACTIVE_HIGH)       /*!< Active level of the low side switch. Options: BLDC_SCALAR_ACTIVE_HIGH, BLDC_SCALAR_ACTIVE_LOW */
-#define   MOTOR0_BLDC_SCALAR_INVERTER_ENABLE_CONF          (BLDC_SCALAR_INV_ACTIVE_HIGH)   /*!< Active level of inverter enable. Options: BLDC_SCALAR_INV_DISABLED,  BLDC_SCALAR_INV_ACTIVE_HIGH, BLDC_SCALAR_INV_ACTIVE_LOW*/
+#define   MOTOR0_BLDC_SCALAR_INVERTER_ENABLE_CONF          (BLDC_SCALAR_INV_DISABLED)   /*!< Active level of inverter enable. Options: BLDC_SCALAR_INV_DISABLED,  BLDC_SCALAR_INV_ACTIVE_HIGH, BLDC_SCALAR_INV_ACTIVE_LOW*/
 
 /* ADC Measurement  parameters */
 #define   MOTOR0_BLDC_SCALAR_VADC_REF_VOLTAGE              (5.0F)         /*!< Reference voltage of VADC conversion */
-#define   MOTOR0_BLDC_SCALAR_CURRENT_AMPLIFIER_OFFSET      (2.5F)       /*!< Amplifier offset voltage  */
-#define   MOTOR0_BLDC_SCALAR_CURRENT_RSHUNT                (50.0F)       /*!< Current amplifier shunt resistor value in mOhms */
-#define   MOTOR0_BLDC_SCALAR_CURRENT_AMPLIFIER_GAIN        (16.4F)        /*!< Current amplifier gain */
-#define   MOTOR0_BLDC_SCALAR_VOLTAGE_DIVIDER_RATIO         (9.79F)      /*!< Voltage divider ratio in % for DC link voltage measurement */
+#define   MOTOR0_BLDC_SCALAR_CURRENT_AMPLIFIER_OFFSET      (0.0F)       /*!< Amplifier offset voltage  */
+#define   MOTOR0_BLDC_SCALAR_CURRENT_RSHUNT                (3.0F)       /*!< Current amplifier shunt resistor value in mOhms */
+#define   MOTOR0_BLDC_SCALAR_CURRENT_AMPLIFIER_GAIN        (11.0F)        /*!< Current amplifier gain */
+#define   MOTOR0_BLDC_SCALAR_VOLTAGE_DIVIDER_RATIO         (17.39F)      /*!< Voltage divider ratio in % for DC link voltage measurement */
 /* end of if  (MOTOR0_BLDC_SCALAR_BOARD == KIT_CUSTOM) */
 #endif
 
@@ -480,7 +480,7 @@
 #define     MOTOR0_BLDC_SCALAR_CATCH_FREE_MAX_LIMIT   (5.0F)      /*!< Threshold speed in % below which control will catch the initial state of rotation if in reverse direction*/
 #endif
 
-#define     MOTOR0_BLDC_SCALAR_ENABLE_BIDIRECTIONAL_CTRL      (1U)      /*!< Enable/disable seamless bi-directional control */
+#define     MOTOR0_BLDC_SCALAR_ENABLE_BIDIRECTIONAL_CTRL      (0U)      /*!< Enable/disable seamless bi-directional control */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_BIDIRECTIONAL_CTRL == 1U)
 #define     MOTOR0_BLDC_SCALAR_MIN_SPEED                      (2.0F)    /*!< in % of no load speed, motor speed is considered zero if less than this value when set speed is zero */
 #endif
@@ -493,7 +493,7 @@
 /* Hall pattern learning */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_CATCH_FREE == 0U)                  /*!< Hall pattern learning can be enabled only when catch-free is disabled */
 #if (MOTOR0_BLDC_SCALAR_FEEDBACK == BLDC_SCALAR_3HALL)
-#define   MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING        (1U)     /*!< Enable/disable hall pattern learning */
+#define   MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING        (0U)     /*!< Enable/disable hall pattern learning */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING == 1U)
 #define   MOTOR0_BLDC_SCALAR_OPEN_LOOP_VOLTAGE           (5.0F)     /*!< Open loop voltage to be applied in % with respect to MOTOR0_BLDC_SCALAR_NOMINAL_DC_LINK_VOLT. Range: 1 to 25 %*/
 #define   MOTOR0_BLDC_SCALAR_OPEN_LOOP_SPEED             (2.0F)     /*!< Speed to be applied in % with respect to MOTOR0_BLDC_SCALAR_MOTOR_NO_LOAD_SPEED. Range: 1.0 to 10 %*/

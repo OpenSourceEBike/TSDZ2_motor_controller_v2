@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include "xmc_gpio.h"
+#include "brake.h"
 
 void brake_init(void)
 {
