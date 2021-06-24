@@ -1,4 +1,4 @@
-CCFLAGS=-DXMC1302_T038x0064 -MMD -MT -MP -DXMC_MATH_DISABLE_DIV_ABI -ffunction-sections -fdata-sections -Wall -std=gnu99 -pipe -c -fmessage-length=0 -O3 -g3 -mthumb -mcpu=cortex-m0 -MD --specs=nano.specs -lc -g -Werror -I..
+CCFLAGS=-DXMC1302_T038x0064 -MMD -MT -MP -DXMC_MATH_DISABLE_DIV_ABI -ffunction-sections -fdata-sections -Wall -Wno-unused-function -std=gnu99 -pipe -c -fmessage-length=0 -O0 -g3 -mthumb -mcpu=cortex-m0 -MD --specs=nano.specs -lc -g -Werror -I..
 
 LDFLAGS=-DXMC1302_T038x0064 -O0 -g3 -T linker_script.ld -mcpu=cortex-m0 -mthumb
 LDFLAGS += -nostartfiles -Xlinker --gc-sections -specs=nano.specs -specs=nosys.specs

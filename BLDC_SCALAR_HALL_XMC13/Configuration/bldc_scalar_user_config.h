@@ -433,7 +433,7 @@
  * Current measurement configurations
  ********************************************************************************************************************/
 #if ((MOTOR0_BLDC_SCALAR_VADC_ENABLE_IDC_LINK_MEASUREMENT == 1U) || (MOTOR0_BLDC_SCALAR_VADC_ENABLE_IDC_AVERAGE_MEASUREMENT == 1U))
-#define MOTOR0_BLDC_SCALAR_ENABLE_AMPLIFIER_OFFSET_CALIBRATION        (1U)          /*!< Enable (1)/disable (0) current amplifier offset voltage calibration */
+#define MOTOR0_BLDC_SCALAR_ENABLE_AMPLIFIER_OFFSET_CALIBRATION        (0U)          /*!< Enable (1)/disable (0) current amplifier offset voltage calibration */
 #endif
 
 #if (MOTOR0_BLDC_SCALAR_VADC_ENABLE_IDC_LINK_MEASUREMENT == 1U)
@@ -493,7 +493,7 @@
 /* Hall pattern learning */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_CATCH_FREE == 0U)                  /*!< Hall pattern learning can be enabled only when catch-free is disabled */
 #if (MOTOR0_BLDC_SCALAR_FEEDBACK == BLDC_SCALAR_3HALL)
-#define   MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING        (0U)     /*!< Enable/disable hall pattern learning */
+#define   MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING        (1U)     /*!< Enable/disable hall pattern learning */
 #if (MOTOR0_BLDC_SCALAR_ENABLE_HALL_LEARNING == 1U)
 #define   MOTOR0_BLDC_SCALAR_OPEN_LOOP_VOLTAGE           (5.0F)     /*!< Open loop voltage to be applied in % with respect to MOTOR0_BLDC_SCALAR_NOMINAL_DC_LINK_VOLT. Range: 1 to 25 %*/
 #define   MOTOR0_BLDC_SCALAR_OPEN_LOOP_SPEED             (2.0F)     /*!< Speed to be applied in % with respect to MOTOR0_BLDC_SCALAR_MOTOR_NO_LOAD_SPEED. Range: 1.0 to 10 %*/

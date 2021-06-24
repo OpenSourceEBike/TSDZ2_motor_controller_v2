@@ -88,7 +88,6 @@ void Motor0_BLDC_SCALAR_PWM_BC_Init(void)
 
   /*configure variable ph_cmpval[1] with 0% duty*/
   Motor0_BLDC_SCALAR_PWM_BC.ph_cmpval[1] = Motor0_BLDC_SCALAR_CCU8_PWM_Config.period + (uint16_t)1;
-
 }
 
 /*

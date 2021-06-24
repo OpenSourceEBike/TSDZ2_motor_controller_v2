@@ -57,8 +57,6 @@
 #include "../uCProbe/uCProbe.h"
 #endif
 
-static int32_t pot_val = 0;
-
 /**
 @brief
 This example project controls 3-phase BLDC motor with 3 hall sensor feedback using block commutation control algorithm.
@@ -113,11 +111,8 @@ int main(void)
 
   while (1U)
   {
-
     Motor0_BLDC_SCALAR_GetPotentiometerVal(&pot_val);
-
     pot_val += 1;
-
   }
 
 }
