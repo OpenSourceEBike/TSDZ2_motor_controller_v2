@@ -1,5 +1,5 @@
    
-This repository has technical documentation about TSDZ2 motor controller V2 as also our unfinished OpenSource firmware for it.
+This repository has technical documentation about TSDZ2 motor controller V2 as also very initial, unfinished and not tested, OpenSource firmware for it.
 
 You can buy the [TSDZ2 motor controller V2 on Enerprof](https://enerprof.de/).
 
