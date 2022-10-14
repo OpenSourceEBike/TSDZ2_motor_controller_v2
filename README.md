@@ -1,6 +1,8 @@
    
 This repository has technical documentation about TSDZ2 motor controller V2 as also very initial, unfinished and not tested, OpenSource firmware for it.
 
+To build the current firmware, call "make" on the command line (tested on Linux). This [Makefile](https://github.com/OpenSourceEBike/TSDZ2_motor_controller_v2/blob/master/Makefile) is where is defined which sources files are used to build the firmware.
+
 You can buy the [TSDZ2 motor controller V2 on Enerprof](https://enerprof.de/).
 
 Forum messages:
