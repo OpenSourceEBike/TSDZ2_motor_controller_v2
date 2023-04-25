@@ -8,11 +8,12 @@ You need to connect J-Link to TSDZ2 motor controller speed sensor connector and 
 Connect the J-Link wires to the following pins / wires of TSDZ2 motor controller speed sensor connector (note that you will not need to power up the motor controller using the battery as the J-Link (3V3) VCC will power it up enough for programming):<br> 
 * Black --> GND
 * Red --> (3V3) VCC
-* Green --> SWCLK
-* Blue --> SWDIO
+* Yellow --> SWCLK
+* Green --> SWDIO
 
 ![](TSDZ2_display_connector.png)
-
+<br>
+![](connection_photo.jpg)
 
 # Configure Code Studio IDE for firmware development, flash and debug
 
@@ -32,11 +33,16 @@ This guide assumes you are using Linux Ubuntu (if you are on Windows or such, th
   - install C/C++ extension (to edit C/C++ source files)
   - install Cortex-Debug extension (to be able to debug ARM microcontroller)
   - install Task Manager extension (to call makefile and other commands)
-- install OpenOCD (to connect to STLinkV2): __sudo apt-get install openocd__
+- install OpenOCD (to connect to j-link): __sudo apt-get install openocd__
 - install GDB GNU debugger (for debug and connect to OpenOCD): __sudo apt-get install gdb-multiarch__
 - install ARM C/C++ GCC compiler: __sudo apt-get install gcc-arm-none-eabi__
 - install ARM binutils: __sudo apt-get install binutils-arm-none-eabi__
 - install ARM newlib: __sudo apt-get install libnewlib-arm-none-eabi__
+
+## check OpenOCD operation, on Windows install libusb driver using zadig
+
+
+![](V2_connection_openocd.png)
 
 ## Open project folder with Visual Studio Code
 
