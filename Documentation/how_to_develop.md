@@ -8,8 +8,8 @@ You need to connect J-Link to TSDZ2 motor controller speed sensor connector and 
 Connect the J-Link wires to the following pins / wires of TSDZ2 motor controller speed sensor connector (note that you will not need to power up the motor controller using the battery as the J-Link (3V3) VCC will power it up enough for programming):<br> 
 * Black --> GND
 * Red --> (3V3) VCC
-* Green --> SWCLK
-* Blue --> SWDIO
+* Yellow --> SWCLK
+* Green --> SWDIO
 
 ![](TSDZ2_display_connector.png)
 
