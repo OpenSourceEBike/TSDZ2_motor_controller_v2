@@ -13,7 +13,7 @@ Connect the J-Link wires to the following pins / wires of TSDZ2 motor controller
 
 ![](TSDZ2_display_connector.png)
 <br>
-![](connection_photo.png)
+![](connection_photo.jpg)
 
 # Configure Code Studio IDE for firmware development, flash and debug
 
