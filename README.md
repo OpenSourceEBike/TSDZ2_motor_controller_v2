@@ -10,7 +10,7 @@ This project is not in development anymore. Instead, the idea is to use a small 
 
 <img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-10.jpg">
 
-<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-11.jpg">
+<img width="500" src="https://raw.githubusercontent.com/OpenSourceEBike/EBike_EScooter_modular_DIY/6aad16155386fc06487ee748e54e567ec3f17f46/images/bici_small.jpg">
 
 ***
 
