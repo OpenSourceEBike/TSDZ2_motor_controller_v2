@@ -1,4 +1,19 @@
-   
+This project is not in development anymore. Instead, the idea is to use a small cheap VESC and install it inside the TSDZ2 motor, or outside, in a DIY way. Then a very small ESP32-C3 board, running high level Python firmware, read the sensors and send the commands to VESC to control the motor -- this is already done for other EBike motors lke Bafang M500 motor, or to Xiaomi M365 scooters or even more powerful 2000W microscooters as Fiido Q1S, see here:
+
+**[https://opensourceebike.github.io](https://opensourceebike.github.io)**
+
+<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-7.jpg">
+
+<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-8.jpg">
+
+<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-9.jpg">
+
+<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-10.jpg">
+
+<img width="500" src="https://opensourceebike.github.io/build_EBike_Bafang_M500/build_EBike_board/EBike_board-11.jpg">
+
+***
+
 This repository has technical documentation about TSDZ2 motor controller V2 as also very initial, unfinished and not tested, OpenSource firmware for it.
 
 To build the current firmware, call "make" on the command line (tested on Linux). This [Makefile](https://github.com/OpenSourceEBike/TSDZ2_motor_controller_v2/blob/master/Makefile) is where is defined which sources files are used to build the firmware.
